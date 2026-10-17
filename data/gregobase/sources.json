@@ -1,0 +1,410 @@
+[
+ {
+  "id": 1,
+  "year": 1908,
+  "editor": "Vatican",
+  "title": "Graduale Romanum"
+ },
+ {
+  "id": 2,
+  "year": 1961,
+  "editor": "Solesmes",
+  "title": "Graduale Romanum"
+ },
+ {
+  "id": 3,
+  "year": 1961,
+  "editor": "Solesmes",
+  "title": "The Liber Usualis"
+ },
+ {
+  "id": 4,
+  "year": 1974,
+  "editor": "Solesmes",
+  "title": "Graduale Romanum"
+ },
+ {
+  "id": 5,
+  "year": 1956,
+  "editor": "Solesmes",
+  "title": "Chants of the Church"
+ },
+ {
+  "id": 6,
+  "year": 2009,
+  "editor": "Solesmes",
+  "title": "Antiphonale Romanum II"
+ },
+ {
+  "id": 7,
+  "year": 1934,
+  "editor": "Solesmes",
+  "title": "Antiphonale Monasticum"
+ },
+ {
+  "id": 8,
+  "year": 1975,
+  "editor": "Vatican",
+  "title": "Graduale simplex"
+ },
+ {
+  "id": 9,
+  "year": 1912,
+  "editor": "Vatican",
+  "title": "Antiphonale Romanum"
+ },
+ {
+  "id": 10,
+  "year": 1957,
+  "editor": "Solesmes",
+  "title": "Cantus selecti"
+ },
+ {
+  "id": 11,
+  "year": 1933,
+  "editor": "Dominican",
+  "title": "Antiphonarium O.P. (Gillet)"
+ },
+ {
+  "id": 12,
+  "year": 1936,
+  "editor": "Dominican",
+  "title": "Matutinum O.P. (Gillet)"
+ },
+ {
+  "id": 13,
+  "year": 1949,
+  "editor": "Dominican",
+  "title": "Completorium O.P. (Suarez)"
+ },
+ {
+  "id": 14,
+  "year": 1950,
+  "editor": "Dominican",
+  "title": "Graduale O.P. (Suarez)"
+ },
+ {
+  "id": 15,
+  "year": 1983,
+  "editor": "Solesmes",
+  "title": "Liber Hymnarius"
+ },
+ {
+  "id": 16,
+  "year": 1990,
+  "editor": "Solesmes",
+  "title": "Gregorian Missal"
+ },
+ {
+  "id": 17,
+  "year": 2005,
+  "editor": "Solesmes",
+  "title": "Antiphonale monasticum I"
+ },
+ {
+  "id": 18,
+  "year": 2006,
+  "editor": "Solesmes",
+  "title": "Antiphonale monasticum II"
+ },
+ {
+  "id": 19,
+  "year": 2007,
+  "editor": "Solesmes",
+  "title": "Antiphonale monasticum III"
+ },
+ {
+  "id": 20,
+  "year": 1913,
+  "editor": "Dominican",
+  "title": "Processionarium O.P. (Cormier)"
+ },
+ {
+  "id": 21,
+  "year": 1965,
+  "editor": "Dominican",
+  "title": "Officium Hebdomadæ Sanctæ O.P. (Fernandez)"
+ },
+ {
+  "id": 22,
+  "year": 1936,
+  "editor": "Solesmes",
+  "title": "In nocte nativitatis Domini"
+ },
+ {
+  "id": 23,
+  "year": 2002,
+  "editor": "Hartker",
+  "title": "Nocturnale Romanum"
+ },
+ {
+  "id": 24,
+  "year": 1981,
+  "editor": "Solesmes",
+  "title": "Psalterium Monasticum"
+ },
+ {
+  "id": 25,
+  "year": 1902,
+  "editor": "Solesmes",
+  "title": "Cantus varii romano-seraphici"
+ },
+ {
+  "id": 26,
+  "year": 1934,
+  "editor": "Westmalle",
+  "title": "Graduale Cisterciense"
+ },
+ {
+  "id": 27,
+  "year": 2008,
+  "editor": "Communauté Saint-Martin",
+  "title": "Les Heures Grégoriennes I"
+ },
+ {
+  "id": 28,
+  "year": 2008,
+  "editor": "Communauté Saint-Martin",
+  "title": "Les Heures Grégoriennes II"
+ },
+ {
+  "id": 29,
+  "year": 2008,
+  "editor": "Communauté Saint-Martin",
+  "title": "Les Heures Grégoriennes III"
+ },
+ {
+  "id": 30,
+  "year": 1947,
+  "editor": "Westmalle",
+  "title": "Antiphonarium Cisterciense"
+ },
+ {
+  "id": 31,
+  "year": 1909,
+  "editor": "Westmalle",
+  "title": "Hymnarium Cisterciense"
+ },
+ {
+  "id": 32,
+  "year": 1935,
+  "editor": "Vatican-Offertoriale",
+  "title": "Offertoriale Sive Versus Offertoriorum Cantus Gregoriani"
+ },
+ {
+  "id": 33,
+  "year": 1892,
+  "editor": "Solesmes",
+  "title": "Variæ preces"
+ },
+ {
+  "id": 34,
+  "year": 1948,
+  "editor": "Solesmes",
+  "title": "Missae Propriae Ordinis Sancti Benedicti"
+ },
+ {
+  "id": 35,
+  "year": 1862,
+  "editor": "Dominican",
+  "title": "Antiphonarium Sacri Ordinis Praedicatorum (Jandel) - Pars Prima"
+ },
+ {
+  "id": 36,
+  "year": 1862,
+  "editor": "Dominican",
+  "title": "Antiphonarium Sacri Ordinis Praedicatorum (Jandel) - Pars Secunda"
+ },
+ {
+  "id": 37,
+  "year": 1962,
+  "editor": "Solesmes",
+  "title": "La Semaine Sainte"
+ },
+ {
+  "id": 38,
+  "year": 1935,
+  "editor": "Solesmes",
+  "title": "Antiphonale Monasticum Solesmense"
+ },
+ {
+  "id": 39,
+  "year": 1894,
+  "editor": "Sarum",
+  "title": "Graduale Sarisburiense"
+ },
+ {
+  "id": 40,
+  "year": 1990,
+  "editor": "Venetian",
+  "title": "Antiphonale Marcianum, as transcribed by Giulio Cattin in \"Musica e liturgia a San Marco\""
+ },
+ {
+  "id": 41,
+  "year": 1930,
+  "editor": "Solesmes",
+  "title": "Chants abrégés"
+ },
+ {
+  "id": 42,
+  "year": 1962,
+  "editor": "Vatican",
+  "title": "Missale Romanum"
+ },
+ {
+  "id": 43,
+  "year": 1250,
+  "editor": "Cistercian",
+  "title": "Hymnarium cisterciense - Cod. Lichtenthal 28"
+ },
+ {
+  "id": 44,
+  "year": 1952,
+  "editor": "Westmalle",
+  "title": "Hymnarium Cisterciense"
+ },
+ {
+  "id": 45,
+  "year": 1816,
+  "editor": "Vatican",
+  "title": "Rituale Romanum"
+ },
+ {
+  "id": 46,
+  "year": 1934,
+  "editor": "Silos",
+  "title": "Supplementum ad Kyriale"
+ },
+ {
+  "id": 47,
+  "year": 1906,
+  "editor": "Solesmes",
+  "title": "Cantus Mariales"
+ },
+ {
+  "id": 48,
+  "year": 1960,
+  "editor": "Solesmes",
+  "title": "Liber antiphonarius"
+ },
+ {
+  "id": 49,
+  "year": 1922,
+  "editor": "Franciscan",
+  "title": "Cantuale Romano-Seraphicum"
+ },
+ {
+  "id": 50,
+  "year": 1965,
+  "editor": "Wantage",
+  "title": "The plainchant gradual - Parts I & II"
+ },
+ {
+  "id": 51,
+  "year": 1962,
+  "editor": "Wantage",
+  "title": "The plainchant gradual - Parts III & IV"
+ },
+ {
+  "id": 52,
+  "year": 1980,
+  "editor": "Vatican",
+  "title": "86 Tropi antiphonarum ad introitum"
+ },
+ {
+  "id": 53,
+  "year": 2020,
+  "editor": "Solesmes",
+  "title": "Antiphonale Romanum I"
+ },
+ {
+  "id": 54,
+  "year": 2011,
+  "editor": "Vatican/ConBrio",
+  "title": "Graduale Novum I"
+ },
+ {
+  "id": 55,
+  "year": 2018,
+  "editor": "Vatican/ConBrio",
+  "title": "Graduale Novum II"
+ },
+ {
+  "id": 56,
+  "year": 1895,
+  "editor": "Solesmes",
+  "title": "Liber Responsorialis"
+ },
+ {
+  "id": 57,
+  "year": 1930,
+  "editor": "P. Casetti & C.",
+  "title": "Liber nocturnalis"
+ },
+ {
+  "id": 58,
+  "year": 1940,
+  "editor": "P. Beatus Reiser OSB",
+  "title": "Laudes festivae"
+ },
+ {
+  "id": 59,
+  "year": 990,
+  "editor": "Hartker",
+  "title": "Cod. Sang. 390: Antiphonarium officii (winter volume)"
+ },
+ {
+  "id": 60,
+  "year": 1000,
+  "editor": "Hartker",
+  "title": "Cod. Sang. 391: Antiphonarium officii (summer volume)"
+ },
+ {
+  "id": 61,
+  "year": 2016,
+  "editor": "MelosAntiqua",
+  "title": "Antiphonæ et Responsoria - Tomus I"
+ },
+ {
+  "id": 62,
+  "year": 2017,
+  "editor": "MelosAntiqua",
+  "title": "Antiphonæ et Responsoria - Tomus II"
+ },
+ {
+  "id": 63,
+  "year": 2018,
+  "editor": "MelosAntiqua",
+  "title": "Antiphonæ et Responsoria - Tomus III"
+ },
+ {
+  "id": 64,
+  "year": 2019,
+  "editor": "MelosAntiqua",
+  "title": "Antiphonæ et Responsoria - Tomus IV"
+ },
+ {
+  "id": 65,
+  "year": 1934,
+  "editor": "Silos",
+  "title": "Cantus lamentationum"
+ },
+ {
+  "id": 66,
+  "year": 1983,
+  "editor": "Solesmes",
+  "title": "Liber cantualis"
+ },
+ {
+  "id": 67,
+  "year": 2021,
+  "editor": "MelosAntiqua",
+  "title": "Antiphonæ et Responsoria - Tomus V"
+ },
+ {
+  "id": 68,
+  "year": 2010,
+  "editor": "Barroux",
+  "title": "Missel Vespéral Grégorien"
+ }
+]

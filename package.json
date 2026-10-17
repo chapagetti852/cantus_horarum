@@ -1,0 +1,18 @@
+{
+  "name": "cantus-horarum",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Liturgia Horarum in cantu gregoriano secundum Ordinem Cantus Officii (2015), for phone and desktop",
+  "scripts": {
+    "build:calendar": "node scripts/calendar/build.mjs 2025 2032",
+    "build": "node scripts/build.mjs",
+    "test": "node --test \"test/**/*.test.mjs\"",
+    "serve": "python3 -m http.server --directory dist 8080"
+  },
+  "engines": { "node": ">=22" },
+  "dependencies": {
+    "romcal": "3.0.0-dev.140",
+    "@romcal/calendar.general-roman": "3.0.0-dev.140"
+  }
+}
