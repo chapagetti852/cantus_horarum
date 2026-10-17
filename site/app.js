@@ -1,5 +1,6 @@
 // Cantus Horarum — compose and display one hour of the Liturgia Horarum in chant.
 import { loadGabc, renderChant, splitGabc, watchResize } from './chant.js';
+import { toneContext, versesOf, pointVerse, verseGabc, lineHtml } from './psalmtone.js';
 
 const HOURS = ['lectio', 'laudes', 'tertia', 'sexta', 'nona', 'vesperae', 'completorium'];
 const HOUR_NAMES = { lectio: 'Officium lectionis', laudes: 'Laudes matutinæ', tertia: 'Tertia', sexta: 'Sexta', nona: 'Nona', vesperae: 'Vesperæ', completorium: 'Completorium' };
@@ -107,6 +108,67 @@ function renderTextBlock(b) {
 }
 function renderBlocks(blocks) { return (blocks || []).map(renderTextBlock).join(''); }
 
+/** Tone for the psalms after an antiphon: the OCO mode, checked against the score's E u o u a e. */
+async function toneFor(entry) {
+  const src = entry?.gabc ? await loadGabc(entry.gabc) : null;
+  return toneContext(entry?.mode, src);
+}
+
+/**
+ * A psalm (or canticle) pointed to its tone: the first verse in notes with the
+ * intonation, the rest as text with the cadence accents in bold and the preparatory
+ * syllables in italic. Gospel canticles take the intonation on every verse.
+ */
+function pointedPsalmNode(b, ctx, { canticle = false } = {}) {
+  const node = el('<div class="psalm"></div>');
+  const head = renderPsalmBlock({ ...b, strophes: [] });
+  node.insertAdjacentHTML('beforeend', head);
+  const h = node.querySelector('.psalm-head');
+  const toneLabel = `<span class="tone">Tonus ${esc(ctx.tone)}${ctx.ending ? ' ' + esc(ctx.ending) : ''}</span>`;
+  if (h) h.insertAdjacentHTML('beforeend', toneLabel); else node.insertAdjacentHTML('afterbegin', `<div class="psalm-head">${toneLabel}</div>`);
+  let first = true;
+  for (const st of b.strophes) {
+    const sdiv = el('<div class="strophe"></div>');
+    for (const v of versesOf(st)) {
+      const p = pointVerse(v, ctx, { intone: canticle || first });
+      if (first || state.settings.allNotes) {
+        const sc = el('<div class="score verse-score"></div>');
+        sdiv.append(sc);
+        layouts.push(renderChant(sc, verseGabc(p, ctx), { dropCap: false }));
+      } else {
+        sdiv.insertAdjacentHTML('beforeend', p.map((l) => `<div class="line">${lineHtml(l)}</div>`).join(''));
+      }
+      first = false;
+    }
+    node.append(sdiv);
+  }
+  return node;
+}
+
+/** Blocks of a psalmody group or canticle, pointed when the tone is known. */
+function psalmodyNode(blocks, ctx, opts = {}) {
+  const node = el('<div class="block"></div>');
+  for (const b of blocks || []) {
+    if (ctx && b.kind === 'psalm') node.append(pointedPsalmNode(b, ctx, opts));
+    else if (ctx && b.kind === 'text' && b.lines.some((l) => typeof l === 'string' && /\*\s*$/.test(l))) {
+      node.append(pointedPsalmNode({ kind: 'psalm', strophes: [b.lines.filter((l) => typeof l === 'string')] }, ctx, opts));
+    } else node.insertAdjacentHTML('beforeend', renderTextBlock(b));
+  }
+  return node;
+}
+/** Canticle verses in iBreviary come as consecutive text blocks; join them into one psalm. */
+function canticleBlocks(blocks) {
+  const out = [];
+  for (const b of blocks) {
+    const isVerses = b.kind === 'text' && b.lines.some((l) => typeof l === 'string' && /\*\s*$/.test(l));
+    const last = out[out.length - 1];
+    if (isVerses && last?.kind === 'psalm' && last.canticle) last.strophes.push(b.lines.filter((l) => typeof l === 'string'));
+    else if (isVerses) out.push({ kind: 'psalm', canticle: true, strophes: [b.lines.filter((l) => typeof l === 'string')] });
+    else out.push(b);
+  }
+  return out;
+}
+
 /** Keep only the first strophe of a fully notated hymn: cut before the lyric "2." */
 function firstStrophe(body) {
   const m = /\s2\.\s*\(|\s2\.\s+[A-ZÆŒ]/.exec(body);
@@ -173,7 +235,7 @@ async function composeLaudesVesperae(main, day, date, hour) {
     main.append(await chantNode(ant?.gabc, { label: `Ant. ${n}${ant?.mode ? ` · ${esc(ant.mode)}` : ''}`, fallbackText: ant?.text || g?.antiphon }));
     if (ant?.text) main.append(el(`<p class="ant-text"><span class="r">Ant. ${n}</span> ${esc(ant.text)}</p>`));
     if (g) {
-      main.append(el(`<div class="block">${renderBlocks(g.items)}</div>`));
+      main.append(psalmodyNode(g.items, await toneFor(ant)));
       main.append(el(`<p class="ant-text"><span class="r">Ant.</span> ${esc(ant?.text || g.repeat || g.antiphon)}</p>`));
     }
   }
@@ -195,7 +257,7 @@ async function composeLaudesVesperae(main, day, date, hour) {
   main.append(el(`<h2 class="section">${hour === 'laudes' ? 'Benedictus' : 'Magnificat'}</h2>`));
   main.append(await chantNode(cant?.gabc, { label: `Ant. ad ${hour === 'laudes' ? 'Benedictus' : 'Magnificat'}${cant?.mode ? ` · ${esc(cant.mode)}` : ''}`, fallbackText: cant?.text }));
   if (cant?.text) main.append(el(`<p class="ant-text"><span class="r">Ant.</span> ${esc(cant.text)}</p>`));
-  if (ce) main.append(el(`<div class="block">${renderBlocks(ce.blocks.filter((b) => b.kind !== 'antiphon'))}</div>`));
+  if (ce) main.append(psalmodyNode(canticleBlocks(ce.blocks.filter((b) => b.kind !== 'antiphon')), await toneFor(cant), { canticle: true }));
   if (cant?.text) main.append(el(`<p class="ant-text"><span class="r">Ant.</span> ${esc(cant.text)}</p>`));
 
   // Intercessions, Pater, collect, conclusion
@@ -211,18 +273,42 @@ async function composeGeneric(main, day, date, hour) {
   const texts = state.psalterium[`${day.psalter}-${day.dow}`]?.hours[TEXT_HOUR[hour]];
   const slot = psalterSlot(day, date, hour);
   const entries = hour === 'completorium' ? ocoCompline(day, hour) : ocoPsalter(slot);
+  // antiphons of the psalms and of the canticle go with their texts below, when there are texts
+  const inline = (e) => texts && e.kind !== 'hymn' && /^(\d|Nunc)/.test(e.position || '');
   main.append(el(`<h2 class="section">${HOUR_NAMES[hour]}</h2>`));
-  if (entries.length) {
-    for (const e of entries) {
-      if (e.kind === 'reference') { main.append(el(`<p class="rubric">${esc(e.position || '')} ${esc(e.title)}</p>`)); continue; }
-      main.append(await chantNode(e.gabc, { label: `${esc(e.position || '')} ${esc(e.title)}`.trim(), fallbackText: e.text, hymn: e.kind === 'hymn' }));
-      if (e.text && e.kind !== 'hymn') main.append(el(`<p class="ant-text">${esc(e.text)}</p>`));
-    }
+  for (const e of entries) {
+    if (inline(e)) continue;
+    if (e.kind === 'reference') { main.append(el(`<p class="rubric">${esc(e.position || '')} ${esc(e.title)}</p>`)); continue; }
+    main.append(await chantNode(e.gabc, { label: `${esc(e.position || '')} ${esc(e.title)}`.trim(), fallbackText: e.text, hymn: e.kind === 'hymn' }));
+    if (e.text && e.kind !== 'hymn') main.append(el(`<p class="ant-text">${esc(e.text)}</p>`));
   }
+  const antiphon = async (e, label, fallback) => {
+    main.append(await chantNode(e?.gabc, { label: `${label}${e?.mode ? ` · ${esc(e.mode)}` : ''}`, fallbackText: e?.text || fallback }));
+    if (e?.text) main.append(el(`<p class="ant-text"><span class="r">Ant.</span> ${esc(e.text)}</p>`));
+  };
   if (texts) {
     for (const s of texts) {
       if (!s.title || /^(Breviarium|PSALMI INVITATORII)$/.test(s.title) || s.blocks.length === 0) continue;
       main.append(el(`<h2 class="section">${esc(s.title)}</h2>`));
+      if (s.title === 'PSALMODIA') {
+        const groups = psalmGroups(s);
+        for (const g of groups) {
+          const ant = byPosition(entries.filter((e) => e.kind !== 'reference'), String(g.n));
+          await antiphon(ant, `Ant. ${g.n}`, g.antiphon);
+          main.append(psalmodyNode(g.items, await toneFor(ant)));
+          main.append(el(`<p class="ant-text"><span class="r">Ant.</span> ${esc(ant?.text || g.repeat || g.antiphon)}</p>`));
+        }
+        if (groups.length) continue;
+      }
+      if (s.title === 'CANTICUM EVANGELICUM') {
+        const ant = entries.find((e) => (e.position || '').startsWith('Nunc') && e.kind !== 'reference');
+        const a = s.blocks.find((b) => b.kind === 'antiphon');
+        main.append(el(`<div class="block">${renderBlocks(s.blocks.filter((b) => b.kind === 'rubric'))}</div>`));
+        await antiphon(ant, 'Ant. ad Nunc dimittis', a?.text);
+        main.append(psalmodyNode(canticleBlocks(s.blocks.filter((b) => b.kind !== 'antiphon' && b.kind !== 'rubric')), await toneFor(ant), { canticle: true }));
+        main.append(el(`<p class="ant-text"><span class="r">Ant.</span> ${esc(ant?.text || a?.text || '')}</p>`));
+        continue;
+      }
       main.append(el(`<div class="block">${renderBlocks(s.blocks)}</div>`));
     }
   } else if (!entries.length) main.append(el('<p class="empty">Hæc hora nondum parata est.</p>'));
@@ -262,6 +348,7 @@ function applySettings() {
   $('#text-size').value = state.settings.size || 100;
   $('#opt-dark').checked = state.settings.theme === 'dark' || (!state.settings.theme && matchMedia('(prefers-color-scheme: dark)').matches);
   $('#opt-solemn').checked = !!state.settings.solemn;
+  $('#opt-all-notes').checked = !!state.settings.allNotes;
 }
 function saveSettings() { localStorage.setItem('settings', JSON.stringify(state.settings)); }
 
@@ -281,6 +368,7 @@ async function boot() {
   $('#text-size').oninput = (e) => { state.settings.size = Number(e.target.value); saveSettings(); applySettings(); render(); };
   $('#opt-dark').onchange = (e) => { state.settings.theme = e.target.checked ? 'dark' : 'light'; saveSettings(); applySettings(); };
   $('#opt-solemn').onchange = (e) => { state.settings.solemn = e.target.checked; saveSettings(); render(); };
+  $('#opt-all-notes').onchange = (e) => { state.settings.allNotes = e.target.checked; saveSettings(); render(); };
   watchResize(layouts);
   render();
 }

@@ -30,8 +30,8 @@ Read `README.md` first: it explains every pipeline.
   in cloud sessions. Output `data/texts/days/<date>.json`; `data/texts/psalter-days.json`
   maps psalter week-day → a quiet 2026 Ordinary Time date. The build turns those into
   `dist/data/psalterium.json` keyed `"<psalterWeek>-<dow>"` (0 = Sunday).
-- `site/` — plain HTML/CSS/JS, no framework. `app.js` composes an hour, `chant.js` renders
-  GABC with Exsurge (`site/vendor/exsurge.min.js`, from bbloomf/jgabc, public domain).
+- `site/` — plain HTML/CSS/JS, no framework. `app.js` composes an hour, `psalmtone.js`
+  points psalm verses to a tone, `chant.js` renders GABC with Exsurge (`site/vendor/exsurge.min.js`, from bbloomf/jgabc, public domain).
   Fonts: Crimson (OFL) in `site/fonts/`.
 
 ## Conventions
@@ -48,15 +48,14 @@ Read `README.md` first: it explains every pipeline.
 
 ## Status / next steps
 
-Working: Lauds, Vespers, Compline for Ordinary Time days (psalter only).
+Working: Lauds, Vespers, Compline for Ordinary Time days (psalter only), psalms and
+Gospel canticles pointed to their tones (`site/psalmtone.js`, see README "Psalm tones";
+`npm test` checks the tone table against every antiphon's E u o u a e).
 To do, in order:
-1. Psalm pointing: apply the tone to psalm verses (jgabc `psalmtone.js` engine, public
-   domain; tone formulas = GregoBase ids 18352–18366, Antiphonale Romanum II pp. 738–740;
-   OCO uses the 2005 AM tone names).
-2. Office of Readings (hymn, psalms, versicle, the two responsories after the readings —
+1. Office of Readings (hymn, psalms, versicle, the two responsories after the readings —
    responsoria prolixa; the readings themselves are omitted) and the little hours
    (hymn per hour, psalmody from `ora_media`, lectio brevis + versicle + oratio per hour).
-3. Seasons, feasts, sanctoral: resolve a date to OCO entries using the index slot codes
+2. Seasons, feasts, sanctoral: resolve a date to OCO entries using the index slot codes
    (`data/oco/indices.json`, `docs/oco-sigla.md`) and the calendar's rank/precedence;
    iBreviary propers in a rolling window (as CantoDailyReadings does).
-4. Hong Kong diocesan calendar; English / Cantonese translations line by line (later).
+3. Hong Kong diocesan calendar; English / Cantonese translations line by line (later).

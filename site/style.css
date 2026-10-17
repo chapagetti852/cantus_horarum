@@ -89,11 +89,14 @@ h2.section::before, h2.section::after { content: " ✠ "; opacity: .5; }
 .psalm-head { margin: 1em 0 .2em; display: flex; flex-wrap: wrap; gap: .2em .8em; align-items: baseline; }
 .psalm-head .ref { font-variant: small-caps; letter-spacing: .04em; color: var(--rubric); }
 .psalm-head .title { font-style: italic; color: var(--fg-soft); font-size: .9em; }
+.psalm-head .tone { margin-left: auto; color: var(--rubric); font-size: .8em; font-style: italic; }
+.verse-score { margin: .2em 0 .5em; }
+.verse-score svg { display: block; max-width: 100%; height: auto; }
 .sentence { font-style: italic; color: var(--fg-soft); font-size: .88em; margin: 0 0 .5em; }
 .strophe { margin: 0 0 .7em; }
 .strophe .line { padding-left: 1.6em; text-indent: -1.6em; }
 .strophe .line .flex, .strophe .line .star { color: var(--rubric); font-weight: 400; }
-.line .acc { font-weight: 600; }
+.line .acc { font-weight: 700; } /* the semibold face lacks accented vowels */
 .line .prep { font-style: italic; }
 .versicle { margin: .3em 0; padding-left: 1.6em; text-indent: -1.6em; }
 .versicle .r { font-weight: 600; }

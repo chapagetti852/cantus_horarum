@@ -52,8 +52,23 @@ codes antiphonale.net publishes. Only the GABC files actually used will be copie
 site.
 
 Notation is drawn in the browser by [Exsurge](https://github.com/frmatthew/exsurge)
-(MIT), vendored from [bbloomf/jgabc](https://github.com/bbloomf/jgabc) (public domain),
-whose psalm-tone pointing engine will also be reused.
+(MIT), vendored from [bbloomf/jgabc](https://github.com/bbloomf/jgabc) (public domain).
+
+### Psalm tones
+
+`site/psalmtone.js` points each verse to its tone. The tone formulas are written in
+jgabc's psalm-tone notation and follow the Antiphonale Romanum II (2009) pp. 738–740
+(GregoBase 18352–18366), with the Antiphonale Monasticum 2005 ending names the OCO uses
+(`8g`, `2*a`, `4*e`, `Dg`, `per.` …). The engine (a smaller rewrite of jgabc's rules,
+which depend on jQuery) splits Latin into syllables, finds the main and secondary
+accents from the printed accent marks, groups iBreviary's printed lines into verses
+(flex †, mediant *, termination), and fits the intonation, accents, preparatory
+syllables and tenor. Each antiphon's own "E u o u a e" picks the ending when the OCO
+label disagrees and sets the pitch, so the tone sits where the antiphon is written.
+The first verse of each psalm is drawn in notes with the intonation; the others are
+text with cadence accents in bold and preparatory syllables in italic (an option draws
+every verse). Gospel canticles take the intonation on every verse.
+`test/psalmtone.test.mjs` checks the table against the E u o u a e of every OCO antiphon.
 
 ### Calendar
 
@@ -74,10 +89,10 @@ Benedictus or Magnificat antiphon, Compline antiphons) and the matching iBreviar
 texts, and draws every score with Exsurge at the width of the phone. Hymns show the
 first strophe notated and the rest as text.
 
-Status: Lauds, Vespers and Compline of Ordinary Time days work from the psalter;
-the Office of Readings and the little hours show their texts and the psalter
-antiphons but are not yet composed; seasons, feasts and the sanctoral are not yet
-resolved; psalm verses are not yet pointed to the tone.
+Status: Lauds, Vespers and Compline of Ordinary Time days work from the psalter, with
+the psalms and canticles pointed to their tones (the little hours' psalms too); the
+Office of Readings and the little hours are not yet composed; seasons, feasts and the
+sanctoral are not yet resolved.
 
 ### Deploying
 
