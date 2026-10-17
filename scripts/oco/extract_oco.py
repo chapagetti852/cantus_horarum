@@ -169,7 +169,7 @@ class Extractor:
         pos = e["position"] or ""
         if pos == "H" or "(LHym" in title:
             e["kind"] = "hymn"
-            m = re.search(r"\((LHym|LH)\s*([\d\-, ]+[a-z]?)\)", title)
+            m = re.search(r"\((LHym|LH)\s*(\d[^)]*)\)", title)
             if m:
                 e["lhym"] = m.group(2).strip()
         elif pos.startswith("Ɠ") or pos.startswith("℟"):

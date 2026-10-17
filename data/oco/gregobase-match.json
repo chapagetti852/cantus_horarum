@@ -1952,6 +1952,17 @@
 ]
 },
 {
+"oco_id": 171,
+"page": 67,
+"incipit": "Candor æternæ",
+"mode": null,
+"gregobase": 4246,
+"confidence": "lhym+incipit",
+"candidates": [
+4246
+]
+},
+{
 "oco_id": 172,
 "page": 67,
 "incipit": "A solis ortu",
@@ -19478,6 +19489,19 @@
 "confidence": "verona",
 "candidates": [
 10823
+]
+},
+{
+"oco_id": 1972,
+"page": 684,
+"incipit": "Te lucis ante terminum",
+"mode": null,
+"gregobase": 4680,
+"confidence": "lhym+incipit",
+"candidates": [
+4680,
+4681,
+4682
 ]
 },
 {
