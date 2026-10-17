@@ -8,6 +8,9 @@ const DAY_NAMES = ['Dominica', 'Feria II', 'Feria III', 'Feria IV', 'Feria V', '
 const ROMAN = ['I', 'II', 'III', 'IV'];
 const TEXT_HOUR = { lectio: 'lectio', laudes: 'laudes', tertia: 'media', sexta: 'media', nona: 'media', vesperae: 'vesperae', completorium: 'completorium' };
 const DEUS_IN_ADIUTORIUM = { ferial: 4121, festive: 18178, solemn: 7864 };
+const DOMINE_LABIA = { ferial: 18107, festive: 18108 };
+// Psalm 94 (95) in the Liber Hymnarius (1983) tones, by the mode of the invitatory antiphon
+const INVITATORY_TONES = { '2': 8218, '3': 10397, '4': 15508, '4*': 7669, '4**': 16356, '5': 10248, '6': 9664, '6*': 10035, '6**': 15059, '7': 9834, D: 9707, E: 9642 };
 
 const state = {
   date: null, hour: null,
@@ -233,9 +236,47 @@ function withScore(h) {
   return { ...h, gabc: found?.gabc };
 }
 
-async function appendDeusInAdiutorium(main, day) {
-  const festive = day.rank === 'SUNDAY' || day.rank === 'SOLEMNITY' || day.rank === 'FEAST';
-  main.append(await chantNode(state.settings.solemn ? DEUS_IN_ADIUTORIUM.solemn : festive ? DEUS_IN_ADIUTORIUM.festive : DEUS_IN_ADIUTORIUM.ferial, { label: 'Deus, in adiutórium', annotation: '' }));
+const isFestive = (day) => day.rank === 'SUNDAY' || day.rank === 'SOLEMNITY' || day.rank === 'FEAST';
+
+/** The opening of an hour: Deus, in adiutorium, or the invitatory when it is said before this hour. */
+async function appendOpening(main, day, hour) {
+  if (state.settings.invitatory === hour && await appendInvitatory(main, day)) return;
+  main.append(await chantNode(state.settings.solemn ? DEUS_IN_ADIUTORIUM.solemn : isFestive(day) ? DEUS_IN_ADIUTORIUM.festive : DEUS_IN_ADIUTORIUM.ferial, { label: 'Deus, in adiutórium', annotation: '' }));
+}
+
+/** The invitatory antiphon of the day: the psalter's follows a one-week cycle (printed under week I). */
+function invitatoryAntiphon(day) {
+  const dayName = DAY_NAMES[day.dow];
+  return state.oco.find((e) => e.kind === 'invitatorium' && e.part === 'PSALTERIUM' && e.chapter === 'HEBDOMADA I' && e.day === dayName);
+}
+
+/**
+ * Domine, labia mea aperies; the antiphon; Psalm 94 (95) strophe by strophe in the tone
+ * that matches the antiphon's mode, the antiphon repeated after each strophe.
+ */
+async function appendInvitatory(main, day) {
+  const ant = invitatoryAntiphon(day);
+  if (!ant) return false;
+  main.append(el('<h2 class="section">Invitatorium</h2>'));
+  main.append(await chantNode(isFestive(day) ? DOMINE_LABIA.festive : DOMINE_LABIA.ferial, { label: 'Dómine, lábia mea apéries', annotation: '' }));
+  main.append(await chantNode(ant.gabc, { label: `Ant.${ant.mode ? ` · ${esc(ant.mode)}` : ''}`, fallbackText: ant.text || ant.title }));
+  const antText = (ant.text || ant.title).replace(/([.!?])\s.*$/, '$1'); // the OCO text runs on into "Veníte, …"
+  const repeat = el(`<p class="ant-text"><span class="r">Ant.</span> ${esc(antText)}</p>`);
+  main.append(repeat.cloneNode(true));
+  const toneId = INVITATORY_TONES[ant.mode];
+  const src = toneId ? await loadGabc(toneId) : null;
+  if (!src) { main.append(el('<p class="rubric">Psalmus 94 (95): notatio deest.</p>')); return true; }
+  const { body } = splitGabc(src);
+  const clef = /^\s*(\([cf]b?[1-4]\))/.exec(body)?.[1] || '(c4)';
+  const strophes = body.replace(/^\s*\([cf]b?[1-4]\)/, '').split(/\(::Z?\)/).map((x) => x.trim()).filter((x) => /[a-z]\(/i.test(x));
+  main.append(el(`<div class="psalm-head"><span class="ref">Psalmus 94 (95)</span><span class="tone">Tonus ${esc(ant.mode)}</span></div>`));
+  strophes.forEach((st, i) => {
+    const sc = el('<div class="score verse-score"></div>');
+    main.append(sc);
+    layouts.push(renderChant(sc, `${clef} ${st} (::)`, { dropCap: false }));
+    main.append(repeat.cloneNode(true));
+  });
+  return true;
 }
 
 async function appendHymn(main, hymn, textNode, alternatives = []) {
@@ -280,7 +321,7 @@ async function composeLectio(main, day, date) {
   const texts = pday?.hours.lectio;
   if (!entries.length && !texts) { main.append(el('<p class="empty">Hæc hora nondum parata est.</p>')); return; }
   main.append(el(`<h2 class="section">${HOUR_NAMES.lectio} · ${slot.dayName}, hebdomada ${ROMAN[slot.week - 1]}</h2>`));
-  await appendDeusInAdiutorium(main, day);
+  await appendOpening(main, day, 'lectio');
 
   // two hymns: one for the night or early morning, one for the day
   const hymns = entries.filter((e) => e.kind === 'hymn').map(withScore);
@@ -333,7 +374,7 @@ async function composeMedia(main, day, date, hour) {
   if (!entries.length && !texts) { main.append(el('<p class="empty">Hæc hora nondum parata est.</p>')); return; }
 
   main.append(el(`<h2 class="section">${HOUR_NAMES[hour]} · ${slot.dayName}, hebdomada ${ROMAN[slot.week - 1]}</h2>`));
-  await appendDeusInAdiutorium(main, day);
+  await appendOpening(main, day, hour);
   await appendHymn(main, hymn, hymnBlocksNode(hymnPart(texts, new RegExp(`^${title}$`))));
   await appendPsalmody(main, entries, section(texts, 'PSALMODIA'));
 
@@ -361,7 +402,7 @@ async function composeLaudesVesperae(main, day, date, hour) {
   if (!entries.length && !texts) { main.append(el('<p class="empty">Hæc hora nondum parata est.</p>')); return; }
 
   main.append(el(`<h2 class="section">${HOUR_NAMES[hour]} · ${slot.dayName}, hebdomada ${ROMAN[slot.week - 1]}</h2>`));
-  await appendDeusInAdiutorium(main, day);
+  await appendOpening(main, day, hour);
   const hymns = entries.filter((e) => e.kind === 'hymn');
   await appendHymn(main, hymns[0], hymns.length ? hymnTextNode(texts) : null, hymns.slice(1));
   await appendPsalmody(main, entries, section(texts, 'PSALMODIA'));
@@ -477,6 +518,7 @@ function applySettings() {
   $('#opt-dark').checked = state.settings.theme === 'dark' || (!state.settings.theme && matchMedia('(prefers-color-scheme: dark)').matches);
   $('#opt-solemn').checked = !!state.settings.solemn;
   $('#opt-all-notes').checked = !!state.settings.allNotes;
+  $('#opt-invitatory').value = state.settings.invitatory || '';
 }
 function saveSettings() { localStorage.setItem('settings', JSON.stringify(state.settings)); }
 
@@ -497,6 +539,7 @@ async function boot() {
   $('#opt-dark').onchange = (e) => { state.settings.theme = e.target.checked ? 'dark' : 'light'; saveSettings(); applySettings(); };
   $('#opt-solemn').onchange = (e) => { state.settings.solemn = e.target.checked; saveSettings(); render(); };
   $('#opt-all-notes').onchange = (e) => { state.settings.allNotes = e.target.checked; saveSettings(); render(); };
+  $('#opt-invitatory').onchange = (e) => { state.settings.invitatory = e.target.value || undefined; saveSettings(); render(); };
   watchResize(layouts);
   render();
 }

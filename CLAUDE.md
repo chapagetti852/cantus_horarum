@@ -44,6 +44,7 @@ Read `README.md` first: it explains every pipeline.
 - Texts from iBreviary and the OCO are copyrighted (LEV); private use only, `noindex`.
 - Verify rendering with headless Chromium (Playwright is installed in cloud sessions):
   serve `dist/` and screenshot `#YYYY-MM-DD/<hour>` at width 390.
+- Work directly on `main` (the only branch); commit and push there, which deploys Pages.
 - Commit messages: plain, what and why. No model names in commits.
 
 ## Status / next steps
