@@ -145,7 +145,7 @@ ending its score carries.
 The OCO's short responsories are single pieces; `scripts/oco/match_responsoria.py`
 matches them to GregoBase scores of part "rb" (Antiphonale Monasticum and Romanum
 first), comparing the full text where one incipit serves several responsories, and
-taking a score only when it carries most of the OCO's text. 108 of 165 have a score; the
+taking a score only when it carries most of the OCO's text. 115 of 165 have a score; the
 others show iBreviary's text and are listed with their OCO pages in
 `docs/responsoria-sine-notis.md` (most are the psalter's ferial ones in mode 6).
 

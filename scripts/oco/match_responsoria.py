@@ -16,7 +16,7 @@ import time
 import unicodedata
 from pathlib import Path
 
-BOOKS = [17, 18, 19, 6, 53]  # AM I-III, AR II, AR I
+BOOKS = [61, 62, 63, 64, 67, 17, 18, 19, 6, 53]  # antiphonale.net (the OCO's own), AM I-III, AR II, AR I
 
 
 def norm(t):

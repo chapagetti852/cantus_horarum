@@ -21,13 +21,8 @@ The OCO short responsories for which GregoBase has no transcription (part "rb") 
 | 576 | Feria V | Vesp. | 6 | Cibavit nos Dominus * Ex adipe frumenti. Et de petra melle saturavit no |
 | 579 | Feria VI | Laudes | 6 | Auditam fac mihi mane * Misericordiam tuam. Notam fac mihi viam in |
 | 587 | Sabbato | Laudes | 6 | Clamavi ad te Domine; * Tu es refugium meum. Portio mea in terra vive |
-| 590 | Dominica | I Vesp. | 6 | A solis ortu usque ad occasum * Laudabile nomen Domini. Super cælos |
-| 592 | Dominica | Laudes | 6 | Confitebimur tibi Deus * Et invocabimus nomen tuum. Narrabimus mir |
 | 597 | Feria II | Laudes | 6 | Exsultate iusti in Domino; * Rectos decet collaudatio. Cantate ei canticum |
 | 600 | Feria II | Vesp. | 6 | Dirigatur Domine * Ad te oratio mea. Sicut incensum in conspectu tuo. |
-| 603 | Feria III | Laudes | 6 | Vocem meam audi Domine; * In verba tua supersperavi. Præveni dilucu |
-| 606 | Feria III | Vesp. | 6 | Adimplebis me lætitia * Cum vultu tuo Domine. Delectationes in dextera |
-| 611 | Feria IV | Vesp. | 6 | Custodi nos Domine * Ut pupillam oculi. Sub umbra alarum tuarum pro |
 | 614 | Feria V | Laudes | 6 | In matutinis Domine * Meditabor in te. Quia factus es adiutor meus. |
 | 617 | Feria V | Vesp. | 6 | Dominus pascit me * Et nihil mihi deerit. In pascuis virentibus me colloc |
 | 620 | Feria VI | Laudes | 6 | Clamabo ad Dominum altissimum * Qui benefecit mihi. Mittet de cælo e |
@@ -41,7 +36,6 @@ The OCO short responsories for which GregoBase has no transcription (part "rb") 
 | 766 | Die 25: S. Marci | Laudes | 6 | Narraverunt laudes Domini et virtutes eius Alleluia alleluia. Et mirabilia |
 | 768 | Die 25: S. Marci | Vesp. |  | Annuntiate, de Communi apostolorum. |
 | 790 | Die 11: S. Barnabæ | Vesp. |  | Annuntiate, de Communi apostolorum. |
-| 797 | In Nativitate S. Ioannis Baptistæ | Laudes | 6 | Magnus erit coram Domino * Et Spiritu Sancto replebitur. Ipse præibit a |
 | 802 | Petri et Pauli | I Vesp. | 6 | Loquebantur apostoli verbum Dei * Cum fiducia. Et reddebant testimon |
 | 806 | Petri et Pauli | Laudes | 6 | Tradiderunt animas suas * Pro nomine Domini Iesu Christi. Ibant gaude |
 | 818 | Die 22: S. Mariæ Magdalenæ | Laudes | 6 | Maria noli iam flere * Surrexit Dominus a mortuis. Vade ad fratres meos |
@@ -49,7 +43,6 @@ The OCO short responsories for which GregoBase has no transcription (part "rb") 
 | 826 | Die 26: Ss. Ioachim et Annæ | Vesp. | 6 | Suscepit Israel puerum suum * Recordatus misericordiæ suæ. Sicut loc |
 | 866 | Die 29: In Passione S. Ioannis Baptistæ | Laudes | 6 | Vos misistis ad Ioannem * Et testimonium perhibuit veritati. Ille erat luc |
 | 868 | Die 29: In Passione S. Ioannis Baptistæ | Vesp. | 6 | Amicus sponsi gaudet * Propter vocem sponsi. Hoc gaudium meum imp |
-| 888 | Die 15: Beatæ Mariæ Virginis Perdolentis | Laudes | 6 | Per te salutem hauriamus * Virgo Maria. Ex vulneribus Christi. |
 | 890 | Die 15: Beatæ Mariæ Virginis Perdolentis | Vesp. | 6 | Stabat sancta Maria regina martyrum * Iuxta crucem Domini. Felix est i |
 | 908 | Die 2: Ss. Angelorum Custodum | Vesp. | 6 | Angelis suis * Deus mandavit de te. Ut custodiant te in omnibus viis tuis. |
 | 916 | Die 18: S. Lucæ | Laudes | 6 | Narraverunt laudes Domini * Et virtutes eius. Et mirabilia eius quæ feci |

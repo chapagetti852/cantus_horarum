@@ -18,6 +18,11 @@ Read `README.md` first: it explains every pipeline.
   (`git clone --depth 1 https://github.com/gregorio-project/GregoBase`, file
   `gregobase_online.sql`, CC0) into `data/gregobase/*.json` and a GABC cache in `cache/`
   (git-ignored). `select_gabc.py` copies the scores the site uses into `data/gabc/` (committed).
+- The GregoBase dump on GitHub stops in January 2024; `scripts/gregobase/scrape_sources.py`
+  tops up `data/gregobase/chants.json` from the live book listings (LHym 15, AM 17-19,
+  AR 6/53, antiphonale.net's Antiphonae et Responsoria 61-64/67). Run it before matching.
+- `scripts/oco/match_hymni.py`: hymns from the Liber Hymnarius 1983 only, on the page the
+  OCO cites ("LHym 283"), incipit deciding between hymns on one page.
 - `scripts/oco/match_responsoria.py` re-matches the short responsories (after
   `match_gregobase.py`); `scripts/gregobase/fetch_gabc.sh <ids>` fetches single GABC
   files from GregoBase into `data/gabc/` when the dump's `cache/` is not at hand.
