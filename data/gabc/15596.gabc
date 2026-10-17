@@ -1,0 +1,20 @@
+name:Regem magnum;
+office-part:an;
+mode:e;
+gregobase:15596;
+%%
+initial-style: 1;
+name: Regem magnum;
+book: Liber Hymnarius p. 179;
+occasion: Tempore Per Annum in Feriis III;
+office-part: Ad Invitatorium;
+user-notes: ;
+commentary: ;
+annotation: E;
+centering-scheme: english;
+fontsize: 12;
+font: OFLSortsMillGoudy;
+height: 11;
+width: 4.5;
+%%
+(f3)Re(e)gem(fg) ma(h)gnum(gf~) Dó(g)mi(g)num,(hi..) (;) ve(i)ní(g)te,(h) ad(fe)o(fh)ré(hiHG)mus.(g.) (::)

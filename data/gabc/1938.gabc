@@ -1,0 +1,7 @@
+name:Clamavi;
+office-part:an;
+mode:7;
+mode-modifier:b;
+gregobase:1938;
+%%
+[["tex","\\grechangedim{intersyllablespacenotes}{0.19 cm}{scalable}\r\n\\grechangedim{interwordspacenotes}{0.24 cm plus 0.05 cm minus 0.05 cm}{scalable}\r\n\\grechangedim{interwordspacetext}{0.14 cm plus 0.05 cm minus 0.05 cm}{scalable}\r\n\\grechangedim{bar@rubber}{0 cm plus 0 cm minus 0.100 cm}{scalable}\r\n\\grechangedim{linepunctummorashift}{-0.02 cm}{scalable}\r\n\\gresetclivisalignment{never}",{}],["gabc","(c3) CLa(g)m\u00e1(ig/ij)vi,(i'_[oh:h]) (,) * et(h) D\u00f3(hi)mi(h)nus(h) ex(hg)au(f)d\u00ed(gh)vit(g) me.(e.) (::) <eu>E(i) u(i) o(j) u(i) a(h) e.</eu>(g.) (::)",{}]]

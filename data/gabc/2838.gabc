@@ -1,0 +1,7 @@
+name:Andreas Christi famulus;
+office-part:an;
+mode:8;
+mode-modifier:G;
+gregobase:2838;
+%%
+[["tex","\\grechangedim{intersyllablespacenotes}{0.21 cm}{scalable}\r\n\\grechangedim{interwordspacenotes}{0.26 cm plus 0.05 cm minus 0.05 cm}{scalable}\r\n\\grechangedim{interwordspacetext}{0.15 cm plus 0.05 cm minus 0.05 cm}{scalable}",{}],["gabc","(c4) AN(g)dr\u00e9(gj)as(h) Chri(hg)sti(f) f\u00e1(gh)mu(h)lus,(g'_[oh:h]) (,) * di(g)gnus(i') De(j)i(k) A(jh)p\u00f3(j)sto(j)lus,(i.) (;) ger(j)m\u00e1(j')nus(j) Pe(i_[oh:h]h)tri,(g'_[oh:h]) (,) et(i) in(g'_[oh:h]) pas(h_)si(h'_)\u00f3(j)ne(i) s\u00f3(g')ci(g)us.(g.) (::) <eu>E(j) u(j) o(i) u(j) a(h) e.</eu>(g.) (::)",{}]]

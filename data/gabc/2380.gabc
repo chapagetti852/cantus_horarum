@@ -1,0 +1,7 @@
+name:Virgo gloriosa;
+office-part:an;
+mode:2;
+mode-modifier:D;
+gregobase:2380;
+%%
+[["tex","\\grechangedim{linepunctummorashift}{-0.02 cm}{scalable}\r\n\\gresetclivisalignment{never}\r\n\\grechangedim{intersyllablespacenotes}{0.22 cm}{scalable}\r\n\\grechangedim{interwordspacenotes}{0.27 cm plus 0.05 cm minus 0.05 cm}{scalable}",{}],["gabc","(f3) VIr(h)go(gh) glo(f)ri(ef)\u00f3(f)sa(f.) *(,) sem(h_2h_)per(f!gw!hv_GE'_4[oh:h]) E(h)van(i)g\u00e9(j')li(i)um(h') Chri(i)sti(h'_) (,) ge(h)r\u00e9(hg)bat(e) in(i) p\u00e9(hg)cto(e)re(eg) su(f)o,(f.) (:) et(f) non(e') di(f)\u00e9(h_2h_)bus(f!gw!hv_GE'_4[oh:h]) ne(h)que(i) n\u00f3(ji)cti(h_i)bus,(h'_) (,) a(h) col(i')l\u00f3(j)qui(i')is(j) di(h')v\u00ed(i)nis(h.) (,) et(hg) o(e')ra(f_)ti(fi)\u00f3(i_[oh:h]h)ne(f) ces(h_g)s\u00e1(h_g)bat.(f.) (::) <eu>E(h) u(h) o(h) u(g) a(e) e.</eu>(f.) (::)",{}]]

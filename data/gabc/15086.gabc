@@ -1,0 +1,23 @@
+name:Hic est dies;
+office-part:hy;
+mode:3;
+gregobase:15086;
+%%
+initial-style: 1;
+name: Hic est dies;
+book: Liber Hymnaris, p. 79;
+occasion: Dominicis Tempore Paschali Usque ad Ascensionem Domini;
+office-part: Ad Officium Lectionis H;
+user-notes: ;
+commentary: ;
+annotation: 3;
+centering-scheme: english;
+fontsize: 12;
+font: OFLSortsMillGoudy;
+height: 11;
+width: 4.5;
+%%
+(c4)Hic(e) est(g) di(h)es(h) ve(g)rus(h!iwj) De(i)i,(ih__) (,)
+san(hiwj)cto(i) se(h)ré(h)nus(g) lú(h)mi(fg)ne,(g.) (;)
+quo(hiwj) dí(i)lu(h)it(h) san(g)guis(i) sa(gh)cer(hg..) (,)
+pro(h)bró(h)sa(g) mun(f)di(ghg) crí(f)mi(de)na.(e.) (::)

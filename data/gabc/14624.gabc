@@ -1,0 +1,22 @@
+name:Oblatus est;
+office-part:an;
+mode:2;
+mode-modifier:d;
+gregobase:14624;
+%%
+initial-style: 1;
+name: Oblatus est
+book: Antiphonae & Responsoria/Tomus II, p. 116;
+occasion: Hebdomada Sancta Feria III;
+office-part: Laudes Ant 3;
+user-notes: ;
+commentary: ;
+annotation: 2d;
+centering-scheme: english;
+fontsize: 12;
+font: OFLSortsMillGoudy;
+height: 11;
+width: 4.5;
+%%
+(f3)O(h)blá(h)tus(hg) est(f) <v>\greheightstar</v>(,) qui(f)a(e) i(f)pse(h) vó(h)lu(hvviioh)it,(h) (;) et(hjij) pec(i)cá(hi)ta(h) no(hi)stra(h) (`) i(hg)pse(e) por(gh>)tá(f)vit.(f) (::)
+E(h) u(h) o(h) u(g) a(ef) e.(f) (::)

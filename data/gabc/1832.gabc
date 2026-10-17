@@ -1,0 +1,7 @@
+name:Congaudete;
+office-part:an;
+mode:8;
+mode-modifier:G;
+gregobase:1832;
+%%
+[["tex","\\grechangedim{linepunctummorashift}{-0.02 cm}{scalable}\r\n\\gresetclivisalignment{never}\r\n\\grechangedim{intersyllablespacenotes}{0.22 cm}{scalable}\r\n\\grechangedim{interwordspacenotes}{0.27 cm plus 0.05 cm minus 0.05 cm}{scalable}",{}],["gabc","(c4) COn(g)gau(fd~)d\u00e9(e)te(f) me(gh)cum,(g'_[oh:h]) *(,) et(g) con(i)gra(k)tu(jh)l\u00e1(j)mi(j)ni,(i.) (;) qui(k)a(k') cum(j) his(j) \u00f3(kl)mni(k)bus(ji/jkj.) (,) l\u00fa(h')ci(g)das(h_) se(h'_)des(j) ac(i)c\u00e9(g.)pi.(g.) (::) <eu>E(j) u(j) o(i) u(j) a(h) e.</eu>(g.) (::)",{}]]

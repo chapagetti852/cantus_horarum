@@ -1,0 +1,20 @@
+name:Adoremus Dominum qui fecit;
+office-part:an;
+mode:e;
+gregobase:15598;
+%%
+initial-style: 1;
+name: Adoremus Dominum;
+book: Liber Hymnarius p. 180;
+occasion: Tempore Per Annum in Feriis V;
+office-part: Ad Invitatorium;
+user-notes: ;
+commentary: ;
+annotation: E;
+centering-scheme: english;
+fontsize: 12;
+font: OFLSortsMillGoudy;
+height: 11;
+width: 4.5;
+%%
+(f3)Ad(e)o(g_i_h_)ré(fgh)mus(g_h/ffe) Dó(fg)mi(g)num(g.) (,) qui(g_f_!gwh) fe(g)cit(gihh) nos.(hg..) (::)

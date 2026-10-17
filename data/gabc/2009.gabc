@@ -1,0 +1,7 @@
+name:Sacerdotes Dei;
+office-part:an;
+mode:7;
+mode-modifier:c;
+gregobase:2009;
+%%
+[["tex","\\grechangedim{linepunctummorashift}{-0.02 cm}{scalable}\r\n\\gresetclivisalignment{never}",{}],["gabc","(c3) SA(i)cer(i)d\u00f3(i_[oh:h]g)tes(i') De(j)i,(i'_[oh:h]) *(,) be(i)ne(i)d\u00ed(i_[oh:h]g)ci(h)te(f') D\u00f3(g)mi(f)num :(e.) (;) ser(e')vi(g) D\u00f3(e')mi(f)ni,(f.) (,) hy(g')mnum(h) d\u00ed(ij)ci(i)te(h) De(hg)o,(f) +() al(g')le(f)l\u00fa(e.){ia}.(e.) (::) ()<i>Post Septuag.</i> +() in(g') ae(f)t\u00e9r(e.)num.(e.) (::) <eu>E(i) u(i) o(j) u(i) a(h) e.</eu>(gh..) (::)",{}]]

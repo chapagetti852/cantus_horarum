@@ -1,0 +1,7 @@
+name:Petrus et Joannes;
+office-part:an;
+mode:8;
+mode-modifier:G;
+gregobase:1866;
+%%
+[["tex","\\grechangedim{linepunctummorashift}{-0.02 cm}{scalable}\r\n\\gresetclivisalignment{never}",{}],["gabc","(c4) PE(g_[uh:l]j)trus(h) et(hg) Jo(f)\u00e1n(g_[uh:l]h)nes(g.) *(,) a(i)scen(j)d\u00e9(k)bant(j) in(hj~) tem(j)plum,(i.) (;) ad(j) ho(jkj)ram(jij) o(j)ra(ji)ti(h)\u00f3(j_h)nis(i) no(g.)nam.(g.) (::) <eu>E(j) u(j) o(i) u(j) a(h) e.</eu>(g.) (::)",{}]]

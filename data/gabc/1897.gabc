@@ -1,0 +1,7 @@
+name:Martyrum chorus;
+office-part:an;
+mode:8;
+mode-modifier:c;
+gregobase:1897;
+%%
+[["tex","\\grechangedim{linepunctummorashift}{-0.02 cm}{scalable}\r\n\\gresetclivisalignment{never}\r\n\\grechangedim{intersyllablespacenotes}{0.22 cm}{scalable}\r\n\\grechangedim{interwordspacenotes}{0.27 cm plus 0.05 cm minus 0.05 cm}{scalable}\r\n\\grechangedim{bar@rubber}{0 cm plus 0 cm minus 0.100 cm}{scalable}",{}],["gabc","(c4) MAr(j)ty(i')rum(j) cho(h_g)rus,(h.) *(;) lau(gf~)d\u00e1(g)te(h) D\u00f3(j')mi(h)num(i_[uh:l]j) in(h) ex(fg)c\u00e9l(g.)sis.(g.) (::) <eu>E(j) u(j) o(h) u(j) a(k) e.</eu>(j.) (::)",{}]]

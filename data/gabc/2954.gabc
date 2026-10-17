@@ -1,0 +1,7 @@
+name:Cum essem parvula;
+office-part:an;
+mode:1;
+mode-modifier:f;
+gregobase:2954;
+%%
+[["tex","\\grechangedim{intersyllablespacenotes}{0.21 cm}{scalable}\r\n\\grechangedim{interwordspacenotes}{0.26 cm plus 0.05 cm minus 0.05 cm}{scalable}\r\n\\grechangedim{interwordspacetext}{0.15 cm plus 0.05 cm minus 0.05 cm}{scalable}",{}],["gabc","(c4) CUM(dc) es(f)sem(g) p\u00e1r(f)vu(gh)la,(h.) *(,) pl\u00e1(ixi)cu(h)i(g') Al(f)t\u00eds(gh)si(fe)mo(d.) (;) et(g) de(g') me(g)is(e') vi(g)sc\u00e9(h)ri(g)bus(f_g) (,) g\u00e9(e)nu(d)i(c) De(eg)um(e) et(fe) h\u00f3(d)mi(cd)nem.(d.) (::) <eu>E(h) u(h) o(g) u(f) a(gh) e.</eu>(gf..) (::)",{}]]

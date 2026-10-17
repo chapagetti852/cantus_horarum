@@ -1,0 +1,7 @@
+name:A planta pedis;
+office-part:an;
+mode:2;
+mode-modifier:D;
+gregobase:1967;
+%%
+[["tex","\\grechangedim{linepunctummorashift}{-0.02 cm}{scalable}\r\n\\gresetclivisalignment{never}",{}],["gabc","(f3) A(h) plan(h_g)ta(e) pe(gh)dis(f'_) *(,) us(f)que(f') ad(g) v\u00e9r(e)ti(f)cem(h_f) c\u00e1(g)pi(f)tis,(e.) (;) non(fge) est(ec) in(ef) e(h')o(g) s\u00e1(e)ni(g)tas.(f.) (::) <eu>E(h) u(h) o(h) u(g) a(e) e.</eu>(f.) (::)",{}]]

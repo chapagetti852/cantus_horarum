@@ -1,0 +1,12 @@
+{
+  "name": "Cantus Horarum",
+  "short_name": "Cantus Horarum",
+  "description": "Liturgia Horarum in cantu gregoriano",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f3ea",
+  "theme_color": "#f7f3ea",
+  "lang": "la",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

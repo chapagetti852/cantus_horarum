@@ -1,0 +1,7 @@
+name:In tua patientia;
+office-part:an;
+mode:1;
+mode-modifier:f;
+gregobase:1987;
+%%
+[["tex","\\grechangedim{linepunctummorashift}{-0.02 cm}{scalable}\r\n\\gresetclivisalignment{never}",{}],["gabc","(c4) IN(d) tu(d)a(dc) pa(f)ti(g')\u00e9n(f)ti(gh)a(h'_) *(,) pos(h)se(h)d\u00ed(hj)sti(h') \u00e1(h)ni(h)mam(g') tu(h)am,(g'_[oh:h]) (;) L\u00fa(h)ci(gf)a(e_[uh:l]f) spon(g)sa(fe) Chri(d)sti :(d.) (:) o(d_e)d\u00ed(g)sti(g') quae(g) in(f') mun(g)do(fe) sunt,(d.) (;) et(f) co(g)r\u00fa(ixh_i)scas(h) cum(j) An(ixh_i)ge(gf)lis :(f.) (:) s\u00e1n(h'_)gui(g)ne(g') pr\u00f3(h)pri(fe)o(d.) (,) in(e')i(f)m\u00ed(g)cum(g') vi(e)c\u00ed(f_e)sti.(d.) (::) <eu>E(h) u(h) o(g) u(f) a(gh) e.</eu>(gf..) (::)",{}]]

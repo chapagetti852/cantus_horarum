@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="la" translate="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f7f3ea" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1b1a17" media="(prefers-color-scheme: dark)">
+<meta name="robots" content="noindex">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Cantus Horarum</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="date-row">
+    <button class="nav" id="prev" aria-label="Dies praecedens">‹</button>
+    <label class="date-label">
+      <span id="date-name" class="date-name">…</span>
+      <span id="date-sub" class="date-sub"></span>
+      <input type="date" id="date" aria-label="Dies">
+    </label>
+    <button class="nav" id="next" aria-label="Dies sequens">›</button>
+  </div>
+  <nav class="hours" id="hours" aria-label="Horae">
+    <button data-hour="lectio">Lect.</button>
+    <button data-hour="laudes">Laudes</button>
+    <button data-hour="tertia">Tertia</button>
+    <button data-hour="sexta">Sexta</button>
+    <button data-hour="nona">Nona</button>
+    <button data-hour="vesperae">Vesp.</button>
+    <button data-hour="completorium">Compl.</button>
+  </nav>
+</header>
+
+<main id="office" class="office">
+  <p class="loading">Paratur…</p>
+</main>
+
+<footer class="bottom">
+  <button id="settings-toggle" class="link" aria-expanded="false">Optiones</button>
+  <div id="settings" class="settings" hidden>
+    <label>Litterae <input type="range" id="text-size" min="85" max="140" step="5" value="100"></label>
+    <label><input type="checkbox" id="opt-dark"> Nox</label>
+    <label><input type="checkbox" id="opt-solemn"> Tonus sollemnis ad <i>Deus in adiutorium</i></label>
+    <label><input type="checkbox" id="opt-latin-only" checked disabled> Latine</label>
+  </div>
+</footer>
+
+<script src="vendor/exsurge.min.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>

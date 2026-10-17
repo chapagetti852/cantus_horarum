@@ -82,7 +82,25 @@ def main():
     results = []
     stats = Counter()
     for e in oco:
-        if e["kind"] not in ("chant", "invitatorium", "resp_brevis") or not e.get("mode"):
+        is_hymn = e["kind"] == "hymn" and e.get("lhym")
+        if not is_hymn and (e["kind"] not in ("chant", "invitatorium", "resp_brevis") or not e.get("mode")):
+            continue
+        if is_hymn:
+            # hymns: Liber Hymnarius page + incipit (GregoBase source 15), else incipit among hymns
+            title = re.sub(r"\(.*?\)", "", e["title"]).strip()
+            rec = {"oco_id": e["id"], "page": e["page"], "incipit": title, "mode": None, "gregobase": None, "confidence": None, "candidates": []}
+            ntitle = norm(title)
+            page = e["lhym"].split()[0].rstrip(",")
+            cands = [c for c in by_source_page.get((15, page), []) if ntitle and (norm(c["incipit"]).startswith(" ".join(ntitle.split()[:2])) or ntitle.startswith(" ".join(norm(c["incipit"]).split()[:2])))]
+            if cands:
+                rec.update(gregobase=cands[0]["id"], confidence="lhym+incipit", candidates=[c["id"] for c in cands])
+            else:
+                hits = [c for c in by_incipit.get(ntitle, []) + sum((by_incipit.get(" ".join(ntitle.split()[:n]), []) for n in (3, 2)), []) if c["part"] == "hy"]
+                if hits:
+                    best = sorted(hits, key=lambda c: (not any(s[0] == 15 for s in c["sources"]), c["id"]))[0]
+                    rec.update(gregobase=best["id"], confidence="hymn-incipit", candidates=[c["id"] for c in hits][:8])
+            stats[rec["confidence"] or "hymn-unmatched"] += 1
+            results.append(rec)
             continue
         text = e.get("text") or e.get("title") or ""
         key3, key4 = words(text, 3), words(text, 4)

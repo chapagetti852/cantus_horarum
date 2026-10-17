@@ -62,6 +62,28 @@ Latin localisation, generates `site/data/calendar/YYYY.json` for 2025–2032: ce
 with rank, precedence, season and week, psalter week, Sunday and weekday cycles, colours,
 optional memorials and the Commons each saint may use.
 
+### The app
+
+`site/` is plain HTML, CSS and JavaScript (no framework, no build step for the app
+itself). `scripts/build.mjs` assembles `dist/`: the app, the compact OCO data
+(`data/oco.json`), the four-week psalter texts (`data/psalterium.json`), the calendar
+files and the GABC scores (`gabc/<GregoBase id>.gabc`, committed under `data/gabc/`).
+`app.js` reads the calendar for the chosen date, works out the psalter week and day,
+picks the OCO entries for that slot (hymn, antiphons 1–3, short responsory,
+Benedictus or Magnificat antiphon, Compline antiphons) and the matching iBreviary
+texts, and draws every score with Exsurge at the width of the phone. Hymns show the
+first strophe notated and the rest as text.
+
+Status: Lauds, Vespers and Compline of Ordinary Time days work from the psalter;
+the Office of Readings and the little hours show their texts and the psalter
+antiphons but are not yet composed; seasons, feasts and the sanctoral are not yet
+resolved; psalm verses are not yet pointed to the tone.
+
+### Deploying
+
+The workflow in `.github/workflows/pages.yml` builds `dist/` and deploys it to GitHub
+Pages on every push to `main` (Settings → Pages → Source: GitHub Actions).
+
 ## Working locally
 
 ```sh

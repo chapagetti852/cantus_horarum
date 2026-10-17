@@ -1,0 +1,118 @@
+@font-face { font-family: "Crimson"; src: url(fonts/crimson-roman-webfont.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Crimson"; src: url(fonts/crimson-italic-webfont.woff2) format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Crimson"; src: url(fonts/crimson-semibold-webfont.woff2) format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Crimson"; src: url(fonts/crimson-bold-webfont.woff2) format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+
+:root {
+  --bg: #f7f3ea;
+  --bg-raised: #fffdf7;
+  --fg: #231f1a;
+  --fg-soft: #6b625a;
+  --rubric: #a4221c;
+  --rule: #d9d0bf;
+  --accent: #7a1f1a;
+  --exsurge-negative-fill: var(--bg);
+  --size: 100;
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --bg: #1b1a17;
+  --bg-raised: #23211d;
+  --fg: #e8e1d3;
+  --fg-soft: #a69d8f;
+  --rubric: #e06a5c;
+  --rule: #3a362f;
+  --accent: #e08f84;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1b1a17;
+    --bg-raised: #23211d;
+    --fg: #e8e1d3;
+    --fg-soft: #a69d8f;
+    --rubric: #e06a5c;
+    --rule: #3a362f;
+    --accent: #e08f84;
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Crimson", "Crimson Text", Georgia, "Times New Roman", serif;
+  font-size: calc(1.15rem * var(--size) / 100);
+  line-height: 1.4;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+/* ---------- header ---------- */
+.top {
+  position: sticky; top: 0; z-index: 5;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--rule);
+  padding-top: env(safe-area-inset-top);
+}
+.date-row { display: flex; align-items: stretch; max-width: 46rem; margin: 0 auto; }
+.nav { flex: 0 0 2.6rem; font-size: 1.8rem; line-height: 1; color: var(--fg-soft); }
+.nav:active { color: var(--accent); }
+.date-label { flex: 1; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: .55rem .25rem .35rem; text-align: center; cursor: pointer; }
+.date-label input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.date-name { font-variant: small-caps; letter-spacing: .03em; font-size: 1em; line-height: 1.15; }
+.date-sub { color: var(--fg-soft); font-size: .78em; font-style: italic; margin-top: .1em; }
+.hours { display: flex; max-width: 46rem; margin: 0 auto; overflow-x: auto; scrollbar-width: none; }
+.hours::-webkit-scrollbar { display: none; }
+.hours button { flex: 1 0 auto; padding: .35rem .6rem .5rem; font-size: .82em; font-variant: small-caps; letter-spacing: .04em; color: var(--fg-soft); border-bottom: 2px solid transparent; }
+.hours button[aria-current="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ---------- office body ---------- */
+.office { max-width: 44rem; margin: 0 auto; padding: 1rem 16px 3rem; }
+.loading, .empty { color: var(--fg-soft); font-style: italic; text-align: center; margin: 3rem 0; }
+.rubric, .r { color: var(--rubric); }
+.rubric { font-style: italic; font-size: .88em; margin: .9em 0 .3em; }
+h2.section { font-variant: small-caps; letter-spacing: .08em; font-weight: 400; font-size: .95em; color: var(--rubric); margin: 1.8em 0 .5em; text-align: center; }
+h2.section::before, h2.section::after { content: " ✠ "; opacity: .5; }
+.block { margin: .6em 0; }
+.chant { margin: .8em 0 .4em; overflow: hidden; }
+.chant svg { display: block; max-width: 100%; height: auto; }
+.chant-label { display: flex; justify-content: space-between; align-items: baseline; color: var(--fg-soft); font-size: .8em; font-style: italic; }
+.chant-label b { font-style: normal; font-weight: 600; color: var(--rubric); }
+.chant .missing { color: var(--fg-soft); font-style: italic; }
+.ant-text { margin: .1em 0 .4em; }
+.ant-text .r { font-weight: 600; font-style: normal; }
+.psalm-head { margin: 1em 0 .2em; display: flex; flex-wrap: wrap; gap: .2em .8em; align-items: baseline; }
+.psalm-head .ref { font-variant: small-caps; letter-spacing: .04em; color: var(--rubric); }
+.psalm-head .title { font-style: italic; color: var(--fg-soft); font-size: .9em; }
+.sentence { font-style: italic; color: var(--fg-soft); font-size: .88em; margin: 0 0 .5em; }
+.strophe { margin: 0 0 .7em; }
+.strophe .line { padding-left: 1.6em; text-indent: -1.6em; }
+.strophe .line .flex, .strophe .line .star { color: var(--rubric); font-weight: 400; }
+.line .acc { font-weight: 600; }
+.line .prep { font-style: italic; }
+.versicle { margin: .3em 0; padding-left: 1.6em; text-indent: -1.6em; }
+.versicle .r { font-weight: 600; }
+.text p { margin: .25em 0; }
+.hymn p { margin: 0 0 .7em; }
+.preces .intention { margin: .4em 0 0; }
+.preces .response { margin: 0 0 .2em 1.6em; color: var(--fg-soft); }
+.gloria { color: var(--fg-soft); }
+.doxology { margin: 0 0 .7em; }
+details.alt > summary { color: var(--fg-soft); font-style: italic; cursor: pointer; font-size: .9em; }
+.source { color: var(--fg-soft); font-size: .75em; text-align: right; }
+
+/* ---------- footer / settings ---------- */
+.bottom { max-width: 44rem; margin: 0 auto; padding: 0 16px 2rem; }
+.link { color: var(--fg-soft); font-style: italic; text-decoration: underline dotted; padding: .3rem 0; }
+.settings { display: grid; gap: .6rem; padding: .8rem 0; border-top: 1px solid var(--rule); font-size: .9em; }
+.settings label { display: flex; align-items: center; gap: .6rem; }
+.settings input[type=range] { flex: 1; }
+
+@media (min-width: 700px) {
+  body { font-size: calc(1.22rem * var(--size) / 100); }
+}

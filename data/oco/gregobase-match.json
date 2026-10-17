@@ -119,6 +119,28 @@
 ]
 },
 {
+"oco_id": 11,
+"page": 8,
+"incipit": "Conditor alme siderum",
+"mode": null,
+"gregobase": 7424,
+"confidence": "lhym+incipit",
+"candidates": [
+7424
+]
+},
+{
+"oco_id": 12,
+"page": 8,
+"incipit": "Te lucis ante terminum",
+"mode": null,
+"gregobase": 16423,
+"confidence": "lhym+incipit",
+"candidates": [
+16423
+]
+},
+{
 "oco_id": 13,
 "page": 8,
 "incipit": "Regem ventúrum Dóminum, veníte, adorémus. Veníte,",
@@ -140,6 +162,68 @@
 "candidates": [
 8225,
 8226
+]
+},
+{
+"oco_id": 15,
+"page": 8,
+"incipit": "Verbum supernum",
+"mode": null,
+"gregobase": 8227,
+"confidence": "lhym+incipit",
+"candidates": [
+8227
+]
+},
+{
+"oco_id": 16,
+"page": 8,
+"incipit": "Vox clara",
+"mode": null,
+"gregobase": 6616,
+"confidence": "hymn-incipit",
+"candidates": [
+6616,
+7425,
+7898,
+6616,
+7425,
+7898,
+6616,
+7425
+]
+},
+{
+"oco_id": 17,
+"page": 8,
+"incipit": "Nunc Sancte nobis",
+"mode": null,
+"gregobase": 18010,
+"confidence": "lhym+incipit",
+"candidates": [
+18010
+]
+},
+{
+"oco_id": 18,
+"page": 8,
+"incipit": "Rector potens",
+"mode": null,
+"gregobase": 18012,
+"confidence": "lhym+incipit",
+"candidates": [
+18012
+]
+},
+{
+"oco_id": 19,
+"page": 8,
+"incipit": "Rerum Deus",
+"mode": null,
+"gregobase": 18015,
+"confidence": "lhym+incipit",
+"candidates": [
+18015
 ]
 },
 {
@@ -1085,6 +1169,28 @@
 ]
 },
 {
+"oco_id": 103,
+"page": 43,
+"incipit": "Verbum salutis omnium",
+"mode": null,
+"gregobase": 14187,
+"confidence": "lhym+incipit",
+"candidates": [
+14187
+]
+},
+{
+"oco_id": 104,
+"page": 43,
+"incipit": "Christe qui splendor",
+"mode": null,
+"gregobase": 4685,
+"confidence": "lhym+incipit",
+"candidates": [
+4685
+]
+},
+{
 "oco_id": 105,
 "page": 43,
 "incipit": "Prope est iam Dóminus: veníte, adorémus.",
@@ -1104,6 +1210,61 @@
 "confidence": "incipit",
 "candidates": [
 15747
+]
+},
+{
+"oco_id": 107,
+"page": 43,
+"incipit": "Veni Redemptor",
+"mode": null,
+"gregobase": 4241,
+"confidence": "lhym+incipit",
+"candidates": [
+4241
+]
+},
+{
+"oco_id": 108,
+"page": 43,
+"incipit": "Magnis prophetæ",
+"mode": null,
+"gregobase": 4243,
+"confidence": "lhym+incipit",
+"candidates": [
+4243
+]
+},
+{
+"oco_id": 109,
+"page": 43,
+"incipit": "Certum tenentes ordinem",
+"mode": null,
+"gregobase": 4238,
+"confidence": "lhym+incipit",
+"candidates": [
+4238
+]
+},
+{
+"oco_id": 110,
+"page": 43,
+"incipit": "Dicamus laudes Domino",
+"mode": null,
+"gregobase": 4239,
+"confidence": "lhym+incipit",
+"candidates": [
+4239
+]
+},
+{
+"oco_id": 111,
+"page": 43,
+"incipit": "Ternis horarum terminis",
+"mode": null,
+"gregobase": 4240,
+"confidence": "lhym+incipit",
+"candidates": [
+4240
 ]
 },
 {
@@ -1738,6 +1899,31 @@
 ]
 },
 {
+"oco_id": 167,
+"page": 67,
+"incipit": "Christe Redemptor omnium",
+"mode": null,
+"gregobase": 4245,
+"confidence": "lhym+incipit",
+"candidates": [
+4245
+]
+},
+{
+"oco_id": 168,
+"page": 67,
+"incipit": "Te lucis ante terminum",
+"mode": null,
+"gregobase": 4779,
+"confidence": "hymn-incipit",
+"candidates": [
+4779,
+4884,
+4953,
+17045
+]
+},
+{
 "oco_id": 169,
 "page": 67,
 "incipit": "Christus natus est nobis: veníte, adorémus.",
@@ -1763,6 +1949,57 @@
 18100,
 18116,
 5292
+]
+},
+{
+"oco_id": 172,
+"page": 67,
+"incipit": "A solis ortu",
+"mode": null,
+"gregobase": 4247,
+"confidence": "lhym+incipit",
+"candidates": [
+4247
+]
+},
+{
+"oco_id": 173,
+"page": 67,
+"incipit": "Nunc Sancte nobis",
+"mode": null,
+"gregobase": 16389,
+"confidence": "lhym+incipit",
+"candidates": [
+16389
+]
+},
+{
+"oco_id": 174,
+"page": 67,
+"incipit": "Rector potens",
+"mode": null,
+"gregobase": 16390,
+"confidence": "lhym+incipit",
+"candidates": [
+16390
+]
+},
+{
+"oco_id": 175,
+"page": 67,
+"incipit": "Rerum Deus",
+"mode": null,
+"gregobase": 7889,
+"confidence": "hymn-incipit",
+"candidates": [
+7889,
+7890,
+7891,
+7892,
+7889,
+7890,
+7891,
+7892
 ]
 },
 {
@@ -1997,6 +2234,17 @@
 ]
 },
 {
+"oco_id": 197,
+"page": 76,
+"incipit": "O lux beata",
+"mode": null,
+"gregobase": 14250,
+"confidence": "lhym+incipit",
+"candidates": [
+14250
+]
+},
+{
 "oco_id": 198,
 "page": 76,
 "incipit": "Iacob autem génuit Ioseph, virum Maríæ,",
@@ -2064,6 +2312,18 @@
 ]
 },
 {
+"oco_id": 204,
+"page": 79,
+"incipit": "Dulce fit nobis",
+"mode": null,
+"gregobase": 16711,
+"confidence": "hymn-incipit",
+"candidates": [
+16711,
+16711
+]
+},
+{
 "oco_id": 205,
 "page": 79,
 "incipit": "Accípiens Símeon púerum in mánibus, grátias",
@@ -2094,6 +2354,17 @@
 "confidence": "verona",
 "candidates": [
 16775
+]
+},
+{
+"oco_id": 208,
+"page": 80,
+"incipit": "Christe splendor Patris",
+"mode": null,
+"gregobase": 8420,
+"confidence": "lhym+incipit",
+"candidates": [
+8420
 ]
 },
 {
@@ -2395,6 +2666,17 @@
 ]
 },
 {
+"oco_id": 236,
+"page": 91,
+"incipit": "Corde natus",
+"mode": null,
+"gregobase": 8424,
+"confidence": "lhym+incipit",
+"candidates": [
+8424
+]
+},
+{
 "oco_id": 237,
 "page": 91,
 "incipit": "O admirábile commércium! Creátor géneris humáni,",
@@ -2451,6 +2733,19 @@
 ]
 },
 {
+"oco_id": 243,
+"page": 94,
+"incipit": "Radix Iesse",
+"mode": null,
+"gregobase": 16731,
+"confidence": "hymn-incipit",
+"candidates": [
+16731,
+16731,
+16731
+]
+},
+{
 "oco_id": 244,
 "page": 95,
 "incipit": "Elevámini, portæ æternáles, et introíbit rex",
@@ -2489,6 +2784,17 @@
 12240,
 16734,
 16754
+]
+},
+{
+"oco_id": 247,
+"page": 95,
+"incipit": "Fit porta Christi",
+"mode": null,
+"gregobase": 4255,
+"confidence": "lhym+incipit",
+"candidates": [
+4255
 ]
 },
 {
@@ -2889,6 +3195,28 @@
 ]
 },
 {
+"oco_id": 284,
+"page": 113,
+"incipit": "Hostis Herodes impie",
+"mode": null,
+"gregobase": 8426,
+"confidence": "lhym+incipit",
+"candidates": [
+8426
+]
+},
+{
+"oco_id": 285,
+"page": 113,
+"incipit": "Christe qui splendor",
+"mode": null,
+"gregobase": 4687,
+"confidence": "lhym+incipit",
+"candidates": [
+4687
+]
+},
+{
 "oco_id": 286,
 "page": 113,
 "incipit": "Christus appáruit nobis: veníte, adorémus. Veníte,",
@@ -2915,6 +3243,68 @@
 14100,
 16764,
 5292
+]
+},
+{
+"oco_id": 288,
+"page": 113,
+"incipit": "Magi videntes parvulum",
+"mode": null,
+"gregobase": 8702,
+"confidence": "lhym+incipit",
+"candidates": [
+8702
+]
+},
+{
+"oco_id": 289,
+"page": 113,
+"incipit": "Quicumque Christum quæritis",
+"mode": null,
+"gregobase": 8427,
+"confidence": "lhym+incipit",
+"candidates": [
+8427
+]
+},
+{
+"oco_id": 290,
+"page": 113,
+"incipit": "Certum tenentes ordinem",
+"mode": null,
+"gregobase": 4238,
+"confidence": "hymn-incipit",
+"candidates": [
+4236,
+4237,
+4238,
+4236,
+4237,
+4238
+]
+},
+{
+"oco_id": 291,
+"page": 113,
+"incipit": "Dicamus laudes Domino",
+"mode": null,
+"gregobase": 4239,
+"confidence": "hymn-incipit",
+"candidates": [
+4239,
+4239
+]
+},
+{
+"oco_id": 292,
+"page": 113,
+"incipit": "Ternis horarum terminis",
+"mode": null,
+"gregobase": 4240,
+"confidence": "hymn-incipit",
+"candidates": [
+4240,
+4240
 ]
 },
 {
@@ -3298,6 +3688,17 @@
 ]
 },
 {
+"oco_id": 327,
+"page": 129,
+"incipit": "A Patre Unigenite",
+"mode": null,
+"gregobase": 8428,
+"confidence": "lhym+incipit",
+"candidates": [
+8428
+]
+},
+{
 "oco_id": 328,
 "page": 129,
 "incipit": "Super ripam Iordánis stabat beátus Ioánnes;",
@@ -3364,6 +3765,17 @@
 ]
 },
 {
+"oco_id": 334,
+"page": 132,
+"incipit": "Implente munus debitum",
+"mode": null,
+"gregobase": 8703,
+"confidence": "lhym+incipit",
+"candidates": [
+8703
+]
+},
+{
 "oco_id": 335,
 "page": 132,
 "incipit": "Vox Dómini super aquas, Deus maiestátis",
@@ -3394,6 +3806,17 @@
 "confidence": "verona",
 "candidates": [
 16793
+]
+},
+{
+"oco_id": 338,
+"page": 133,
+"incipit": "Iesus refulsit omnium",
+"mode": null,
+"gregobase": 9665,
+"confidence": "lhym+incipit",
+"candidates": [
+9665
 ]
 },
 {
@@ -3486,6 +3909,17 @@
 ]
 },
 {
+"oco_id": 347,
+"page": 137,
+"incipit": "Implente munus debitum",
+"mode": null,
+"gregobase": 8703,
+"confidence": "lhym+incipit",
+"candidates": [
+8703
+]
+},
+{
 "oco_id": 348,
 "page": 137,
 "incipit": "Peccáti acúleus contéritur hódie baptizáto Dómino,",
@@ -3560,6 +3994,39 @@
 "confidence": "source+incipit",
 "candidates": [
 7276
+]
+},
+{
+"oco_id": 363,
+"page": 141,
+"incipit": "Dei fide",
+"mode": null,
+"gregobase": 7263,
+"confidence": "lhym+incipit",
+"candidates": [
+7263
+]
+},
+{
+"oco_id": 364,
+"page": 141,
+"incipit": "Qua Christus",
+"mode": null,
+"gregobase": 7264,
+"confidence": "lhym+incipit",
+"candidates": [
+7264
+]
+},
+{
+"oco_id": 365,
+"page": 141,
+"incipit": "Ternis ter horis",
+"mode": null,
+"gregobase": 7265,
+"confidence": "lhym+incipit",
+"candidates": [
+7265
 ]
 },
 {
@@ -5518,6 +5985,38 @@
 ]
 },
 {
+"oco_id": 559,
+"page": 221,
+"incipit": "Vexilla regis prodeunt",
+"mode": null,
+"gregobase": 2120,
+"confidence": "hymn-incipit",
+"candidates": [
+2120,
+9946,
+16992,
+17732,
+2120,
+9946,
+16992,
+17732
+]
+},
+{
+"oco_id": 560,
+"page": 221,
+"incipit": "Te lucis ante terminum",
+"mode": null,
+"gregobase": 4779,
+"confidence": "hymn-incipit",
+"candidates": [
+4779,
+4884,
+4953,
+17045
+]
+},
+{
 "oco_id": 561,
 "page": 221,
 "incipit": "Christum Dóminum pro nobis tentátum et",
@@ -5526,6 +6025,61 @@
 "confidence": "source+incipit",
 "candidates": [
 7270
+]
+},
+{
+"oco_id": 562,
+"page": 221,
+"incipit": "Pange lingua . . . certaminis",
+"mode": null,
+"gregobase": null,
+"confidence": null,
+"candidates": []
+},
+{
+"oco_id": 563,
+"page": 221,
+"incipit": "En acetum",
+"mode": null,
+"gregobase": 17750,
+"confidence": "hymn-incipit",
+"candidates": [
+17750,
+17750,
+17750
+]
+},
+{
+"oco_id": 564,
+"page": 221,
+"incipit": "Dei fide",
+"mode": null,
+"gregobase": 7263,
+"confidence": "lhym+incipit",
+"candidates": [
+7263
+]
+},
+{
+"oco_id": 565,
+"page": 221,
+"incipit": "Qua Christus",
+"mode": null,
+"gregobase": 7264,
+"confidence": "lhym+incipit",
+"candidates": [
+7264
+]
+},
+{
+"oco_id": 566,
+"page": 221,
+"incipit": "Ternis ter horis",
+"mode": null,
+"gregobase": 7265,
+"confidence": "lhym+incipit",
+"candidates": [
+7265
 ]
 },
 {
@@ -5679,6 +6233,18 @@
 "confidence": "verona",
 "candidates": [
 14730
+]
+},
+{
+"oco_id": 580,
+"page": 228,
+"incipit": "Celsæ salutis gaudia",
+"mode": null,
+"gregobase": 17766,
+"confidence": "hymn-incipit",
+"candidates": [
+17766,
+17766
 ]
 },
 {
@@ -6120,6 +6686,15 @@
 ]
 },
 {
+"oco_id": 622,
+"page": 243,
+"incipit": "Pange lingua . . . certaminis",
+"mode": null,
+"gregobase": null,
+"confidence": null,
+"candidates": []
+},
+{
 "oco_id": 623,
 "page": 243,
 "incipit": "Astitérunt reges terræ et príncipes convenérunt",
@@ -6150,6 +6725,19 @@
 "confidence": "verona",
 "candidates": [
 14990
+]
+},
+{
+"oco_id": 626,
+"page": 244,
+"incipit": "En acetum",
+"mode": null,
+"gregobase": 17750,
+"confidence": "hymn-incipit",
+"candidates": [
+17750,
+17750,
+17750
 ]
 },
 {
@@ -6209,6 +6797,19 @@
 ]
 },
 {
+"oco_id": 632,
+"page": 246,
+"incipit": "Salva Redemptor",
+"mode": null,
+"gregobase": 17788,
+"confidence": "hymn-incipit",
+"candidates": [
+17788,
+17788,
+17788
+]
+},
+{
 "oco_id": 633,
 "page": 246,
 "incipit": "Cotídie apud vos eram in templo",
@@ -6217,6 +6818,18 @@
 "confidence": "verona",
 "candidates": [
 14510
+]
+},
+{
+"oco_id": 634,
+"page": 247,
+"incipit": "Crux mundi benedictio",
+"mode": null,
+"gregobase": 17789,
+"confidence": "hymn-incipit",
+"candidates": [
+17789,
+17789
 ]
 },
 {
@@ -6231,6 +6844,17 @@
 ]
 },
 {
+"oco_id": 636,
+"page": 247,
+"incipit": "Per crucem Christe",
+"mode": null,
+"gregobase": 17790,
+"confidence": "hymn-incipit",
+"candidates": [
+17790
+]
+},
+{
 "oco_id": 637,
 "page": 247,
 "incipit": "Eloi, Eloi, lama sabactháni; Deus meus,",
@@ -6239,6 +6863,19 @@
 "confidence": "verona",
 "candidates": [
 14562
+]
+},
+{
+"oco_id": 638,
+"page": 248,
+"incipit": "Vexilla regis",
+"mode": null,
+"gregobase": 9780,
+"confidence": "hymn-incipit",
+"candidates": [
+9780,
+9780,
+9780
 ]
 },
 {
@@ -6324,6 +6961,18 @@
 ]
 },
 {
+"oco_id": 647,
+"page": 251,
+"incipit": "Christe cælorum Domine",
+"mode": null,
+"gregobase": 17854,
+"confidence": "hymn-incipit",
+"candidates": [
+17854,
+17854
+]
+},
+{
 "oco_id": 648,
 "page": 251,
 "incipit": "In pace in idípsum dórmiam et",
@@ -6355,6 +7004,18 @@
 "candidates": [
 14993,
 16785
+]
+},
+{
+"oco_id": 651,
+"page": 252,
+"incipit": "Tibi Redemptor omnium",
+"mode": null,
+"gregobase": 17747,
+"confidence": "hymn-incipit",
+"candidates": [
+17747,
+17747
 ]
 },
 {
@@ -6447,6 +7108,18 @@
 ]
 },
 {
+"oco_id": 660,
+"page": 255,
+"incipit": "Auctor salutis unice",
+"mode": null,
+"gregobase": 17865,
+"confidence": "hymn-incipit",
+"candidates": [
+17865,
+17865
+]
+},
+{
 "oco_id": 661,
 "page": 255,
 "incipit": "O mors, ero mors tua; morsus",
@@ -6527,6 +7200,17 @@
 ]
 },
 {
+"oco_id": 669,
+"page": 258,
+"incipit": "Aurora lucis rutilat",
+"mode": null,
+"gregobase": 15087,
+"confidence": "lhym+incipit",
+"candidates": [
+15087
+]
+},
+{
 "oco_id": 670,
 "page": 258,
 "incipit": "Surréxit Christus et illúxit pópulo suo,",
@@ -6583,6 +7267,18 @@
 ]
 },
 {
+"oco_id": 675,
+"page": 260,
+"incipit": "Iam surgit hora tertia",
+"mode": null,
+"gregobase": 15088,
+"confidence": "lhym+incipit",
+"candidates": [
+15088,
+15488
+]
+},
+{
 "oco_id": 676,
 "page": 260,
 "incipit": "Christus resúrgens ex mórtuis iam non",
@@ -6591,6 +7287,17 @@
 "confidence": "verona",
 "candidates": [
 15150
+]
+},
+{
+"oco_id": 677,
+"page": 261,
+"incipit": "Venite servi supplices",
+"mode": null,
+"gregobase": 15089,
+"confidence": "lhym+incipit",
+"candidates": [
+15089
 ]
 },
 {
@@ -6605,6 +7312,17 @@
 ]
 },
 {
+"oco_id": 679,
+"page": 261,
+"incipit": "Hæc hora quæ resplenduit",
+"mode": null,
+"gregobase": 15090,
+"confidence": "lhym+incipit",
+"candidates": [
+15090
+]
+},
+{
 "oco_id": 680,
 "page": 261,
 "incipit": "Pascha nostrum Christus est, qui immolátus",
@@ -6613,6 +7331,21 @@
 "confidence": "verona",
 "candidates": [
 14890
+]
+},
+{
+"oco_id": 681,
+"page": 262,
+"incipit": "Ad cenam Agni",
+"mode": null,
+"gregobase": 4502,
+"confidence": "hymn-incipit",
+"candidates": [
+4502,
+7827,
+9797,
+9947,
+10031
 ]
 },
 {
@@ -6671,6 +7404,17 @@
 ]
 },
 {
+"oco_id": 687,
+"page": 264,
+"incipit": "Iesu redemptor sæculi",
+"mode": null,
+"gregobase": 15084,
+"confidence": "lhym+incipit",
+"candidates": [
+15084
+]
+},
+{
 "oco_id": 689,
 "page": 264,
 "incipit": "Hæc dies quam fecit Dóminus: exsultémus",
@@ -6679,6 +7423,43 @@
 "confidence": "verona-mode?",
 "candidates": [
 15316
+]
+},
+{
+"oco_id": 690,
+"page": 265,
+"incipit": "Ad cenam Agni",
+"mode": null,
+"gregobase": 4502,
+"confidence": "hymn-incipit",
+"candidates": [
+4502,
+7827,
+9797,
+9947,
+10031
+]
+},
+{
+"oco_id": 691,
+"page": 265,
+"incipit": "Iesu redemptor sæculi",
+"mode": null,
+"gregobase": 15084,
+"confidence": "lhym+incipit",
+"candidates": [
+15084
+]
+},
+{
+"oco_id": 694,
+"page": 265,
+"incipit": "Hic est dies",
+"mode": null,
+"gregobase": 15086,
+"confidence": "lhym+incipit",
+"candidates": [
+15086
 ]
 },
 {
@@ -7020,6 +7801,88 @@
 "confidence": "verona",
 "candidates": [
 14906
+]
+},
+{
+"oco_id": 727,
+"page": 280,
+"incipit": "Ad cenam Agni",
+"mode": null,
+"gregobase": 4502,
+"confidence": "hymn-incipit",
+"candidates": [
+4502,
+7827,
+9797,
+9947,
+10031
+]
+},
+{
+"oco_id": 728,
+"page": 280,
+"incipit": "Iesu redemptor sæculi",
+"mode": null,
+"gregobase": 15084,
+"confidence": "lhym+incipit",
+"candidates": [
+15084
+]
+},
+{
+"oco_id": 730,
+"page": 280,
+"incipit": "Hic est dies",
+"mode": null,
+"gregobase": 15086,
+"confidence": "lhym+incipit",
+"candidates": [
+15086
+]
+},
+{
+"oco_id": 732,
+"page": 280,
+"incipit": "Aurora lucis",
+"mode": null,
+"gregobase": 15087,
+"confidence": "lhym+incipit",
+"candidates": [
+15087
+]
+},
+{
+"oco_id": 734,
+"page": 280,
+"incipit": "Iam surgit hora",
+"mode": null,
+"gregobase": 15088,
+"confidence": "lhym+incipit",
+"candidates": [
+15088,
+15488
+]
+},
+{
+"oco_id": 735,
+"page": 280,
+"incipit": "Venite servi supplices",
+"mode": null,
+"gregobase": 15089,
+"confidence": "lhym+incipit",
+"candidates": [
+15089
+]
+},
+{
+"oco_id": 736,
+"page": 280,
+"incipit": "Hæc hora",
+"mode": null,
+"gregobase": 15090,
+"confidence": "lhym+incipit",
+"candidates": [
+15090
 ]
 },
 {
@@ -8502,6 +9365,17 @@
 ]
 },
 {
+"oco_id": 885,
+"page": 339,
+"incipit": "Iesu nostra redemptio",
+"mode": null,
+"gregobase": 4515,
+"confidence": "lhym+incipit",
+"candidates": [
+4515
+]
+},
+{
 "oco_id": 886,
 "page": 339,
 "incipit": "Exívi a Patre et veni in",
@@ -8568,6 +9442,17 @@
 ]
 },
 {
+"oco_id": 892,
+"page": 341,
+"incipit": "Æterne rex altissime",
+"mode": null,
+"gregobase": 8704,
+"confidence": "lhym+incipit",
+"candidates": [
+8704
+]
+},
+{
 "oco_id": 893,
 "page": 341,
 "incipit": "Exaltáre, Dómine, in virtúte tua; cantábimus",
@@ -8598,6 +9483,17 @@
 "confidence": "verona",
 "candidates": [
 15050
+]
+},
+{
+"oco_id": 896,
+"page": 342,
+"incipit": "Optatus votis",
+"mode": null,
+"gregobase": 15200,
+"confidence": "lhym+incipit",
+"candidates": [
+15200
 ]
 },
 {
@@ -8693,6 +9589,17 @@
 ]
 },
 {
+"oco_id": 905,
+"page": 345,
+"incipit": "Iesu nostra redemptio",
+"mode": null,
+"gregobase": 4515,
+"confidence": "lhym+incipit",
+"candidates": [
+4515
+]
+},
+{
 "oco_id": 906,
 "page": 345,
 "incipit": "Sede a dextris meis, dixit Dóminus",
@@ -8748,6 +9655,17 @@
 ]
 },
 {
+"oco_id": 911,
+"page": 348,
+"incipit": "Veni creator Spiritus",
+"mode": null,
+"gregobase": 14258,
+"confidence": "lhym+incipit",
+"candidates": [
+14258
+]
+},
+{
 "oco_id": 912,
 "page": 348,
 "incipit": "Spíritus Paráclitus, Allelúia allelúia. ℣. Docébit",
@@ -8759,6 +9677,17 @@
 ]
 },
 {
+"oco_id": 913,
+"page": 348,
+"incipit": "Iesu redemptor sæculi",
+"mode": null,
+"gregobase": 15084,
+"confidence": "lhym+incipit",
+"candidates": [
+15084
+]
+},
+{
 "oco_id": 914,
 "page": 348,
 "incipit": "Christum Dóminum, qui Sanctum nobis promísit",
@@ -8767,6 +9696,62 @@
 "confidence": "incipit",
 "candidates": [
 7270
+]
+},
+{
+"oco_id": 915,
+"page": 349,
+"incipit": "Æterne rex altissime",
+"mode": null,
+"gregobase": 8704,
+"confidence": "lhym+incipit",
+"candidates": [
+8704
+]
+},
+{
+"oco_id": 916,
+"page": 349,
+"incipit": "Optatus votis",
+"mode": null,
+"gregobase": 15200,
+"confidence": "lhym+incipit",
+"candidates": [
+15200
+]
+},
+{
+"oco_id": 917,
+"page": 349,
+"incipit": "Iam surgit hora",
+"mode": null,
+"gregobase": 15088,
+"confidence": "lhym+incipit",
+"candidates": [
+15088,
+15488
+]
+},
+{
+"oco_id": 918,
+"page": 349,
+"incipit": "Venite servi supplices",
+"mode": null,
+"gregobase": 15089,
+"confidence": "lhym+incipit",
+"candidates": [
+15089
+]
+},
+{
+"oco_id": 919,
+"page": 349,
+"incipit": "Hæc hora",
+"mode": null,
+"gregobase": 15090,
+"confidence": "lhym+incipit",
+"candidates": [
+15090
 ]
 },
 {
@@ -9038,6 +10023,17 @@
 ]
 },
 {
+"oco_id": 944,
+"page": 361,
+"incipit": "Veni creator Spiritus",
+"mode": null,
+"gregobase": 14258,
+"confidence": "lhym+incipit",
+"candidates": [
+14258
+]
+},
+{
 "oco_id": 945,
 "page": 361,
 "incipit": "Dum compleréntur dies Pentecóstes, erant omnes",
@@ -9093,6 +10089,17 @@
 ]
 },
 {
+"oco_id": 950,
+"page": 363,
+"incipit": "Iesu redemptor sæculi",
+"mode": null,
+"gregobase": 4674,
+"confidence": "hymn-incipit",
+"candidates": [
+4674
+]
+},
+{
 "oco_id": 951,
 "page": 364,
 "incipit": "Allelúia, Spíritus Dómini replévit orbem terrárum:",
@@ -9101,6 +10108,17 @@
 "confidence": "source+incipit",
 "candidates": [
 15366
+]
+},
+{
+"oco_id": 952,
+"page": 364,
+"incipit": "Lux iucunda",
+"mode": null,
+"gregobase": 15367,
+"confidence": "lhym+incipit",
+"candidates": [
+15367
 ]
 },
 {
@@ -9134,6 +10152,24 @@
 "confidence": "verona",
 "candidates": [
 15053
+]
+},
+{
+"oco_id": 956,
+"page": 365,
+"incipit": "Beata nobis gaudia",
+"mode": null,
+"gregobase": 2926,
+"confidence": "hymn-incipit",
+"candidates": [
+2926,
+9146,
+9803,
+11858,
+17804,
+2926,
+9146,
+9803
 ]
 },
 {
@@ -9192,6 +10228,17 @@
 ]
 },
 {
+"oco_id": 962,
+"page": 367,
+"incipit": "Iam Christus astra",
+"mode": null,
+"gregobase": 17812,
+"confidence": "lhym+incipit",
+"candidates": [
+17812
+]
+},
+{
 "oco_id": 963,
 "page": 367,
 "incipit": "Spíritus Sanctus, procédens a throno, apostolórum",
@@ -9200,6 +10247,17 @@
 "confidence": "verona",
 "candidates": [
 14932
+]
+},
+{
+"oco_id": 964,
+"page": 368,
+"incipit": "Venite servi supplices",
+"mode": null,
+"gregobase": 17810,
+"confidence": "lhym+incipit",
+"candidates": [
+17810
 ]
 },
 {
@@ -9215,6 +10273,17 @@
 ]
 },
 {
+"oco_id": 966,
+"page": 368,
+"incipit": "Hæc hora",
+"mode": null,
+"gregobase": 17811,
+"confidence": "lhym+incipit",
+"candidates": [
+17811
+]
+},
+{
 "oco_id": 967,
 "page": 368,
 "incipit": "Non enim vos estis qui loquímini,",
@@ -9223,6 +10292,17 @@
 "confidence": "verona",
 "candidates": [
 14869
+]
+},
+{
+"oco_id": 968,
+"page": 368,
+"incipit": "Veni creator Spiritus",
+"mode": null,
+"gregobase": 14258,
+"confidence": "lhym+incipit",
+"candidates": [
+14258
 ]
 },
 {
@@ -12194,6 +13274,17 @@
 ]
 },
 {
+"oco_id": 1262,
+"page": 512,
+"incipit": "Immensa et una trinitas",
+"mode": null,
+"gregobase": 15453,
+"confidence": "lhym+incipit",
+"candidates": [
+15453
+]
+},
+{
 "oco_id": 1263,
 "page": 512,
 "incipit": "Glória tibi, Trínitas æquális, una Déitas,",
@@ -12265,6 +13356,17 @@
 ]
 },
 {
+"oco_id": 1269,
+"page": 514,
+"incipit": "Te Patrem summum",
+"mode": null,
+"gregobase": 15454,
+"confidence": "lhym+incipit",
+"candidates": [
+15454
+]
+},
+{
 "oco_id": 1270,
 "page": 514,
 "incipit": "Adésto, Deus unus, omnípotens Pater et",
@@ -12295,6 +13397,17 @@
 "confidence": "verona",
 "candidates": [
 15475
+]
+},
+{
+"oco_id": 1273,
+"page": 516,
+"incipit": "Trinitas summo solio",
+"mode": null,
+"gregobase": 15455,
+"confidence": "lhym+incipit",
+"candidates": [
+15455
 ]
 },
 {
@@ -12430,6 +13543,17 @@
 ]
 },
 {
+"oco_id": 1287,
+"page": 521,
+"incipit": "Pange lingua",
+"mode": null,
+"gregobase": 8671,
+"confidence": "lhym+incipit",
+"candidates": [
+8671
+]
+},
+{
 "oco_id": 1288,
 "page": 521,
 "incipit": "Miserátor Dóminus escam dedit timéntibus se",
@@ -12499,6 +13623,15 @@
 ]
 },
 {
+"oco_id": 1294,
+"page": 524,
+"incipit": "Sacris sollemniis",
+"mode": null,
+"gregobase": null,
+"confidence": null,
+"candidates": []
+},
+{
 "oco_id": 1295,
 "page": 524,
 "incipit": "Dícite invitátis: Ecce prándium meum parávi:",
@@ -12531,6 +13664,17 @@
 "confidence": "verona-mode?",
 "candidates": [
 15537
+]
+},
+{
+"oco_id": 1298,
+"page": 525,
+"incipit": "Verbum supernum",
+"mode": null,
+"gregobase": 15553,
+"confidence": "lhym+incipit",
+"candidates": [
+15553
 ]
 },
 {
@@ -12671,6 +13815,17 @@
 ]
 },
 {
+"oco_id": 1312,
+"page": 530,
+"incipit": "Auctor beate sæculi",
+"mode": null,
+"gregobase": 10383,
+"confidence": "lhym+incipit",
+"candidates": [
+10383
+]
+},
+{
 "oco_id": 1313,
 "page": 530,
 "incipit": "In caritáte perpétua diléxit nos Deus;",
@@ -12739,6 +13894,17 @@
 ]
 },
 {
+"oco_id": 1319,
+"page": 533,
+"incipit": "Cor arca legem",
+"mode": null,
+"gregobase": 8129,
+"confidence": "lhym+incipit",
+"candidates": [
+8129
+]
+},
+{
 "oco_id": 1320,
 "page": 533,
 "incipit": "Apud te est fons vitæ; torrénte",
@@ -12769,6 +13935,17 @@
 "confidence": "verona",
 "candidates": [
 15587
+]
+},
+{
+"oco_id": 1323,
+"page": 534,
+"incipit": "Iesu auctor clementiæ",
+"mode": null,
+"gregobase": 8737,
+"confidence": "lhym+incipit",
+"candidates": [
+8737
 ]
 },
 {
@@ -12909,6 +14086,17 @@
 ]
 },
 {
+"oco_id": 1337,
+"page": 538,
+"incipit": "Te sæculorum principem",
+"mode": null,
+"gregobase": 11361,
+"confidence": "lhym+incipit",
+"candidates": [
+11361
+]
+},
+{
 "oco_id": 1338,
 "page": 538,
 "incipit": "Pacíficus vocábitur, et thronus eius erit",
@@ -12978,6 +14166,17 @@
 ]
 },
 {
+"oco_id": 1344,
+"page": 541,
+"incipit": "Iesu rex admirabilis",
+"mode": null,
+"gregobase": 16104,
+"confidence": "lhym+incipit",
+"candidates": [
+16104
+]
+},
+{
 "oco_id": 1345,
 "page": 541,
 "incipit": "Ego autem constitútus sum rex ab",
@@ -13013,6 +14212,17 @@
 "confidence": "verona",
 "candidates": [
 16778
+]
+},
+{
+"oco_id": 1348,
+"page": 542,
+"incipit": "Æterna imago Altissimi",
+"mode": null,
+"gregobase": 16110,
+"confidence": "lhym+incipit",
+"candidates": [
+16110
 ]
 },
 {
@@ -13175,6 +14385,48 @@
 ]
 },
 {
+"oco_id": 1362,
+"page": 547,
+"incipit": "Dies iræ",
+"mode": null,
+"gregobase": null,
+"confidence": null,
+"candidates": []
+},
+{
+"oco_id": 1363,
+"page": 547,
+"incipit": "Quid sum miser",
+"mode": null,
+"gregobase": 16848,
+"confidence": "lhym+incipit",
+"candidates": [
+16848
+]
+},
+{
+"oco_id": 1364,
+"page": 547,
+"incipit": "Peccatricem qui solvisti",
+"mode": null,
+"gregobase": 16849,
+"confidence": "lhym+incipit",
+"candidates": [
+16849
+]
+},
+{
+"oco_id": 1365,
+"page": 548,
+"incipit": "Deus creator omnium",
+"mode": null,
+"gregobase": 7367,
+"confidence": "lhym+incipit",
+"candidates": [
+7367
+]
+},
+{
 "oco_id": 1366,
 "page": 548,
 "incipit": "Dómine, clamávi ad te, exáudi me.",
@@ -13231,6 +14483,29 @@
 ]
 },
 {
+"oco_id": 1372,
+"page": 550,
+"incipit": "Primo dierum omnium",
+"mode": null,
+"gregobase": 4556,
+"confidence": "lhym+incipit",
+"candidates": [
+4556
+]
+},
+{
+"oco_id": 1373,
+"page": 550,
+"incipit": "Dies ætasque ceteris",
+"mode": null,
+"gregobase": 10515,
+"confidence": "lhym+incipit",
+"candidates": [
+10515,
+15628
+]
+},
+{
 "oco_id": 1374,
 "page": 550,
 "incipit": "In lege Dómini fuit volúntas eius",
@@ -13261,6 +14536,17 @@
 "confidence": "verona",
 "candidates": [
 11004
+]
+},
+{
+"oco_id": 1377,
+"page": 551,
+"incipit": "Æterne rerum conditor",
+"mode": null,
+"gregobase": 15601,
+"confidence": "lhym+incipit",
+"candidates": [
+15601
 ]
 },
 {
@@ -13342,6 +14628,17 @@
 ]
 },
 {
+"oco_id": 1388,
+"page": 553,
+"incipit": "Lucis creator",
+"mode": null,
+"gregobase": 15605,
+"confidence": "lhym+incipit",
+"candidates": [
+15605
+]
+},
+{
 "oco_id": 1389,
 "page": 553,
 "incipit": "Virgam virtútis tuæ emíttet Dóminus ex",
@@ -13387,6 +14684,29 @@
 ]
 },
 {
+"oco_id": 1395,
+"page": 555,
+"incipit": "Somno refectis artubus",
+"mode": null,
+"gregobase": 4558,
+"confidence": "lhym+incipit",
+"candidates": [
+4558,
+15627
+]
+},
+{
+"oco_id": 1396,
+"page": 555,
+"incipit": "Æterna lux",
+"mode": null,
+"gregobase": 15607,
+"confidence": "lhym+incipit",
+"candidates": [
+15607
+]
+},
+{
 "oco_id": 1397,
 "page": 555,
 "incipit": "Miserére mihi, Dómine, quóniam infírmus sum,",
@@ -13417,6 +14737,17 @@
 "confidence": "verona",
 "candidates": [
 11007
+]
+},
+{
+"oco_id": 1400,
+"page": 556,
+"incipit": "Splendor paternæ gloriæ",
+"mode": null,
+"gregobase": 15608,
+"confidence": "lhym+incipit",
+"candidates": [
+15608
 ]
 },
 {
@@ -13480,6 +14811,40 @@
 ]
 },
 {
+"oco_id": 1406,
+"page": 557,
+"incipit": "Nunc Sancte nobis",
+"mode": null,
+"gregobase": 4557,
+"confidence": "lhym+incipit",
+"candidates": [
+4557,
+18011
+]
+},
+{
+"oco_id": 1407,
+"page": 557,
+"incipit": "Rector potens",
+"mode": null,
+"gregobase": 15609,
+"confidence": "lhym+incipit",
+"candidates": [
+15609
+]
+},
+{
+"oco_id": 1408,
+"page": 557,
+"incipit": "Rerum Deus",
+"mode": null,
+"gregobase": 15610,
+"confidence": "lhym+incipit",
+"candidates": [
+15610
+]
+},
+{
 "oco_id": 1409,
 "page": 557,
 "incipit": "Præcéptum Dómini lúcidum, illúminans óculos.",
@@ -13510,6 +14875,17 @@
 "confidence": "verona",
 "candidates": [
 11126
+]
+},
+{
+"oco_id": 1412,
+"page": 558,
+"incipit": "Immense cæli conditor",
+"mode": null,
+"gregobase": 15611,
+"confidence": "lhym+incipit",
+"candidates": [
+15611
 ]
 },
 {
@@ -13580,6 +14956,29 @@
 ]
 },
 {
+"oco_id": 1420,
+"page": 560,
+"incipit": "Consors paterni luminis",
+"mode": null,
+"gregobase": 4559,
+"confidence": "lhym+incipit",
+"candidates": [
+4559,
+15616
+]
+},
+{
+"oco_id": 1421,
+"page": 560,
+"incipit": "O sacrosancta Trinitas",
+"mode": null,
+"gregobase": 15617,
+"confidence": "lhym+incipit",
+"candidates": [
+15617
+]
+},
+{
 "oco_id": 1422,
 "page": 561,
 "incipit": "Ut quid, Dómine, recessísti longe?",
@@ -13610,6 +15009,17 @@
 "confidence": "verona",
 "candidates": [
 11012
+]
+},
+{
+"oco_id": 1425,
+"page": 561,
+"incipit": "Pergrata mundo nuntiat",
+"mode": null,
+"gregobase": 15629,
+"confidence": "lhym+incipit",
+"candidates": [
+15629
 ]
 },
 {
@@ -13702,6 +15112,17 @@
 ]
 },
 {
+"oco_id": 1435,
+"page": 564,
+"incipit": "Telluris ingens conditor",
+"mode": null,
+"gregobase": 15635,
+"confidence": "lhym+incipit",
+"candidates": [
+15635
+]
+},
+{
 "oco_id": 1436,
 "page": 564,
 "incipit": "Exáudiat te Dóminus in die tribulatiónis.",
@@ -13768,6 +15189,29 @@
 ]
 },
 {
+"oco_id": 1443,
+"page": 566,
+"incipit": "Rerum creator optime",
+"mode": null,
+"gregobase": 4560,
+"confidence": "lhym+incipit",
+"candidates": [
+4560,
+15618
+]
+},
+{
+"oco_id": 1444,
+"page": 566,
+"incipit": "Scientiarum Domino",
+"mode": null,
+"gregobase": 15619,
+"confidence": "lhym+incipit",
+"candidates": [
+15619
+]
+},
+{
 "oco_id": 1445,
 "page": 566,
 "incipit": "Díligam te, Dómine, virtus mea.",
@@ -13798,6 +15242,17 @@
 "confidence": "source+incipit",
 "candidates": [
 18043
+]
+},
+{
+"oco_id": 1448,
+"page": 567,
+"incipit": "Nox et tenebræ",
+"mode": null,
+"gregobase": 15630,
+"confidence": "lhym+incipit",
+"candidates": [
+15630
 ]
 },
 {
@@ -13889,6 +15344,17 @@
 ]
 },
 {
+"oco_id": 1458,
+"page": 570,
+"incipit": "Cæli Deus sanctissime",
+"mode": null,
+"gregobase": 15636,
+"confidence": "lhym+incipit",
+"candidates": [
+15636
+]
+},
+{
 "oco_id": 1459,
 "page": 570,
 "incipit": "Illuminátio mea et salus mea Dóminus.",
@@ -13955,6 +15421,29 @@
 ]
 },
 {
+"oco_id": 1466,
+"page": 572,
+"incipit": "Nox atra rerum",
+"mode": null,
+"gregobase": 4561,
+"confidence": "lhym+incipit",
+"candidates": [
+4561,
+15620
+]
+},
+{
+"oco_id": 1467,
+"page": 572,
+"incipit": "Christe precamur adnuas",
+"mode": null,
+"gregobase": 15621,
+"confidence": "lhym+incipit",
+"candidates": [
+15621
+]
+},
+{
 "oco_id": 1468,
 "page": 572,
 "incipit": "Dóminus firmaméntum meum et refúgium meum.",
@@ -13985,6 +15474,17 @@
 "confidence": "verona",
 "candidates": [
 11018
+]
+},
+{
+"oco_id": 1471,
+"page": 573,
+"incipit": "Sol ecce surgit",
+"mode": null,
+"gregobase": 15631,
+"confidence": "lhym+incipit",
+"candidates": [
+15631
 ]
 },
 {
@@ -14076,6 +15576,17 @@
 ]
 },
 {
+"oco_id": 1481,
+"page": 575,
+"incipit": "Magnæ Deus potentiæ",
+"mode": null,
+"gregobase": 15637,
+"confidence": "lhym+incipit",
+"candidates": [
+15637
+]
+},
+{
 "oco_id": 1482,
 "page": 575,
 "incipit": "Exaltábo te, Dómine, quóniam suscepísti me,",
@@ -14147,6 +15658,30 @@
 ]
 },
 {
+"oco_id": 1489,
+"page": 578,
+"incipit": "Tu Trinitatis Unitas",
+"mode": null,
+"gregobase": 4562,
+"confidence": "lhym+incipit",
+"candidates": [
+4562,
+15622
+]
+},
+{
+"oco_id": 1490,
+"page": 578,
+"incipit": "Adesto Christe",
+"mode": null,
+"gregobase": 10449,
+"confidence": "lhym+incipit",
+"candidates": [
+10449,
+15623
+]
+},
+{
 "oco_id": 1491,
 "page": 578,
 "incipit": "Expúgna impugnántes me.",
@@ -14177,6 +15712,17 @@
 "confidence": "verona",
 "candidates": [
 11021
+]
+},
+{
+"oco_id": 1494,
+"page": 579,
+"incipit": "Æterna cæli gloria",
+"mode": null,
+"gregobase": 15632,
+"confidence": "lhym+incipit",
+"candidates": [
+15632
 ]
 },
 {
@@ -14268,6 +15814,17 @@
 ]
 },
 {
+"oco_id": 1504,
+"page": 581,
+"incipit": "Plasmator hominis",
+"mode": null,
+"gregobase": 15638,
+"confidence": "lhym+incipit",
+"candidates": [
+15638
+]
+},
+{
 "oco_id": 1505,
 "page": 581,
 "incipit": "Sana, Dómine, ánimam meam, quia peccávi",
@@ -14335,6 +15892,29 @@
 ]
 },
 {
+"oco_id": 1512,
+"page": 584,
+"incipit": "Summæ Deus clementiæ",
+"mode": null,
+"gregobase": 4563,
+"confidence": "lhym+incipit",
+"candidates": [
+4563,
+15625
+]
+},
+{
+"oco_id": 1513,
+"page": 584,
+"incipit": "Auctor perennis gloriæ",
+"mode": null,
+"gregobase": 15624,
+"confidence": "lhym+incipit",
+"candidates": [
+15624
+]
+},
+{
 "oco_id": 1514,
 "page": 584,
 "incipit": "Lætétur cor quæréntium Dóminum. E u",
@@ -14385,6 +15965,18 @@
 "confidence": "verona",
 "candidates": [
 11027
+]
+},
+{
+"oco_id": 1520,
+"page": 586,
+"incipit": "Aurora iam spargit",
+"mode": null,
+"gregobase": 15633,
+"confidence": "lhym+incipit",
+"candidates": [
+15633,
+15634
 ]
 },
 {
@@ -14478,6 +16070,17 @@
 ]
 },
 {
+"oco_id": 1530,
+"page": 589,
+"incipit": "Rerum Deus fons",
+"mode": null,
+"gregobase": 4637,
+"confidence": "lhym+incipit",
+"candidates": [
+4637
+]
+},
+{
 "oco_id": 1531,
 "page": 589,
 "incipit": "Illúmina óculos meos, Dómine.",
@@ -14525,6 +16128,40 @@
 ]
 },
 {
+"oco_id": 1536,
+"page": 590,
+"incipit": "Mediæ noctis",
+"mode": null,
+"gregobase": 4610,
+"confidence": "lhym+incipit",
+"candidates": [
+4610
+]
+},
+{
+"oco_id": 1537,
+"page": 590,
+"incipit": "Salve dies  vel",
+"mode": null,
+"gregobase": 10458,
+"confidence": "lhym+incipit",
+"candidates": [
+10458
+]
+},
+{
+"oco_id": 1538,
+"page": 590,
+"incipit": "Dies ætasque",
+"mode": null,
+"gregobase": 10515,
+"confidence": "lhym+incipit",
+"candidates": [
+10515,
+15628
+]
+},
+{
 "oco_id": 1539,
 "page": 590,
 "incipit": "Confessiónem et decórem induísti, amíctus lúmine",
@@ -14555,6 +16192,22 @@
 "confidence": "verona",
 "candidates": [
 11030
+]
+},
+{
+"oco_id": 1542,
+"page": 591,
+"incipit": "Ecce iam noctis",
+"mode": null,
+"gregobase": 4129,
+"confidence": "hymn-incipit",
+"candidates": [
+4129,
+7880,
+4129,
+7880,
+4935,
+6808
 ]
 },
 {
@@ -14600,6 +16253,42 @@
 "candidates": []
 },
 {
+"oco_id": 1547,
+"page": 593,
+"incipit": "Certum tenentes ordinem",
+"mode": null,
+"gregobase": 16812,
+"confidence": "lhym+incipit",
+"candidates": [
+16812,
+16813
+]
+},
+{
+"oco_id": 1548,
+"page": 593,
+"incipit": "Dicamus laudes Domino",
+"mode": null,
+"gregobase": 16817,
+"confidence": "lhym+incipit",
+"candidates": [
+16817,
+16819
+]
+},
+{
+"oco_id": 1549,
+"page": 593,
+"incipit": "Ternis horarum terminis",
+"mode": null,
+"gregobase": 16827,
+"confidence": "lhym+incipit",
+"candidates": [
+16827,
+16829
+]
+},
+{
 "oco_id": 1550,
 "page": 593,
 "incipit": "In loco páscuæ ibi me collocávit.",
@@ -14631,6 +16320,15 @@
 "candidates": [
 10869
 ]
+},
+{
+"oco_id": 1553,
+"page": 594,
+"incipit": "O lux beata",
+"mode": null,
+"gregobase": null,
+"confidence": null,
+"candidates": []
 },
 {
 "oco_id": 1554,
@@ -14666,6 +16364,28 @@
 ]
 },
 {
+"oco_id": 1559,
+"page": 595,
+"incipit": "Ipsum nunc nobis",
+"mode": null,
+"gregobase": 4615,
+"confidence": "lhym+incipit",
+"candidates": [
+4615
+]
+},
+{
+"oco_id": 1560,
+"page": 595,
+"incipit": "Vita sanctorum",
+"mode": null,
+"gregobase": 16745,
+"confidence": "lhym+incipit",
+"candidates": [
+16745
+]
+},
+{
 "oco_id": 1561,
 "page": 595,
 "incipit": "In tua iustítia líbera me, Dómine.",
@@ -14696,6 +16416,17 @@
 "confidence": "verona",
 "candidates": [
 11033
+]
+},
+{
+"oco_id": 1564,
+"page": 596,
+"incipit": "Lucis largitor splendide",
+"mode": null,
+"gregobase": 7502,
+"confidence": "lhym+incipit",
+"candidates": [
+7502
 ]
 },
 {
@@ -14756,6 +16487,40 @@
 ]
 },
 {
+"oco_id": 1570,
+"page": 598,
+"incipit": "Certum tenentes ordinem",
+"mode": null,
+"gregobase": 16814,
+"confidence": "lhym+incipit",
+"candidates": [
+16814,
+16815
+]
+},
+{
+"oco_id": 1571,
+"page": 598,
+"incipit": "Dicamus laudes Domino",
+"mode": null,
+"gregobase": 16820,
+"confidence": "lhym+incipit",
+"candidates": [
+16820
+]
+},
+{
+"oco_id": 1572,
+"page": 598,
+"incipit": "Ternis horarum terminis",
+"mode": null,
+"gregobase": 16830,
+"confidence": "lhym+incipit",
+"candidates": [
+16830
+]
+},
+{
 "oco_id": 1573,
 "page": 598,
 "incipit": "Beáti qui áudiunt verbum Dei et",
@@ -14786,6 +16551,17 @@
 "confidence": "verona",
 "candidates": [
 10682
+]
+},
+{
+"oco_id": 1576,
+"page": 599,
+"incipit": "Luminis fons",
+"mode": null,
+"gregobase": 15699,
+"confidence": "lhym+incipit",
+"candidates": [
+15699
 ]
 },
 {
@@ -14844,6 +16620,28 @@
 ]
 },
 {
+"oco_id": 1583,
+"page": 601,
+"incipit": "Nocte surgentes",
+"mode": null,
+"gregobase": 4616,
+"confidence": "lhym+incipit",
+"candidates": [
+4616
+]
+},
+{
+"oco_id": 1584,
+"page": 601,
+"incipit": "Ad preces nostras",
+"mode": null,
+"gregobase": 10445,
+"confidence": "lhym+incipit",
+"candidates": [
+10445
+]
+},
+{
 "oco_id": 1585,
 "page": 601,
 "incipit": "Revéla Dómino viam tuam.",
@@ -14874,6 +16672,17 @@
 "confidence": "verona",
 "candidates": [
 11036
+]
+},
+{
+"oco_id": 1588,
+"page": 602,
+"incipit": "Æterne lucis conditor",
+"mode": null,
+"gregobase": 16710,
+"confidence": "lhym+incipit",
+"candidates": [
+16710
 ]
 },
 {
@@ -14963,6 +16772,17 @@
 ]
 },
 {
+"oco_id": 1598,
+"page": 605,
+"incipit": "Sator princepsque",
+"mode": null,
+"gregobase": 16712,
+"confidence": "lhym+incipit",
+"candidates": [
+16712
+]
+},
+{
 "oco_id": 1599,
 "page": 605,
 "incipit": "Auribus percípite, qui habitátis orbem.",
@@ -15016,6 +16836,28 @@
 ]
 },
 {
+"oco_id": 1605,
+"page": 607,
+"incipit": "O sator rerum",
+"mode": null,
+"gregobase": 4617,
+"confidence": "lhym+incipit",
+"candidates": [
+4617
+]
+},
+{
+"oco_id": 1606,
+"page": 607,
+"incipit": "Christe lux vera",
+"mode": null,
+"gregobase": 10444,
+"confidence": "lhym+incipit",
+"candidates": [
+10444
+]
+},
+{
 "oco_id": 1607,
 "page": 607,
 "incipit": "Ut non delínquam in lingua mea.",
@@ -15046,6 +16888,17 @@
 "confidence": "verona",
 "candidates": [
 11039
+]
+},
+{
+"oco_id": 1610,
+"page": 608,
+"incipit": "Fulgentis auctor",
+"mode": null,
+"gregobase": 14141,
+"confidence": "lhym+incipit",
+"candidates": [
+14141
 ]
 },
 {
@@ -15139,6 +16992,17 @@
 ]
 },
 {
+"oco_id": 1620,
+"page": 610,
+"incipit": "Sol ecce lentus",
+"mode": null,
+"gregobase": 16746,
+"confidence": "lhym+incipit",
+"candidates": [
+16746
+]
+},
+{
 "oco_id": 1621,
 "page": 610,
 "incipit": "Nonne Deo súbdita erit ánima mea?",
@@ -15192,6 +17056,28 @@
 ]
 },
 {
+"oco_id": 1627,
+"page": 612,
+"incipit": "Ales diei nuntius",
+"mode": null,
+"gregobase": 4618,
+"confidence": "lhym+incipit",
+"candidates": [
+4618
+]
+},
+{
+"oco_id": 1628,
+"page": 612,
+"incipit": "Amoris sensus",
+"mode": null,
+"gregobase": 10447,
+"confidence": "lhym+incipit",
+"candidates": [
+10447
+]
+},
+{
 "oco_id": 1629,
 "page": 612,
 "incipit": "Exténde, Dómine, bráchium tuum, et líbera",
@@ -15222,6 +17108,17 @@
 "confidence": "verona",
 "candidates": [
 11042
+]
+},
+{
+"oco_id": 1632,
+"page": 614,
+"incipit": "Iam lucis orto",
+"mode": null,
+"gregobase": 15509,
+"confidence": "lhym+incipit",
+"candidates": [
+15509
 ]
 },
 {
@@ -15313,6 +17210,17 @@
 ]
 },
 {
+"oco_id": 1642,
+"page": 616,
+"incipit": "Deus qui claro lumine",
+"mode": null,
+"gregobase": 16747,
+"confidence": "lhym+incipit",
+"candidates": [
+16747
+]
+},
+{
 "oco_id": 1643,
 "page": 616,
 "incipit": "Suscípiant, Dómine, montes et colles pópulo",
@@ -15368,6 +17276,28 @@
 ]
 },
 {
+"oco_id": 1649,
+"page": 618,
+"incipit": "Galli cantu",
+"mode": null,
+"gregobase": 4620,
+"confidence": "lhym+incipit",
+"candidates": [
+4620
+]
+},
+{
+"oco_id": 1650,
+"page": 618,
+"incipit": "Adesto rerum conditor",
+"mode": null,
+"gregobase": 16749,
+"confidence": "lhym+incipit",
+"candidates": [
+16749
+]
+},
+{
 "oco_id": 1651,
 "page": 618,
 "incipit": "Ne in ira tua árguas me,",
@@ -15398,6 +17328,17 @@
 "confidence": "verona",
 "candidates": [
 11045
+]
+},
+{
+"oco_id": 1654,
+"page": 619,
+"incipit": "Deus qui cæli lumen",
+"mode": null,
+"gregobase": 16748,
+"confidence": "lhym+incipit",
+"candidates": [
+16748
 ]
 },
 {
@@ -15487,6 +17428,17 @@
 ]
 },
 {
+"oco_id": 1664,
+"page": 622,
+"incipit": "Horis peractis",
+"mode": null,
+"gregobase": 15693,
+"confidence": "lhym+incipit",
+"candidates": [
+15693
+]
+},
+{
 "oco_id": 1665,
 "page": 622,
 "incipit": "Inclinávit Dóminus aurem suam mihi.",
@@ -15550,6 +17502,28 @@
 "confidence": "verona",
 "candidates": [
 10830
+]
+},
+{
+"oco_id": 1672,
+"page": 624,
+"incipit": "Lux æterna",
+"mode": null,
+"gregobase": 4621,
+"confidence": "lhym+incipit",
+"candidates": [
+4621
+]
+},
+{
+"oco_id": 1673,
+"page": 624,
+"incipit": "Deus de nullo veniens",
+"mode": null,
+"gregobase": 16750,
+"confidence": "lhym+incipit",
+"candidates": [
+16750
 ]
 },
 {
@@ -15619,6 +17593,17 @@
 "confidence": "verona-mode?",
 "candidates": [
 11051
+]
+},
+{
+"oco_id": 1680,
+"page": 626,
+"incipit": "Diei luce reddita",
+"mode": null,
+"gregobase": 16058,
+"confidence": "lhym+incipit",
+"candidates": [
+16058
 ]
 },
 {
@@ -17766,6 +19751,28 @@
 ]
 },
 {
+"oco_id": 2016,
+"page": 703,
+"incipit": "Igne divini",
+"mode": null,
+"gregobase": 16975,
+"confidence": "lhym+incipit",
+"candidates": [
+16975
+]
+},
+{
+"oco_id": 2017,
+"page": 703,
+"incipit": "Agnes beatæ virginis",
+"mode": null,
+"gregobase": 14293,
+"confidence": "lhym+incipit",
+"candidates": [
+14293
+]
+},
+{
 "oco_id": 2018,
 "page": 703,
 "incipit": "Anulo suo subarrhávit me Dóminus meus",
@@ -17868,6 +19875,17 @@
 "candidates": [
 10451,
 4052
+]
+},
+{
+"oco_id": 2034,
+"page": 707,
+"incipit": "Pressi malorum pondere",
+"mode": null,
+"gregobase": 18005,
+"confidence": "lhym+incipit",
+"candidates": [
+18005
 ]
 },
 {
@@ -18000,6 +20018,18 @@
 "candidates": [
 6692,
 17196
+]
+},
+{
+"oco_id": 2047,
+"page": 712,
+"incipit": "Excelsam Pauli gloriam",
+"mode": null,
+"gregobase": 4273,
+"confidence": "lhym+incipit",
+"candidates": [
+4273,
+17971
 ]
 },
 {
@@ -18165,6 +20195,15 @@
 ]
 },
 {
+"oco_id": 2068,
+"page": 719,
+"incipit": "Legis sacrata",
+"mode": null,
+"gregobase": null,
+"confidence": null,
+"candidates": []
+},
+{
 "oco_id": 2069,
 "page": 719,
 "incipit": "Ecce pósitus est hic in ruínam",
@@ -18203,6 +20242,17 @@
 "candidates": [
 11478,
 11608
+]
+},
+{
+"oco_id": 2072,
+"page": 720,
+"incipit": "Adorna Sion",
+"mode": null,
+"gregobase": 8254,
+"confidence": "lhym+incipit",
+"candidates": [
+8254
 ]
 },
 {
@@ -18304,6 +20354,17 @@
 "confidence": "incipit+mode",
 "candidates": [
 17111
+]
+},
+{
+"oco_id": 2081,
+"page": 724,
+"incipit": "Quod chorus vatum",
+"mode": null,
+"gregobase": 4307,
+"confidence": "lhym+incipit",
+"candidates": [
+4307
 ]
 },
 {
@@ -18464,6 +20525,18 @@
 ]
 },
 {
+"oco_id": 2109,
+"page": 731,
+"incipit": "Regem Apostolorum Dominum",
+"mode": null,
+"gregobase": 10398,
+"confidence": "lhym+incipit",
+"candidates": [
+10398,
+16675
+]
+},
+{
 "oco_id": 2111,
 "page": 731,
 "incipit": "Ait Petrus princípibus sacerdótum: Iesum, quem",
@@ -18493,6 +20566,17 @@
 "gregobase": null,
 "confidence": null,
 "candidates": []
+},
+{
+"oco_id": 2114,
+"page": 733,
+"incipit": "Petrus beatus",
+"mode": null,
+"gregobase": 17500,
+"confidence": "lhym+incipit",
+"candidates": [
+17500
+]
 },
 {
 "oco_id": 2115,
@@ -18565,6 +20649,17 @@
 "candidates": [
 2012,
 13247
+]
+},
+{
+"oco_id": 2122,
+"page": 735,
+"incipit": "Divina vox",
+"mode": null,
+"gregobase": 7483,
+"confidence": "lhym+incipit",
+"candidates": [
+7483
 ]
 },
 {
@@ -18657,6 +20752,24 @@
 "candidates": []
 },
 {
+"oco_id": 2140,
+"page": 739,
+"incipit": "Te Ioseph celebrent",
+"mode": null,
+"gregobase": 2235,
+"confidence": "hymn-incipit",
+"candidates": [
+2235,
+12399,
+17290,
+17359,
+2235,
+12399,
+17290,
+17359
+]
+},
+{
 "oco_id": 2141,
 "page": 740,
 "incipit": "Iacob autem génuit Ioseph, virum Maríæ,",
@@ -18740,6 +20853,20 @@
 ]
 },
 {
+"oco_id": 2149,
+"page": 743,
+"incipit": "Iste quem læti colimus",
+"mode": null,
+"gregobase": 4995,
+"confidence": "hymn-incipit",
+"candidates": [
+12237,
+4995,
+7849,
+17655
+]
+},
+{
 "oco_id": 2150,
 "page": 743,
 "incipit": "Angelus Dómini appáruit in somnis Ioseph",
@@ -18774,6 +20901,24 @@
 "confidence": "incipit+mode",
 "candidates": [
 17657
+]
+},
+{
+"oco_id": 2153,
+"page": 744,
+"incipit": "Cælitum Ioseph",
+"mode": null,
+"gregobase": 5532,
+"confidence": "hymn-incipit",
+"candidates": [
+5532,
+17310,
+17643,
+18590,
+5532,
+17310,
+17643,
+18590
 ]
 },
 {
@@ -18935,6 +21080,17 @@
 ]
 },
 {
+"oco_id": 2170,
+"page": 751,
+"incipit": "Agnoscat omne sæculum",
+"mode": null,
+"gregobase": 8264,
+"confidence": "lhym+incipit",
+"candidates": [
+8264
+]
+},
+{
 "oco_id": 2171,
 "page": 751,
 "incipit": "Egrediétur virga de radíce Iesse, et",
@@ -19025,6 +21181,17 @@
 ]
 },
 {
+"oco_id": 2179,
+"page": 755,
+"incipit": "Iam cæca vis mortalium",
+"mode": null,
+"gregobase": 17688,
+"confidence": "hymn-incipit",
+"candidates": [
+17688
+]
+},
+{
 "oco_id": 2180,
 "page": 755,
 "incipit": "Ecce iam venit plenitúdo témporis, in",
@@ -19057,6 +21224,17 @@
 "confidence": "incipit+mode",
 "candidates": [
 17692
+]
+},
+{
+"oco_id": 2183,
+"page": 756,
+"incipit": "O lux salutis nuntia",
+"mode": null,
+"gregobase": 17707,
+"confidence": "hymn-incipit",
+"candidates": [
+17707
 ]
 },
 {
@@ -19231,6 +21409,28 @@
 "candidates": []
 },
 {
+"oco_id": 2219,
+"page": 764,
+"incipit": "O vir beate",
+"mode": null,
+"gregobase": 17817,
+"confidence": "lhym+incipit",
+"candidates": [
+17817
+]
+},
+{
+"oco_id": 2220,
+"page": 764,
+"incipit": "Mentibus lætis",
+"mode": null,
+"gregobase": 17997,
+"confidence": "lhym+incipit",
+"candidates": [
+17997
+]
+},
+{
 "oco_id": 2221,
 "page": 764,
 "incipit": "Sapiéntia Dómini evangélii erupérunt abýssi, et",
@@ -19323,6 +21523,28 @@
 ]
 },
 {
+"oco_id": 2236,
+"page": 769,
+"incipit": "Virgo prudentum",
+"mode": null,
+"gregobase": 18025,
+"confidence": "lhym+incipit",
+"candidates": [
+18025
+]
+},
+{
+"oco_id": 2237,
+"page": 769,
+"incipit": "Te Catharina maximis",
+"mode": null,
+"gregobase": 7288,
+"confidence": "lhym+incipit",
+"candidates": [
+7288
+]
+},
+{
 "oco_id": 2238,
 "page": 769,
 "incipit": "Ancílla fidélis et sponsa elécta intrávit",
@@ -19389,6 +21611,28 @@
 ]
 },
 {
+"oco_id": 2246,
+"page": 772,
+"incipit": "Te pater Ioseph",
+"mode": null,
+"gregobase": 15727,
+"confidence": "lhym+incipit",
+"candidates": [
+15727
+]
+},
+{
+"oco_id": 2247,
+"page": 772,
+"incipit": "Aurora solis nuntia",
+"mode": null,
+"gregobase": 16105,
+"confidence": "lhym+incipit",
+"candidates": [
+16105
+]
+},
+{
 "oco_id": 2248,
 "page": 772,
 "incipit": "Constítuit eum dominum domus suæ, Allelúia",
@@ -19408,6 +21652,24 @@
 "confidence": "incipit+mode",
 "candidates": [
 2127
+]
+},
+{
+"oco_id": 2250,
+"page": 773,
+"incipit": "Te Ioseph celebrent",
+"mode": null,
+"gregobase": 2235,
+"confidence": "hymn-incipit",
+"candidates": [
+2235,
+12399,
+17290,
+17359,
+2235,
+12399,
+17290,
+17359
 ]
 },
 {
@@ -19448,6 +21710,17 @@
 2881,
 5845,
 16154
+]
+},
+{
+"oco_id": 2255,
+"page": 775,
+"incipit": "Philippe summæ honoribus",
+"mode": null,
+"gregobase": 18004,
+"confidence": "lhym+incipit",
+"candidates": [
+18004
 ]
 },
 {
@@ -19590,6 +21863,28 @@
 ]
 },
 {
+"oco_id": 2293,
+"page": 782,
+"incipit": "Veni præcelsa Domina",
+"mode": null,
+"gregobase": 18023,
+"confidence": "lhym+incipit",
+"candidates": [
+18023
+]
+},
+{
+"oco_id": 2294,
+"page": 782,
+"incipit": "Veniens mater inclita",
+"mode": null,
+"gregobase": 15524,
+"confidence": "lhym+incipit",
+"candidates": [
+15524
+]
+},
+{
 "oco_id": 2295,
 "page": 782,
 "incipit": "Exsúrgens María ábiit in montána cum",
@@ -19670,6 +21965,17 @@
 "gregobase": null,
 "confidence": null,
 "candidates": []
+},
+{
+"oco_id": 2302,
+"page": 785,
+"incipit": "Concito gressu",
+"mode": null,
+"gregobase": 17962,
+"confidence": "lhym+incipit",
+"candidates": [
+17962
+]
 },
 {
 "oco_id": 2303,
@@ -19757,6 +22063,28 @@
 "candidates": []
 },
 {
+"oco_id": 2319,
+"page": 789,
+"incipit": "O vir beate",
+"mode": null,
+"gregobase": 17817,
+"confidence": "lhym+incipit",
+"candidates": [
+17817
+]
+},
+{
+"oco_id": 2320,
+"page": 790,
+"incipit": "Barnabæ clarum",
+"mode": null,
+"gregobase": 17931,
+"confidence": "lhym+incipit",
+"candidates": [
+17931
+]
+},
+{
 "oco_id": 2322,
 "page": 790,
 "incipit": "Docéte omnes gentes serváre ómnia quæcúmque",
@@ -19790,6 +22118,17 @@
 10367,
 11957,
 7102
+]
+},
+{
+"oco_id": 2335,
+"page": 792,
+"incipit": "Ut queant laxis",
+"mode": null,
+"gregobase": 15660,
+"confidence": "lhym+incipit",
+"candidates": [
+15660
 ]
 },
 {
@@ -19866,6 +22205,17 @@
 ]
 },
 {
+"oco_id": 2342,
+"page": 794,
+"incipit": "Antra deserti",
+"mode": null,
+"gregobase": 15662,
+"confidence": "lhym+incipit",
+"candidates": [
+15662
+]
+},
+{
 "oco_id": 2343,
 "page": 794,
 "incipit": "Dóminus ab útero vocávit me, de",
@@ -19898,6 +22248,17 @@
 "candidates": [
 11481,
 11611
+]
+},
+{
+"oco_id": 2346,
+"page": 796,
+"incipit": "O nimis felix",
+"mode": null,
+"gregobase": 15663,
+"confidence": "lhym+incipit",
+"candidates": [
+15663
 ]
 },
 {
@@ -20052,6 +22413,22 @@
 ]
 },
 {
+"oco_id": 2363,
+"page": 801,
+"incipit": "Aurea luce",
+"mode": null,
+"gregobase": 5016,
+"confidence": "hymn-incipit",
+"candidates": [
+5016,
+8745,
+5016,
+8745,
+5016,
+8745
+]
+},
+{
 "oco_id": 2364,
 "page": 801,
 "incipit": "Tu es Christus, Fílius Dei vivi.",
@@ -20111,6 +22488,17 @@
 ]
 },
 {
+"oco_id": 2369,
+"page": 803,
+"incipit": "Felix per omnes",
+"mode": null,
+"gregobase": 4564,
+"confidence": "lhym+incipit",
+"candidates": [
+4564
+]
+},
+{
 "oco_id": 2370,
 "page": 804,
 "incipit": "Simon Ioánnis, díligis me plus his?",
@@ -20142,6 +22530,17 @@
 "gregobase": null,
 "confidence": null,
 "candidates": []
+},
+{
+"oco_id": 2373,
+"page": 805,
+"incipit": "Apostolorum passio",
+"mode": null,
+"gregobase": 4565,
+"confidence": "lhym+incipit",
+"candidates": [
+4565
+]
 },
 {
 "oco_id": 2374,
@@ -20245,6 +22644,17 @@
 ]
 },
 {
+"oco_id": 2382,
+"page": 808,
+"incipit": "O Roma felix",
+"mode": null,
+"gregobase": 10407,
+"confidence": "lhym+incipit",
+"candidates": [
+10407
+]
+},
+{
 "oco_id": 2383,
 "page": 808,
 "incipit": "Ego pro te rogávi, Petre, ut",
@@ -20326,6 +22736,18 @@
 ]
 },
 {
+"oco_id": 2390,
+"page": 811,
+"incipit": "Qui luce splendes",
+"mode": null,
+"gregobase": 10412,
+"confidence": "lhym+incipit",
+"candidates": [
+10412,
+18008
+]
+},
+{
 "oco_id": 2391,
 "page": 811,
 "incipit": "Stetit Iesus in médio discípulórum suórum,",
@@ -20380,6 +22802,33 @@
 ]
 },
 {
+"oco_id": 2405,
+"page": 814,
+"incipit": "Inter æternas",
+"mode": null,
+"gregobase": 8854,
+"confidence": "hymn-incipit",
+"candidates": [
+8854,
+9826,
+8854,
+9826,
+8854,
+9826
+]
+},
+{
+"oco_id": 2406,
+"page": 814,
+"incipit": "Legifer prudens",
+"mode": null,
+"gregobase": 17990,
+"confidence": "lhym+incipit",
+"candidates": [
+17990
+]
+},
+{
 "oco_id": 2407,
 "page": 814,
 "incipit": "Fuit vir vitæ venerábilis, grátia Benedíctus",
@@ -20389,6 +22838,17 @@
 "candidates": [
 8856,
 11697
+]
+},
+{
+"oco_id": 2408,
+"page": 814,
+"incipit": "Legifer prudens",
+"mode": null,
+"gregobase": 17990,
+"confidence": "lhym+incipit",
+"candidates": [
+17990
 ]
 },
 {
@@ -20424,6 +22884,28 @@
 "confidence": "verona",
 "candidates": [
 14409
+]
+},
+{
+"oco_id": 2422,
+"page": 816,
+"incipit": "Magdalæ sidus",
+"mode": null,
+"gregobase": 9154,
+"confidence": "lhym+incipit",
+"candidates": [
+9154
+]
+},
+{
+"oco_id": 2423,
+"page": 816,
+"incipit": "Aurora surgit lucida",
+"mode": null,
+"gregobase": 8747,
+"confidence": "lhym+incipit",
+"candidates": [
+8747
 ]
 },
 {
@@ -20485,6 +22967,17 @@
 ]
 },
 {
+"oco_id": 2429,
+"page": 819,
+"incipit": "Magdalæ sidus",
+"mode": null,
+"gregobase": 9154,
+"confidence": "lhym+incipit",
+"candidates": [
+9154
+]
+},
+{
 "oco_id": 2430,
 "page": 819,
 "incipit": "Múlier, quid ploras, quem quæris? Illa",
@@ -20542,6 +23035,17 @@
 "confidence": "incipit+mode",
 "candidates": [
 7390
+]
+},
+{
+"oco_id": 2439,
+"page": 821,
+"incipit": "Te nostra lætis laudibus",
+"mode": null,
+"gregobase": 10481,
+"confidence": "lhym+incipit",
+"candidates": [
+10481
 ]
 },
 {
@@ -20632,6 +23136,29 @@
 ]
 },
 {
+"oco_id": 2448,
+"page": 825,
+"incipit": "Dum tuas festo",
+"mode": null,
+"gregobase": 17941,
+"confidence": "lhym+incipit",
+"candidates": [
+17941,
+17965
+]
+},
+{
+"oco_id": 2449,
+"page": 825,
+"incipit": "Nocti succedit lucifer",
+"mode": null,
+"gregobase": 18003,
+"confidence": "lhym+incipit",
+"candidates": [
+18003
+]
+},
+{
 "oco_id": 2450,
 "page": 825,
 "incipit": "Per víscera misericórdiæ suæ, Visitávit nos",
@@ -20652,6 +23179,18 @@
 "confidence": "incipit+mode",
 "candidates": [
 18683
+]
+},
+{
+"oco_id": 2452,
+"page": 826,
+"incipit": "Dum tuas festo",
+"mode": null,
+"gregobase": 17941,
+"confidence": "lhym+incipit",
+"candidates": [
+17941,
+17965
 ]
 },
 {
@@ -20678,6 +23217,17 @@
 ]
 },
 {
+"oco_id": 2456,
+"page": 827,
+"incipit": "Quas tibi laudes",
+"mode": null,
+"gregobase": 18006,
+"confidence": "lhym+incipit",
+"candidates": [
+18006
+]
+},
+{
 "oco_id": 2457,
 "page": 827,
 "incipit": "Intrántem Iesum in quoddam castéllum, múlier",
@@ -20689,6 +23239,17 @@
 ]
 },
 {
+"oco_id": 2458,
+"page": 827,
+"incipit": "Te gratulantes",
+"mode": null,
+"gregobase": 18019,
+"confidence": "lhym+incipit",
+"candidates": [
+18019
+]
+},
+{
 "oco_id": 2459,
 "page": 827,
 "incipit": "María et Martha rogábant Dóminum, ut",
@@ -20696,6 +23257,17 @@
 "gregobase": null,
 "confidence": null,
 "candidates": []
+},
+{
+"oco_id": 2462,
+"page": 828,
+"incipit": "Magnæ cohortis principem",
+"mode": null,
+"gregobase": 17991,
+"confidence": "lhym+incipit",
+"candidates": [
+17991
+]
 },
 {
 "oco_id": 2463,
@@ -20849,6 +23421,17 @@
 ]
 },
 {
+"oco_id": 2482,
+"page": 835,
+"incipit": "Cælestis formam gloriæ",
+"mode": null,
+"gregobase": 10535,
+"confidence": "lhym+incipit",
+"candidates": [
+10535
+]
+},
+{
 "oco_id": 2483,
 "page": 835,
 "incipit": "Mélior est dies una in átriis",
@@ -20880,6 +23463,17 @@
 "candidates": [
 4834,
 11808
+]
+},
+{
+"oco_id": 2486,
+"page": 835,
+"incipit": "Dulcis Iesu memoria",
+"mode": null,
+"gregobase": 10536,
+"confidence": "lhym+incipit",
+"candidates": [
+10536
 ]
 },
 {
@@ -20979,6 +23573,17 @@
 ]
 },
 {
+"oco_id": 2495,
+"page": 839,
+"incipit": "O nata lux",
+"mode": null,
+"gregobase": 10537,
+"confidence": "lhym+incipit",
+"candidates": [
+10537
+]
+},
+{
 "oco_id": 2496,
 "page": 839,
 "incipit": "Assúmpsit Iesus Petrum et Iacóbum et",
@@ -21037,6 +23642,17 @@
 ]
 },
 {
+"oco_id": 2505,
+"page": 842,
+"incipit": "Novus athleta Domini",
+"mode": null,
+"gregobase": 17960,
+"confidence": "lhym+incipit",
+"candidates": [
+17960
+]
+},
+{
 "oco_id": 2506,
 "page": 842,
 "incipit": "Beátus iste sanctus, qui confísus est",
@@ -21055,6 +23671,28 @@
 "gregobase": null,
 "confidence": null,
 "candidates": []
+},
+{
+"oco_id": 2510,
+"page": 843,
+"incipit": "Martyris Christi",
+"mode": null,
+"gregobase": 10557,
+"confidence": "lhym+incipit",
+"candidates": [
+10557
+]
+},
+{
+"oco_id": 2511,
+"page": 843,
+"incipit": "In martyris Laurentii",
+"mode": null,
+"gregobase": 10556,
+"confidence": "lhym+incipit",
+"candidates": [
+10556
+]
 },
 {
 "oco_id": 2512,
@@ -21148,6 +23786,17 @@
 ]
 },
 {
+"oco_id": 2519,
+"page": 846,
+"incipit": "Martyris Christi",
+"mode": null,
+"gregobase": 10557,
+"confidence": "lhym+incipit",
+"candidates": [
+10557
+]
+},
+{
 "oco_id": 2520,
 "page": 846,
 "incipit": "Lauréntius ingréssus est, martyr, et conféssus",
@@ -21189,6 +23838,17 @@
 "confidence": "incipit+mode",
 "candidates": [
 10555
+]
+},
+{
+"oco_id": 2531,
+"page": 848,
+"incipit": "Gaudium mundi",
+"mode": null,
+"gregobase": 10573,
+"confidence": "lhym+incipit",
+"candidates": [
+10573
 ]
 },
 {
@@ -21267,6 +23927,17 @@
 ]
 },
 {
+"oco_id": 2538,
+"page": 851,
+"incipit": "Aurora velut fulgida",
+"mode": null,
+"gregobase": 10574,
+"confidence": "lhym+incipit",
+"candidates": [
+10574
+]
+},
+{
 "oco_id": 2539,
 "page": 851,
 "incipit": "Hortus conclúsus es, Dei Génetrix, hortus",
@@ -21297,6 +23968,17 @@
 "confidence": "incipit",
 "candidates": [
 16132
+]
+},
+{
+"oco_id": 2542,
+"page": 852,
+"incipit": "Solis o Virgo",
+"mode": null,
+"gregobase": 10575,
+"confidence": "lhym+incipit",
+"candidates": [
+10575
 ]
 },
 {
@@ -21463,6 +24145,17 @@
 ]
 },
 {
+"oco_id": 2561,
+"page": 858,
+"incipit": "Bernarde gemma cælitum",
+"mode": null,
+"gregobase": 4614,
+"confidence": "lhym+incipit",
+"candidates": [
+4614
+]
+},
+{
 "oco_id": 2562,
 "page": 858,
 "incipit": "Replévit sanctum suum Dóminus spíritu intellegéntiæ,",
@@ -21505,6 +24198,31 @@
 ]
 },
 {
+"oco_id": 2567,
+"page": 860,
+"incipit": "Rerum supremo",
+"mode": null,
+"gregobase": 4619,
+"confidence": "lhym+incipit",
+"candidates": [
+4619
+]
+},
+{
+"oco_id": 2568,
+"page": 860,
+"incipit": "O quam glorifica",
+"mode": null,
+"gregobase": 4073,
+"confidence": "hymn-incipit",
+"candidates": [
+4073,
+9821,
+4073,
+9821
+]
+},
+{
 "oco_id": 2569,
 "page": 860,
 "incipit": "Regína mundi digníssima, María virgo perpétua,",
@@ -21516,6 +24234,17 @@
 ]
 },
 {
+"oco_id": 2570,
+"page": 861,
+"incipit": "Mole gravati criminum",
+"mode": null,
+"gregobase": 4613,
+"confidence": "lhym+incipit",
+"candidates": [
+4613
+]
+},
+{
 "oco_id": 2571,
 "page": 861,
 "incipit": "Beáta quæ credidísti quæ dicta sunt",
@@ -21524,6 +24253,17 @@
 "confidence": "incipit+mode",
 "candidates": [
 2842
+]
+},
+{
+"oco_id": 2574,
+"page": 861,
+"incipit": "Relucens inter principes",
+"mode": null,
+"gregobase": 9089,
+"confidence": "lhym+incipit",
+"candidates": [
+9089
 ]
 },
 {
@@ -21576,6 +24316,17 @@
 ]
 },
 {
+"oco_id": 2583,
+"page": 863,
+"incipit": "Fulget in cælis celebris",
+"mode": null,
+"gregobase": 8822,
+"confidence": "lhym+incipit",
+"candidates": [
+8822
+]
+},
+{
 "oco_id": 2584,
 "page": 863,
 "incipit": "Apéruit Augustínus códicem apostólicum et, coniéctis",
@@ -21606,6 +24357,17 @@
 "gregobase": null,
 "confidence": null,
 "candidates": []
+},
+{
+"oco_id": 2588,
+"page": 865,
+"incipit": "O nimis felix",
+"mode": null,
+"gregobase": 15663,
+"confidence": "lhym+incipit",
+"candidates": [
+15663
+]
 },
 {
 "oco_id": 2589,
@@ -21659,6 +24421,17 @@
 6787,
 8968,
 13068
+]
+},
+{
+"oco_id": 2594,
+"page": 867,
+"incipit": "Præcessor almus gratiæ",
+"mode": null,
+"gregobase": 4623,
+"confidence": "lhym+incipit",
+"candidates": [
+4623
 ]
 },
 {
@@ -21726,6 +24499,18 @@
 ]
 },
 {
+"oco_id": 2600,
+"page": 869,
+"incipit": "Anglorum iam apostolus",
+"mode": null,
+"gregobase": 9195,
+"confidence": "hymn-incipit",
+"candidates": [
+9195,
+9195
+]
+},
+{
 "oco_id": 2601,
 "page": 869,
 "incipit": "Pastor exímius pastorális vitæ spécimen trádidit",
@@ -21756,6 +24541,17 @@
 "confidence": "incipit+mode",
 "candidates": [
 17466
+]
+},
+{
+"oco_id": 2605,
+"page": 871,
+"incipit": "O sancta mundi domina",
+"mode": null,
+"gregobase": 10611,
+"confidence": "lhym+incipit",
+"candidates": [
+10611
 ]
 },
 {
@@ -21849,6 +24645,17 @@
 ]
 },
 {
+"oco_id": 2613,
+"page": 874,
+"incipit": "Beata Dei Genetrix",
+"mode": null,
+"gregobase": 10612,
+"confidence": "lhym+incipit",
+"candidates": [
+10612
+]
+},
+{
 "oco_id": 2614,
 "page": 874,
 "incipit": "De Iesse progénie procéssit Virgo María,",
@@ -21896,6 +24703,17 @@
 ]
 },
 {
+"oco_id": 2622,
+"page": 876,
+"incipit": "Laude te cives",
+"mode": null,
+"gregobase": 15702,
+"confidence": "lhym+incipit",
+"candidates": [
+15702
+]
+},
+{
 "oco_id": 2624,
 "page": 876,
 "incipit": "O doctor óptime, Ecclésiæ sanctæ lumen,",
@@ -21905,6 +24723,19 @@
 "candidates": [
 1908,
 11690
+]
+},
+{
+"oco_id": 2625,
+"page": 877,
+"incipit": "Vexilla regis",
+"mode": null,
+"gregobase": 9780,
+"confidence": "hymn-incipit",
+"candidates": [
+9780,
+9780,
+9780
 ]
 },
 {
@@ -21981,6 +24812,17 @@
 ]
 },
 {
+"oco_id": 2632,
+"page": 879,
+"incipit": "Salve Crux sancta",
+"mode": null,
+"gregobase": 10642,
+"confidence": "lhym+incipit",
+"candidates": [
+10642
+]
+},
+{
 "oco_id": 2633,
 "page": 879,
 "incipit": "Ecce crucem Dómini, fúgite, partes advérsæ:",
@@ -22018,6 +24860,17 @@
 6594,
 8991,
 18649
+]
+},
+{
+"oco_id": 2636,
+"page": 881,
+"incipit": "Signum Crucis",
+"mode": null,
+"gregobase": 4626,
+"confidence": "lhym+incipit",
+"candidates": [
+4626
 ]
 },
 {
@@ -22117,6 +24970,19 @@
 ]
 },
 {
+"oco_id": 2645,
+"page": 884,
+"incipit": "Vexilla regis",
+"mode": null,
+"gregobase": 9780,
+"confidence": "hymn-incipit",
+"candidates": [
+9780,
+9780,
+9780
+]
+},
+{
 "oco_id": 2646,
 "page": 885,
 "incipit": "O magnum pietátis opus! Mors mórtua",
@@ -22193,6 +25059,28 @@
 ]
 },
 {
+"oco_id": 2652,
+"page": 887,
+"incipit": "Stabat Mater",
+"mode": null,
+"gregobase": 18018,
+"confidence": "lhym+incipit",
+"candidates": [
+18018
+]
+},
+{
+"oco_id": 2653,
+"page": 887,
+"incipit": "Eia Mater",
+"mode": null,
+"gregobase": 17970,
+"confidence": "lhym+incipit",
+"candidates": [
+17970
+]
+},
+{
 "oco_id": 2654,
 "page": 887,
 "incipit": "Adhǽsit ánima mea post te, Deus",
@@ -22244,6 +25132,19 @@
 "candidates": [
 2559,
 12511
+]
+},
+{
+"oco_id": 2659,
+"page": 889,
+"incipit": "Virgo virginum",
+"mode": null,
+"gregobase": 2949,
+"confidence": "hymn-incipit",
+"candidates": [
+2949,
+2949,
+2949
 ]
 },
 {
@@ -22337,6 +25238,17 @@
 ]
 },
 {
+"oco_id": 2673,
+"page": 893,
+"incipit": "Præclara qua tu gloria",
+"mode": null,
+"gregobase": 9132,
+"confidence": "lhym+incipit",
+"candidates": [
+9132
+]
+},
+{
 "oco_id": 2674,
 "page": 893,
 "incipit": "Vos qui secúti estis me, sedébitis",
@@ -22400,6 +25312,17 @@
 ]
 },
 {
+"oco_id": 2687,
+"page": 896,
+"incipit": "Festiva vos",
+"mode": null,
+"gregobase": 7373,
+"confidence": "lhym+incipit",
+"candidates": [
+7373
+]
+},
+{
 "oco_id": 2688,
 "page": 896,
 "incipit": "Concússum est mare et contrémuit terra,",
@@ -22429,6 +25352,15 @@
 "candidates": [
 10625
 ]
+},
+{
+"oco_id": 2691,
+"page": 897,
+"incipit": "Tibi Christe splendor",
+"mode": null,
+"gregobase": null,
+"confidence": null,
+"candidates": []
 },
 {
 "oco_id": 2692,
@@ -22527,6 +25459,17 @@
 ]
 },
 {
+"oco_id": 2700,
+"page": 900,
+"incipit": "Angelum pacis",
+"mode": null,
+"gregobase": 17930,
+"confidence": "lhym+incipit",
+"candidates": [
+17930
+]
+},
+{
 "oco_id": 2701,
 "page": 901,
 "incipit": "Eleváta est magnificéntia tua super cælos,",
@@ -22585,6 +25528,17 @@
 "candidates": []
 },
 {
+"oco_id": 2706,
+"page": 903,
+"incipit": "Festiva canimus laude",
+"mode": null,
+"gregobase": 17972,
+"confidence": "lhym+incipit",
+"candidates": [
+17972
+]
+},
+{
 "oco_id": 2707,
 "page": 903,
 "incipit": "Cibávit eum Dóminus pane vitæ, et",
@@ -22626,6 +25580,32 @@
 "candidates": [
 1225,
 13470
+]
+},
+{
+"oco_id": 2712,
+"page": 904,
+"incipit": "Æterne rerum conditor",
+"mode": null,
+"gregobase": 4630,
+"confidence": "lhym+incipit",
+"candidates": [
+4630,
+17929
+]
+},
+{
+"oco_id": 2713,
+"page": 905,
+"incipit": "Orbis patrator optime",
+"mode": null,
+"gregobase": 5798,
+"confidence": "hymn-incipit",
+"candidates": [
+5798,
+7922,
+5798,
+7922
 ]
 },
 {
@@ -22688,6 +25668,24 @@
 ]
 },
 {
+"oco_id": 2719,
+"page": 906,
+"incipit": "Custodes hominum",
+"mode": null,
+"gregobase": 2320,
+"confidence": "hymn-incipit",
+"candidates": [
+2320,
+4152,
+7077,
+17503,
+2320,
+4152,
+7077,
+17503
+]
+},
+{
 "oco_id": 2720,
 "page": 906,
 "incipit": "Immíttet ángelus Dómini in circúitu timéntium",
@@ -22747,6 +25745,17 @@
 ]
 },
 {
+"oco_id": 2725,
+"page": 908,
+"incipit": "In cælesti collegio",
+"mode": null,
+"gregobase": 17989,
+"confidence": "lhym+incipit",
+"candidates": [
+17989
+]
+},
+{
 "oco_id": 2726,
 "page": 908,
 "incipit": "Francíscus pauper et húmílis cælum dives",
@@ -22766,6 +25775,24 @@
 "confidence": "incipit+mode",
 "candidates": [
 9298
+]
+},
+{
+"oco_id": 2730,
+"page": 909,
+"incipit": "Te gestientem gaudiis",
+"mode": null,
+"gregobase": 2698,
+"confidence": "hymn-incipit",
+"candidates": [
+2698,
+5296,
+9021,
+11786,
+2698,
+5296,
+9021,
+11786
 ]
 },
 {
@@ -22861,6 +25888,24 @@
 ]
 },
 {
+"oco_id": 2747,
+"page": 913,
+"incipit": "Regis superni nuntia",
+"mode": null,
+"gregobase": 2591,
+"confidence": "hymn-incipit",
+"candidates": [
+2591,
+6713,
+9167,
+13035,
+17528,
+2591,
+6713,
+9167
+]
+},
+{
 "oco_id": 2748,
 "page": 913,
 "incipit": "O beáta ánima, quæ méruit esse",
@@ -22869,6 +25914,18 @@
 "confidence": "incipit+mode",
 "candidates": [
 8624
+]
+},
+{
+"oco_id": 2749,
+"page": 913,
+"incipit": "Hæc est dies",
+"mode": null,
+"gregobase": 4866,
+"confidence": "hymn-incipit",
+"candidates": [
+4866,
+4866
 ]
 },
 {
@@ -22913,6 +25970,28 @@
 "candidates": []
 },
 {
+"oco_id": 2758,
+"page": 916,
+"incipit": "O vir beate",
+"mode": null,
+"gregobase": 17817,
+"confidence": "lhym+incipit",
+"candidates": [
+17817
+]
+},
+{
+"oco_id": 2759,
+"page": 916,
+"incipit": "Plausibus Luca canimus",
+"mode": null,
+"gregobase": 16324,
+"confidence": "lhym+incipit",
+"candidates": [
+16324
+]
+},
+{
 "oco_id": 2761,
 "page": 916,
 "incipit": "Narravérunt laudes Dómini Et virtútes eius.",
@@ -22943,6 +26022,28 @@
 "gregobase": null,
 "confidence": null,
 "candidates": []
+},
+{
+"oco_id": 2776,
+"page": 918,
+"incipit": "Commune vos apostoli",
+"mode": null,
+"gregobase": 17961,
+"confidence": "lhym+incipit",
+"candidates": [
+17961
+]
+},
+{
+"oco_id": 2779,
+"page": 918,
+"incipit": "Christe redemptor omnium",
+"mode": null,
+"gregobase": 16180,
+"confidence": "lhym+incipit",
+"candidates": [
+16180
+]
 },
 {
 "oco_id": 2780,
@@ -23025,6 +26126,18 @@
 ]
 },
 {
+"oco_id": 2787,
+"page": 922,
+"incipit": "Christe cælorum",
+"mode": null,
+"gregobase": 11256,
+"confidence": "lhym+incipit",
+"candidates": [
+11256,
+16186
+]
+},
+{
 "oco_id": 2788,
 "page": 922,
 "incipit": "Admirábile est nomen tuum, Dómine, quia",
@@ -23056,6 +26169,17 @@
 "candidates": [
 16086,
 16189
+]
+},
+{
+"oco_id": 2791,
+"page": 924,
+"incipit": "Iesu salvator sæculi",
+"mode": null,
+"gregobase": 16213,
+"confidence": "lhym+incipit",
+"candidates": [
+16213
 ]
 },
 {
@@ -23279,6 +26403,22 @@
 ]
 },
 {
+"oco_id": 2816,
+"page": 932,
+"incipit": "Martine par apostolis",
+"mode": null,
+"gregobase": 4026,
+"confidence": "hymn-incipit",
+"candidates": [
+4026,
+11294,
+11295,
+4026,
+11294,
+11295
+]
+},
+{
 "oco_id": 2817,
 "page": 932,
 "incipit": "Sacérdos Dei Martíne, apérti sunt tibi",
@@ -23326,6 +26466,19 @@
 2887,
 9041,
 13175
+]
+},
+{
+"oco_id": 2821,
+"page": 934,
+"incipit": "Iste confessor",
+"mode": null,
+"gregobase": 9107,
+"confidence": "hymn-incipit",
+"candidates": [
+9107,
+9107,
+9107
 ]
 },
 {
@@ -23382,6 +26535,17 @@
 ]
 },
 {
+"oco_id": 2836,
+"page": 937,
+"incipit": "Iam bone pastor",
+"mode": null,
+"gregobase": 4329,
+"confidence": "lhym+incipit",
+"candidates": [
+4329
+]
+},
+{
 "oco_id": 2837,
 "page": 937,
 "incipit": "Petrus apóstolus et Paulus doctor géntium,",
@@ -23392,6 +26556,28 @@
 12354,
 2974,
 5483
+]
+},
+{
+"oco_id": 2839,
+"page": 937,
+"incipit": "Salve mater misericordiæ",
+"mode": null,
+"gregobase": 18016,
+"confidence": "lhym+incipit",
+"candidates": [
+18016
+]
+},
+{
+"oco_id": 2840,
+"page": 937,
+"incipit": "Maria virgo regia",
+"mode": null,
+"gregobase": 17999,
+"confidence": "lhym+incipit",
+"candidates": [
+17999
 ]
 },
 {
@@ -23443,6 +26629,17 @@
 12842,
 2380,
 9054
+]
+},
+{
+"oco_id": 2853,
+"page": 940,
+"incipit": "Captator olim piscium",
+"mode": null,
+"gregobase": 7412,
+"confidence": "lhym+incipit",
+"candidates": [
+7412
 ]
 },
 {
@@ -23596,6 +26793,17 @@
 ]
 },
 {
+"oco_id": 2871,
+"page": 945,
+"incipit": "Fortem piumque præsulem",
+"mode": null,
+"gregobase": 17973,
+"confidence": "lhym+incipit",
+"candidates": [
+17973
+]
+},
+{
 "oco_id": 2872,
 "page": 945,
 "incipit": "O doctor óptime, Ecclésiæ sanctæ lumen,",
@@ -23605,6 +26813,17 @@
 "candidates": [
 1908,
 11690
+]
+},
+{
+"oco_id": 2873,
+"page": 946,
+"incipit": "Præclara custos virginum",
+"mode": null,
+"gregobase": 16123,
+"confidence": "lhym+incipit",
+"candidates": [
+16123
 ]
 },
 {
@@ -23675,6 +26894,17 @@
 ]
 },
 {
+"oco_id": 2880,
+"page": 949,
+"incipit": "Te dicimus præconio",
+"mode": null,
+"gregobase": 8243,
+"confidence": "lhym+incipit",
+"candidates": [
+8243
+]
+},
+{
 "oco_id": 2881,
 "page": 949,
 "incipit": "In Conceptióne sua accépit María benedictiónem",
@@ -23707,6 +26937,17 @@
 "confidence": "incipit+mode",
 "candidates": [
 16132
+]
+},
+{
+"oco_id": 2884,
+"page": 950,
+"incipit": "In plausu grati carminis",
+"mode": null,
+"gregobase": 16157,
+"confidence": "lhym+incipit",
+"candidates": [
+16157
 ]
 },
 {
@@ -23925,6 +27166,17 @@
 ]
 },
 {
+"oco_id": 2913,
+"page": 959,
+"incipit": "Festum celebre martyris",
+"mode": null,
+"gregobase": 16642,
+"confidence": "lhym+incipit",
+"candidates": [
+16642
+]
+},
+{
 "oco_id": 2914,
 "page": 959,
 "incipit": "Cum autem esset Stéphanus plenus Spíritu",
@@ -23958,6 +27210,17 @@
 "confidence": "incipit+mode",
 "candidates": [
 16644
+]
+},
+{
+"oco_id": 2917,
+"page": 960,
+"incipit": "Christus est vita",
+"mode": null,
+"gregobase": 8421,
+"confidence": "lhym+incipit",
+"candidates": [
+8421
 ]
 },
 {
@@ -24042,6 +27305,17 @@
 ]
 },
 {
+"oco_id": 2925,
+"page": 963,
+"incipit": "Virginis virgo",
+"mode": null,
+"gregobase": 16676,
+"confidence": "lhym+incipit",
+"candidates": [
+16676
+]
+},
+{
 "oco_id": 2926,
 "page": 963,
 "incipit": "Hic est discípulus ille qui testimónium",
@@ -24079,6 +27353,17 @@
 7031,
 8359,
 13223
+]
+},
+{
+"oco_id": 2929,
+"page": 964,
+"incipit": "Cohors beata Seraphim",
+"mode": null,
+"gregobase": 8422,
+"confidence": "lhym+incipit",
+"candidates": [
+8422
 ]
 },
 {
@@ -24169,6 +27454,17 @@
 ]
 },
 {
+"oco_id": 2938,
+"page": 968,
+"incipit": "Hymnum canentes martyrum",
+"mode": null,
+"gregobase": 11726,
+"confidence": "lhym+incipit",
+"candidates": [
+11726
+]
+},
+{
 "oco_id": 2939,
 "page": 968,
 "incipit": "Audíta est vox infántium et dicéntium:",
@@ -24199,6 +27495,17 @@
 "confidence": "incipit+mode",
 "candidates": [
 16694
+]
+},
+{
+"oco_id": 2942,
+"page": 969,
+"incipit": "Audit tyrannus anxius",
+"mode": null,
+"gregobase": 8423,
+"confidence": "lhym+incipit",
+"candidates": [
+8423
 ]
 },
 {
@@ -24285,6 +27592,17 @@
 "candidates": [
 7008,
 12471
+]
+},
+{
+"oco_id": 2953,
+"page": 974,
+"incipit": "Urbs Ierusalem beata",
+"mode": null,
+"gregobase": 8240,
+"confidence": "lhym+incipit",
+"candidates": [
+8240
 ]
 },
 {
@@ -24402,6 +27720,18 @@
 ]
 },
 {
+"oco_id": 2964,
+"page": 978,
+"incipit": "Christe cunctorum dominator",
+"mode": null,
+"gregobase": 17932,
+"confidence": "lhym+incipit",
+"candidates": [
+17932,
+17954
+]
+},
+{
 "oco_id": 2965,
 "page": 978,
 "incipit": "Tóllite portas, príncipes, vestras, et elevámini,",
@@ -24433,6 +27763,19 @@
 "confidence": "incipit",
 "candidates": [
 16132
+]
+},
+{
+"oco_id": 2968,
+"page": 979,
+"incipit": "Angularis fundamentum",
+"mode": null,
+"gregobase": 8962,
+"confidence": "hymn-incipit",
+"candidates": [
+8962,
+8962,
+8962
 ]
 },
 {
@@ -24653,6 +27996,17 @@
 ]
 },
 {
+"oco_id": 2988,
+"page": 989,
+"incipit": "Maria quæ mortalium",
+"mode": null,
+"gregobase": 16851,
+"confidence": "lhym+incipit",
+"candidates": [
+16851
+]
+},
+{
 "oco_id": 2989,
 "page": 989,
 "incipit": "Genuísti qui te fecit, et in",
@@ -24747,6 +28101,17 @@
 ]
 },
 {
+"oco_id": 2997,
+"page": 992,
+"incipit": "Quem terra pontus æthera",
+"mode": null,
+"gregobase": 18747,
+"confidence": "lhym+incipit",
+"candidates": [
+18747
+]
+},
+{
 "oco_id": 2998,
 "page": 992,
 "incipit": "Quis ascéndet aut quis stabit in",
@@ -24781,6 +28146,17 @@
 "confidence": "incipit",
 "candidates": [
 16132
+]
+},
+{
+"oco_id": 3001,
+"page": 993,
+"incipit": "O gloriosa Domina",
+"mode": null,
+"gregobase": 16852,
+"confidence": "lhym+incipit",
+"candidates": [
+16852
 ]
 },
 {
@@ -24897,6 +28273,24 @@
 ]
 },
 {
+"oco_id": 3011,
+"page": 997,
+"incipit": "Ave maris stella",
+"mode": null,
+"gregobase": 10617,
+"confidence": "hymn-incipit",
+"candidates": [
+2232,
+4594,
+8696,
+9733,
+9820,
+10617,
+17026,
+17706
+]
+},
+{
 "oco_id": 3012,
 "page": 997,
 "incipit": "Ave, María, grátia plena, Dóminus tecum;",
@@ -24964,6 +28358,28 @@
 "candidates": [
 11422,
 11552
+]
+},
+{
+"oco_id": 3018,
+"page": 1000,
+"incipit": "O virgo mater",
+"mode": null,
+"gregobase": 16850,
+"confidence": "lhym+incipit",
+"candidates": [
+16850
+]
+},
+{
+"oco_id": 3019,
+"page": 1000,
+"incipit": "Quæ caritatis fulgidum",
+"mode": null,
+"gregobase": 9831,
+"confidence": "lhym+incipit",
+"candidates": [
+9831
 ]
 },
 {
@@ -25266,6 +28682,17 @@
 ]
 },
 {
+"oco_id": 3055,
+"page": 1013,
+"incipit": "O sempiternæ curiæ",
+"mode": null,
+"gregobase": 10482,
+"confidence": "lhym+incipit",
+"candidates": [
+10482
+]
+},
+{
 "oco_id": 3056,
 "page": 1013,
 "incipit": "In omnem terram exívit sonus eórum,",
@@ -25297,6 +28724,18 @@
 "gregobase": null,
 "confidence": null,
 "candidates": []
+},
+{
+"oco_id": 3060,
+"page": 1014,
+"incipit": "Claro paschali gaudio",
+"mode": null,
+"gregobase": 17774,
+"confidence": "hymn-incipit",
+"candidates": [
+17774,
+17774
+]
 },
 {
 "oco_id": 3061,
@@ -25397,6 +28836,17 @@
 ]
 },
 {
+"oco_id": 3069,
+"page": 1018,
+"incipit": "Exsultet cælum laudibus",
+"mode": null,
+"gregobase": 16685,
+"confidence": "lhym+incipit",
+"candidates": [
+16685
+]
+},
+{
 "oco_id": 3070,
 "page": 1018,
 "incipit": "Vos estis qui permansístis mecum in",
@@ -25462,6 +28912,24 @@
 17963,
 6608,
 11329
+]
+},
+{
+"oco_id": 3076,
+"page": 1021,
+"incipit": "Sanctorum meritis",
+"mode": null,
+"gregobase": 18017,
+"confidence": "hymn-incipit",
+"candidates": [
+2571,
+4229,
+9872,
+18017,
+2571,
+4229,
+9872,
+18017
 ]
 },
 {
@@ -25573,6 +29041,17 @@
 ]
 },
 {
+"oco_id": 3086,
+"page": 1025,
+"incipit": "Rex gloriose martyrum",
+"mode": null,
+"gregobase": 4547,
+"confidence": "lhym+incipit",
+"candidates": [
+4547
+]
+},
+{
 "oco_id": 3087,
 "page": 1025,
 "incipit": "Sanguis sanctórum mártyrum pro Christo effúsus",
@@ -25601,6 +29080,17 @@
 "confidence": "incipit+mode",
 "candidates": [
 8790
+]
+},
+{
+"oco_id": 3090,
+"page": 1027,
+"incipit": "Æterna Christi munera",
+"mode": null,
+"gregobase": 17919,
+"confidence": "lhym+incipit",
+"candidates": [
+17919
 ]
 },
 {
@@ -25743,6 +29233,24 @@
 "candidates": [
 13185,
 2337
+]
+},
+{
+"oco_id": 3103,
+"page": 1031,
+"incipit": "Sanctorum meritis",
+"mode": null,
+"gregobase": 18017,
+"confidence": "hymn-incipit",
+"candidates": [
+2571,
+4229,
+9872,
+18017,
+2571,
+4229,
+9872,
+18017
 ]
 },
 {
@@ -26084,6 +29592,22 @@
 ]
 },
 {
+"oco_id": 3141,
+"page": 1044,
+"incipit": "Deus tuorum",
+"mode": null,
+"gregobase": 9605,
+"confidence": "hymn-incipit",
+"candidates": [
+9605,
+10101,
+9605,
+10101,
+9605,
+10101
+]
+},
+{
 "oco_id": 3142,
 "page": 1044,
 "incipit": "Qui me conféssus fúerit coram homínibus,",
@@ -26178,6 +29702,26 @@
 ]
 },
 {
+"oco_id": 3150,
+"page": 1048,
+"incipit": "Beate martyr  O Christe",
+"mode": null,
+"gregobase": 17328,
+"confidence": "lhym+incipit",
+"candidates": [
+17328
+]
+},
+{
+"oco_id": 3151,
+"page": 1048,
+"incipit": "flos convallium",
+"mode": null,
+"gregobase": null,
+"confidence": null,
+"candidates": []
+},
+{
 "oco_id": 3152,
 "page": 1048,
 "incipit": "Si quis perseveráverit usque in finem,",
@@ -26207,6 +29751,26 @@
 "candidates": [
 16083
 ]
+},
+{
+"oco_id": 3155,
+"page": 1050,
+"incipit": "Martyr Dei  vel pro martyre virgine: O castitatis",
+"mode": null,
+"gregobase": 9606,
+"confidence": "hymn-incipit",
+"candidates": [
+9606
+]
+},
+{
+"oco_id": 3156,
+"page": 1050,
+"incipit": "signifer",
+"mode": null,
+"gregobase": null,
+"confidence": null,
+"candidates": []
 },
 {
 "oco_id": 3157,
@@ -26287,6 +29851,17 @@
 "gregobase": null,
 "confidence": null,
 "candidates": []
+},
+{
+"oco_id": 3166,
+"page": 1053,
+"incipit": "Virginis Proles",
+"mode": null,
+"gregobase": 18024,
+"confidence": "lhym+incipit",
+"candidates": [
+18024
+]
 },
 {
 "oco_id": 3167,
@@ -27136,6 +30711,17 @@
 "candidates": []
 },
 {
+"oco_id": 3256,
+"page": 1086,
+"incipit": "Doctor æternus",
+"mode": null,
+"gregobase": 17964,
+"confidence": "lhym+incipit",
+"candidates": [
+17964
+]
+},
+{
 "oco_id": 3257,
 "page": 1086,
 "incipit": "Sapiéntiam sanctórum Narrent pópuli. ℣. Et",
@@ -27168,6 +30754,17 @@
 "confidence": "incipit+mode",
 "candidates": [
 8376
+]
+},
+{
+"oco_id": 3260,
+"page": 1087,
+"incipit": "Æterne sol qui lumine",
+"mode": null,
+"gregobase": 8821,
+"confidence": "lhym+incipit",
+"candidates": [
+8821
 ]
 },
 {
@@ -27432,6 +31029,15 @@
 "candidates": []
 },
 {
+"oco_id": 3288,
+"page": 1098,
+"incipit": "",
+"mode": null,
+"gregobase": null,
+"confidence": null,
+"candidates": []
+},
+{
 "oco_id": 3289,
 "page": 1098,
 "incipit": "Hæc est virgo sápiens, quam Dóminus",
@@ -27571,6 +31177,17 @@
 "confidence": "incipit+mode",
 "candidates": [
 16946
+]
+},
+{
+"oco_id": 3302,
+"page": 1104,
+"incipit": "Iesu corona virginum",
+"mode": null,
+"gregobase": 15289,
+"confidence": "lhym+incipit",
+"candidates": [
+15289
 ]
 },
 {
@@ -28317,6 +31934,15 @@
 ]
 },
 {
+"oco_id": 3382,
+"page": 1136,
+"incipit": "",
+"mode": null,
+"gregobase": null,
+"confidence": null,
+"candidates": []
+},
+{
 "oco_id": 3383,
 "page": 1136,
 "incipit": "Dum esset rex in accúbitu suo,",
@@ -28355,6 +31981,15 @@
 "candidates": [
 15494
 ]
+},
+{
+"oco_id": 3388,
+"page": 1137,
+"incipit": "las",
+"mode": null,
+"gregobase": null,
+"confidence": null,
+"candidates": []
 },
 {
 "oco_id": 3389,
@@ -28455,6 +32090,15 @@
 "page": 1141,
 "incipit": "Talis est diléctus meus et ipse",
 "mode": "8g",
+"gregobase": null,
+"confidence": null,
+"candidates": []
+},
+{
+"oco_id": 3399,
+"page": 1141,
+"incipit": ".",
+"mode": null,
 "gregobase": null,
 "confidence": null,
 "candidates": []
@@ -28586,6 +32230,18 @@
 ]
 },
 {
+"oco_id": 3419,
+"page": 1148,
+"incipit": "O Redemptoris pietas",
+"mode": null,
+"gregobase": 10561,
+"confidence": "hymn-incipit",
+"candidates": [
+10561,
+10561
+]
+},
+{
 "oco_id": 3420,
 "page": 1148,
 "incipit": "Si quis fécerit voluntátem Patris mei,",
@@ -28606,6 +32262,17 @@
 "candidates": [
 2331,
 15502
+]
+},
+{
+"oco_id": 3422,
+"page": 1148,
+"incipit": "Læti colentes famulum",
+"mode": null,
+"gregobase": 8826,
+"confidence": "lhym+incipit",
+"candidates": [
+8826
 ]
 },
 {
@@ -28917,6 +32584,17 @@
 ]
 },
 {
+"oco_id": 3451,
+"page": 1161,
+"incipit": "Qui vivis ant sæcula",
+"mode": null,
+"gregobase": 18009,
+"confidence": "lhym+incipit",
+"candidates": [
+18009
+]
+},
+{
 "oco_id": 3452,
 "page": 1161,
 "incipit": "De terra plasmásti me et carnem",
@@ -28950,6 +32628,17 @@
 "candidates": [
 15659,
 5197
+]
+},
+{
+"oco_id": 3455,
+"page": 1162,
+"incipit": "Spes Christe nostræ veniæ",
+"mode": null,
+"gregobase": 15716,
+"confidence": "hymn-incipit",
+"candidates": [
+15716
 ]
 },
 {
@@ -29089,6 +32778,17 @@
 ]
 },
 {
+"oco_id": 3468,
+"page": 1167,
+"incipit": "Qui lacrimatus Lazarum",
+"mode": null,
+"gregobase": 18007,
+"confidence": "lhym+incipit",
+"candidates": [
+18007
+]
+},
+{
 "oco_id": 3469,
 "page": 1167,
 "incipit": "Convértere, Dómine, et éripe ánimam meam,",
@@ -29121,6 +32821,17 @@
 "confidence": "verona",
 "candidates": [
 10854
+]
+},
+{
+"oco_id": 3472,
+"page": 1168,
+"incipit": "Immense rex potentiæ",
+"mode": null,
+"gregobase": 4636,
+"confidence": "lhym+incipit",
+"candidates": [
+4636
 ]
 },
 {

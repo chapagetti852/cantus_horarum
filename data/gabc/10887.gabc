@@ -1,0 +1,21 @@
+name:Adiutor in tribulationibus;
+office-part:an;
+mode:e;
+gregobase:10887;
+%%
+initial-style: 1;
+name: Adiutor;
+book: Antiphonae & Responsoria/Tomus III, p.28;
+occasion: Psalterium Hebdomada I Feria VI;
+office-part: Vesperae Ant 2;
+user-notes: ;
+commentary: ;
+annotation: E;
+centering-scheme: english;
+fontsize: 12;
+font: OFLSortsMillGoudy;
+height: 11;
+width: 4.5;
+%%
+(c4)Ad(h)iú(h)tor(g) <v>\greheightstar</v>() in(g) tri(f)bu(g)la(h)ti(ixi)ó(g)ni(i)bus.(h) (::)
+E(h) u(h) o(ixi) u(g) a(ixi) e.(h) (::)
