@@ -23,6 +23,12 @@ Read `README.md` first: it explains every pipeline.
   AR 6/53, antiphonale.net's Antiphonae et Responsoria 61-64/67). Run it before matching.
 - `scripts/oco/match_hymni.py`: hymns from the Liber Hymnarius 1983 only, on the page the
   OCO cites ("LHym 283"), incipit deciding between hymns on one page.
+- `scripts/oco/read_notation.py` reads the OCO's own notation (Gregorio glyphs) into
+  `data/gabc-oco/<oco id>.gabc`; `check_notation.py` compares with GregoBase;
+  `choose_scores.py` marks entries to use the reading ("use": "oco": no GregoBase score,
+  or the match is another chant); the build serves them as `gabc/oco-<id>.gabc`.
+  Pipeline order: scrape_sources → match_gregobase → match_hymni → match_responsoria →
+  read_notation → choose_scores → build.
 - `scripts/oco/match_responsoria.py` re-matches the short responsories (after
   `match_gregobase.py`); `scripts/gregobase/fetch_gabc.sh <ids>` fetches single GABC
   files from GregoBase into `data/gabc/` when the dump's `cache/` is not at hand.

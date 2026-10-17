@@ -109,7 +109,9 @@
 "confidence": "rb-incipit",
 "candidates": [
 9922
-]
+],
+"oco_similarity": 0.27,
+"use": "oco"
 },
 {
 "oco_id": 10,
@@ -398,7 +400,9 @@
 "candidates": [
 11530,
 11660
-]
+],
+"oco_similarity": 0.75,
+"use": "oco"
 },
 {
 "oco_id": 34,
@@ -634,7 +638,8 @@
 "mode": "3a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 54,
@@ -1219,7 +1224,9 @@
 "confidence": "incipit",
 "candidates": [
 15747
-]
+],
+"oco_similarity": 0.58,
+"use": "oco"
 },
 {
 "oco_id": 107,
@@ -1437,7 +1444,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 10774
-]
+],
+"oco_similarity": 0.35,
+"use": "oco"
 },
 {
 "oco_id": 128,
@@ -1809,7 +1818,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 11487
-]
+],
+"oco_similarity": 0.4,
+"use": "oco"
 },
 {
 "oco_id": 159,
@@ -1905,7 +1916,9 @@
 "candidates": [
 11433,
 11563
-]
+],
+"oco_similarity": 0.25,
+"use": "oco"
 },
 {
 "oco_id": 167,
@@ -1958,7 +1971,9 @@
 18100,
 18116,
 5292
-]
+],
+"oco_similarity": 0.4,
+"use": "oco"
 },
 {
 "oco_id": 171,
@@ -2034,7 +2049,9 @@
 3104,
 7251,
 12516
-]
+],
+"oco_similarity": 0.34,
+"use": "oco"
 },
 {
 "oco_id": 177,
@@ -2324,7 +2341,9 @@
 4035,
 17727,
 17728
-]
+],
+"oco_similarity": 0.4,
+"use": "oco"
 },
 {
 "oco_id": 202,
@@ -3117,7 +3136,9 @@
 15685,
 15686,
 15687
-]
+],
+"oco_similarity": 0,
+"use": "oco"
 },
 {
 "oco_id": 273,
@@ -3289,7 +3310,9 @@
 14100,
 16764,
 5292
-]
+],
+"oco_similarity": 0.41,
+"use": "oco"
 },
 {
 "oco_id": 288,
@@ -3378,7 +3401,9 @@
 "candidates": [
 7649,
 8433
-]
+],
+"oco_similarity": 0.39,
+"use": "oco"
 },
 {
 "oco_id": 295,
@@ -3789,7 +3814,8 @@
 "confidence": "rb-none",
 "candidates": [
 16796
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 332,
@@ -4111,7 +4137,8 @@
 "mode": "1f",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 369,
@@ -4135,7 +4162,9 @@
 "candidates": [
 3060,
 12729
-]
+],
+"oco_similarity": 0.36,
+"use": "oco"
 },
 {
 "oco_id": 371,
@@ -4151,7 +4180,9 @@
 18105,
 3102,
 11818
-]
+],
+"oco_similarity": 0.47,
+"use": "oco"
 },
 {
 "oco_id": 372,
@@ -4160,7 +4191,8 @@
 "mode": "4",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 373,
@@ -4172,7 +4204,9 @@
 "candidates": [
 3060,
 12729
-]
+],
+"oco_similarity": 0.51,
+"use": "oco"
 },
 {
 "oco_id": 374,
@@ -4217,7 +4251,9 @@
 "confidence": "incipit",
 "candidates": [
 7875
-]
+],
+"oco_similarity": 0.34,
+"use": "oco"
 },
 {
 "oco_id": 378,
@@ -4392,7 +4428,8 @@
 "mode": "7a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 394,
@@ -4434,7 +4471,8 @@
 "mode": "1d",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 398,
@@ -4656,7 +4694,9 @@
 "candidates": [
 4331,
 7484
-]
+],
+"oco_similarity": 0.26,
+"use": "oco"
 },
 {
 "oco_id": 418,
@@ -5440,7 +5480,9 @@
 "candidates": [
 6434,
 7974
-]
+],
+"oco_similarity": 0.37,
+"use": "oco"
 },
 {
 "oco_id": 494,
@@ -5682,7 +5724,9 @@
 "confidence": "incipit",
 "candidates": [
 4553
-]
+],
+"oco_similarity": 0.54,
+"use": "oco"
 },
 {
 "oco_id": 518,
@@ -5704,7 +5748,9 @@
 "confidence": "incipit",
 "candidates": [
 10354
-]
+],
+"oco_similarity": 0.42,
+"use": "oco"
 },
 {
 "oco_id": 520,
@@ -5893,7 +5939,9 @@
 "confidence": "verona",
 "candidates": [
 14489
-]
+],
+"oco_similarity": 0.69,
+"use": "oco"
 },
 {
 "oco_id": 541,
@@ -6147,7 +6195,9 @@
 "candidates": [
 3064,
 12756
-]
+],
+"oco_similarity": 0.48,
+"use": "oco"
 },
 {
 "oco_id": 568,
@@ -6191,7 +6241,9 @@
 "confidence": "rb-incipit",
 "candidates": [
 12664
-]
+],
+"oco_similarity": 0.45,
+"use": "oco"
 },
 {
 "oco_id": 572,
@@ -6628,7 +6680,9 @@
 13434,
 16245,
 17776
-]
+],
+"oco_similarity": 0.2,
+"use": "oco"
 },
 {
 "oco_id": 611,
@@ -6639,7 +6693,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 15537
-]
+],
+"oco_similarity": 0.39,
+"use": "oco"
 },
 {
 "oco_id": 612,
@@ -6696,7 +6752,8 @@
 "candidates": [
 14496,
 14729
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 618,
@@ -6718,7 +6775,9 @@
 "confidence": "incipit",
 "candidates": [
 1941
-]
+],
+"oco_similarity": 0.36,
+"use": "oco"
 },
 {
 "oco_id": 621,
@@ -6829,7 +6888,8 @@
 "candidates": [
 14496,
 14729
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 631,
@@ -6968,7 +7028,8 @@
 "candidates": [
 14496,
 14729
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 643,
@@ -6981,7 +7042,9 @@
 3190,
 15168,
 17855
-]
+],
+"oco_similarity": 0.25,
+"use": "oco"
 },
 {
 "oco_id": 645,
@@ -6992,7 +7055,9 @@
 "confidence": "incipit",
 "candidates": [
 1941
-]
+],
+"oco_similarity": 0.31,
+"use": "oco"
 },
 {
 "oco_id": 646,
@@ -7107,7 +7172,8 @@
 "candidates": [
 14496,
 14729
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 656,
@@ -7209,7 +7275,8 @@
 "candidates": [
 14496,
 14729
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 665,
@@ -7232,7 +7299,9 @@
 "candidates": [
 14496,
 14729
-]
+],
+"oco_similarity": 0.35,
+"use": "oco"
 },
 {
 "oco_id": 668,
@@ -7243,7 +7312,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 14940
-]
+],
+"oco_similarity": 0.29,
+"use": "oco"
 },
 {
 "oco_id": 669,
@@ -7298,7 +7369,8 @@
 "confidence": "rb-none",
 "candidates": [
 15085
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 674,
@@ -7436,7 +7508,8 @@
 "confidence": "rb-none",
 "candidates": [
 15085
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 686,
@@ -7469,7 +7542,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 15316
-]
+],
+"oco_similarity": 0.36,
+"use": "oco"
 },
 {
 "oco_id": 690,
@@ -7770,7 +7845,9 @@
 "confidence": "verona",
 "candidates": [
 14792
-]
+],
+"oco_similarity": 0.68,
+"use": "oco"
 },
 {
 "oco_id": 720,
@@ -7976,7 +8053,9 @@
 "candidates": [
 15039,
 15043
-]
+],
+"oco_similarity": 0.63,
+"use": "oco"
 },
 {
 "oco_id": 741,
@@ -8051,7 +8130,9 @@
 8727,
 2744,
 4727
-]
+],
+"oco_similarity": 0.45,
+"use": "oco"
 },
 {
 "oco_id": 750,
@@ -8073,7 +8154,9 @@
 "confidence": "incipit",
 "candidates": [
 7189
-]
+],
+"oco_similarity": 0.37,
+"use": "oco"
 },
 {
 "oco_id": 755,
@@ -8096,7 +8179,9 @@
 "confidence": "incipit",
 "candidates": [
 7278
-]
+],
+"oco_similarity": 0.38,
+"use": "oco"
 },
 {
 "oco_id": 757,
@@ -8140,7 +8225,9 @@
 "confidence": "incipit",
 "candidates": [
 7873
-]
+],
+"oco_similarity": 0.49,
+"use": "oco"
 },
 {
 "oco_id": 761,
@@ -8151,7 +8238,9 @@
 "confidence": "incipit",
 "candidates": [
 9941
-]
+],
+"oco_similarity": 0.47,
+"use": "oco"
 },
 {
 "oco_id": 762,
@@ -8184,7 +8273,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 15051
-]
+],
+"oco_similarity": 0.26,
+"use": "oco"
 },
 {
 "oco_id": 765,
@@ -8206,7 +8297,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 14647
-]
+],
+"oco_similarity": 0.34,
+"use": "oco"
 },
 {
 "oco_id": 767,
@@ -8215,7 +8308,8 @@
 "mode": "3g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 768,
@@ -8227,7 +8321,9 @@
 "candidates": [
 10970,
 9941
-]
+],
+"oco_similarity": 0.35,
+"use": "oco"
 },
 {
 "oco_id": 769,
@@ -8397,7 +8493,9 @@
 2736,
 12504,
 4772
-]
+],
+"oco_similarity": 0.52,
+"use": "oco"
 },
 {
 "oco_id": 784,
@@ -8489,7 +8587,9 @@
 18433,
 10970,
 9941
-]
+],
+"oco_similarity": 0.67,
+"use": "oco"
 },
 {
 "oco_id": 792,
@@ -8560,7 +8660,9 @@
 "candidates": [
 16421,
 8047
-]
+],
+"oco_similarity": 0.32,
+"use": "oco"
 },
 {
 "oco_id": 798,
@@ -8583,7 +8685,9 @@
 "candidates": [
 14791,
 15957
-]
+],
+"oco_similarity": 0.31,
+"use": "oco"
 },
 {
 "oco_id": 800,
@@ -8673,7 +8777,9 @@
 "candidates": [
 10970,
 9941
-]
+],
+"oco_similarity": 0.34,
+"use": "oco"
 },
 {
 "oco_id": 808,
@@ -8786,7 +8892,9 @@
 "candidates": [
 6434,
 7974
-]
+],
+"oco_similarity": 0.24,
+"use": "oco"
 },
 {
 "oco_id": 824,
@@ -8797,7 +8905,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 14613
-]
+],
+"oco_similarity": 0.22,
+"use": "oco"
 },
 {
 "oco_id": 825,
@@ -9338,7 +9448,8 @@
 "mode": "1a2",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 877,
@@ -9598,7 +9709,9 @@
 10283,
 3202,
 13002
-]
+],
+"oco_similarity": 0.31,
+"use": "oco"
 },
 {
 "oco_id": 901,
@@ -9701,7 +9814,9 @@
 "candidates": [
 3128,
 13212
-]
+],
+"oco_similarity": 0.43,
+"use": "oco"
 },
 {
 "oco_id": 910,
@@ -9736,7 +9851,9 @@
 3242,
 7854,
 12731
-]
+],
+"oco_similarity": 0.34,
+"use": "oco"
 },
 {
 "oco_id": 913,
@@ -9758,7 +9875,9 @@
 "confidence": "incipit",
 "candidates": [
 7270
-]
+],
+"oco_similarity": 0.44,
+"use": "oco"
 },
 {
 "oco_id": 915,
@@ -9862,7 +9981,9 @@
 2017,
 10970,
 9941
-]
+],
+"oco_similarity": 0.44,
+"use": "oco"
 },
 {
 "oco_id": 924,
@@ -10021,7 +10142,9 @@
 "confidence": "incipit",
 "candidates": [
 4550
-]
+],
+"oco_similarity": 0.29,
+"use": "oco"
 },
 {
 "oco_id": 938,
@@ -10044,7 +10167,9 @@
 "candidates": [
 10149,
 12755
-]
+],
+"oco_similarity": 0.48,
+"use": "oco"
 },
 {
 "oco_id": 940,
@@ -10145,7 +10270,9 @@
 3242,
 7854,
 12731
-]
+],
+"oco_similarity": 0.79,
+"use": "oco"
 },
 {
 "oco_id": 949,
@@ -10343,7 +10470,9 @@
 "candidates": [
 14908,
 14909
-]
+],
+"oco_similarity": 0.47,
+"use": "oco"
 },
 {
 "oco_id": 966,
@@ -10424,7 +10553,9 @@
 3119,
 6638,
 17823
-]
+],
+"oco_similarity": 0.39,
+"use": "oco"
 },
 {
 "oco_id": 973,
@@ -10499,7 +10630,8 @@
 "mode": "3a2",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 980,
@@ -10695,7 +10827,8 @@
 "mode": "4e",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 998,
@@ -10721,7 +10854,9 @@
 7847,
 14022,
 18002
-]
+],
+"oco_similarity": 0.3,
+"use": "oco"
 },
 {
 "oco_id": 1000,
@@ -10798,7 +10933,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 8457
-]
+],
+"oco_similarity": 0.7,
+"use": "oco"
 },
 {
 "oco_id": 1007,
@@ -11023,7 +11160,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 6301
-]
+],
+"oco_similarity": 0.7,
+"use": "oco"
 },
 {
 "oco_id": 1041,
@@ -11046,7 +11185,9 @@
 "candidates": [
 10662,
 15388
-]
+],
+"oco_similarity": 0.22,
+"use": "oco"
 },
 {
 "oco_id": 1048,
@@ -11057,7 +11198,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 8528
-]
+],
+"oco_similarity": 0.74,
+"use": "oco"
 },
 {
 "oco_id": 1049,
@@ -11071,7 +11214,9 @@
 1844,
 5791,
 8536
-]
+],
+"oco_similarity": 0.52,
+"use": "oco"
 },
 {
 "oco_id": 1052,
@@ -11080,7 +11225,8 @@
 "mode": "7a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 1055,
@@ -11156,7 +11302,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 1065,
@@ -11178,7 +11325,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 1068,
@@ -11203,7 +11351,9 @@
 "candidates": [
 10922,
 15411
-]
+],
+"oco_similarity": 0.25,
+"use": "oco"
 },
 {
 "oco_id": 1070,
@@ -11327,7 +11477,9 @@
 "candidates": [
 14629,
 15794
-]
+],
+"oco_similarity": 0.7,
+"use": "oco"
 },
 {
 "oco_id": 1081,
@@ -11492,7 +11644,9 @@
 "confidence": "source+incipit",
 "candidates": [
 7876
-]
+],
+"oco_similarity": 0.65,
+"use": "oco"
 },
 {
 "oco_id": 1096,
@@ -11560,7 +11714,9 @@
 "confidence": "incipit",
 "candidates": [
 6271
-]
+],
+"oco_similarity": 0.35,
+"use": "oco"
 },
 {
 "oco_id": 1102,
@@ -11638,7 +11794,9 @@
 "candidates": [
 10580,
 4976
-]
+],
+"oco_similarity": 0.78,
+"use": "oco"
 },
 {
 "oco_id": 1109,
@@ -11658,7 +11816,8 @@
 "mode": "4e",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 1111,
@@ -11725,7 +11884,9 @@
 "confidence": "incipit",
 "candidates": [
 6271
-]
+],
+"oco_similarity": 0.26,
+"use": "oco"
 },
 {
 "oco_id": 1117,
@@ -12274,7 +12435,9 @@
 18433,
 10970,
 9941
-]
+],
+"oco_similarity": 0.67,
+"use": "oco"
 },
 {
 "oco_id": 1166,
@@ -12311,7 +12474,9 @@
 2047,
 2684,
 7964
-]
+],
+"oco_similarity": 0.34,
+"use": "oco"
 },
 {
 "oco_id": 1169,
@@ -12323,7 +12488,9 @@
 "candidates": [
 18621,
 7974
-]
+],
+"oco_similarity": 0.34,
+"use": "oco"
 },
 {
 "oco_id": 1170,
@@ -12334,7 +12501,9 @@
 "confidence": "source+incipit",
 "candidates": [
 8047
-]
+],
+"oco_similarity": 0.32,
+"use": "oco"
 },
 {
 "oco_id": 1171,
@@ -12357,7 +12526,9 @@
 "candidates": [
 14791,
 15957
-]
+],
+"oco_similarity": 0.31,
+"use": "oco"
 },
 {
 "oco_id": 1173,
@@ -12412,7 +12583,9 @@
 "confidence": "source+incipit",
 "candidates": [
 4976
-]
+],
+"oco_similarity": 0.63,
+"use": "oco"
 },
 {
 "oco_id": 1178,
@@ -12479,7 +12652,9 @@
 "confidence": "verona",
 "candidates": [
 15909
-]
+],
+"oco_similarity": 0.68,
+"use": "oco"
 },
 {
 "oco_id": 1184,
@@ -12490,7 +12665,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 15910
-]
+],
+"oco_similarity": 0.56,
+"use": "oco"
 },
 {
 "oco_id": 1185,
@@ -12856,7 +13033,8 @@
 "mode": "4e",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 1218,
@@ -12868,7 +13046,9 @@
 "candidates": [
 14658,
 16008
-]
+],
+"oco_similarity": 0.7,
+"use": "oco"
 },
 {
 "oco_id": 1219,
@@ -13035,7 +13215,9 @@
 "confidence": "incipit",
 "candidates": [
 8403
-]
+],
+"oco_similarity": 0.17,
+"use": "oco"
 },
 {
 "oco_id": 1234,
@@ -13409,7 +13591,9 @@
 13081,
 18624,
 20686
-]
+],
+"oco_similarity": 0.45,
+"use": "oco"
 },
 {
 "oco_id": 1267,
@@ -13530,7 +13714,9 @@
 "confidence": "rb-incipit",
 "candidates": [
 8713
-]
+],
+"oco_similarity": 0.3,
+"use": "oco"
 },
 {
 "oco_id": 1278,
@@ -13665,7 +13851,9 @@
 18433,
 10970,
 9941
-]
+],
+"oco_similarity": 0.67,
+"use": "oco"
 },
 {
 "oco_id": 1291,
@@ -13679,7 +13867,9 @@
 7528,
 3175,
 5555
-]
+],
+"oco_similarity": 0.47,
+"use": "oco"
 },
 {
 "oco_id": 1292,
@@ -13745,7 +13935,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 15537
-]
+],
+"oco_similarity": 0.39,
+"use": "oco"
 },
 {
 "oco_id": 1298,
@@ -13803,7 +13995,9 @@
 3100,
 11945,
 5470
-]
+],
+"oco_similarity": 0.36,
+"use": "oco"
 },
 {
 "oco_id": 1303,
@@ -13816,7 +14010,9 @@
 2047,
 2684,
 7964
-]
+],
+"oco_similarity": 0.39,
+"use": "oco"
 },
 {
 "oco_id": 1304,
@@ -13872,7 +14068,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 10705
-]
+],
+"oco_similarity": 0.23,
+"use": "oco"
 },
 {
 "oco_id": 1309,
@@ -13952,7 +14150,9 @@
 3140,
 13143,
 7106
-]
+],
+"oco_similarity": 0.31,
+"use": "oco"
 },
 {
 "oco_id": 1317,
@@ -13997,7 +14197,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 15585
-]
+],
+"oco_similarity": 0.51,
+"use": "oco"
 },
 {
 "oco_id": 1321,
@@ -14055,7 +14257,9 @@
 8544,
 1892,
 12023
-]
+],
+"oco_similarity": 0.28,
+"use": "oco"
 },
 {
 "oco_id": 1326,
@@ -14080,7 +14284,9 @@
 3216,
 12030,
 17825
-]
+],
+"oco_similarity": 0.27,
+"use": "oco"
 },
 {
 "oco_id": 1328,
@@ -14271,7 +14477,9 @@
 "confidence": "source+incipit",
 "candidates": [
 11323
-]
+],
+"oco_similarity": 0.67,
+"use": "oco"
 },
 {
 "oco_id": 1346,
@@ -14287,7 +14495,9 @@
 8435,
 11932,
 16107
-]
+],
+"oco_similarity": 0.42,
+"use": "oco"
 },
 {
 "oco_id": 1347,
@@ -14323,7 +14533,9 @@
 8543,
 13224,
 16111
-]
+],
+"oco_similarity": 0.74,
+"use": "oco"
 },
 {
 "oco_id": 1350,
@@ -14364,7 +14576,8 @@
 "confidence": "rb-none",
 "candidates": [
 8438
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 1353,
@@ -14543,7 +14756,9 @@
 "confidence": "verona",
 "candidates": [
 11121
-]
+],
+"oco_similarity": 0.72,
+"use": "oco"
 },
 {
 "oco_id": 1369,
@@ -14892,7 +15107,8 @@
 10368,
 12989,
 18537
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 1405,
@@ -15029,7 +15245,9 @@
 12569,
 7078,
 9065
-]
+],
+"oco_similarity": 0.49,
+"use": "oco"
 },
 {
 "oco_id": 1417,
@@ -15163,7 +15381,8 @@
 "candidates": [
 9784,
 10969
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 1430,
@@ -15264,7 +15483,9 @@
 3225,
 12983,
 9904
-]
+],
+"oco_similarity": 0.62,
+"use": "oco"
 },
 {
 "oco_id": 1440,
@@ -15400,7 +15621,9 @@
 12571,
 7105,
 3050
-]
+],
+"oco_similarity": 0.35,
+"use": "oco"
 },
 {
 "oco_id": 1453,
@@ -15499,7 +15722,9 @@
 "confidence": "rb-incipit",
 "candidates": [
 11967
-]
+],
+"oco_similarity": 0.62,
+"use": "oco"
 },
 {
 "oco_id": 1463,
@@ -15634,7 +15859,9 @@
 3158,
 11782,
 9920
-]
+],
+"oco_similarity": 0.58,
+"use": "oco"
 },
 {
 "oco_id": 1476,
@@ -15711,7 +15938,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 16403
-]
+],
+"oco_similarity": 0.32,
+"use": "oco"
 },
 {
 "oco_id": 1484,
@@ -15733,7 +15962,8 @@
 "confidence": "rb-none",
 "candidates": [
 15537
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 1486,
@@ -15760,7 +15990,9 @@
 2799,
 4477,
 9753
-]
+],
+"oco_similarity": 0.5,
+"use": "oco"
 },
 {
 "oco_id": 1489,
@@ -15870,7 +16102,8 @@
 "mode": "6",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 1499,
@@ -15916,7 +16149,9 @@
 7774,
 7777,
 7778
-]
+],
+"oco_similarity": 0.55,
+"use": "oco"
 },
 {
 "oco_id": 1504,
@@ -15973,7 +16208,9 @@
 3140,
 13143,
 7106
-]
+],
+"oco_similarity": 0.64,
+"use": "oco"
 },
 {
 "oco_id": 1509,
@@ -16039,7 +16276,8 @@
 "mode": "4e",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 1517,
@@ -16130,7 +16368,8 @@
 1938,
 6805,
 18854
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 1525,
@@ -16545,7 +16784,9 @@
 "confidence": "incipit",
 "candidates": [
 5197
-]
+],
+"oco_similarity": 0.13,
+"use": "oco"
 },
 {
 "oco_id": 1566,
@@ -16580,7 +16821,8 @@
 2783,
 6738,
 7731
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 1569,
@@ -16713,7 +16955,8 @@
 "confidence": "rb-none",
 "candidates": [
 18187
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 1581,
@@ -17058,7 +17301,9 @@
 11837,
 6141,
 10316
-]
+],
+"oco_similarity": 0.7,
+"use": "oco"
 },
 {
 "oco_id": 1615,
@@ -17278,7 +17523,8 @@
 "confidence": "rb-none",
 "candidates": [
 10756
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 1637,
@@ -17366,7 +17612,9 @@
 "confidence": "verona",
 "candidates": [
 10695
-]
+],
+"oco_similarity": 0.36,
+"use": "oco"
 },
 {
 "oco_id": 1646,
@@ -17377,7 +17625,8 @@
 "confidence": "rb-none",
 "candidates": [
 9104
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 1647,
@@ -17496,7 +17745,8 @@
 "mode": "6",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 1659,
@@ -17575,7 +17825,9 @@
 2600,
 7130,
 13288
-]
+],
+"oco_similarity": 0.27,
+"use": "oco"
 },
 {
 "oco_id": 1667,
@@ -17606,7 +17858,8 @@
 "mode": "6",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 1670,
@@ -17661,7 +17914,9 @@
 "confidence": "incipit",
 "candidates": [
 8094
-]
+],
+"oco_similarity": 0.56,
+"use": "oco"
 },
 {
 "oco_id": 1676,
@@ -17674,7 +17929,9 @@
 575,
 3838,
 6476
-]
+],
+"oco_similarity": 0.11,
+"use": "oco"
 },
 {
 "oco_id": 1677,
@@ -17761,7 +18018,8 @@
 "mode": "6",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 1685,
@@ -17781,7 +18039,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 1688,
@@ -18043,7 +18302,8 @@
 "mode": "5a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 1728,
@@ -18263,7 +18523,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 18040
-]
+],
+"oco_similarity": 0.32,
+"use": "oco"
 },
 {
 "oco_id": 1762,
@@ -18393,7 +18655,8 @@
 "mode": "2d",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 1783,
@@ -18636,7 +18899,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 10757
-]
+],
+"oco_similarity": 0.35,
+"use": "oco"
 },
 {
 "oco_id": 1823,
@@ -18768,7 +19033,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 10766
-]
+],
+"oco_similarity": 0.52,
+"use": "oco"
 },
 {
 "oco_id": 1845,
@@ -19133,7 +19400,9 @@
 "candidates": [
 16416,
 10791
-]
+],
+"oco_similarity": 0.79,
+"use": "oco"
 },
 {
 "oco_id": 1904,
@@ -19329,7 +19598,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 1935,
@@ -19340,7 +19610,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 17497
-]
+],
+"oco_similarity": 0.21,
+"use": "oco"
 },
 {
 "oco_id": 1936,
@@ -19482,7 +19754,8 @@
 "mode": "3g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 1958,
@@ -19494,7 +19767,9 @@
 "candidates": [
 10747,
 11096
-]
+],
+"oco_similarity": 0.47,
+"use": "oco"
 },
 {
 "oco_id": 1959,
@@ -19593,7 +19868,9 @@
 "confidence": "verona",
 "candidates": [
 10823
-]
+],
+"oco_similarity": 0.78,
+"use": "oco"
 },
 {
 "oco_id": 1972,
@@ -19651,7 +19928,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 5758
-]
+],
+"oco_similarity": 0.27,
+"use": "oco"
 },
 {
 "oco_id": 1978,
@@ -19662,7 +19941,9 @@
 "confidence": "source+incipit",
 "candidates": [
 17653
-]
+],
+"oco_similarity": 0.74,
+"use": "oco"
 },
 {
 "oco_id": 1979,
@@ -19739,7 +20020,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 14992
-]
+],
+"oco_similarity": 0.44,
+"use": "oco"
 },
 {
 "oco_id": 1991,
@@ -19751,7 +20034,9 @@
 "candidates": [
 1172,
 9965
-]
+],
+"oco_similarity": 0.26,
+"use": "oco"
 },
 {
 "oco_id": 1993,
@@ -19775,7 +20060,9 @@
 2600,
 7130,
 13288
-]
+],
+"oco_similarity": 0.41,
+"use": "oco"
 },
 {
 "oco_id": 1995,
@@ -19788,7 +20075,9 @@
 11993,
 2694,
 6711
-]
+],
+"oco_similarity": 0.41,
+"use": "oco"
 },
 {
 "oco_id": 1996,
@@ -19843,7 +20132,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 18328
-]
+],
+"oco_similarity": 0.79,
+"use": "oco"
 },
 {
 "oco_id": 2001,
@@ -19908,7 +20199,8 @@
 "mode": "7c",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2019,
@@ -19954,7 +20246,8 @@
 "mode": "1g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2025,
@@ -20024,7 +20317,8 @@
 "mode": "1g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2036,
@@ -20111,7 +20405,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2044,
@@ -20133,7 +20428,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 15005
-]
+],
+"oco_similarity": 0.77,
+"use": "oco"
 },
 {
 "oco_id": 2046,
@@ -20212,7 +20509,8 @@
 "candidates": [
 11006,
 10764
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 2052,
@@ -20241,7 +20539,9 @@
 "confidence": "incipit",
 "candidates": [
 6752
-]
+],
+"oco_similarity": 0.33,
+"use": "oco"
 },
 {
 "oco_id": 2054,
@@ -20262,7 +20562,8 @@
 "mode": "1d",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2062,
@@ -20274,7 +20575,9 @@
 "candidates": [
 11712,
 6862
-]
+],
+"oco_similarity": 0.25,
+"use": "oco"
 },
 {
 "oco_id": 2063,
@@ -20357,7 +20660,9 @@
 9922,
 12580,
 16969
-]
+],
+"oco_similarity": 0.28,
+"use": "oco"
 },
 {
 "oco_id": 2071,
@@ -20422,7 +20727,9 @@
 9361,
 11742,
 17228
-]
+],
+"oco_similarity": 0.17,
+"use": "oco"
 },
 {
 "oco_id": 2076,
@@ -20433,7 +20740,9 @@
 "confidence": "rb-incipit",
 "candidates": [
 3206
-]
+],
+"oco_similarity": 0.36,
+"use": "oco"
 },
 {
 "oco_id": 2077,
@@ -20448,7 +20757,9 @@
 17591,
 3332,
 6375
-]
+],
+"oco_similarity": 0.71,
+"use": "oco"
 },
 {
 "oco_id": 2078,
@@ -20481,7 +20792,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 17111
-]
+],
+"oco_similarity": 0.8,
+"use": "oco"
 },
 {
 "oco_id": 2081,
@@ -20529,7 +20842,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 14459
-]
+],
+"oco_similarity": 0.39,
+"use": "oco"
 },
 {
 "oco_id": 2085,
@@ -20541,7 +20856,9 @@
 "candidates": [
 15759,
 3104
-]
+],
+"oco_similarity": 0.36,
+"use": "oco"
 },
 {
 "oco_id": 2086,
@@ -20561,7 +20878,8 @@
 "mode": "7c",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2092,
@@ -20586,7 +20904,9 @@
 "candidates": [
 8413,
 16795
-]
+],
+"oco_similarity": 0.32,
+"use": "oco"
 },
 {
 "oco_id": 2101,
@@ -20611,7 +20931,9 @@
 "candidates": [
 11421,
 11551
-]
+],
+"oco_similarity": 0.28,
+"use": "oco"
 },
 {
 "oco_id": 2103,
@@ -20635,7 +20957,9 @@
 "candidates": [
 2341,
 11928
-]
+],
+"oco_similarity": 0.42,
+"use": "oco"
 },
 {
 "oco_id": 2105,
@@ -20650,7 +20974,9 @@
 6645,
 9091,
 10122
-]
+],
+"oco_similarity": 0.43,
+"use": "oco"
 },
 {
 "oco_id": 2109,
@@ -20671,7 +20997,8 @@
 "mode": "2d",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2112,
@@ -20684,7 +21011,9 @@
 17510,
 6770,
 15283
-]
+],
+"oco_similarity": 0.6,
+"use": "oco"
 },
 {
 "oco_id": 2113,
@@ -20693,7 +21022,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2114,
@@ -20716,7 +21046,9 @@
 "candidates": [
 2356,
 5266
-]
+],
+"oco_similarity": 0.29,
+"use": "oco"
 },
 {
 "oco_id": 2116,
@@ -20725,7 +21057,8 @@
 "mode": "8c",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2117,
@@ -20736,7 +21069,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 9886
-]
+],
+"oco_similarity": 0.2,
+"use": "oco"
 },
 {
 "oco_id": 2118,
@@ -20756,7 +21091,8 @@
 "mode": "2*a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2120,
@@ -20765,7 +21101,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2121,
@@ -20777,7 +21114,9 @@
 "candidates": [
 2012,
 13247
-]
+],
+"oco_similarity": 0.38,
+"use": "oco"
 },
 {
 "oco_id": 2122,
@@ -20808,7 +21147,8 @@
 "mode": "1g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2125,
@@ -20859,7 +21199,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 10764
-]
+],
+"oco_similarity": 0.24,
+"use": "oco"
 },
 {
 "oco_id": 2131,
@@ -20868,7 +21210,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2132,
@@ -20877,7 +21220,8 @@
 "mode": "7a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2140,
@@ -20918,7 +21262,9 @@
 "candidates": [
 3795,
 9975
-]
+],
+"oco_similarity": 0.26,
+"use": "oco"
 },
 {
 "oco_id": 2143,
@@ -21021,7 +21367,9 @@
 2664,
 9202,
 12956
-]
+],
+"oco_similarity": 0.78,
+"use": "oco"
 },
 {
 "oco_id": 2152,
@@ -21032,7 +21380,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 17657
-]
+],
+"oco_similarity": 0.75,
+"use": "oco"
 },
 {
 "oco_id": 2153,
@@ -21121,7 +21471,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 4043
-]
+],
+"oco_similarity": 0.35,
+"use": "oco"
 },
 {
 "oco_id": 2160,
@@ -21162,7 +21514,9 @@
 12172,
 17597,
 5949
-]
+],
+"oco_similarity": 0.52,
+"use": "oco"
 },
 {
 "oco_id": 2163,
@@ -21276,7 +21630,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 14384
-]
+],
+"oco_similarity": 0.42,
+"use": "oco"
 },
 {
 "oco_id": 2176,
@@ -21288,7 +21644,9 @@
 "candidates": [
 11530,
 11660
-]
+],
+"oco_similarity": 0.75,
+"use": "oco"
 },
 {
 "oco_id": 2177,
@@ -21299,7 +21657,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 14454
-]
+],
+"oco_similarity": 0.28,
+"use": "oco"
 },
 {
 "oco_id": 2178,
@@ -21310,7 +21670,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 14454
-]
+],
+"oco_similarity": 0.39,
+"use": "oco"
 },
 {
 "oco_id": 2179,
@@ -21332,7 +21694,9 @@
 "confidence": "source+incipit",
 "candidates": [
 17689
-]
+],
+"oco_similarity": 0.63,
+"use": "oco"
 },
 {
 "oco_id": 2181,
@@ -21356,7 +21720,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 17692
-]
+],
+"oco_similarity": 0.78,
+"use": "oco"
 },
 {
 "oco_id": 2183,
@@ -21450,7 +21816,9 @@
 16112,
 17718,
 12935
-]
+],
+"oco_similarity": 0.78,
+"use": "oco"
 },
 {
 "oco_id": 2193,
@@ -21484,7 +21852,9 @@
 "confidence": "verona",
 "candidates": [
 11451
-]
+],
+"oco_similarity": 0.36,
+"use": "oco"
 },
 {
 "oco_id": 2196,
@@ -21511,7 +21881,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 14454
-]
+],
+"oco_similarity": 0.37,
+"use": "oco"
 },
 {
 "oco_id": 2198,
@@ -21534,7 +21906,9 @@
 "candidates": [
 10094,
 18348
-]
+],
+"oco_similarity": 0.2,
+"use": "oco"
 },
 {
 "oco_id": 2218,
@@ -21543,7 +21917,8 @@
 "mode": "6*",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2219,
@@ -21576,7 +21951,9 @@
 "confidence": "incipit",
 "candidates": [
 14010
-]
+],
+"oco_similarity": 0.21,
+"use": "oco"
 },
 {
 "oco_id": 2223,
@@ -21585,7 +21962,8 @@
 "mode": "3a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2224,
@@ -21597,7 +21975,8 @@
 "candidates": [
 831,
 3421
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 2225,
@@ -21632,7 +22011,9 @@
 17389,
 6770,
 15283
-]
+],
+"oco_similarity": 0.63,
+"use": "oco"
 },
 {
 "oco_id": 2229,
@@ -21646,7 +22027,9 @@
 5828,
 8562,
 13123
-]
+],
+"oco_similarity": 0.79,
+"use": "oco"
 },
 {
 "oco_id": 2231,
@@ -21781,7 +22164,9 @@
 17647,
 4043,
 12645
-]
+],
+"oco_similarity": 0.56,
+"use": "oco"
 },
 {
 "oco_id": 2249,
@@ -21824,7 +22209,9 @@
 17640,
 3073,
 12027
-]
+],
+"oco_similarity": 0.39,
+"use": "oco"
 },
 {
 "oco_id": 2252,
@@ -21835,7 +22222,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 1941
-]
+],
+"oco_similarity": 0.78,
+"use": "oco"
 },
 {
 "oco_id": 2254,
@@ -21871,7 +22260,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 14793
-]
+],
+"oco_similarity": 0.16,
+"use": "oco"
 },
 {
 "oco_id": 2257,
@@ -21904,7 +22295,8 @@
 "mode": "1f",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2260,
@@ -22083,7 +22475,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 13263
-]
+],
+"oco_similarity": 0.29,
+"use": "oco"
 },
 {
 "oco_id": 2300,
@@ -22094,7 +22488,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 6327
-]
+],
+"oco_similarity": 0.46,
+"use": "oco"
 },
 {
 "oco_id": 2301,
@@ -22103,7 +22499,8 @@
 "mode": "1g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2302,
@@ -22128,7 +22525,9 @@
 11222,
 11788,
 17209
-]
+],
+"oco_similarity": 0.8,
+"use": "oco"
 },
 {
 "oco_id": 2304,
@@ -22179,7 +22578,9 @@
 "candidates": [
 1256,
 3509
-]
+],
+"oco_similarity": 0.21,
+"use": "oco"
 },
 {
 "oco_id": 2313,
@@ -22199,7 +22600,8 @@
 "mode": "2d",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2319,
@@ -22230,7 +22632,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2324,
@@ -22293,7 +22696,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 10770
-]
+],
+"oco_similarity": 0.19,
+"use": "oco"
 },
 {
 "oco_id": 2338,
@@ -22451,7 +22856,9 @@
 "confidence": "rb-incipit",
 "candidates": [
 20745
-]
+],
+"oco_similarity": 0.22,
+"use": "oco"
 },
 {
 "oco_id": 2351,
@@ -22577,7 +22984,8 @@
 "mode": "8c",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2365,
@@ -22613,7 +23021,8 @@
 "confidence": "rb-none",
 "candidates": [
 14850
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 2368,
@@ -22651,7 +23060,9 @@
 846,
 3724,
 5102
-]
+],
+"oco_similarity": 0.44,
+"use": "oco"
 },
 {
 "oco_id": 2371,
@@ -22671,7 +23082,8 @@
 "mode": "1g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2373,
@@ -22736,7 +23148,8 @@
 "confidence": "rb-none",
 "candidates": [
 3063
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 2378,
@@ -22769,7 +23182,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2381,
@@ -22783,7 +23197,9 @@
 6909,
 8740,
 13139
-]
+],
+"oco_similarity": 0.21,
+"use": "oco"
 },
 {
 "oco_id": 2382,
@@ -22864,7 +23280,9 @@
 2397,
 13303,
 15440
-]
+],
+"oco_similarity": 0.37,
+"use": "oco"
 },
 {
 "oco_id": 2389,
@@ -22875,7 +23293,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 5673
-]
+],
+"oco_similarity": 0.16,
+"use": "oco"
 },
 {
 "oco_id": 2390,
@@ -22907,7 +23327,8 @@
 "mode": "1f",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2393,
@@ -22980,7 +23401,9 @@
 "candidates": [
 8856,
 11697
-]
+],
+"oco_similarity": 0.26,
+"use": "oco"
 },
 {
 "oco_id": 2408,
@@ -23095,7 +23518,8 @@
 "confidence": "rb-none",
 "candidates": [
 15038
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 2428,
@@ -23128,7 +23552,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 7681
-]
+],
+"oco_similarity": 0.5,
+"use": "oco"
 },
 {
 "oco_id": 2431,
@@ -23254,7 +23680,9 @@
 "confidence": "incipit",
 "candidates": [
 17463
-]
+],
+"oco_similarity": 0.06,
+"use": "oco"
 },
 {
 "oco_id": 2446,
@@ -23263,7 +23691,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2447,
@@ -23310,7 +23739,8 @@
 "candidates": [
 15576,
 10836
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 2451,
@@ -23344,7 +23774,8 @@
 "confidence": "rb-none",
 "candidates": [
 11189
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 2454,
@@ -23356,7 +23787,9 @@
 "candidates": [
 8840,
 5205
-]
+],
+"oco_similarity": 0.39,
+"use": "oco"
 },
 {
 "oco_id": 2456,
@@ -23398,7 +23831,8 @@
 "mode": "1f",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2462,
@@ -23456,7 +23890,9 @@
 "confidence": "incipit",
 "candidates": [
 8803
-]
+],
+"oco_similarity": 0.36,
+"use": "oco"
 },
 {
 "oco_id": 2472,
@@ -23467,7 +23903,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 15938
-]
+],
+"oco_similarity": 0.25,
+"use": "oco"
 },
 {
 "oco_id": 2473,
@@ -23476,7 +23914,8 @@
 "mode": "6f",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2474,
@@ -23485,7 +23924,8 @@
 "mode": "6f",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2476,
@@ -23537,7 +23977,9 @@
 3091,
 12042,
 6910
-]
+],
+"oco_similarity": 0.64,
+"use": "oco"
 },
 {
 "oco_id": 2480,
@@ -23584,7 +24026,9 @@
 "confidence": "incipit",
 "candidates": [
 17432
-]
+],
+"oco_similarity": 0.44,
+"use": "oco"
 },
 {
 "oco_id": 2484,
@@ -23595,7 +24039,9 @@
 "confidence": "verona",
 "candidates": [
 16783
-]
+],
+"oco_similarity": 0.51,
+"use": "oco"
 },
 {
 "oco_id": 2485,
@@ -23607,7 +24053,9 @@
 "candidates": [
 4834,
 11808
-]
+],
+"oco_similarity": 0.78,
+"use": "oco"
 },
 {
 "oco_id": 2486,
@@ -23629,7 +24077,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 10517
-]
+],
+"oco_similarity": 0.44,
+"use": "oco"
 },
 {
 "oco_id": 2488,
@@ -23640,7 +24090,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 10518
-]
+],
+"oco_similarity": 0.74,
+"use": "oco"
 },
 {
 "oco_id": 2489,
@@ -23652,7 +24104,9 @@
 "candidates": [
 11494,
 11624
-]
+],
+"oco_similarity": 0.67,
+"use": "oco"
 },
 {
 "oco_id": 2490,
@@ -23691,7 +24145,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 10521
-]
+],
+"oco_similarity": 0.32,
+"use": "oco"
 },
 {
 "oco_id": 2493,
@@ -23771,7 +24227,9 @@
 "confidence": "rb-incipit",
 "candidates": [
 10527
-]
+],
+"oco_similarity": 0.8,
+"use": "oco"
 },
 {
 "oco_id": 2500,
@@ -23816,7 +24274,8 @@
 "mode": "1g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2510,
@@ -23849,7 +24308,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 9987
-]
+],
+"oco_similarity": 0.54,
+"use": "oco"
 },
 {
 "oco_id": 2513,
@@ -23862,7 +24323,9 @@
 17510,
 6770,
 15283
-]
+],
+"oco_similarity": 0.52,
+"use": "oco"
 },
 {
 "oco_id": 2514,
@@ -23964,7 +24427,8 @@
 "mode": "4e",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2522,
@@ -23973,7 +24437,8 @@
 "mode": "1d",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2523,
@@ -24050,7 +24515,9 @@
 7485,
 12865,
 18066
-]
+],
+"oco_similarity": 0.47,
+"use": "oco"
 },
 {
 "oco_id": 2536,
@@ -24094,7 +24561,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 15292
-]
+],
+"oco_similarity": 0.65,
+"use": "oco"
 },
 {
 "oco_id": 2540,
@@ -24116,7 +24585,9 @@
 "confidence": "incipit",
 "candidates": [
 16132
-]
+],
+"oco_similarity": 0.31,
+"use": "oco"
 },
 {
 "oco_id": 2542,
@@ -24156,7 +24627,9 @@
 2380,
 5737,
 9054
-]
+],
+"oco_similarity": 0.42,
+"use": "oco"
 },
 {
 "oco_id": 2545,
@@ -24178,7 +24651,9 @@
 "confidence": "rb-incipit",
 "candidates": [
 10570
-]
+],
+"oco_similarity": 0.31,
+"use": "oco"
 },
 {
 "oco_id": 2547,
@@ -24202,7 +24677,8 @@
 "mode": "1g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2549,
@@ -24211,7 +24687,8 @@
 "mode": "2d",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2550,
@@ -24220,7 +24697,8 @@
 "mode": "2*-4a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2551,
@@ -24332,7 +24810,8 @@
 "mode": "3g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2566,
@@ -24423,7 +24902,9 @@
 "confidence": "incipit",
 "candidates": [
 4789
-]
+],
+"oco_similarity": 0.17,
+"use": "oco"
 },
 {
 "oco_id": 2576,
@@ -24450,7 +24931,9 @@
 2665,
 7072,
 16702
-]
+],
+"oco_similarity": 0.42,
+"use": "oco"
 },
 {
 "oco_id": 2582,
@@ -24483,7 +24966,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 4622
-]
+],
+"oco_similarity": 0.58,
+"use": "oco"
 },
 {
 "oco_id": 2585,
@@ -24504,7 +24989,8 @@
 "mode": "7",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2588,
@@ -24537,7 +25023,8 @@
 "mode": "2d",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2591,
@@ -24546,7 +25033,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2592,
@@ -24555,7 +25043,8 @@
 "mode": "6",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2593,
@@ -24630,7 +25119,8 @@
 "mode": "6",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2599,
@@ -24689,7 +25179,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 17466
-]
+],
+"oco_similarity": 0.27,
+"use": "oco"
 },
 {
 "oco_id": 2605,
@@ -24722,7 +25214,8 @@
 "mode": "3a2",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2608,
@@ -24823,7 +25316,9 @@
 "confidence": "incipit",
 "candidates": [
 17467
-]
+],
+"oco_similarity": 0.22,
+"use": "oco"
 },
 {
 "oco_id": 2616,
@@ -24959,7 +25454,9 @@
 17473,
 18581,
 17586
-]
+],
+"oco_similarity": 0.28,
+"use": "oco"
 },
 {
 "oco_id": 2632,
@@ -24995,7 +25492,9 @@
 "confidence": "source+incipit",
 "candidates": [
 15318
-]
+],
+"oco_similarity": 0.53,
+"use": "oco"
 },
 {
 "oco_id": 2635,
@@ -25010,7 +25509,9 @@
 6594,
 8991,
 18649
-]
+],
+"oco_similarity": 0.31,
+"use": "oco"
 },
 {
 "oco_id": 2636,
@@ -25091,7 +25592,9 @@
 8576,
 10202,
 12131
-]
+],
+"oco_similarity": 0.73,
+"use": "oco"
 },
 {
 "oco_id": 2643,
@@ -25113,7 +25616,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 10633
-]
+],
+"oco_similarity": 0.76,
+"use": "oco"
 },
 {
 "oco_id": 2645,
@@ -25201,7 +25706,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 15238
-]
+],
+"oco_similarity": 0.66,
+"use": "oco"
 },
 {
 "oco_id": 2652,
@@ -25256,7 +25763,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 12444
-]
+],
+"oco_similarity": 0.79,
+"use": "oco"
 },
 {
 "oco_id": 2657,
@@ -25319,7 +25828,9 @@
 1980,
 4993,
 11897
-]
+],
+"oco_similarity": 0.75,
+"use": "oco"
 },
 {
 "oco_id": 2662,
@@ -25328,7 +25839,8 @@
 "mode": "1a2",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2663,
@@ -25345,7 +25857,8 @@
 5406,
 13917,
 14003
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 2664,
@@ -25370,7 +25883,9 @@
 "candidates": [
 12268,
 2220
-]
+],
+"oco_similarity": 0.77,
+"use": "oco"
 },
 {
 "oco_id": 2666,
@@ -25407,7 +25922,9 @@
 3801,
 5171,
 13908
-]
+],
+"oco_similarity": 0.45,
+"use": "oco"
 },
 {
 "oco_id": 2675,
@@ -25427,7 +25944,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2680,
@@ -25436,7 +25954,8 @@
 "mode": "7d",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2681,
@@ -25445,7 +25964,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2686,
@@ -25478,7 +25998,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 16170
-]
+],
+"oco_similarity": 0.37,
+"use": "oco"
 },
 {
 "oco_id": 2689,
@@ -25487,7 +26009,8 @@
 "mode": "7c",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2690,
@@ -25498,7 +26021,9 @@
 "confidence": "incipit",
 "candidates": [
 10625
-]
+],
+"oco_similarity": 0.29,
+"use": "oco"
 },
 {
 "oco_id": 2691,
@@ -25545,7 +26070,9 @@
 "confidence": "incipit",
 "candidates": [
 13580
-]
+],
+"oco_similarity": 0.1,
+"use": "oco"
 },
 {
 "oco_id": 2695,
@@ -25580,7 +26107,9 @@
 "confidence": "incipit",
 "candidates": [
 17381
-]
+],
+"oco_similarity": 0.09,
+"use": "oco"
 },
 {
 "oco_id": 2698,
@@ -25589,7 +26118,8 @@
 "mode": "2*a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2699,
@@ -25672,7 +26202,8 @@
 "mode": "8g2",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2706,
@@ -25715,7 +26246,8 @@
 "mode": "7a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2710,
@@ -25727,7 +26259,9 @@
 "candidates": [
 1225,
 13470
-]
+],
+"oco_similarity": 0.19,
+"use": "oco"
 },
 {
 "oco_id": 2712,
@@ -25788,7 +26322,8 @@
 "mode": "7c",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2717,
@@ -25800,7 +26335,9 @@
 "candidates": [
 3224,
 12517
-]
+],
+"oco_similarity": 0.58,
+"use": "oco"
 },
 {
 "oco_id": 2718,
@@ -25813,7 +26350,9 @@
 2525,
 9006,
 13104
-]
+],
+"oco_similarity": 0.59,
+"use": "oco"
 },
 {
 "oco_id": 2719,
@@ -25855,7 +26394,9 @@
 "confidence": "incipit",
 "candidates": [
 7389
-]
+],
+"oco_similarity": 0.58,
+"use": "oco"
 },
 {
 "oco_id": 2722,
@@ -25868,7 +26409,9 @@
 11862,
 2632,
 6884
-]
+],
+"oco_similarity": 0.37,
+"use": "oco"
 },
 {
 "oco_id": 2723,
@@ -25879,7 +26422,8 @@
 "confidence": "rb-none",
 "candidates": [
 17943
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 2724,
@@ -25912,7 +26456,9 @@
 "confidence": "incipit",
 "candidates": [
 5933
-]
+],
+"oco_similarity": 0.4,
+"use": "oco"
 },
 {
 "oco_id": 2727,
@@ -25950,7 +26496,8 @@
 "mode": "4e",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2732,
@@ -25987,7 +26534,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 10000
-]
+],
+"oco_similarity": 0.33,
+"use": "oco"
 },
 {
 "oco_id": 2735,
@@ -26022,7 +26571,9 @@
 9023,
 12443,
 1966
-]
+],
+"oco_similarity": 0.39,
+"use": "oco"
 },
 {
 "oco_id": 2738,
@@ -26095,7 +26646,8 @@
 "mode": "7a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2756,
@@ -26106,7 +26658,9 @@
 "confidence": "incipit",
 "candidates": [
 17939
-]
+],
+"oco_similarity": 0.11,
+"use": "oco"
 },
 {
 "oco_id": 2757,
@@ -26115,7 +26669,8 @@
 "mode": "4*",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2758,
@@ -26149,7 +26704,8 @@
 "candidates": [
 831,
 3421
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 2762,
@@ -26160,7 +26716,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 16196
-]
+],
+"oco_similarity": 0.5,
+"use": "oco"
 },
 {
 "oco_id": 2765,
@@ -26169,7 +26727,8 @@
 "mode": "1f",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2776,
@@ -26239,7 +26798,9 @@
 9030,
 4228,
 6062
-]
+],
+"oco_similarity": 0.39,
+"use": "oco"
 },
 {
 "oco_id": 2784,
@@ -26250,7 +26811,9 @@
 "confidence": "incipit",
 "candidates": [
 13580
-]
+],
+"oco_similarity": 0.16,
+"use": "oco"
 },
 {
 "oco_id": 2785,
@@ -26261,7 +26824,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 14673
-]
+],
+"oco_similarity": 0.31,
+"use": "oco"
 },
 {
 "oco_id": 2786,
@@ -26318,7 +26883,9 @@
 "candidates": [
 16086,
 16189
-]
+],
+"oco_similarity": 0.79,
+"use": "oco"
 },
 {
 "oco_id": 2791,
@@ -26455,7 +27022,9 @@
 "confidence": "source+incipit",
 "candidates": [
 16216
-]
+],
+"oco_similarity": 0.59,
+"use": "oco"
 },
 {
 "oco_id": 2802,
@@ -26478,7 +27047,9 @@
 "candidates": [
 10110,
 3066
-]
+],
+"oco_similarity": 0.51,
+"use": "oco"
 },
 {
 "oco_id": 2804,
@@ -26506,7 +27077,9 @@
 12989,
 18537,
 18855
-]
+],
+"oco_similarity": 0.22,
+"use": "oco"
 },
 {
 "oco_id": 2806,
@@ -26515,7 +27088,8 @@
 "mode": "7a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2811,
@@ -26577,7 +27151,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2818,
@@ -26670,7 +27245,9 @@
 "confidence": "incipit",
 "candidates": [
 17552
-]
+],
+"oco_similarity": 0.47,
+"use": "oco"
 },
 {
 "oco_id": 2825,
@@ -26684,7 +27261,9 @@
 2378,
 5764,
 9047
-]
+],
+"oco_similarity": 0.79,
+"use": "oco"
 },
 {
 "oco_id": 2836,
@@ -26742,7 +27321,9 @@
 "candidates": [
 15683,
 11177
-]
+],
+"oco_similarity": 0,
+"use": "oco"
 },
 {
 "oco_id": 2842,
@@ -26756,7 +27337,9 @@
 15685,
 15686,
 15687
-]
+],
+"oco_similarity": 0,
+"use": "oco"
 },
 {
 "oco_id": 2843,
@@ -26768,7 +27351,9 @@
 "candidates": [
 6586,
 9053
-]
+],
+"oco_similarity": 0.27,
+"use": "oco"
 },
 {
 "oco_id": 2844,
@@ -26830,7 +27415,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 15823
-]
+],
+"oco_similarity": 0.31,
+"use": "oco"
 },
 {
 "oco_id": 2857,
@@ -26859,7 +27446,9 @@
 9070,
 13097,
 5044
-]
+],
+"oco_similarity": 0.25,
+"use": "oco"
 },
 {
 "oco_id": 2859,
@@ -26870,7 +27459,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 17123
-]
+],
+"oco_similarity": 0.79,
+"use": "oco"
 },
 {
 "oco_id": 2860,
@@ -26905,7 +27496,9 @@
 "candidates": [
 16563,
 17121
-]
+],
+"oco_similarity": 0.45,
+"use": "oco"
 },
 {
 "oco_id": 2863,
@@ -27010,7 +27603,9 @@
 "candidates": [
 11421,
 11551
-]
+],
+"oco_similarity": 0.28,
+"use": "oco"
 },
 {
 "oco_id": 2877,
@@ -27069,7 +27664,9 @@
 "candidates": [
 11365,
 16131
-]
+],
+"oco_similarity": 0.6,
+"use": "oco"
 },
 {
 "oco_id": 2882,
@@ -27081,7 +27678,9 @@
 "candidates": [
 11370,
 16133
-]
+],
+"oco_similarity": 0.67,
+"use": "oco"
 },
 {
 "oco_id": 2883,
@@ -27165,7 +27764,9 @@
 2152,
 8511,
 11772
-]
+],
+"oco_similarity": 0.74,
+"use": "oco"
 },
 {
 "oco_id": 2890,
@@ -27179,7 +27780,9 @@
 2966,
 4713,
 11728
-]
+],
+"oco_similarity": 0.75,
+"use": "oco"
 },
 {
 "oco_id": 2891,
@@ -27251,7 +27854,9 @@
 16162,
 13202,
 4905
-]
+],
+"oco_similarity": 0.3,
+"use": "oco"
 },
 {
 "oco_id": 2897,
@@ -27278,7 +27883,9 @@
 10562,
 12958,
 7681
-]
+],
+"oco_similarity": 0.33,
+"use": "oco"
 },
 {
 "oco_id": 2904,
@@ -27287,7 +27894,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2905,
@@ -27324,7 +27932,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 14361
-]
+],
+"oco_similarity": 0.34,
+"use": "oco"
 },
 {
 "oco_id": 2913,
@@ -27393,7 +28003,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 9987
-]
+],
+"oco_similarity": 0.54,
+"use": "oco"
 },
 {
 "oco_id": 2919,
@@ -27463,7 +28075,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 16664
-]
+],
+"oco_similarity": 0.36,
+"use": "oco"
 },
 {
 "oco_id": 2925,
@@ -27550,7 +28164,9 @@
 7031,
 8359,
 13223
-]
+],
+"oco_similarity": 0.54,
+"use": "oco"
 },
 {
 "oco_id": 2932,
@@ -27561,7 +28177,9 @@
 "confidence": "verona",
 "candidates": [
 14792
-]
+],
+"oco_similarity": 0.68,
+"use": "oco"
 },
 {
 "oco_id": 2933,
@@ -27572,7 +28190,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 14454
-]
+],
+"oco_similarity": 0.21,
+"use": "oco"
 },
 {
 "oco_id": 2934,
@@ -27583,7 +28203,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 16682
-]
+],
+"oco_similarity": 0.62,
+"use": "oco"
 },
 {
 "oco_id": 2935,
@@ -27592,7 +28214,8 @@
 "mode": "2d",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2936,
@@ -27601,7 +28224,8 @@
 "mode": "3g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2937,
@@ -27612,7 +28236,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 14361
-]
+],
+"oco_similarity": 0.37,
+"use": "oco"
 },
 {
 "oco_id": 2938,
@@ -27775,7 +28401,9 @@
 "confidence": "incipit",
 "candidates": [
 3076
-]
+],
+"oco_similarity": 0.25,
+"use": "oco"
 },
 {
 "oco_id": 2955,
@@ -27799,7 +28427,9 @@
 "confidence": "incipit",
 "candidates": [
 5321
-]
+],
+"oco_similarity": 0.36,
+"use": "oco"
 },
 {
 "oco_id": 2957,
@@ -27808,7 +28438,8 @@
 "mode": "7a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2958,
@@ -27822,7 +28453,9 @@
 8961,
 18849,
 5895
-]
+],
+"oco_similarity": 0.41,
+"use": "oco"
 },
 {
 "oco_id": 2959,
@@ -27835,7 +28468,9 @@
 8961,
 18849,
 5895
-]
+],
+"oco_similarity": 0.43,
+"use": "oco"
 },
 {
 "oco_id": 2960,
@@ -27868,7 +28503,8 @@
 "mode": "4*",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2963,
@@ -27879,7 +28515,9 @@
 "confidence": "incipit",
 "candidates": [
 7270
-]
+],
+"oco_similarity": 0.46,
+"use": "oco"
 },
 {
 "oco_id": 2964,
@@ -27903,7 +28541,9 @@
 "candidates": [
 16428,
 17978
-]
+],
+"oco_similarity": 0.75,
+"use": "oco"
 },
 {
 "oco_id": 2966,
@@ -27914,7 +28554,9 @@
 "confidence": "verona",
 "candidates": [
 10713
-]
+],
+"oco_similarity": 0.26,
+"use": "oco"
 },
 {
 "oco_id": 2967,
@@ -27925,7 +28567,9 @@
 "confidence": "incipit",
 "candidates": [
 16132
-]
+],
+"oco_similarity": 0.44,
+"use": "oco"
 },
 {
 "oco_id": 2968,
@@ -27949,7 +28593,9 @@
 "confidence": "verona",
 "candidates": [
 14551
-]
+],
+"oco_similarity": 0.72,
+"use": "oco"
 },
 {
 "oco_id": 2970,
@@ -27960,7 +28606,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 17980
-]
+],
+"oco_similarity": 0.78,
+"use": "oco"
 },
 {
 "oco_id": 2971,
@@ -27971,7 +28619,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 17981
-]
+],
+"oco_similarity": 0.29,
+"use": "oco"
 },
 {
 "oco_id": 2972,
@@ -27982,7 +28632,8 @@
 "confidence": "rb-none",
 "candidates": [
 17982
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 2973,
@@ -27993,7 +28644,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 17982
-]
+],
+"oco_similarity": 0.49,
+"use": "oco"
 },
 {
 "oco_id": 2974,
@@ -28015,7 +28668,9 @@
 "confidence": "incipit",
 "candidates": [
 16442
-]
+],
+"oco_similarity": 0.22,
+"use": "oco"
 },
 {
 "oco_id": 2976,
@@ -28052,7 +28707,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 17975
-]
+],
+"oco_similarity": 0.69,
+"use": "oco"
 },
 {
 "oco_id": 2979,
@@ -28063,7 +28720,9 @@
 "confidence": "verona",
 "candidates": [
 14579
-]
+],
+"oco_similarity": 0.76,
+"use": "oco"
 },
 {
 "oco_id": 2980,
@@ -28074,7 +28733,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 16403
-]
+],
+"oco_similarity": 0.75,
+"use": "oco"
 },
 {
 "oco_id": 2981,
@@ -28107,7 +28768,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 10713
-]
+],
+"oco_similarity": 0.22,
+"use": "oco"
 },
 {
 "oco_id": 2984,
@@ -28132,7 +28795,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 16209
-]
+],
+"oco_similarity": 0.57,
+"use": "oco"
 },
 {
 "oco_id": 2986,
@@ -28141,7 +28806,8 @@
 "mode": "4e",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2987,
@@ -28177,7 +28843,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 11178
-]
+],
+"oco_similarity": 0.77,
+"use": "oco"
 },
 {
 "oco_id": 2990,
@@ -28219,7 +28887,9 @@
 12674,
 14142,
 3196
-]
+],
+"oco_similarity": 0.32,
+"use": "oco"
 },
 {
 "oco_id": 2993,
@@ -28228,7 +28898,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2994,
@@ -28239,7 +28910,9 @@
 "confidence": "incipit",
 "candidates": [
 18203
-]
+],
+"oco_similarity": 0.32,
+"use": "oco"
 },
 {
 "oco_id": 2995,
@@ -28248,7 +28921,8 @@
 "mode": "2",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 2996,
@@ -28259,7 +28933,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 18203
-]
+],
+"oco_similarity": 0.47,
+"use": "oco"
 },
 {
 "oco_id": 2997,
@@ -28282,7 +28958,9 @@
 "candidates": [
 1306,
 3707
-]
+],
+"oco_similarity": 0.22,
+"use": "oco"
 },
 {
 "oco_id": 2999,
@@ -28296,7 +28974,9 @@
 8956,
 17977,
 5790
-]
+],
+"oco_similarity": 0.36,
+"use": "oco"
 },
 {
 "oco_id": 3000,
@@ -28307,7 +28987,9 @@
 "confidence": "incipit",
 "candidates": [
 16132
-]
+],
+"oco_similarity": 0.39,
+"use": "oco"
 },
 {
 "oco_id": 3001,
@@ -28338,7 +29020,9 @@
 15685,
 15686,
 15687
-]
+],
+"oco_similarity": 0,
+"use": "oco"
 },
 {
 "oco_id": 3003,
@@ -28379,7 +29063,9 @@
 3143,
 17714,
 6864
-]
+],
+"oco_similarity": 0.73,
+"use": "oco"
 },
 {
 "oco_id": 3006,
@@ -28390,7 +29076,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 15667
-]
+],
+"oco_similarity": 0.27,
+"use": "oco"
 },
 {
 "oco_id": 3007,
@@ -28411,7 +29099,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3009,
@@ -28423,7 +29112,9 @@
 "candidates": [
 15498,
 6992
-]
+],
+"oco_similarity": 0.75,
+"use": "oco"
 },
 {
 "oco_id": 3010,
@@ -28497,7 +29188,9 @@
 "confidence": "rb-incipit",
 "candidates": [
 9492
-]
+],
+"oco_similarity": 0.41,
+"use": "oco"
 },
 {
 "oco_id": 3016,
@@ -28509,7 +29202,9 @@
 "candidates": [
 11421,
 11551
-]
+],
+"oco_similarity": 0.33,
+"use": "oco"
 },
 {
 "oco_id": 3017,
@@ -28555,7 +29250,9 @@
 "candidates": [
 4796,
 10009
-]
+],
+"oco_similarity": 0.37,
+"use": "oco"
 },
 {
 "oco_id": 3023,
@@ -28612,7 +29309,9 @@
 "confidence": "incipit",
 "candidates": [
 14133
-]
+],
+"oco_similarity": 0.78,
+"use": "oco"
 },
 {
 "oco_id": 3032,
@@ -28621,7 +29320,8 @@
 "mode": "7a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3033,
@@ -28630,7 +29330,8 @@
 "mode": "3g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3034,
@@ -28639,7 +29340,8 @@
 "mode": "4e",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3035,
@@ -28648,7 +29350,8 @@
 "mode": "2d",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3036,
@@ -28664,7 +29367,9 @@
 4788,
 18160,
 18727
-]
+],
+"oco_similarity": 0.8,
+"use": "oco"
 },
 {
 "oco_id": 3037,
@@ -28675,7 +29380,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 12674
-]
+],
+"oco_similarity": 0.3,
+"use": "oco"
 },
 {
 "oco_id": 3038,
@@ -28686,7 +29393,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 6066
-]
+],
+"oco_similarity": 0.65,
+"use": "oco"
 },
 {
 "oco_id": 3039,
@@ -28722,7 +29431,9 @@
 "confidence": "incipit",
 "candidates": [
 4078
-]
+],
+"oco_similarity": 0.14,
+"use": "oco"
 },
 {
 "oco_id": 3042,
@@ -28767,7 +29478,9 @@
 "candidates": [
 16564,
 17122
-]
+],
+"oco_similarity": 0.74,
+"use": "oco"
 },
 {
 "oco_id": 3047,
@@ -28800,7 +29513,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 14843
-]
+],
+"oco_similarity": 0.21,
+"use": "oco"
 },
 {
 "oco_id": 3050,
@@ -28831,7 +29546,8 @@
 "mode": "4*",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3053,
@@ -28842,7 +29558,9 @@
 "confidence": "source+incipit",
 "candidates": [
 10398
-]
+],
+"oco_similarity": 0.37,
+"use": "oco"
 },
 {
 "oco_id": 3055,
@@ -28866,7 +29584,9 @@
 13092,
 15437,
 17861
-]
+],
+"oco_similarity": 0.41,
+"use": "oco"
 },
 {
 "oco_id": 3057,
@@ -28886,7 +29606,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3060,
@@ -28962,7 +29683,9 @@
 "candidates": [
 10488,
 6848
-]
+],
+"oco_similarity": 0.52,
+"use": "oco"
 },
 {
 "oco_id": 3066,
@@ -28974,7 +29697,9 @@
 "candidates": [
 10490,
 16636
-]
+],
+"oco_similarity": 0.21,
+"use": "oco"
 },
 {
 "oco_id": 3067,
@@ -29021,7 +29746,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 17939
-]
+],
+"oco_similarity": 0.65,
+"use": "oco"
 },
 {
 "oco_id": 3071,
@@ -29054,7 +29781,9 @@
 "confidence": "rb-incipit",
 "candidates": [
 8799
-]
+],
+"oco_similarity": 0.71,
+"use": "oco"
 },
 {
 "oco_id": 3074,
@@ -29065,7 +29794,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 8799
-]
+],
+"oco_similarity": 0.44,
+"use": "oco"
 },
 {
 "oco_id": 3075,
@@ -29105,7 +29836,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3078,
@@ -29117,7 +29849,9 @@
 "candidates": [
 16092,
 18273
-]
+],
+"oco_similarity": 0.67,
+"use": "oco"
 },
 {
 "oco_id": 3079,
@@ -29170,7 +29904,9 @@
 2510,
 5700,
 16181
-]
+],
+"oco_similarity": 0.4,
+"use": "oco"
 },
 {
 "oco_id": 3083,
@@ -29181,7 +29917,9 @@
 "confidence": "source+incipit",
 "candidates": [
 10558
-]
+],
+"oco_similarity": 0.49,
+"use": "oco"
 },
 {
 "oco_id": 3084,
@@ -29203,7 +29941,9 @@
 "confidence": "incipit",
 "candidates": [
 10558
-]
+],
+"oco_similarity": 0.31,
+"use": "oco"
 },
 {
 "oco_id": 3086,
@@ -29223,7 +29963,8 @@
 "mode": "5a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3088,
@@ -29234,7 +29975,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 16090
-]
+],
+"oco_similarity": 0.74,
+"use": "oco"
 },
 {
 "oco_id": 3089,
@@ -29265,7 +30008,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3092,
@@ -29321,7 +30065,9 @@
 6553,
 8777,
 18735
-]
+],
+"oco_similarity": 0.78,
+"use": "oco"
 },
 {
 "oco_id": 3096,
@@ -29335,7 +30081,9 @@
 16700,
 3199,
 4794
-]
+],
+"oco_similarity": 0.71,
+"use": "oco"
 },
 {
 "oco_id": 3097,
@@ -29370,7 +30118,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 16690
-]
+],
+"oco_similarity": 0.37,
+"use": "oco"
 },
 {
 "oco_id": 3100,
@@ -29379,7 +30129,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3101,
@@ -29388,7 +30139,8 @@
 "mode": "7c",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3102,
@@ -29400,7 +30152,9 @@
 "candidates": [
 13185,
 2337
-]
+],
+"oco_similarity": 0.69,
+"use": "oco"
 },
 {
 "oco_id": 3103,
@@ -29485,7 +30239,9 @@
 10108,
 12878,
 11325
-]
+],
+"oco_similarity": 0.73,
+"use": "oco"
 },
 {
 "oco_id": 3109,
@@ -29525,7 +30281,9 @@
 3906,
 6548,
 13603
-]
+],
+"oco_similarity": 0.24,
+"use": "oco"
 },
 {
 "oco_id": 3122,
@@ -29536,7 +30294,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 16095
-]
+],
+"oco_similarity": 0.28,
+"use": "oco"
 },
 {
 "oco_id": 3123,
@@ -29547,7 +30307,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 4732
-]
+],
+"oco_similarity": 0.35,
+"use": "oco"
 },
 {
 "oco_id": 3124,
@@ -29560,7 +30322,9 @@
 10493,
 11332,
 16639
-]
+],
+"oco_similarity": 0.29,
+"use": "oco"
 },
 {
 "oco_id": 3125,
@@ -29569,7 +30333,8 @@
 "mode": "2d",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3126,
@@ -29582,7 +30347,9 @@
 4454,
 6103,
 12599
-]
+],
+"oco_similarity": 0.29,
+"use": "oco"
 },
 {
 "oco_id": 3127,
@@ -29591,7 +30358,8 @@
 "mode": "4e",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3128,
@@ -29613,7 +30381,9 @@
 "confidence": "incipit",
 "candidates": [
 15665
-]
+],
+"oco_similarity": 0.16,
+"use": "oco"
 },
 {
 "oco_id": 3130,
@@ -29635,7 +30405,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 10096
-]
+],
+"oco_similarity": 0.22,
+"use": "oco"
 },
 {
 "oco_id": 3132,
@@ -29691,7 +30463,9 @@
 10108,
 12878,
 11325
-]
+],
+"oco_similarity": 0.39,
+"use": "oco"
 },
 {
 "oco_id": 3136,
@@ -29704,7 +30478,9 @@
 2788,
 10106,
 12753
-]
+],
+"oco_similarity": 0.39,
+"use": "oco"
 },
 {
 "oco_id": 3137,
@@ -29728,7 +30504,9 @@
 "candidates": [
 18274,
 5606
-]
+],
+"oco_similarity": 0.28,
+"use": "oco"
 },
 {
 "oco_id": 3139,
@@ -29747,7 +30525,9 @@
 5805,
 6578,
 13968
-]
+],
+"oco_similarity": 0.29,
+"use": "oco"
 },
 {
 "oco_id": 3140,
@@ -29834,7 +30614,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 15667
-]
+],
+"oco_similarity": 0.28,
+"use": "oco"
 },
 {
 "oco_id": 3147,
@@ -29899,7 +30681,8 @@
 "mode": "1f",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3153,
@@ -29910,7 +30693,9 @@
 "confidence": "incipit",
 "candidates": [
 5638
-]
+],
+"oco_similarity": 0.3,
+"use": "oco"
 },
 {
 "oco_id": 3154,
@@ -29921,7 +30706,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 16083
-]
+],
+"oco_similarity": 0.77,
+"use": "oco"
 },
 {
 "oco_id": 3155,
@@ -29950,7 +30737,8 @@
 "mode": "1f",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3158,
@@ -29977,7 +30765,9 @@
 1190,
 3587,
 16539
-]
+],
+"oco_similarity": 0.25,
+"use": "oco"
 },
 {
 "oco_id": 3160,
@@ -30021,7 +30811,8 @@
 "mode": "7c",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3166,
@@ -30066,7 +30857,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 7875
-]
+],
+"oco_similarity": 0.78,
+"use": "oco"
 },
 {
 "oco_id": 3170,
@@ -30077,7 +30870,9 @@
 "confidence": "rb-incipit",
 "candidates": [
 8801
-]
+],
+"oco_similarity": 0.67,
+"use": "oco"
 },
 {
 "oco_id": 3171,
@@ -30092,7 +30887,9 @@
 10108,
 12878,
 11325
-]
+],
+"oco_similarity": 0.73,
+"use": "oco"
 },
 {
 "oco_id": 3172,
@@ -30114,7 +30911,9 @@
 "confidence": "incipit",
 "candidates": [
 4553
-]
+],
+"oco_similarity": 0.49,
+"use": "oco"
 },
 {
 "oco_id": 3179,
@@ -30123,7 +30922,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3180,
@@ -30135,7 +30935,9 @@
 "candidates": [
 6750,
 8469
-]
+],
+"oco_similarity": 0.2,
+"use": "oco"
 },
 {
 "oco_id": 3181,
@@ -30144,7 +30946,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3182,
@@ -30153,7 +30956,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3183,
@@ -30164,7 +30968,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 4941
-]
+],
+"oco_similarity": 0.67,
+"use": "oco"
 },
 {
 "oco_id": 3184,
@@ -30175,7 +30981,9 @@
 "confidence": "incipit",
 "candidates": [
 13497
-]
+],
+"oco_similarity": 0.15,
+"use": "oco"
 },
 {
 "oco_id": 3185,
@@ -30186,7 +30994,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 5809
-]
+],
+"oco_similarity": 0.34,
+"use": "oco"
 },
 {
 "oco_id": 3186,
@@ -30200,7 +31010,9 @@
 11743,
 13158,
 2340
-]
+],
+"oco_similarity": 0.53,
+"use": "oco"
 },
 {
 "oco_id": 3187,
@@ -30211,7 +31023,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 5172
-]
+],
+"oco_similarity": 0.44,
+"use": "oco"
 },
 {
 "oco_id": 3188,
@@ -30236,7 +31050,9 @@
 "confidence": "incipit",
 "candidates": [
 4941
-]
+],
+"oco_similarity": 0.39,
+"use": "oco"
 },
 {
 "oco_id": 3191,
@@ -30247,7 +31063,9 @@
 "confidence": "incipit",
 "candidates": [
 13497
-]
+],
+"oco_similarity": 0.15,
+"use": "oco"
 },
 {
 "oco_id": 3192,
@@ -30261,7 +31079,9 @@
 11743,
 13158,
 2340
-]
+],
+"oco_similarity": 0.25,
+"use": "oco"
 },
 {
 "oco_id": 3194,
@@ -30270,7 +31090,8 @@
 "mode": "2*-4a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3195,
@@ -30308,7 +31129,8 @@
 6619,
 13399,
 15543
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 3198,
@@ -30323,7 +31145,9 @@
 6619,
 13399,
 15543
-]
+],
+"oco_similarity": 0.16,
+"use": "oco"
 },
 {
 "oco_id": 3199,
@@ -30373,7 +31197,9 @@
 "confidence": "source+incipit",
 "candidates": [
 14154
-]
+],
+"oco_similarity": 0.38,
+"use": "oco"
 },
 {
 "oco_id": 3206,
@@ -30413,7 +31239,9 @@
 18140,
 18141,
 18142
-]
+],
+"oco_similarity": 0.39,
+"use": "oco"
 },
 {
 "oco_id": 3209,
@@ -30425,7 +31253,9 @@
 "candidates": [
 440,
 3395
-]
+],
+"oco_similarity": 0.19,
+"use": "oco"
 },
 {
 "oco_id": 3210,
@@ -30451,7 +31281,9 @@
 10108,
 12878,
 11325
-]
+],
+"oco_similarity": 0.33,
+"use": "oco"
 },
 {
 "oco_id": 3212,
@@ -30462,7 +31294,8 @@
 "confidence": "rb-none",
 "candidates": [
 8802
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 3213,
@@ -30473,7 +31306,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 8802
-]
+],
+"oco_similarity": 0.39,
+"use": "oco"
 },
 {
 "oco_id": 3214,
@@ -30493,7 +31328,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3216,
@@ -30504,7 +31340,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 14316
-]
+],
+"oco_similarity": 0.69,
+"use": "oco"
 },
 {
 "oco_id": 3217,
@@ -30516,7 +31354,9 @@
 "candidates": [
 8782,
 17948
-]
+],
+"oco_similarity": 0.39,
+"use": "oco"
 },
 {
 "oco_id": 3219,
@@ -30538,7 +31378,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 15450
-]
+],
+"oco_similarity": 0.65,
+"use": "oco"
 },
 {
 "oco_id": 3221,
@@ -30549,7 +31391,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 14886
-]
+],
+"oco_similarity": 0.41,
+"use": "oco"
 },
 {
 "oco_id": 3222,
@@ -30560,7 +31404,9 @@
 "confidence": "rb-incipit",
 "candidates": [
 8803
-]
+],
+"oco_similarity": 0.7,
+"use": "oco"
 },
 {
 "oco_id": 3223,
@@ -30571,7 +31417,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 8803
-]
+],
+"oco_similarity": 0.38,
+"use": "oco"
 },
 {
 "oco_id": 3224,
@@ -30582,7 +31430,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 10746
-]
+],
+"oco_similarity": 0.29,
+"use": "oco"
 },
 {
 "oco_id": 3225,
@@ -30606,7 +31456,9 @@
 10223,
 18394,
 5908
-]
+],
+"oco_similarity": 0.31,
+"use": "oco"
 },
 {
 "oco_id": 3230,
@@ -30615,7 +31467,8 @@
 "mode": "1f",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3231,
@@ -30639,7 +31492,8 @@
 "mode": "4e",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3233,
@@ -30761,7 +31615,9 @@
 17935,
 17936,
 17937
-]
+],
+"oco_similarity": 0,
+"use": "oco"
 },
 {
 "oco_id": 3243,
@@ -30772,7 +31628,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 15829
-]
+],
+"oco_similarity": 0.61,
+"use": "oco"
 },
 {
 "oco_id": 3244,
@@ -30794,7 +31652,8 @@
 "mode": "1g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3247,
@@ -30806,7 +31665,9 @@
 "candidates": [
 5029,
 8791
-]
+],
+"oco_similarity": 0.31,
+"use": "oco"
 },
 {
 "oco_id": 3248,
@@ -30817,7 +31678,9 @@
 "confidence": "incipit",
 "candidates": [
 18649
-]
+],
+"oco_similarity": 0,
+"use": "oco"
 },
 {
 "oco_id": 3250,
@@ -30846,7 +31709,9 @@
 13485,
 17914,
 18163
-]
+],
+"oco_similarity": 0.28,
+"use": "oco"
 },
 {
 "oco_id": 3252,
@@ -30867,7 +31732,8 @@
 "mode": "4",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3254,
@@ -30876,7 +31742,8 @@
 "mode": "6*",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3256,
@@ -30911,7 +31778,9 @@
 "candidates": [
 7364,
 8804
-]
+],
+"oco_similarity": 0.57,
+"use": "oco"
 },
 {
 "oco_id": 3259,
@@ -30955,7 +31824,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 10682
-]
+],
+"oco_similarity": 0.24,
+"use": "oco"
 },
 {
 "oco_id": 3263,
@@ -30978,7 +31849,9 @@
 "confidence": "incipit",
 "candidates": [
 16927
-]
+],
+"oco_similarity": 0.21,
+"use": "oco"
 },
 {
 "oco_id": 3265,
@@ -30987,7 +31860,8 @@
 "mode": "7d",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3266,
@@ -30996,7 +31870,8 @@
 "mode": "2d",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3267,
@@ -31020,7 +31895,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 10682
-]
+],
+"oco_similarity": 0.18,
+"use": "oco"
 },
 {
 "oco_id": 3270,
@@ -31055,7 +31932,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 7930
-]
+],
+"oco_similarity": 0.72,
+"use": "oco"
 },
 {
 "oco_id": 3273,
@@ -31064,7 +31943,8 @@
 "mode": "6",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3274,
@@ -31073,7 +31953,8 @@
 "mode": "6",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3275,
@@ -31085,7 +31966,9 @@
 "candidates": [
 11520,
 11650
-]
+],
+"oco_similarity": 0.22,
+"use": "oco"
 },
 {
 "oco_id": 3276,
@@ -31097,7 +31980,9 @@
 "candidates": [
 11520,
 11650
-]
+],
+"oco_similarity": 0.35,
+"use": "oco"
 },
 {
 "oco_id": 3277,
@@ -31117,7 +32002,9 @@
 "confidence": "incipit",
 "candidates": [
 5594
-]
+],
+"oco_similarity": 0.45,
+"use": "oco"
 },
 {
 "oco_id": 3279,
@@ -31141,7 +32028,8 @@
 "mode": "5",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3281,
@@ -31150,7 +32038,8 @@
 "mode": "E",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3282,
@@ -31159,7 +32048,8 @@
 "mode": "6*",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3284,
@@ -31170,7 +32060,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 17154
-]
+],
+"oco_similarity": 0.79,
+"use": "oco"
 },
 {
 "oco_id": 3285,
@@ -31185,7 +32077,9 @@
 5801,
 7851,
 13885
-]
+],
+"oco_similarity": 0.17,
+"use": "oco"
 },
 {
 "oco_id": 3286,
@@ -31194,7 +32088,8 @@
 "mode": "1g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3288,
@@ -31227,7 +32122,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 17574
-]
+],
+"oco_similarity": 0.16,
+"use": "oco"
 },
 {
 "oco_id": 3291,
@@ -31249,7 +32146,9 @@
 "confidence": "rb-incipit",
 "candidates": [
 8807
-]
+],
+"oco_similarity": 0.67,
+"use": "oco"
 },
 {
 "oco_id": 3293,
@@ -31261,7 +32160,9 @@
 "candidates": [
 8807,
 5982
-]
+],
+"oco_similarity": 0.47,
+"use": "oco"
 },
 {
 "oco_id": 3294,
@@ -31270,7 +32171,8 @@
 "mode": "6",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3295,
@@ -31279,7 +32181,8 @@
 "mode": "6",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3296,
@@ -31313,7 +32216,9 @@
 "candidates": [
 8408,
 8409
-]
+],
+"oco_similarity": 0.38,
+"use": "oco"
 },
 {
 "oco_id": 3299,
@@ -31322,7 +32227,8 @@
 "mode": "3a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3300,
@@ -31333,7 +32239,9 @@
 "confidence": "source+incipit",
 "candidates": [
 8655
-]
+],
+"oco_similarity": 0.73,
+"use": "oco"
 },
 {
 "oco_id": 3301,
@@ -31367,7 +32275,9 @@
 "candidates": [
 2115,
 8794
-]
+],
+"oco_similarity": 0.79,
+"use": "oco"
 },
 {
 "oco_id": 3304,
@@ -31378,7 +32288,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 17833
-]
+],
+"oco_similarity": 0.51,
+"use": "oco"
 },
 {
 "oco_id": 3305,
@@ -31387,7 +32299,8 @@
 "mode": "7c",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3306,
@@ -31398,7 +32311,9 @@
 "confidence": "rb-incipit",
 "candidates": [
 8808
-]
+],
+"oco_similarity": 0.69,
+"use": "oco"
 },
 {
 "oco_id": 3307,
@@ -31409,7 +32324,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 8808
-]
+],
+"oco_similarity": 0.41,
+"use": "oco"
 },
 {
 "oco_id": 3308,
@@ -31441,7 +32358,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 16402
-]
+],
+"oco_similarity": 0.55,
+"use": "oco"
 },
 {
 "oco_id": 3315,
@@ -31450,7 +32369,8 @@
 "mode": "1a2",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3316,
@@ -31459,7 +32379,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3317,
@@ -31470,7 +32391,9 @@
 "confidence": "incipit",
 "candidates": [
 17063
-]
+],
+"oco_similarity": 0.16,
+"use": "oco"
 },
 {
 "oco_id": 3318,
@@ -31481,7 +32404,9 @@
 "confidence": "incipit",
 "candidates": [
 18717
-]
+],
+"oco_similarity": 0.35,
+"use": "oco"
 },
 {
 "oco_id": 3319,
@@ -31518,7 +32443,9 @@
 "confidence": "incipit",
 "candidates": [
 5201
-]
+],
+"oco_similarity": 0.33,
+"use": "oco"
 },
 {
 "oco_id": 3323,
@@ -31529,7 +32456,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 16403
-]
+],
+"oco_similarity": 0.75,
+"use": "oco"
 },
 {
 "oco_id": 3324,
@@ -31538,7 +32467,8 @@
 "mode": "2d",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3325,
@@ -31547,7 +32477,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3326,
@@ -31560,7 +32491,9 @@
 3089,
 18633,
 7075
-]
+],
+"oco_similarity": 0.6,
+"use": "oco"
 },
 {
 "oco_id": 3327,
@@ -31572,7 +32505,9 @@
 "candidates": [
 7075,
 18633
-]
+],
+"oco_similarity": 0.74,
+"use": "oco"
 },
 {
 "oco_id": 3328,
@@ -31583,7 +32518,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 8842
-]
+],
+"oco_similarity": 0.39,
+"use": "oco"
 },
 {
 "oco_id": 3329,
@@ -31594,7 +32531,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 8842
-]
+],
+"oco_similarity": 0.7,
+"use": "oco"
 },
 {
 "oco_id": 3330,
@@ -31616,7 +32555,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 16087
-]
+],
+"oco_similarity": 0.77,
+"use": "oco"
 },
 {
 "oco_id": 3332,
@@ -31627,7 +32568,9 @@
 "confidence": "incipit",
 "candidates": [
 6156
-]
+],
+"oco_similarity": 0.45,
+"use": "oco"
 },
 {
 "oco_id": 3333,
@@ -31638,7 +32581,9 @@
 "confidence": "incipit",
 "candidates": [
 6156
-]
+],
+"oco_similarity": 0.36,
+"use": "oco"
 },
 {
 "oco_id": 3335,
@@ -31663,7 +32608,9 @@
 15022,
 15023,
 16117
-]
+],
+"oco_similarity": 0,
+"use": "oco"
 },
 {
 "oco_id": 3337,
@@ -31674,7 +32621,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 15446
-]
+],
+"oco_similarity": 0.61,
+"use": "oco"
 },
 {
 "oco_id": 3339,
@@ -31686,7 +32635,9 @@
 "candidates": [
 17951,
 17952
-]
+],
+"oco_similarity": 0.65,
+"use": "oco"
 },
 {
 "oco_id": 3340,
@@ -31695,7 +32646,8 @@
 "mode": "per.",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3341,
@@ -31718,7 +32670,9 @@
 "candidates": [
 8809,
 3110
-]
+],
+"oco_similarity": 0.67,
+"use": "oco"
 },
 {
 "oco_id": 3343,
@@ -31729,7 +32683,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 8809
-]
+],
+"oco_similarity": 0.42,
+"use": "oco"
 },
 {
 "oco_id": 3344,
@@ -31743,7 +32699,9 @@
 4228,
 6062,
 9030
-]
+],
+"oco_similarity": 0.21,
+"use": "oco"
 },
 {
 "oco_id": 3345,
@@ -31757,7 +32715,9 @@
 4228,
 6062,
 9030
-]
+],
+"oco_similarity": 0.36,
+"use": "oco"
 },
 {
 "oco_id": 3346,
@@ -31810,7 +32770,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3352,
@@ -31843,7 +32804,9 @@
 "confidence": "rb-incipit",
 "candidates": [
 8810
-]
+],
+"oco_similarity": 0.73,
+"use": "oco"
 },
 {
 "oco_id": 3355,
@@ -31854,7 +32817,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 8810
-]
+],
+"oco_similarity": 0.48,
+"use": "oco"
 },
 {
 "oco_id": 3356,
@@ -31865,7 +32830,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 8850
-]
+],
+"oco_similarity": 0.68,
+"use": "oco"
 },
 {
 "oco_id": 3357,
@@ -31876,7 +32843,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 8850
-]
+],
+"oco_similarity": 0.4,
+"use": "oco"
 },
 {
 "oco_id": 3358,
@@ -31888,7 +32857,9 @@
 "candidates": [
 7086,
 18856
-]
+],
+"oco_similarity": 0.64,
+"use": "oco"
 },
 {
 "oco_id": 3359,
@@ -31922,7 +32893,8 @@
 "mode": "4e",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3363,
@@ -31934,7 +32906,9 @@
 "candidates": [
 16891,
 16935
-]
+],
+"oco_similarity": 0.25,
+"use": "oco"
 },
 {
 "oco_id": 3364,
@@ -31946,7 +32920,9 @@
 "candidates": [
 5904,
 18518
-]
+],
+"oco_similarity": 0.47,
+"use": "oco"
 },
 {
 "oco_id": 3365,
@@ -31960,7 +32936,9 @@
 15022,
 15023,
 16117
-]
+],
+"oco_similarity": 0,
+"use": "oco"
 },
 {
 "oco_id": 3366,
@@ -31969,7 +32947,8 @@
 "mode": "3a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3367,
@@ -31978,7 +32957,8 @@
 "mode": "7d",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3368,
@@ -31991,7 +32971,9 @@
 4337,
 4596,
 12005
-]
+],
+"oco_similarity": 0.73,
+"use": "oco"
 },
 {
 "oco_id": 3370,
@@ -32012,7 +32994,8 @@
 "mode": "3a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3372,
@@ -32024,7 +33007,9 @@
 "candidates": [
 16891,
 16935
-]
+],
+"oco_similarity": 0.25,
+"use": "oco"
 },
 {
 "oco_id": 3374,
@@ -32033,7 +33018,8 @@
 "mode": "8g2",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3375,
@@ -32044,7 +33030,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 10835
-]
+],
+"oco_similarity": 0.26,
+"use": "oco"
 },
 {
 "oco_id": 3376,
@@ -32053,7 +33041,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3377,
@@ -32064,7 +33053,8 @@
 "confidence": "rb-none",
 "candidates": [
 3726
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 3378,
@@ -32075,7 +33065,9 @@
 "confidence": "incipit",
 "candidates": [
 3726
-]
+],
+"oco_similarity": 0.4,
+"use": "oco"
 },
 {
 "oco_id": 3379,
@@ -32089,7 +33081,9 @@
 4650,
 11248,
 13275
-]
+],
+"oco_similarity": 0.7,
+"use": "oco"
 },
 {
 "oco_id": 3380,
@@ -32100,7 +33094,9 @@
 "confidence": "incipit",
 "candidates": [
 5438
-]
+],
+"oco_similarity": 0.27,
+"use": "oco"
 },
 {
 "oco_id": 3382,
@@ -32138,7 +33134,9 @@
 3440,
 5384,
 13494
-]
+],
+"oco_similarity": 0.25,
+"use": "oco"
 },
 {
 "oco_id": 3385,
@@ -32169,7 +33167,9 @@
 "confidence": "incipit",
 "candidates": [
 17571
-]
+],
+"oco_similarity": 0.44,
+"use": "oco"
 },
 {
 "oco_id": 3390,
@@ -32178,7 +33178,8 @@
 "mode": "7c",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3391,
@@ -32192,7 +33193,9 @@
 3283,
 11247,
 5966
-]
+],
+"oco_similarity": 0.31,
+"use": "oco"
 },
 {
 "oco_id": 3392,
@@ -32217,7 +33220,9 @@
 "candidates": [
 18850,
 18076
-]
+],
+"oco_similarity": 0.47,
+"use": "oco"
 },
 {
 "oco_id": 3394,
@@ -32241,7 +33246,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 16951
-]
+],
+"oco_similarity": 0.79,
+"use": "oco"
 },
 {
 "oco_id": 3396,
@@ -32253,7 +33260,9 @@
 "candidates": [
 1256,
 3509
-]
+],
+"oco_similarity": 0.25,
+"use": "oco"
 },
 {
 "oco_id": 3397,
@@ -32262,7 +33271,8 @@
 "mode": "8g",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3399,
@@ -32282,7 +33292,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 18468
-]
+],
+"oco_similarity": 0.78,
+"use": "oco"
 },
 {
 "oco_id": 3401,
@@ -32291,7 +33303,8 @@
 "mode": "3a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3402,
@@ -32300,7 +33313,8 @@
 "mode": "7c",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3403,
@@ -32314,7 +33328,9 @@
 3143,
 17714,
 6864
-]
+],
+"oco_similarity": 0.73,
+"use": "oco"
 },
 {
 "oco_id": 3404,
@@ -32325,7 +33341,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 15667
-]
+],
+"oco_similarity": 0.27,
+"use": "oco"
 },
 {
 "oco_id": 3405,
@@ -32336,7 +33354,9 @@
 "confidence": "incipit",
 "candidates": [
 604
-]
+],
+"oco_similarity": 0.38,
+"use": "oco"
 },
 {
 "oco_id": 3406,
@@ -32347,7 +33367,9 @@
 "confidence": "incipit",
 "candidates": [
 604
-]
+],
+"oco_similarity": 0.25,
+"use": "oco"
 },
 {
 "oco_id": 3407,
@@ -32358,7 +33380,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 10843
-]
+],
+"oco_similarity": 0.24,
+"use": "oco"
 },
 {
 "oco_id": 3413,
@@ -32400,7 +33424,9 @@
 "confidence": "incipit",
 "candidates": [
 13324
-]
+],
+"oco_similarity": 0.22,
+"use": "oco"
 },
 {
 "oco_id": 3419,
@@ -32435,7 +33461,9 @@
 "candidates": [
 2331,
 15502
-]
+],
+"oco_similarity": 0.34,
+"use": "oco"
 },
 {
 "oco_id": 3422,
@@ -32469,7 +33497,8 @@
 "mode": "2*a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3426,
@@ -32480,7 +33509,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 16402
-]
+],
+"oco_similarity": 0.74,
+"use": "oco"
 },
 {
 "oco_id": 3427,
@@ -32502,7 +33533,8 @@
 "mode": "4d",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3429,
@@ -32511,7 +33543,8 @@
 "mode": "7a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3430,
@@ -32533,7 +33566,9 @@
 "confidence": "incipit",
 "candidates": [
 16689
-]
+],
+"oco_similarity": 0.34,
+"use": "oco"
 },
 {
 "oco_id": 3432,
@@ -32545,7 +33580,9 @@
 "candidates": [
 11328,
 18649
-]
+],
+"oco_similarity": 0.39,
+"use": "oco"
 },
 {
 "oco_id": 3433,
@@ -32561,7 +33598,9 @@
 7232,
 10966,
 9757
-]
+],
+"oco_similarity": 0.77,
+"use": "oco"
 },
 {
 "oco_id": 3434,
@@ -32599,7 +33638,9 @@
 1267,
 3683,
 7662
-]
+],
+"oco_similarity": 0.28,
+"use": "oco"
 },
 {
 "oco_id": 3437,
@@ -32643,7 +33684,9 @@
 "confidence": "incipit",
 "candidates": [
 11335
-]
+],
+"oco_similarity": 0.22,
+"use": "oco"
 },
 {
 "oco_id": 3441,
@@ -32652,7 +33695,8 @@
 "mode": "1f",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3442,
@@ -32674,7 +33718,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 18126
-]
+],
+"oco_similarity": 0.79,
+"use": "oco"
 },
 {
 "oco_id": 3444,
@@ -32685,7 +33731,9 @@
 "confidence": "source+incipit",
 "candidates": [
 10963
-]
+],
+"oco_similarity": 0.69,
+"use": "oco"
 },
 {
 "oco_id": 3445,
@@ -32694,7 +33742,8 @@
 "mode": "1a3",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3446,
@@ -32719,7 +33768,9 @@
 "candidates": [
 10534,
 15365
-]
+],
+"oco_similarity": 0.3,
+"use": "oco"
 },
 {
 "oco_id": 3448,
@@ -32754,7 +33805,9 @@
 "candidates": [
 10578,
 15714
-]
+],
+"oco_similarity": 0.49,
+"use": "oco"
 },
 {
 "oco_id": 3451,
@@ -32801,7 +33854,9 @@
 "candidates": [
 15659,
 5197
-]
+],
+"oco_similarity": 0.24,
+"use": "oco"
 },
 {
 "oco_id": 3455,
@@ -32828,7 +33883,9 @@
 9093,
 15651,
 15717
-]
+],
+"oco_similarity": 0.78,
+"use": "oco"
 },
 {
 "oco_id": 3457,
@@ -32839,7 +33896,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 14472
-]
+],
+"oco_similarity": 0.41,
+"use": "oco"
 },
 {
 "oco_id": 3458,
@@ -32875,7 +33934,9 @@
 15720,
 16127,
 3069
-]
+],
+"oco_similarity": 0.37,
+"use": "oco"
 },
 {
 "oco_id": 3461,
@@ -32886,7 +33947,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 11166
-]
+],
+"oco_similarity": 0.23,
+"use": "oco"
 },
 {
 "oco_id": 3462,
@@ -32912,7 +33975,8 @@
 "mode": "6f",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3464,
@@ -32927,7 +33991,9 @@
 7978,
 15640,
 16251
-]
+],
+"oco_similarity": 0.12,
+"use": "oco"
 },
 {
 "oco_id": 3465,
@@ -32936,7 +34002,8 @@
 "mode": "7c",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3466,
@@ -32950,7 +34017,9 @@
 11336,
 17092,
 17771
-]
+],
+"oco_similarity": 0.31,
+"use": "oco"
 },
 {
 "oco_id": 3468,
@@ -32974,7 +34043,9 @@
 4398,
 2189,
 17083
-]
+],
+"oco_similarity": 0.23,
+"use": "oco"
 },
 {
 "oco_id": 3470,
@@ -32996,7 +34067,9 @@
 "confidence": "verona",
 "candidates": [
 10854
-]
+],
+"oco_similarity": 0.76,
+"use": "oco"
 },
 {
 "oco_id": 3472,
@@ -33058,7 +34131,8 @@
 1460,
 5743,
 13830
-]
+],
+"use": "oco"
 },
 {
 "oco_id": 3477,
@@ -33072,7 +34146,9 @@
 1460,
 5743,
 13830
-]
+],
+"oco_similarity": 0.27,
+"use": "oco"
 },
 {
 "oco_id": 3478,
@@ -33081,7 +34157,8 @@
 "mode": "6",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3479,
@@ -33090,7 +34167,8 @@
 "mode": "6",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3480,
@@ -33110,7 +34188,8 @@
 "mode": "7c",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3482,
@@ -33119,7 +34198,8 @@
 "mode": "2*-4a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3483,
@@ -33157,7 +34237,9 @@
 11477,
 11607,
 11683
-]
+],
+"oco_similarity": 0.28,
+"use": "oco"
 },
 {
 "oco_id": 3487,
@@ -33189,7 +34271,8 @@
 "mode": "1f",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3490,
@@ -33304,7 +34387,9 @@
 13434,
 16245,
 17776
-]
+],
+"oco_similarity": 0.19,
+"use": "oco"
 },
 {
 "oco_id": 3500,
@@ -33313,7 +34398,8 @@
 "mode": "4e",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3501,
@@ -33322,7 +34408,8 @@
 "mode": "1f",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3502,
@@ -33333,7 +34420,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 14819
-]
+],
+"oco_similarity": 0.23,
+"use": "oco"
 },
 {
 "oco_id": 3503,
@@ -33344,7 +34433,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 14940
-]
+],
+"oco_similarity": 0.52,
+"use": "oco"
 },
 {
 "oco_id": 3504,
@@ -33353,7 +34444,8 @@
 "mode": "2d",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3505,
@@ -33364,7 +34456,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 10807
-]
+],
+"oco_similarity": 0.46,
+"use": "oco"
 },
 {
 "oco_id": 3506,
@@ -33376,7 +34470,9 @@
 "candidates": [
 2023,
 12189
-]
+],
+"oco_similarity": 0.4,
+"use": "oco"
 },
 {
 "oco_id": 3507,
@@ -33416,7 +34512,9 @@
 "candidates": [
 16421,
 8047
-]
+],
+"oco_similarity": 0.24,
+"use": "oco"
 },
 {
 "oco_id": 3510,
@@ -33432,7 +34530,9 @@
 13434,
 16245,
 17776
-]
+],
+"oco_similarity": 0.28,
+"use": "oco"
 },
 {
 "oco_id": 3511,
@@ -33446,7 +34546,9 @@
 5560,
 8508,
 12290
-]
+],
+"oco_similarity": 0.39,
+"use": "oco"
 },
 {
 "oco_id": 3512,
@@ -33459,7 +34561,9 @@
 11477,
 11607,
 11683
-]
+],
+"oco_similarity": 0.31,
+"use": "oco"
 },
 {
 "oco_id": 3513,
@@ -33470,7 +34574,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 17667
-]
+],
+"oco_similarity": 0.59,
+"use": "oco"
 },
 {
 "oco_id": 3515,
@@ -33490,7 +34596,8 @@
 "mode": "3a",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3517,
@@ -33513,7 +34620,9 @@
 "candidates": [
 11328,
 18649
-]
+],
+"oco_similarity": 0.42,
+"use": "oco"
 },
 {
 "oco_id": 3519,
@@ -33522,7 +34631,8 @@
 "mode": "4e",
 "gregobase": null,
 "confidence": null,
-"candidates": []
+"candidates": [],
+"use": "oco"
 },
 {
 "oco_id": 3520,
@@ -33534,7 +34644,9 @@
 "candidates": [
 7914,
 18649
-]
+],
+"oco_similarity": 0.25,
+"use": "oco"
 },
 {
 "oco_id": 3521,
@@ -33579,7 +34691,9 @@
 4582,
 15428,
 18442
-]
+],
+"oco_similarity": 0.47,
+"use": "oco"
 },
 {
 "oco_id": 3524,
@@ -33590,7 +34704,9 @@
 "confidence": "incipit+mode",
 "candidates": [
 5052
-]
+],
+"oco_similarity": 0.43,
+"use": "oco"
 },
 {
 "oco_id": 3525,
@@ -33657,7 +34773,9 @@
 "confidence": "verona-mode?",
 "candidates": [
 10860
-]
+],
+"oco_similarity": 0.38,
+"use": "oco"
 },
 {
 "oco_id": 3575,
@@ -33995,5 +35113,40 @@
 "mode": null,
 "gregobase": 20330,
 "confidence": "lhym-incipit"
+},
+{
+"oco_id": 1516,
+"page": 585,
+"incipit": "Edúxit Deus pópulum suum in exsultatióne,",
+"mode": null,
+"use": "oco"
+},
+{
+"oco_id": 1977,
+"page": 685,
+"incipit": "In manus tuas, Dómine, Comméndo spíritum",
+"mode": null,
+"use": "oco"
+},
+{
+"oco_id": 2222,
+"page": 765,
+"incipit": "Isti sunt viri sancti et amíci",
+"mode": null,
+"use": "oco"
+},
+{
+"oco_id": 2356,
+"page": 799,
+"incipit": "Ioánnes est nomen eus vinum et",
+"mode": null,
+"use": "oco"
+},
+{
+"oco_id": 239,
+"page": 93,
+"incipit": "Rubum quem víderat Móyses incombústum, conservátam",
+"mode": null,
+"use": "oco"
 }
 ]

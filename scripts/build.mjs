@@ -5,7 +5,8 @@
 //   dist/data/slots.json         the OCO index slot codes (tempus, hour, place) for site/resolve.js
 //   dist/data/psalterium.json    the four-week psalter texts, keyed "week-dow", from data/texts/days
 //   dist/data/days/<date>.json   texts of particular dates (for what is proper to the day)
-//   dist/gabc/<id>.gabc          every score the entries point to, plus the common tones
+//   dist/gabc/<id>.gabc          every score the entries point to, plus the common tones;
+//                                oco-<entry id>.gabc for scores read from the OCO itself (data/gabc-oco)
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -23,14 +24,16 @@ const compact = entries.map((e) => {
   const m = match.get(e.id);
   const o = {
     id: e.id, page: e.page, part: e.part, chapter: e.chapter, sub: e.sub, group: e.group, day: e.day, hour: e.hour,
-    position: e.position, kind: e.kind, mode: e.mode, title: e.title, text: e.text || null,
+    // the PDF's ℟ glyph comes out as "Ɠ": "Ɠ br." and "R br." are the same place
+    position: e.position ? e.position.replace(/^Ɠ/, 'R') : e.position, kind: e.kind, mode: e.mode, title: e.title, text: e.text || null,
   };
   if (e.qualifiers?.length) o.qualifiers = e.qualifiers;
   if (e.rubrics?.length) o.rubrics = e.rubrics;
   if (e.cao) o.cao = e.cao;
   if (e.lhym) o.lhym = e.lhym;
   if (e.scripture) o.scripture = e.scripture;
-  if (m?.gregobase) { o.gabc = m.gregobase; o.gabcConfidence = m.confidence; }
+  if (m?.use === 'oco') { o.gabc = `oco-${e.id}`; o.gabcConfidence = 'oco'; } // read from the OCO's own notation
+  else if (m?.gregobase) { o.gabc = m.gregobase; o.gabcConfidence = m.confidence; }
   return o;
 });
 mkdirSync(join(dist, 'data'), { recursive: true });
@@ -54,7 +57,7 @@ const ids = new Set([...compact.map((e) => e.gabc).filter(Boolean), ...COMMON_TO
 mkdirSync(join(dist, 'gabc'), { recursive: true });
 let copied = 0, missing = 0;
 for (const id of ids) {
-  const src = join(gabcCache, `${id}.gabc`);
+  const src = String(id).startsWith('oco-') ? join(root, 'data/gabc-oco', `${String(id).slice(4)}.gabc`) : join(gabcCache, `${id}.gabc`);
   if (existsSync(src)) { cpSync(src, join(dist, 'gabc', `${id}.gabc`)); copied++; } else missing++;
 }
 

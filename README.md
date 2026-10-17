@@ -140,14 +140,31 @@ that blessing, as the books give no score); then Benedicamus Domino of the day's
 (AR II pp. 764–765). Deus in adiutorium ends with Alleluia, or in Lent with the Lenten
 ending its score carries.
 
+### Notation read from the OCO itself
+
+The OCO was typeset with Gregorio, so its music is not pictures but glyphs of Gregorio's
+greciliae font (6.0.0) on drawn staff lines, with the lyrics as text under them.
+`scripts/oco/read_notation.py` reads it back into GABC: the glyphs' code points name the
+neumes (`data/oco/gregorio-glyphs.json`, from the release fonts by
+`scripts/oco/greciliae_names.py`), names that spell shape and intervals (PesOneNothing,
+TorculusTwoOneNothing…); the glyph's height on the staff gives the pitch; Divisio glyphs
+the bars; each lyric syllable (a text span of its own) takes the notes from the one under
+its vowel to the next syllable's. Pieces start at their initials, run on over lines and
+pages, and are lined up with the OCO entries by their opening words: 2,621 of 2,645
+pieces, one GABC file each in `data/gabc-oco/`. `scripts/oco/check_notation.py` compares
+them with antiphonale.net's own GregoBase transcriptions: 90% identical in pitch, notes
+per syllable identical in 99%; the differences are mostly this edition's revisions.
+`scripts/oco/choose_scores.py` then uses the OCO's reading wherever GregoBase has no
+score or the matched one is another chant (pitch similarity below 0.8): 660 pieces.
+
 ### Short responsories
 
 The OCO's short responsories are single pieces; `scripts/oco/match_responsoria.py`
 matches them to GregoBase scores of part "rb" (Antiphonale Monasticum and Romanum
 first), comparing the full text where one incipit serves several responsories, and
-taking a score only when it carries most of the OCO's text. 115 of 165 have a score; the
-others show iBreviary's text and are listed with their OCO pages in
-`docs/responsoria-sine-notis.md` (most are the psalter's ferial ones in mode 6).
+taking a score only when it carries most of the OCO's text; the others are read from the
+OCO itself. 155 of 165 have a score; the remaining ten are cross-references
+(`docs/responsoria-sine-notis.md`).
 
 ### Memorials
 

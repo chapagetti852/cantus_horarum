@@ -118,7 +118,7 @@ function hourTitle(hour, slot, propers) {
       : `${HOUR_NAMES[hour]} · ${slot.dayName}, hebdomada ${ROMAN[slot.week - 1]}`;
   return el(`<h2 class="section">${esc(name)}</h2>`);
 }
-const PLACE = { R: 'Ɠ br.' };
+const PLACE = { R: 'R br.' };
 /** The psalter's entries with the proper ones put in their places. */
 function withPropers(entries, propers) {
   const places = Object.keys(propers).filter((k) => k !== 'I' && k[0] !== '_');
