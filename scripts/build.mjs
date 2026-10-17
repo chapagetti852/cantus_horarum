@@ -47,7 +47,9 @@ writeFileSync(join(dist, 'data/slots.json'), JSON.stringify(slots));
 
 const COMMON_TONES = [4121, 18178, 7864, 18107, 18108, 4321, 15303, 15301, 15302, 17847, 17848, 18352, 18353, 18354, 18355, 18356, 18357, 18358, 18359, 18360, 18361, 18362, 18363, 18364, 18365, 18366,
   // invitatory psalm 94 in the Liber Hymnarius tones (see INVITATORY_TONES in site/app.js)
-  8218, 10397, 15508, 7669, 16356, 10248, 9664, 10035, 15059, 9834, 9707, 9642];
+  8218, 10397, 15508, 7669, 16356, 10248, 9664, 10035, 15059, 9834, 9707, 9642,
+  // conclusions of Lauds and Vespers, Antiphonale Romanum II pp. 761-765
+  4322, 4323, 17802, 3972, 16976, 16129, 16665];
 const ids = new Set([...compact.map((e) => e.gabc).filter(Boolean), ...COMMON_TONES]);
 mkdirSync(join(dist, 'gabc'), { recursive: true });
 let copied = 0, missing = 0;

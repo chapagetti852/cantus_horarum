@@ -29,7 +29,7 @@ const COMMONS = {
   Nuns: ['Rel', 'Virg'], Abbots: ['Rel', 'Vir'], Monks: ['Rel', 'Vir'], MercyWorkers: ['Mis', 'Vir'], Educators: ['Educ', 'Vir'],
 };
 const TEMPORAL_NAMED = new Set(['Trn', 'Corp', 'Cord', 'Reg', 'Asc', 'Pent', 'Ep', 'Bapt', 'Fam', '2N1', 'Nat']);
-const isSanctoral = (cel) => !/^(advent|christmas|lent|easter|ordinary_time|holy_week|palm_sunday|divine_mercy|sunday_of_the_word|mary_mother_of_god)/.test(cel.id || '')
+export const isSanctoral = (cel) => !/^(advent|christmas|lent|easter|ordinary_time|holy_week|palm_sunday|divine_mercy|sunday_of_the_word|mary_mother_of_god)/.test(cel.id || '')
   && !TEMPORAL_NAMED.has(NAMED[cel.id]) && cel.rank !== 'WEEKDAY' && cel.rank !== 'SUNDAY';
 // romcal titles -> OCO common codes, for celebrations the calendar gives no common
 const TITLES = {
@@ -226,11 +226,12 @@ export function celebrationFor(today, tomorrow, hour) {
  * First the season's day (Sundays and weekdays of the seasons take what the season
  * provides; Ordinary Time weekdays nothing, the psalter serves), then the celebration
  * laid over it: solemnities and feasts take every place from their proper or common,
- * memorials only the hymn, the Gospel canticle antiphon and the invitatory (and their
- * own psalm antiphons, if they have any). Memorials in Lent and after 16 December
+ * memorials the hymn and the invitatory, their own psalm and Gospel canticle antiphons
+ * if they have any, and with `memoriaCommune` the common's canticle antiphon and short
+ * responsory too (from the short reading on, the weekday or the common may be said). Memorials in Lent and after 16 December
  * are only commemorated.
  */
-export function resolveHour(slots, oco, cel, date, hour) {
+export function resolveHour(slots, oco, cel, date, hour, { memoriaCommune = false } = {}) {
   const out = {};
   const T = context(cel, date, 'temporal');
   const bigTemporal = !isSanctoral(cel) && (cel.rank === 'SOLEMNITY' || cel.rank === 'FEAST');
@@ -242,7 +243,14 @@ export function resolveHour(slots, oco, cel, date, hour) {
     const big = cel.rank === 'SOLEMNITY' || cel.rank === 'FEAST';
     const memorial = cel.rank === 'MEMORIAL' && !(S.season === 'Q' || (S.season === 'A' && !S.before17));
     if (big) fill(out, slots, oco, S, hour, () => 20, true);
-    else if (memorial) fill(out, slots, oco, S, hour, (kind, place) => (kind === 'psalm' ? 100 : place === 'R' ? 999 : 40), true);
+    // memorials: from the short reading on, the weekday (proper pieces only) or, by choice, the common
+    else if (memorial) {
+      fill(out, slots, oco, S, hour, (kind, place) => {
+        if (kind === 'psalm') return 100;
+        if (place === 'R' || place === 'B' || place === 'M') return memoriaCommune ? 40 : place === 'R' ? 999 : 100;
+        return 40;
+      }, true);
+    }
   }
   return { out, c: T };
 }

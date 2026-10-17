@@ -24,6 +24,14 @@
       <input type="date" id="date" aria-label="Dies">
     </label>
     <button class="nav" id="next" aria-label="Dies sequens">›</button>
+    <button class="nav gear" id="settings-toggle" aria-label="Optiones" aria-expanded="false" aria-controls="settings">⚙︎</button>
+  </div>
+  <div id="settings" class="settings" hidden>
+    <label>Litterae <input type="range" id="text-size" min="85" max="140" step="5" value="100"></label>
+    <label><input type="checkbox" id="opt-dark"> Nox</label>
+    <label>Psalmi <select id="opt-psalms"><option value="">toti in notis</option><option value="text">primus versus in notis, ceteri in textu</option></select></label>
+    <label>Invitatorium ante <select id="opt-invitatory"><option value="">—</option><option value="lectio">Officium lectionis</option><option value="laudes">Laudes</option></select></label>
+    <label>In memoriis, a lectione brevi <select id="opt-memoria"><option value="">de feria</option><option value="commune">de communi</option></select></label>
   </div>
   <nav class="hours" id="hours" aria-label="Horae">
     <button data-hour="lectio">Lect.</button>
@@ -40,17 +48,7 @@
   <p class="loading">Paratur…</p>
 </main>
 
-<footer class="bottom">
-  <button id="settings-toggle" class="link" aria-expanded="false">Optiones</button>
-  <div id="settings" class="settings" hidden>
-    <label>Litterae <input type="range" id="text-size" min="85" max="140" step="5" value="100"></label>
-    <label><input type="checkbox" id="opt-dark"> Nox</label>
-    <label><input type="checkbox" id="opt-solemn"> Tonus sollemnis ad <i>Deus in adiutorium</i></label>
-    <label><input type="checkbox" id="opt-all-notes"> Omnes versus psalmorum in notis</label>
-    <label>Invitatorium ante <select id="opt-invitatory"><option value="">—</option><option value="lectio">Officium lectionis</option><option value="laudes">Laudes</option></select></label>
-    <label><input type="checkbox" id="opt-latin-only" checked disabled> Latine</label>
-  </div>
-</footer>
+
 
 <script src="vendor/exsurge.min.js"></script>
 <script type="module" src="app.js"></script>

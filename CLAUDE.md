@@ -18,6 +18,9 @@ Read `README.md` first: it explains every pipeline.
   (`git clone --depth 1 https://github.com/gregorio-project/GregoBase`, file
   `gregobase_online.sql`, CC0) into `data/gregobase/*.json` and a GABC cache in `cache/`
   (git-ignored). `select_gabc.py` copies the scores the site uses into `data/gabc/` (committed).
+- `scripts/oco/match_responsoria.py` re-matches the short responsories (after
+  `match_gregobase.py`); `scripts/gregobase/fetch_gabc.sh <ids>` fetches single GABC
+  files from GregoBase into `data/gabc/` when the dump's `cache/` is not at hand.
 - `scripts/oco/match_gregobase.py` → `data/oco/gregobase-match.json`. Order of preference:
   GregoBase version "Verona" (antiphonale.net's own OCO transcriptions, ids ~10678–16818,
   headers carry `occasion`/`office-part`), then the book+page the OCO cites
@@ -40,9 +43,15 @@ Read `README.md` first: it explains every pipeline.
 
 - Keep the app dependency-free and static; data is precomputed by scripts, committed, and
   copied by `scripts/build.mjs`. Scores are fetched per file from `gabc/<id>.gabc`.
-- Mobile first (390 px), legible, serif, rubrics in red. Hymns: first strophe notated,
-  rest as text. Antiphon labels show the OCO mode (e.g. `8g`, `2*a`, `4*e` — Solesmes 2005
-  tone names).
+- Mobile first (390 px), legible, serif, rubrics in red, notes follow the text colour
+  (night mode). Settings live in the header (gear). No grey labels over scores; where a
+  score is shown its text is not repeated. Hymns and psalms are each one full score
+  (psalms can be switched to "first verse notated, rest pointed text"). Antiphon scores
+  stand before and after their psalm. Tone labels (red, "Tonus 8 g") use the Solesmes
+  2005 names.
+- Short responsories are single pieces of music: the OCO's, matched to GregoBase part
+  "rb" by `scripts/oco/match_responsoria.py` (text decides between variants); the
+  iBreviary text only where GregoBase has no score.
 - Texts from iBreviary and the OCO are copyrighted (LEV); private use only, `noindex`.
 - Verify rendering with headless Chromium (Playwright is installed in cloud sessions):
   serve `dist/` and screenshot `#YYYY-MM-DD/<hour>` at width 390.

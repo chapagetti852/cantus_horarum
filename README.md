@@ -65,9 +65,9 @@ accents from the printed accent marks, groups iBreviary's printed lines into ver
 (flex †, mediant *, termination), and fits the intonation, accents, preparatory
 syllables and tenor. Each antiphon's own "E u o u a e" picks the ending when the OCO
 label disagrees and sets the pitch, so the tone sits where the antiphon is written.
-The first verse of each psalm is drawn in notes with the intonation; the others are
-text with cadence accents in bold and preparatory syllables in italic (an option draws
-every verse). Gospel canticles take the intonation on every verse.
+Each psalm is drawn as one score, verse after verse; an option draws only the first
+verse in notes and the others as text with cadence accents in bold and preparatory
+syllables in italic. Gospel canticles take the intonation on every verse.
 `test/psalmtone.test.mjs` checks the table against the E u o u a e of every OCO antiphon.
 
 ### Calendar
@@ -90,8 +90,8 @@ texts, and draws every score with Exsurge at the width of the phone. Hymns show 
 first strophe notated and the rest as text.
 
 The Office of Readings has its OCO hymn (the night or the day form, by the clock), the
-three antiphons with their psalms and the versicle; the two readings are left out, and
-their responsories are shown when the texts of that very date are present
+three antiphons with their psalms and the versicle, then the two readings with their
+responsories (as text) when the texts of that very date are present
 (`dist/data/days/<date>.json`, copied from `data/texts/days/`). Terce, Sext and None
 each have their own hymn, the psalter antiphons common to the three, and their own
 short reading, versicle and collect.
@@ -118,6 +118,29 @@ to five weeks ahead in `cache/texts/days/` (not committed). The Pages workflow r
 every day at 03:00 Hong Kong time, with iBreviary's pages cached between runs, so each
 date has its own collect, readings' responsories and proper texts; the 28 committed
 psalter days are the fallback.
+
+### Chants of the ordinary
+
+Deus, in adiutorium takes its tone from the day (Antiphonale Monasticum 2005: ferial on
+weekdays and memorials, festive on Sundays and feasts, solemn at Lauds and Vespers of
+solemnities). The Pater noster at Lauds and Vespers is sung (AM 2005 pp. 533–534,
+ferial or festive). The conclusions are sung: Dominus vobiscum with the blessing, Ite in
+pace (with alleluia in the Easter octave) or a Benedicamus Domino of the day's rank
+(Antiphonale Romanum II pp. 761–765) when a priest or deacon presides, and Benedicamus
+Domino at the little hours and the Office of Readings (AM 2005 p. 546).
+
+### Short responsories
+
+The OCO's short responsories are single pieces; `scripts/oco/match_responsoria.py`
+matches them to GregoBase scores of part "rb" (Antiphonale Monasticum and Romanum
+first), comparing the full text where one incipit serves several responsories. 123 of
+165 have a score; the others show iBreviary's text.
+
+### Memorials
+
+On memorials in Ordinary Time, Lauds and Vespers take the weekday from the short reading
+on (reading, responsory, canticle antiphon unless proper, intercessions), or, by the
+option, the common; the collect is always the saint's.
 
 ### Invitatory
 
