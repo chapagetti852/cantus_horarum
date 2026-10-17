@@ -25,6 +25,8 @@ Read `README.md` first: it explains every pipeline.
   cross-checks against `data/antiphonale-net/links.json` (slot code → GregoBase id).
 - `scripts/calendar/build.mjs` — romcal 3 (dev) + `@romcal/calendar.general-roman`, Latin
   localisation → `site/data/calendar/YYYY.json` (2025–2032).
+- `scripts/texts/window.mjs` — rolling window of daily texts (today−3 … today+35) into
+  `cache/texts/days/`; the build copies them to `dist/data/days/`.
 - `scripts/texts/ibreviary.mjs` — Latin office texts from ibreviary.com/m2 (POST date to
   opzioni.php, session cookie, then breviario.php?s=…). Run with `NODE_USE_ENV_PROXY=1`
   in cloud sessions. Output `data/texts/days/<date>.json`; `data/texts/psalter-days.json`
@@ -49,14 +51,13 @@ Read `README.md` first: it explains every pipeline.
 
 ## Status / next steps
 
-Working: all hours for Ordinary Time days (psalter only), psalms and Gospel canticles
-pointed to their tones (`site/psalmtone.js`, see README "Psalm tones"; `npm test` checks
-the tone table against every antiphon's E u o u a e). Office of Readings: responsories
-after the readings appear only when `data/texts/days/<date>.json` exists for that date
-(text only: the OCO gives no responsoria prolixa for ferias per annum).
-To do, in order:
-1. Seasons, feasts, sanctoral: resolve a date to OCO entries using the index slot codes
-   (`data/oco/indices.json`, `docs/oco-sigla.md`) and the calendar's rank/precedence;
-   iBreviary propers in a rolling window (as CantoDailyReadings does) — this also gives
-   the right collect and the readings' responsories for each date. Invitatory.
+Working: every hour of every day. Psalms and Gospel canticles pointed to their tones
+(`site/psalmtone.js`); propers of seasons, feasts and saints resolved from the OCO index
+slot codes (`site/resolve.js`, README "Propers"); daily iBreviary texts in a rolling
+window (`scripts/texts/window.mjs`, run daily by the Pages workflow into the git-ignored
+`cache/texts/days`); invitatory option (Ps 94 in the Liber Hymnarius tones).
+`npm test` (after `node scripts/build.mjs`) checks tones and propers.
+To do:
+1. Compline on solemnities (Sunday forms); optional memorials as a choice; Saturday
+   memorial of Our Lady; feminine/plural variants of the commons.
 2. Hong Kong diocesan calendar; English / Cantonese translations line by line (later).

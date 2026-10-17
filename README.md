@@ -96,10 +96,39 @@ their responsories are shown when the texts of that very date are present
 each have their own hymn, the psalter antiphons common to the three, and their own
 short reading, versicle and collect.
 
-Status: every hour of Ordinary Time days works from the psalter, with psalms and
-canticles pointed to their tones. Still to do: the collects and the readings'
-responsories follow the date only where its iBreviary texts are present; seasons,
-feasts and the sanctoral are not yet resolved; no invitatory yet.
+### Propers: seasons, feasts, saints
+
+`site/resolve.js` resolves a date and hour to its proper chants through the slot codes of
+the OCO indices (`data/oco/indices.json`, shipped as `dist/data/slots.json`): *tempus*
+(`1A2`, `A-18/12`, `29D`, `21/11`, `Asc`, the commons `Ap`, `BMV`, `Past` …), *officium*
+(`L`, `V`, `1V`, `Ol`, `T` …) and *locus* (`1`–`3`, `B`, `Mb` …). The season's day is
+resolved first (Sundays and weekdays of the seasons take what the season provides;
+Ordinary Time weekdays keep the psalter), then the celebration of the day from the
+calendar is laid over it: solemnities and feasts take every place from their proper or
+common, memorials the hymn, the Gospel canticle antiphon and the invitatory (memorials
+are only commemorated in Lent and after 16 December). Vespers on the eve of a Sunday or
+solemnity that outranks the day are its I Vespers. A celebration's common comes from the
+calendar, or from its titles (apostle, martyr, virgin, bishop …) when it gives none.
+`test/resolve.test.mjs` checks a set of known days.
+
+### Daily texts
+
+`scripts/texts/window.mjs` keeps iBreviary's texts for every date from three days back
+to five weeks ahead in `cache/texts/days/` (not committed). The Pages workflow runs it
+every day at 03:00 Hong Kong time, with iBreviary's pages cached between runs, so each
+date has its own collect, readings' responsories and proper texts; the 28 committed
+psalter days are the fallback.
+
+### Invitatory
+
+An option puts the invitatory before Lauds or the Office of Readings: *Domine, labia mea
+aperies* (Antiphonale Monasticum 2005 tones), the invitatory antiphon (proper, or the
+psalter's one-week cycle) and Psalm 94 (95) in the Liber Hymnarius tone that matches the
+antiphon's mode, the antiphon repeated after each strophe.
+
+Status: every hour of every day is composed: Ordinary Time from the psalter, and the
+seasons, feasts and saints from their propers. Not yet: Compline's Sunday form on
+solemnities, optional memorials (the feria is said), the Saturday memorial of Our Lady.
 
 ### Deploying
 

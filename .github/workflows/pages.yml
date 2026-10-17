@@ -3,6 +3,8 @@ name: Build and deploy
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: "0 19 * * *" # daily, 03:00 in Hong Kong: refresh the window of daily texts
   workflow_dispatch:
 
 permissions:
@@ -24,9 +26,20 @@ jobs:
           node-version: "22"
           cache: npm
       - run: npm ci
-      - run: npm test --if-present
+      # iBreviary pages are cached between runs, so only new dates are fetched
+      - uses: actions/cache@v4
+        with:
+          path: |
+            cache/ibreviary
+            cache/texts
+          key: ibreviary-${{ github.run_id }}
+          restore-keys: ibreviary-
+      - name: Fetch the window of daily texts
+        run: node scripts/texts/window.mjs 3 35
+        continue-on-error: true
       - name: Build site
         run: node scripts/build.mjs
+      - run: npm test --if-present # after the build: the tone and propers tests read dist/data
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

@@ -2,6 +2,7 @@
 // Assemble the static site into dist/:
 //   site/**                      copied as is (app, styles, fonts, vendor, calendar)
 //   dist/data/oco.json           compact OCO entries with their GregoBase score id
+//   dist/data/slots.json         the OCO index slot codes (tempus, hour, place) for site/resolve.js
 //   dist/data/psalterium.json    the four-week psalter texts, keyed "week-dow", from data/texts/days
 //   dist/data/days/<date>.json   texts of particular dates (for what is proper to the day)
 //   dist/gabc/<id>.gabc          every score the entries point to, plus the common tones
@@ -35,6 +36,15 @@ const compact = entries.map((e) => {
 mkdirSync(join(dist, 'data'), { recursive: true });
 writeFileSync(join(dist, 'data/oco.json'), JSON.stringify(compact));
 
+// ---- slot codes of the OCO indices, for resolving propers (site/resolve.js) ------
+const indices = JSON.parse(readFileSync(join(root, 'data/oco/indices.json'), 'utf8'));
+const slots = [
+  ...indices.antiphonae.map((e) => ['a', e.tempus, e.officium, e.locus, e.oco_ids, null, e.incipit]),
+  ...indices.hymni.map((e) => ['h', e.tempus, e.officium, '', [], e.lhym, e.incipit]),
+  ...indices.responsoria_brevia.map((e) => ['r', e.tempus, e.officium, '', e.oco_ids, null, e.incipit]),
+];
+writeFileSync(join(dist, 'data/slots.json'), JSON.stringify(slots));
+
 const COMMON_TONES = [4121, 18178, 7864, 18107, 18108, 4321, 15303, 15301, 15302, 17847, 17848, 18352, 18353, 18354, 18355, 18356, 18357, 18358, 18359, 18360, 18361, 18362, 18363, 18364, 18365, 18366,
   // invitatory psalm 94 in the Liber Hymnarius tones (see INVITATORY_TONES in site/app.js)
   8218, 10397, 15508, 7669, 16356, 10248, 9664, 10035, 15059, 9834, 9707, 9642];
@@ -64,12 +74,15 @@ if (existsSync(daysDir)) {
 }
 writeFileSync(join(dist, 'data/psalterium.json'), JSON.stringify(psalterium));
 
-// ---- texts of particular days (readings' responsories are proper to the date) ----
+// ---- texts of particular days ------------------------------------------------
+// The committed psalter days plus the rolling window fetched by scripts/texts/window.mjs
+// (cache/texts/days, not committed). Each date's own texts carry its propers.
 let dayFiles = 0;
-if (existsSync(daysDir)) {
-  mkdirSync(join(dist, 'data/days'), { recursive: true });
-  for (const f of readdirSync(daysDir).filter((f) => f.endsWith('.json'))) {
-    writeFileSync(join(dist, 'data/days', f), JSON.stringify(JSON.parse(readFileSync(join(daysDir, f), 'utf8'))));
+mkdirSync(join(dist, 'data/days'), { recursive: true });
+for (const dir of [daysDir, join(root, 'cache/texts/days')]) {
+  if (!existsSync(dir)) continue;
+  for (const f of readdirSync(dir).filter((f) => f.endsWith('.json'))) {
+    writeFileSync(join(dist, 'data/days', f), JSON.stringify(JSON.parse(readFileSync(join(dir, f), 'utf8'))));
     dayFiles++;
   }
 }

@@ -1,6 +1,7 @@
 // Cantus Horarum — compose and display one hour of the Liturgia Horarum in chant.
 import { loadGabc, renderChant, splitGabc, watchResize } from './chant.js';
 import { toneContext, versesOf, pointVerse, verseGabc, lineHtml } from './psalmtone.js';
+import { resolveHour, indexOco, celebrationFor } from './resolve.js';
 
 const HOURS = ['lectio', 'laudes', 'tertia', 'sexta', 'nona', 'vesperae', 'completorium'];
 const HOUR_NAMES = { lectio: 'Officium lectionis', laudes: 'Laudes matutinæ', tertia: 'Tertia', sexta: 'Sexta', nona: 'Nona', vesperae: 'Vesperæ', completorium: 'Completorium' };
@@ -14,7 +15,7 @@ const INVITATORY_TONES = { '2': 8218, '3': 10397, '4': 15508, '4*': 7669, '4**':
 
 const state = {
   date: null, hour: null,
-  calendar: {}, oco: null, psalterium: null,
+  calendar: {}, oco: null, ocoIndex: null, slots: [], psalterium: null, days: {},
   settings: JSON.parse(localStorage.getItem('settings') || '{}'),
 };
 const layouts = [];
@@ -25,6 +26,14 @@ const iso = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0
 const addDays = (s, n) => { const d = new Date(s + 'T12:00:00'); d.setDate(d.getDate() + n); return iso(d); };
 const esc = (s) => String(s ?? '').replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
 async function json(url) { const r = await fetch(url); if (!r.ok) throw new Error(`${url}: ${r.status}`); return r.json(); }
+
+/** The texts of a date's hour: its own iBreviary texts when fetched, else the psalter's. */
+async function textsFor(day, date, hour) {
+  if (!(date in state.days)) state.days[date] = await json(`data/days/${date}.json`).catch(() => null);
+  const own = state.days[date];
+  return own?.hours[TEXT_HOUR[hour]] || state.psalterium[`${day.psalter}-${day.dow}`]?.hours[TEXT_HOUR[hour]];
+}
+const hasOwnTexts = (date) => !!state.days[date];
 
 async function calendarFor(date) {
   const y = date.slice(0, 4);
@@ -72,6 +81,37 @@ function ocoCompline(day, hour) {
 function byPosition(entries, pos) {
   return entries.find((e) => (e.position || '').split(' ')[0] === pos && e.kind !== 'hymn' && e.kind !== 'reference')
     || entries.find((e) => (e.position || '').split(' ')[0] === pos);
+}
+
+/**
+ * The chants proper to a date and hour (season, feast, saint), by place:
+ * {H, 1, 2, 3, B, M, R, I, Nunc}. Vespers before a Sunday or solemnity are its I Vespers.
+ */
+async function propersFor(day, date, hour) {
+  const tomorrow = (await calendarFor(addDays(date, 1)))[0];
+  const { cel, hour: h, first } = celebrationFor(day, tomorrow, hour);
+  const meta = { _cel: cel, _first: first, _big: cel.rank === 'SOLEMNITY' || cel.rank === 'FEAST' };
+  try {
+    return { ...resolveHour(state.slots, state.ocoIndex, cel, first ? addDays(date, 1) : date, h).out, ...meta };
+  } catch (e) { console.error(e); return meta; }
+}
+/** "Laudes matutinæ · Feria II, hebdomada I", or the celebration's name on feasts and at I Vespers. */
+function hourTitle(hour, slot, propers) {
+  const cel = propers._cel;
+  const name = propers._first ? `I Vesperæ · ${cel.name}`
+    : cel && (propers._big || cel.rank === 'MEMORIAL' || cel.seasons?.some((x) => x !== 'ORDINARY_TIME')) ? `${HOUR_NAMES[hour]} · ${cel.name}`
+      : `${HOUR_NAMES[hour]} · ${slot.dayName}, hebdomada ${ROMAN[slot.week - 1]}`;
+  return el(`<h2 class="section">${esc(name)}</h2>`);
+}
+const PLACE = { R: 'Ɠ br.' };
+/** The psalter's entries with the proper ones put in their places. */
+function withPropers(entries, propers) {
+  const places = Object.keys(propers).filter((k) => k !== 'I' && k[0] !== '_');
+  // on feasts the psalter's cross-references ("ut in hebd. I") do not apply
+  if (propers._big) entries = entries.filter((e) => e.kind !== 'reference');
+  const replaced = (e) => (e.kind === 'hymn' && propers.H) || places.some((k) => k !== 'H' && (e.position || '').split(' ')[0] === (PLACE[k] || k).split(' ')[0]);
+  const own = places.map((k) => ({ ...propers[k], position: k === 'H' ? 'H' : PLACE[k] || k }));
+  return [...own.filter((e) => e.kind === 'hymn').map(withScore), ...entries.filter((e) => !replaced(e)), ...own.filter((e) => e.kind !== 'hymn')];
 }
 
 /** Group a PSALMODIA section into [{antiphon, psalms:[...], repeat}] */
@@ -239,9 +279,10 @@ function withScore(h) {
 const isFestive = (day) => day.rank === 'SUNDAY' || day.rank === 'SOLEMNITY' || day.rank === 'FEAST';
 
 /** The opening of an hour: Deus, in adiutorium, or the invitatory when it is said before this hour. */
-async function appendOpening(main, day, hour) {
-  if (state.settings.invitatory === hour && await appendInvitatory(main, day)) return;
-  main.append(await chantNode(state.settings.solemn ? DEUS_IN_ADIUTORIUM.solemn : isFestive(day) ? DEUS_IN_ADIUTORIUM.festive : DEUS_IN_ADIUTORIUM.ferial, { label: 'Deus, in adiutórium', annotation: '' }));
+async function appendOpening(main, day, hour, propers = {}) {
+  const cel = propers._cel || day; // I Vespers belong to the morrow's celebration
+  if (state.settings.invitatory === hour && await appendInvitatory(main, cel, propers.I)) return;
+  main.append(await chantNode(state.settings.solemn ? DEUS_IN_ADIUTORIUM.solemn : isFestive(cel) ? DEUS_IN_ADIUTORIUM.festive : DEUS_IN_ADIUTORIUM.ferial, { label: 'Deus, in adiutórium', annotation: '' }));
 }
 
 /** The invitatory antiphon of the day: the psalter's follows a one-week cycle (printed under week I). */
@@ -254,8 +295,8 @@ function invitatoryAntiphon(day) {
  * Domine, labia mea aperies; the antiphon; Psalm 94 (95) strophe by strophe in the tone
  * that matches the antiphon's mode, the antiphon repeated after each strophe.
  */
-async function appendInvitatory(main, day) {
-  const ant = invitatoryAntiphon(day);
+async function appendInvitatory(main, day, proper = null) {
+  const ant = proper || invitatoryAntiphon(day);
   if (!ant) return false;
   main.append(el('<h2 class="section">Invitatorium</h2>'));
   main.append(await chantNode(isFestive(day) ? DOMINE_LABIA.festive : DOMINE_LABIA.ferial, { label: 'Dómine, lábia mea apéries', annotation: '' }));
@@ -288,9 +329,13 @@ async function appendHymn(main, hymn, textNode, alternatives = []) {
 }
 
 /** Antiphons 1-3 from the OCO, each with its psalms pointed to its tone; returns what followed the last psalm. */
-async function appendPsalmody(main, entries, psalmodySection) {
+async function appendPsalmody(main, entries, psalmodySection, { single = null } = {}) {
   main.append(el('<h2 class="section">Psalmodia</h2>'));
-  const groups = psalmGroups(psalmodySection);
+  let groups = psalmGroups(psalmodySection);
+  if (single) { // one proper antiphon for all the psalms (little hours in the seasons and on feasts)
+    groups = groups.length ? [{ n: 1, antiphon: single.text, items: groups.flatMap((g) => g.items) }] : [];
+    entries = [{ ...single, position: '1' }];
+  }
   // a versicle after the last antiphon (Office of Readings) comes after its repetition
   const last = groups[groups.length - 1];
   const after = [];
@@ -316,15 +361,16 @@ function responsoryBlocks(blocks) {
 
 async function composeLectio(main, day, date) {
   const slot = psalterSlot(day, date, 'lectio');
-  const entries = ocoPsalter(slot);
-  const pday = state.psalterium[`${day.psalter}-${day.dow}`];
-  const texts = pday?.hours.lectio;
+  const propers = await propersFor(day, date, 'lectio');
+  const entries = withPropers(ocoPsalter(slot), propers);
+  const texts = await textsFor(day, date, 'lectio');
+  const ownDate = hasOwnTexts(date) || state.psalterium[`${day.psalter}-${day.dow}`]?.date === date;
   if (!entries.length && !texts) { main.append(el('<p class="empty">Hæc hora nondum parata est.</p>')); return; }
-  main.append(el(`<h2 class="section">${HOUR_NAMES.lectio} · ${slot.dayName}, hebdomada ${ROMAN[slot.week - 1]}</h2>`));
-  await appendOpening(main, day, 'lectio');
+  main.append(hourTitle('lectio', slot, propers));
+  await appendOpening(main, day, 'lectio', propers);
 
-  // two hymns: one for the night or early morning, one for the day
-  const hymns = entries.filter((e) => e.kind === 'hymn').map(withScore);
+  // two hymns: one for the night or early morning, one for the day (a proper hymn serves both)
+  const hymns = propers.H ? entries.filter((e) => e.kind === 'hymn').slice(0, 1) : entries.filter((e) => e.kind === 'hymn').map(withScore);
   const night = new Date().getHours() < 7;
   const [hymn, other] = night || hymns.length < 2 ? hymns : [hymns[1], hymns[0]];
   const part = hymnBlocksNode(hymnPart(texts, night ? /^I\./ : /^II\./)) || hymnTextNode(texts);
@@ -335,8 +381,7 @@ async function composeLectio(main, day, date) {
 
   // the readings are left out; their responsories are proper to the date
   main.append(el('<h2 class="section">Lectiones</h2>'));
-  let lect = pday?.date === date ? section(texts, 'LECTIONES') : null;
-  if (!lect) lect = section((await json(`data/days/${date}.json`).catch(() => null))?.hours.lectio, 'LECTIONES');
+  const lect = ownDate ? section(texts, 'LECTIONES') : null;
   if (!lect) {
     main.append(el('<p class="rubric">Lectiones cum responsoriis huius diei nondum paratæ sunt.</p>'));
   } else {
@@ -364,19 +409,20 @@ const MEDIA = { tertia: { label: 'Tertia', title: 'AD TERTIAM' }, sexta: { label
 async function composeMedia(main, day, date, hour) {
   const { label, title } = MEDIA[hour];
   const slot = psalterSlot(day, date, hour);
-  const texts = state.psalterium[`${day.psalter}-${day.dow}`]?.hours.media;
+  const texts = await textsFor(day, date, hour);
   const inDay = (week, dayName) => state.oco.filter((e) => e.part === 'PSALTERIUM' && e.chapter === week && e.day === dayName);
   const today = inDay(slot.chapter, slot.dayName);
   // the antiphons serve whichever of the three hours is said; the OCO prints them under "Hor. med." (or None)
   const entries = today.filter((e) => ['Tertia', 'Sexta', 'Nona', 'Hor. med.'].includes(e.hour) && /^[123]$/.test(e.position || ''));
   const hymnOf = (list) => list.find((e) => e.hour === label && e.kind === 'hymn');
-  const hymn = withScore(hymnOf(today) || hymnOf(inDay(slot.chapter, 'Feria II')) || hymnOf(inDay('HEBDOMADA I', 'Feria II')));
+  const propers = await propersFor(day, date, hour);
+  const hymn = withScore(propers.H || hymnOf(today) || hymnOf(inDay(slot.chapter, 'Feria II')) || hymnOf(inDay('HEBDOMADA I', 'Feria II')));
   if (!entries.length && !texts) { main.append(el('<p class="empty">Hæc hora nondum parata est.</p>')); return; }
 
-  main.append(el(`<h2 class="section">${HOUR_NAMES[hour]} · ${slot.dayName}, hebdomada ${ROMAN[slot.week - 1]}</h2>`));
-  await appendOpening(main, day, hour);
-  await appendHymn(main, hymn, hymnBlocksNode(hymnPart(texts, new RegExp(`^${title}$`))));
-  await appendPsalmody(main, entries, section(texts, 'PSALMODIA'));
+  main.append(hourTitle(hour, slot, propers));
+  await appendOpening(main, day, hour, propers);
+  await appendHymn(main, hymn, hymnBlocksNode(hymnPart(texts, new RegExp(`^${title}$`))) || (propers.H ? hymnTextNode(texts) : null));
+  await appendPsalmody(main, entries, section(texts, 'PSALMODIA'), { single: propers['1'] || null });
 
   const own = section(texts, title);
   if (own) {
@@ -395,14 +441,14 @@ async function composeMedia(main, day, date, hour) {
 
 async function composeLaudesVesperae(main, day, date, hour) {
   const slot = psalterSlot(day, date, hour);
-  const entries = ocoPsalter(slot);
-  const key = `${slot.week}-${hour === 'vesperae' && day.dow === 6 ? 6 : day.dow}`;
+  const propers = await propersFor(day, date, hour);
+  const entries = withPropers(ocoPsalter(slot), propers);
   // Saturday Vespers texts are stored under the Saturday itself (iBreviary gives I Vespers there)
-  const texts = state.psalterium[`${day.psalter}-${day.dow}`]?.hours[TEXT_HOUR[hour]];
+  const texts = await textsFor(day, date, hour);
   if (!entries.length && !texts) { main.append(el('<p class="empty">Hæc hora nondum parata est.</p>')); return; }
 
-  main.append(el(`<h2 class="section">${HOUR_NAMES[hour]} · ${slot.dayName}, hebdomada ${ROMAN[slot.week - 1]}</h2>`));
-  await appendOpening(main, day, hour);
+  main.append(hourTitle(hour, slot, propers));
+  await appendOpening(main, day, hour, propers);
   const hymns = entries.filter((e) => e.kind === 'hymn');
   await appendHymn(main, hymns[0], hymns.length ? hymnTextNode(texts) : null, hymns.slice(1));
   await appendPsalmody(main, entries, section(texts, 'PSALMODIA'));
@@ -437,9 +483,9 @@ async function composeLaudesVesperae(main, day, date, hour) {
 }
 
 async function composeGeneric(main, day, date, hour) {
-  const texts = state.psalterium[`${day.psalter}-${day.dow}`]?.hours[TEXT_HOUR[hour]];
+  const texts = await textsFor(day, date, hour);
   const slot = psalterSlot(day, date, hour);
-  const entries = hour === 'completorium' ? ocoCompline(day, hour) : ocoPsalter(slot);
+  const entries = withPropers(hour === 'completorium' ? ocoCompline(day, hour) : ocoPsalter(slot), await propersFor(day, date, hour));
   // antiphons of the psalms and of the canticle go with their texts below, when there are texts
   const inline = (e) => texts && e.kind !== 'hymn' && /^(\d|Nunc)/.test(e.position || '');
   main.append(el(`<h2 class="section">${HOUR_NAMES[hour]}</h2>`));
@@ -523,8 +569,8 @@ function applySettings() {
 function saveSettings() { localStorage.setItem('settings', JSON.stringify(state.settings)); }
 
 async function boot() {
-  const [oco, psalterium] = await Promise.all([json('data/oco.json'), json('data/psalterium.json').catch(() => ({}))]);
-  state.oco = oco; state.psalterium = psalterium;
+  const [oco, psalterium, slots] = await Promise.all([json('data/oco.json'), json('data/psalterium.json').catch(() => ({})), json('data/slots.json').catch(() => [])]);
+  state.oco = oco; state.psalterium = psalterium; state.slots = slots; state.ocoIndex = indexOco(oco);
   const m = /^#(\d{4}-\d{2}-\d{2})\/(\w+)$/.exec(location.hash);
   state.date = m ? m[1] : iso(new Date());
   state.hour = m && HOURS.includes(m[2]) ? m[2] : defaultHour();
