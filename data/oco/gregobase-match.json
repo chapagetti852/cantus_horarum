@@ -43,8 +43,10 @@
 "confidence": "rb-incipit",
 "candidates": [
 4422,
+3070,
 11344,
-4668
+4668,
+9905
 ]
 },
 {
@@ -91,11 +93,11 @@
 "confidence": "rb-incipit",
 "candidates": [
 4354,
+3167,
 13127,
 18119,
 16810,
-15726,
-12439
+15726
 ]
 },
 {
@@ -103,14 +105,10 @@
 "page": 6,
 "incipit": "Super te Ierúsalem, Oriétur Dóminus. ℣.",
 "mode": "4",
-"gregobase": 4440,
+"gregobase": 9922,
 "confidence": "rb-incipit",
 "candidates": [
-4440,
-3173,
-4669,
-9922,
-8802
+9922
 ]
 },
 {
@@ -118,15 +116,15 @@
 "page": 6,
 "incipit": "Veni ad liberándum nos, Dómine Deus",
 "mode": "4",
-"gregobase": null,
-"confidence": "rb-none",
+"gregobase": 4386,
+"confidence": "rb-incipit",
 "candidates": [
 4386,
 3159,
 11345,
 12407,
-5514,
-4667
+4667,
+5514
 ]
 },
 {
@@ -1854,10 +1852,9 @@
 "page": 64,
 "incipit": "Crástina die Delébitur iníquitas terræ. ℣.",
 "mode": "6",
-"gregobase": 15749,
+"gregobase": 3172,
 "confidence": "rb-incipit",
 "candidates": [
-15749,
 3172,
 11982
 ]
@@ -2035,7 +2032,7 @@
 "candidates": [
 15759,
 3104,
-9670,
+7251,
 12516
 ]
 },
@@ -2454,7 +2451,7 @@
 4354,
 15726,
 18119,
-12439
+3167
 ]
 },
 {
@@ -2506,8 +2503,8 @@
 "page": 83,
 "incipit": "Débuit per ómnia frátribus similári, Ut",
 "mode": "6",
-"gregobase": null,
-"confidence": "rb-none",
+"gregobase": 8244,
+"confidence": "rb-incipit",
 "candidates": [
 8244
 ]
@@ -3051,9 +3048,9 @@
 18119,
 13127,
 4354,
+3167,
 16810,
-15726,
-12439
+15726
 ]
 },
 {
@@ -3788,8 +3785,8 @@
 "page": 130,
 "incipit": "Dómine Deus, Audi clamórem pópuli. ℣.",
 "mode": "6",
-"gregobase": 16796,
-"confidence": "rb-incipit",
+"gregobase": null,
+"confidence": "rb-none",
 "candidates": [
 16796
 ]
@@ -3916,8 +3913,8 @@
 4354,
 15726,
 18119,
-12439,
-18105
+3167,
+12439
 ]
 },
 {
@@ -4121,8 +4118,8 @@
 "page": 142,
 "incipit": "Atténde, Dómine, et miserére, Quia peccávimus",
 "mode": "4",
-"gregobase": null,
-"confidence": "rb-none",
+"gregobase": 4474,
+"confidence": "rb-incipit",
 "candidates": [
 4474,
 18435
@@ -4150,10 +4147,10 @@
 "candidates": [
 4354,
 18119,
+3167,
 18105,
 3102,
-11818,
-13127
+11818
 ]
 },
 {
@@ -4174,10 +4171,6 @@
 "confidence": "rb-incipit",
 "candidates": [
 3060,
-3970,
-3971,
-17549,
-9632,
 12729
 ]
 },
@@ -6153,9 +6146,7 @@
 "confidence": "rb-incipit",
 "candidates": [
 3064,
-4060,
-12756,
-5528
+12756
 ]
 },
 {
@@ -6196,15 +6187,10 @@
 "page": 223,
 "incipit": "Adorámus te, Christe, Et benedícimus tibi.",
 "mode": "4",
-"gregobase": 7822,
+"gregobase": 12664,
 "confidence": "rb-incipit",
 "candidates": [
-7822,
-8981,
-12664,
-3217,
-12834,
-5697
+12664
 ]
 },
 {
@@ -7950,15 +7936,12 @@
 "page": 280,
 "incipit": "Surréxit Dóminus vére, Allelúia allelúia. ℣.",
 "mode": "6",
-"gregobase": 7837,
+"gregobase": 12476,
 "confidence": "rb-incipit",
 "candidates": [
-7837,
-9211,
-9212,
-10206,
 12476,
-3107
+3107,
+9917
 ]
 },
 {
@@ -8008,7 +7991,7 @@
 4354,
 15726,
 18119,
-8430
+3167
 ]
 },
 {
@@ -9484,8 +9467,8 @@
 "page": 340,
 "incipit": "Ascéndit Deus in iubilatióne, Allelúia allelúia.",
 "mode": "6",
-"gregobase": null,
-"confidence": "rb-none",
+"gregobase": 3278,
+"confidence": "rb-incipit",
 "candidates": [
 3278,
 12133,
@@ -9612,7 +9595,9 @@
 "confidence": "rb-incipit",
 "candidates": [
 10282,
-10283
+10283,
+3202,
+13002
 ]
 },
 {
@@ -9714,7 +9699,8 @@
 "gregobase": 3128,
 "confidence": "rb-incipit",
 "candidates": [
-3128
+3128,
+13212
 ]
 },
 {
@@ -9748,7 +9734,6 @@
 "confidence": "rb-incipit",
 "candidates": [
 3242,
-3243,
 7854,
 12731
 ]
@@ -9936,7 +9921,7 @@
 4354,
 15726,
 18119,
-8430
+3167
 ]
 },
 {
@@ -10158,7 +10143,6 @@
 "confidence": "rb-incipit",
 "candidates": [
 3242,
-3243,
 7854,
 12731
 ]
@@ -10296,8 +10280,8 @@
 "page": 367,
 "incipit": "Repléti sunt omnes Spíritu Sancto, Allelúia",
 "mode": "6",
-"gregobase": null,
-"confidence": "rb-none",
+"gregobase": 17806,
+"confidence": "rb-incipit",
 "candidates": [
 17806,
 3057,
@@ -10432,8 +10416,8 @@
 "page": 369,
 "incipit": "Spíritus Dómini replévit orbem terrárum, Allelúia",
 "mode": "6",
-"gregobase": null,
-"confidence": "rb-none",
+"gregobase": 11870,
+"confidence": "rb-incipit",
 "candidates": [
 11870,
 17796,
@@ -13416,12 +13400,15 @@
 "page": 513,
 "incipit": "Benedicámus Patrem et Fílium cum Sancto",
 "mode": "6",
-"gregobase": 8712,
+"gregobase": 3118,
 "confidence": "rb-incipit",
 "candidates": [
+3118,
 8712,
 10337,
-18624
+13081,
+18624,
+7178
 ]
 },
 {
@@ -13685,9 +13672,12 @@
 "page": 523,
 "incipit": "Panem cæli dedit eis, Allelúia allelúia.",
 "mode": "6",
-"gregobase": 5555,
+"gregobase": 12349,
 "confidence": "rb-incipit",
 "candidates": [
+12349,
+7528,
+3175,
 5555
 ]
 },
@@ -13811,6 +13801,7 @@
 "candidates": [
 8728,
 3100,
+11945,
 5470
 ]
 },
@@ -13955,8 +13946,8 @@
 "page": 531,
 "incipit": "Christus diléxit nos et lavit nos",
 "mode": "6",
-"gregobase": null,
-"confidence": "rb-none",
+"gregobase": 3140,
+"confidence": "rb-incipit",
 "candidates": [
 3140,
 13143,
@@ -14082,8 +14073,8 @@
 "page": 535,
 "incipit": "Tóllite iugum meum super vos, Et",
 "mode": "6",
-"gregobase": null,
-"confidence": "rb-none",
+"gregobase": 8736,
+"confidence": "rb-incipit",
 "candidates": [
 8736,
 3216,
@@ -14229,8 +14220,8 @@
 "page": 539,
 "incipit": "Tua est magnificéntia et poténtia, Tuum,",
 "mode": "6",
-"gregobase": null,
-"confidence": "rb-none",
+"gregobase": 9201,
+"confidence": "rb-incipit",
 "candidates": [
 9201
 ]
@@ -14369,8 +14360,8 @@
 "page": 543,
 "incipit": "Sancti tui, Dómine, Glóriam regni tui",
 "mode": "6",
-"gregobase": 8438,
-"confidence": "rb-incipit",
+"gregobase": null,
+"confidence": "rb-none",
 "candidates": [
 8438
 ]
@@ -15035,7 +15026,9 @@
 "candidates": [
 3213,
 4139,
-12569
+12569,
+7078,
+9065
 ]
 },
 {
@@ -15265,9 +15258,10 @@
 "page": 565,
 "incipit": "In ætérnum, Dómine, Pérmanet verbum tuum.",
 "mode": "6",
-"gregobase": 12983,
+"gregobase": 3225,
 "confidence": "rb-incipit",
 "candidates": [
+3225,
 12983,
 9904
 ]
@@ -15399,8 +15393,8 @@
 "page": 568,
 "incipit": "Inclína cor meum, Deus, In testimónia",
 "mode": "6",
-"gregobase": null,
-"confidence": "rb-none",
+"gregobase": 4128,
+"confidence": "rb-incipit",
 "candidates": [
 4128,
 12571,
@@ -15634,9 +15628,11 @@
 "page": 574,
 "incipit": "Clamávi in toto corde meo: Exáudi",
 "mode": "6",
-"gregobase": 9920,
+"gregobase": 3158,
 "confidence": "rb-incipit",
 "candidates": [
+3158,
+11782,
 9920
 ]
 },
@@ -15971,8 +15967,8 @@
 "page": 582,
 "incipit": "Christus diléxit nos et lavit nos",
 "mode": "6",
-"gregobase": null,
-"confidence": "rb-none",
+"gregobase": 3140,
+"confidence": "rb-incipit",
 "candidates": [
 3140,
 13143,
@@ -16472,8 +16468,7 @@
 "confidence": "rb-incipit",
 "candidates": [
 4320,
-8436,
-9529
+8436
 ]
 },
 {
@@ -19635,9 +19630,10 @@
 "page": 684,
 "incipit": "In manus tuas, Dómine, Comméndo spíritum",
 "mode": "6",
-"gregobase": 12649,
+"gregobase": 7667,
 "confidence": "rb-incipit",
 "candidates": [
+7667,
 12649
 ]
 },
@@ -20097,12 +20093,10 @@
 "page": 710,
 "incipit": "Tu es vas electiónis, Sancte Paule",
 "mode": "6",
-"gregobase": null,
-"confidence": "rb-none",
+"gregobase": 14311,
+"confidence": "rb-incipit",
 "candidates": [
-14311,
-3101,
-3146
+14311
 ]
 },
 {
@@ -20430,10 +20424,9 @@
 "page": 721,
 "incipit": "Adoráte Dóminum In aula sancta eius.",
 "mode": "6",
-"gregobase": 16979,
+"gregobase": 3206,
 "confidence": "rb-incipit",
 "candidates": [
-16979,
 3206
 ]
 },
@@ -20538,10 +20531,9 @@
 "page": 725,
 "incipit": "Notum fecit Dóminus Salutáre suum. ℣.",
 "mode": "6",
-"gregobase": 9670,
+"gregobase": 15759,
 "confidence": "rb-incipit",
 "candidates": [
-9670,
 15759,
 3104
 ]
@@ -20945,9 +20937,7 @@
 7503,
 17640,
 3073,
-17661,
-12027,
-12410
+12027
 ]
 },
 {
@@ -21101,11 +21091,7 @@
 "confidence": "rb-incipit",
 "candidates": [
 3114,
-17647,
-17662,
-4043,
-12850,
-13066
+4043
 ]
 },
 {
@@ -21273,8 +21259,7 @@
 "gregobase": 17682,
 "confidence": "rb-incipit",
 "candidates": [
-17682,
-17683
+17682
 ]
 },
 {
@@ -21784,15 +21769,13 @@
 "page": 772,
 "incipit": "Constítuit eum dominum domus suæ, Allelúia",
 "mode": "6",
-"gregobase": null,
-"confidence": "rb-none",
+"gregobase": 3114,
+"confidence": "rb-incipit",
 "candidates": [
-17662,
 3114,
 17647,
 4043,
-12850,
-13066
+12645
 ]
 },
 {
@@ -21829,14 +21812,12 @@
 "page": 773,
 "incipit": "Iustus germinábit sicut lílium, Allelúia allelúia.",
 "mode": "6",
-"gregobase": null,
-"confidence": "rb-none",
+"gregobase": 7503,
+"confidence": "rb-incipit",
 "candidates": [
-17661,
 7503,
 17640,
 3073,
-12410,
 12027
 ]
 },
@@ -23540,8 +23521,8 @@
 "page": 833,
 "incipit": "Gloriósus apparuísti in conspéctu Dómini, Allelúia",
 "mode": "6",
-"gregobase": null,
-"confidence": "rb-none",
+"gregobase": 8864,
+"confidence": "rb-incipit",
 "candidates": [
 8864,
 10516,
@@ -23670,15 +23651,14 @@
 "page": 837,
 "incipit": "Glória et honóre coronásti eum, Dómine,",
 "mode": "6",
-"gregobase": null,
-"confidence": "rb-none",
+"gregobase": 10522,
+"confidence": "rb-incipit",
 "candidates": [
-4169,
-8863,
 10522,
 3108,
 10476,
-12552
+12552,
+4808
 ]
 },
 {
@@ -23779,8 +23759,8 @@
 "page": 840,
 "incipit": "Magnificéntia et pulchritúdo in conspéctu eius,",
 "mode": "6",
-"gregobase": null,
-"confidence": "rb-none",
+"gregobase": 10527,
+"confidence": "rb-incipit",
 "candidates": [
 10527
 ]
@@ -24055,8 +24035,8 @@
 "page": 850,
 "incipit": "Assúmpta est María in cælum: Gaudent",
 "mode": "6",
-"gregobase": null,
-"confidence": "rb-none",
+"gregobase": 3113,
+"confidence": "rb-incipit",
 "candidates": [
 3113,
 7485,
@@ -24940,13 +24920,12 @@
 "page": 878,
 "incipit": "Hoc signum Crucis Erit in cælo.",
 "mode": "6",
-"gregobase": 8987,
+"gregobase": 3111,
 "confidence": "rb-incipit",
 "candidates": [
+3111,
 8987,
-3174,
 12102,
-12123,
 6121
 ]
 },
@@ -25075,15 +25054,10 @@
 "page": 882,
 "incipit": "Adorámus te, Christe, Et benedícimus tibi.",
 "mode": "6",
-"gregobase": 7822,
+"gregobase": 12664,
 "confidence": "rb-incipit",
 "candidates": [
-7822,
-8981,
-12664,
-3217,
-12834,
-5697
+12664
 ]
 },
 {
@@ -25571,12 +25545,7 @@
 "gregobase": 3137,
 "confidence": "rb-incipit",
 "candidates": [
-3137,
-9011,
-3210,
-13314,
-12981,
-5377
+3137
 ]
 },
 {
@@ -25676,11 +25645,14 @@
 "page": 902,
 "incipit": "Ascéndit fumus arómatum In conspéctu Dómini.",
 "mode": "6",
-"gregobase": 12016,
+"gregobase": 3138,
 "confidence": "rb-incipit",
 "candidates": [
+3138,
+4151,
+8999,
 12016,
-13027
+6935
 ]
 },
 {
@@ -25817,10 +25789,7 @@
 "confidence": "rb-incipit",
 "candidates": [
 3224,
-9002,
-3079,
-12517,
-6181
+12517
 ]
 },
 {
@@ -25896,8 +25865,8 @@
 "page": 908,
 "incipit": "Angelis suis Deus mandávit de te.",
 "mode": "6",
-"gregobase": 17943,
-"confidence": "rb-incipit",
+"gregobase": null,
+"confidence": "rb-none",
 "candidates": [
 17943
 ]
@@ -26257,10 +26226,9 @@
 "candidates": [
 3160,
 4174,
-4175,
 9030,
 4228,
-11707
+6062
 ]
 },
 {
@@ -26405,8 +26373,7 @@
 12727,
 8432,
 18688,
-5293,
-7095
+5293
 ]
 },
 {
@@ -26496,14 +26463,11 @@
 "page": 928,
 "incipit": "Sancti et iusti, In Dómino gaudéte.",
 "mode": "6",
-"gregobase": 16218,
+"gregobase": 10110,
 "confidence": "rb-incipit",
 "candidates": [
-16218,
 10110,
-12973,
-3066,
-8062
+3066
 ]
 },
 {
@@ -27043,15 +27007,13 @@
 "page": 947,
 "incipit": "Exaltábo te, Dómine, Quóniam suscepísti me.",
 "mode": "6",
-"gregobase": null,
-"confidence": "rb-none",
+"gregobase": 16127,
+"confidence": "rb-incipit",
 "candidates": [
 16127,
 3069,
 12419,
-4819,
-15720,
-15721
+15720
 ]
 },
 {
@@ -27174,13 +27136,11 @@
 "page": 952,
 "incipit": "Deus omnípotens Præcínxit me virtúte. ℣.",
 "mode": "6",
-"gregobase": 16159,
+"gregobase": 3204,
 "confidence": "rb-incipit",
 "candidates": [
-16159,
 3204,
 9078,
-12881,
 6942
 ]
 },
@@ -27845,11 +27805,13 @@
 "page": 975,
 "incipit": "Domum tuam, Dómine, Decet sanctitúdo. ℣.",
 "mode": "6",
-"gregobase": 8961,
+"gregobase": 3121,
 "confidence": "rb-incipit",
 "candidates": [
+3121,
 8961,
-18849
+18849,
+5895
 ]
 },
 {
@@ -28006,8 +27968,8 @@
 "page": 981,
 "incipit": "Magnus Dóminus Et laudábilis nimis. ℣.",
 "mode": "6",
-"gregobase": 17982,
-"confidence": "rb-incipit",
+"gregobase": null,
+"confidence": "rb-none",
 "candidates": [
 17982
 ]
@@ -28229,9 +28191,10 @@
 "page": 990,
 "incipit": "Post partum, Virgo, Invioláta permansísti. ℣.",
 "mode": "6",
-"gregobase": 12674,
+"gregobase": 3196,
 "confidence": "rb-incipit",
 "candidates": [
+3196,
 12674
 ]
 },
@@ -28403,9 +28366,9 @@
 "confidence": "rb-incipit",
 "candidates": [
 9141,
-8061,
-6864,
-5714
+3143,
+17714,
+6864
 ]
 },
 {
@@ -28520,15 +28483,10 @@
 "page": 999,
 "incipit": "Ave, María, grátia plena; Dóminus tecum.",
 "mode": "6",
-"gregobase": null,
-"confidence": "rb-none",
+"gregobase": 9492,
+"confidence": "rb-incipit",
 "candidates": [
-4038,
-9492,
-10198,
-17677,
-9779,
-10209
+9492
 ]
 },
 {
@@ -28978,8 +28936,10 @@
 "confidence": "rb-incipit",
 "candidates": [
 10488,
+3055,
 8082,
-11801
+11801,
+6848
 ]
 },
 {
@@ -29364,8 +29324,7 @@
 8800,
 16700,
 3199,
-4794,
-4919
+4794
 ]
 },
 {
@@ -29500,8 +29459,7 @@
 12727,
 8432,
 18688,
-5293,
-7095
+5293
 ]
 },
 {
@@ -29853,9 +29811,8 @@
 3108,
 10476,
 12552,
-4169,
-8863,
-10522
+10522,
+4808
 ]
 },
 {
@@ -30491,8 +30448,8 @@
 "page": 1069,
 "incipit": "Super te, Ierúsalem, Constítui custódes. ℣.",
 "mode": "6",
-"gregobase": 8802,
-"confidence": "rb-incipit",
+"gregobase": null,
+"confidence": "rb-none",
 "candidates": [
 8802
 ]
@@ -30862,8 +30819,6 @@
 "candidates": [
 3084,
 18163,
-18577,
-3052,
 17914
 ]
 },
@@ -31593,10 +31548,8 @@
 "confidence": "rb-incipit",
 "candidates": [
 3089,
-9220,
-9219,
-18570,
-3072
+18633,
+7075
 ]
 },
 {
@@ -31753,7 +31706,8 @@
 "gregobase": 8809,
 "confidence": "rb-incipit",
 "candidates": [
-8809
+8809,
+3110
 ]
 },
 {
@@ -32240,8 +32194,7 @@
 "candidates": [
 8710,
 14297,
-18850,
-3049
+18850
 ]
 },
 {
@@ -32348,9 +32301,9 @@
 "confidence": "rb-incipit",
 "candidates": [
 9141,
-8061,
-6864,
-5714
+3143,
+17714,
+6864
 ]
 },
 {
@@ -32906,15 +32859,12 @@
 "page": 1164,
 "incipit": "Exaltábo te, Dómine, Quóniam suscepísti me.",
 "mode": "6",
-"gregobase": null,
-"confidence": "rb-none",
+"gregobase": 15720,
+"confidence": "rb-incipit",
 "candidates": [
 15720,
-15721,
 16127,
-3069,
-12419,
-4819
+3069
 ]
 },
 {

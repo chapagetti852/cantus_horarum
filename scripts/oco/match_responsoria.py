@@ -64,8 +64,11 @@ def main():
         words = norm((e.get("title") or "").split("*")[0])
         if not words:
             continue
-        n = min(len(words), 4)
-        cands = [c for c in rb if norm(c["incipit"])[:n] == words[:n]]
+        # GregoBase incipits are often shorter than the OCO's: compare as many words as both have
+        def opens(c):
+            inc = norm(c["incipit"])[:4]
+            return len(inc) >= 2 and words[:len(inc)] == inc
+        cands = [c for c in rb if opens(c)]
         # the same incipit serves several responsories (other verse, alleluias): the text
         # decides, and a score that does not carry most of the OCO's words is not taken
         text = set(norm(e.get("text") or e.get("title")))
