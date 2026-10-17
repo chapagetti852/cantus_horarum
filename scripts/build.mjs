@@ -3,6 +3,7 @@
 //   site/**                      copied as is (app, styles, fonts, vendor, calendar)
 //   dist/data/oco.json           compact OCO entries with their GregoBase score id
 //   dist/data/psalterium.json    the four-week psalter texts, keyed "week-dow", from data/texts/days
+//   dist/data/days/<date>.json   texts of particular dates (for what is proper to the day)
 //   dist/gabc/<id>.gabc          every score the entries point to, plus the common tones
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -61,4 +62,14 @@ if (existsSync(daysDir)) {
 }
 writeFileSync(join(dist, 'data/psalterium.json'), JSON.stringify(psalterium));
 
-console.log(`dist/: ${compact.length} entries, ${copied} gabc files (${missing} missing), psalter days ${Object.keys(psalterium).length}/28`);
+// ---- texts of particular days (readings' responsories are proper to the date) ----
+let dayFiles = 0;
+if (existsSync(daysDir)) {
+  mkdirSync(join(dist, 'data/days'), { recursive: true });
+  for (const f of readdirSync(daysDir).filter((f) => f.endsWith('.json'))) {
+    writeFileSync(join(dist, 'data/days', f), JSON.stringify(JSON.parse(readFileSync(join(daysDir, f), 'utf8'))));
+    dayFiles++;
+  }
+}
+
+console.log(`dist/: ${compact.length} entries, ${copied} gabc files (${missing} missing), psalter days ${Object.keys(psalterium).length}/28, ${dayFiles} day files`);

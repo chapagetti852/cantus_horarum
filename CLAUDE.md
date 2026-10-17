@@ -48,14 +48,14 @@ Read `README.md` first: it explains every pipeline.
 
 ## Status / next steps
 
-Working: Lauds, Vespers, Compline for Ordinary Time days (psalter only), psalms and
-Gospel canticles pointed to their tones (`site/psalmtone.js`, see README "Psalm tones";
-`npm test` checks the tone table against every antiphon's E u o u a e).
+Working: all hours for Ordinary Time days (psalter only), psalms and Gospel canticles
+pointed to their tones (`site/psalmtone.js`, see README "Psalm tones"; `npm test` checks
+the tone table against every antiphon's E u o u a e). Office of Readings: responsories
+after the readings appear only when `data/texts/days/<date>.json` exists for that date
+(text only: the OCO gives no responsoria prolixa for ferias per annum).
 To do, in order:
-1. Office of Readings (hymn, psalms, versicle, the two responsories after the readings —
-   responsoria prolixa; the readings themselves are omitted) and the little hours
-   (hymn per hour, psalmody from `ora_media`, lectio brevis + versicle + oratio per hour).
-2. Seasons, feasts, sanctoral: resolve a date to OCO entries using the index slot codes
+1. Seasons, feasts, sanctoral: resolve a date to OCO entries using the index slot codes
    (`data/oco/indices.json`, `docs/oco-sigla.md`) and the calendar's rank/precedence;
-   iBreviary propers in a rolling window (as CantoDailyReadings does).
-3. Hong Kong diocesan calendar; English / Cantonese translations line by line (later).
+   iBreviary propers in a rolling window (as CantoDailyReadings does) — this also gives
+   the right collect and the readings' responsories for each date. Invitatory.
+2. Hong Kong diocesan calendar; English / Cantonese translations line by line (later).

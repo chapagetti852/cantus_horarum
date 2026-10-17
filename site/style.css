@@ -79,6 +79,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 h2.section { font-variant: small-caps; letter-spacing: .08em; font-weight: 400; font-size: .95em; color: var(--rubric); margin: 1.8em 0 .5em; text-align: center; }
 h2.section::before, h2.section::after { content: " ✠ "; opacity: .5; }
 .block { margin: .6em 0; }
+h3.sub { font-variant: small-caps; letter-spacing: .05em; font-weight: 400; font-size: .9em; color: var(--fg-soft); margin: 1.2em 0 .2em; }
 .chant { margin: .8em 0 .4em; overflow: hidden; }
 .chant svg { display: block; max-width: 100%; height: auto; }
 .chant-label { display: flex; justify-content: space-between; align-items: baseline; color: var(--fg-soft); font-size: .8em; font-style: italic; }

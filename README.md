@@ -89,10 +89,17 @@ Benedictus or Magnificat antiphon, Compline antiphons) and the matching iBreviar
 texts, and draws every score with Exsurge at the width of the phone. Hymns show the
 first strophe notated and the rest as text.
 
-Status: Lauds, Vespers and Compline of Ordinary Time days work from the psalter, with
-the psalms and canticles pointed to their tones (the little hours' psalms too); the
-Office of Readings and the little hours are not yet composed; seasons, feasts and the
-sanctoral are not yet resolved.
+The Office of Readings has its OCO hymn (the night or the day form, by the clock), the
+three antiphons with their psalms and the versicle; the two readings are left out, and
+their responsories are shown when the texts of that very date are present
+(`dist/data/days/<date>.json`, copied from `data/texts/days/`). Terce, Sext and None
+each have their own hymn, the psalter antiphons common to the three, and their own
+short reading, versicle and collect.
+
+Status: every hour of Ordinary Time days works from the psalter, with psalms and
+canticles pointed to their tones. Still to do: the collects and the readings'
+responsories follow the date only where its iBreviary texts are present; seasons,
+feasts and the sanctoral are not yet resolved; no invitatory yet.
 
 ### Deploying
 

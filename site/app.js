@@ -148,7 +148,14 @@ function pointedPsalmNode(b, ctx, { canticle = false } = {}) {
 /** Blocks of a psalmody group or canticle, pointed when the tone is known. */
 function psalmodyNode(blocks, ctx, opts = {}) {
   const node = el('<div class="block"></div>');
-  for (const b of blocks || []) {
+  // iBreviary sometimes gives a psalm's heading and its verses as two blocks: join them
+  blocks = (blocks || []).reduce((out, b) => {
+    const prev = out[out.length - 1];
+    if (b.kind === 'psalm' && !b.ref && !b.title && prev?.kind === 'psalm' && !prev.strophes.length) out[out.length - 1] = { ...prev, strophes: b.strophes };
+    else out.push(b);
+    return out;
+  }, []);
+  for (const b of blocks) {
     if (ctx && b.kind === 'psalm') node.append(pointedPsalmNode(b, ctx, opts));
     else if (ctx && b.kind === 'text' && b.lines.some((l) => typeof l === 'string' && /\*\s*$/.test(l))) {
       node.append(pointedPsalmNode({ kind: 'psalm', strophes: [b.lines.filter((l) => typeof l === 'string')] }, ctx, opts));
@@ -197,10 +204,152 @@ async function chantNode(gabcId, { label = '', annotation = null, fallbackText =
 
 function hymnTextNode(hourTexts) {
   const h = section(hourTexts, 'HYMNUS');
-  if (!h) return null;
+  return h ? hymnBlocksNode(h.blocks) : null;
+}
+function hymnBlocksNode(blocks) {
   const node = el('<div class="hymn"></div>');
-  for (const b of h.blocks) if (b.kind === 'text') node.insertAdjacentHTML('beforeend', b.lines.map((l) => typeof l === 'string' ? esc(l) : `<i>${esc(l.text)}</i>`).join('<br>') + '<p></p>');
-  return node;
+  for (const b of blocks) {
+    if (b.kind !== 'text' || /^Psalmodia/.test(b.lines[0])) continue; // iBreviary's navigation links
+    node.insertAdjacentHTML('beforeend', b.lines.map((l) => typeof l === 'string' ? esc(l) : `<i>${esc(l.text)}</i>`).join('<br>') + '<p></p>');
+  }
+  return node.childElementCount ? node : null;
+}
+/** The blocks of a HYMNUS section after the rubric matching `start`, up to the next rubric (or "Vel:"). */
+function hymnPart(hourTexts, start) {
+  const blocks = section(hourTexts, 'HYMNUS')?.blocks || [];
+  const i = blocks.findIndex((b) => b.kind === 'rubric' && start.test(b.text));
+  if (i < 0) return [];
+  const j = blocks.findIndex((b, k) => k > i && b.kind === 'rubric');
+  return blocks.slice(i + 1, j < 0 ? undefined : j);
+}
+
+/** An OCO hymn with a score: entries without one borrow the score of the same hymn elsewhere. */
+function withScore(h) {
+  if (!h || h.gabc) return h;
+  const incipit = h.title.split(' (')[0];
+  const same = (e) => e.kind === 'hymn' && e.gabc && e.title.startsWith(incipit);
+  // the psalter's own setting first (seasons may sing the same text to another melody)
+  const found = state.oco.find((e) => e.part === h.part && same(e)) || state.oco.find(same);
+  return { ...h, gabc: found?.gabc };
+}
+
+async function appendDeusInAdiutorium(main, day) {
+  const festive = day.rank === 'SUNDAY' || day.rank === 'SOLEMNITY' || day.rank === 'FEAST';
+  main.append(await chantNode(state.settings.solemn ? DEUS_IN_ADIUTORIUM.solemn : festive ? DEUS_IN_ADIUTORIUM.festive : DEUS_IN_ADIUTORIUM.ferial, { label: 'Deus, in adiutórium', annotation: '' }));
+}
+
+async function appendHymn(main, hymn, textNode, alternatives = []) {
+  if (!hymn && !textNode) return;
+  main.append(el('<h2 class="section">Hymnus</h2>'));
+  if (hymn) main.append(await chantNode(hymn.gabc, { label: esc(hymn.title), fallbackText: hymn.title, hymn: true }));
+  if (alternatives.length) main.append(el(`<p class="rubric">Vel: ${alternatives.map((x) => esc(x.title)).join('; ')}</p>`));
+  if (textNode) main.append(textNode);
+}
+
+/** Antiphons 1-3 from the OCO, each with its psalms pointed to its tone; returns what followed the last psalm. */
+async function appendPsalmody(main, entries, psalmodySection) {
+  main.append(el('<h2 class="section">Psalmodia</h2>'));
+  const groups = psalmGroups(psalmodySection);
+  // a versicle after the last antiphon (Office of Readings) comes after its repetition
+  const last = groups[groups.length - 1];
+  const after = [];
+  while (last?.items.length && last.items[last.items.length - 1].kind === 'versicle') after.unshift(last.items.pop());
+  for (let n = 1; n <= Math.max(3, groups.length); n++) {
+    const ant = byPosition(entries, String(n));
+    const g = groups.find((x) => x.n === n);
+    if (!ant && !g) continue;
+    main.append(await chantNode(ant?.gabc, { label: `Ant. ${n}${ant?.mode ? ` · ${esc(ant.mode)}` : ''}`, fallbackText: ant?.text || g?.antiphon }));
+    if (ant?.text) main.append(el(`<p class="ant-text"><span class="r">Ant. ${n}</span> ${esc(ant.text)}</p>`));
+    if (g) {
+      main.append(psalmodyNode(g.items, await toneFor(ant)));
+      main.append(el(`<p class="ant-text"><span class="r">Ant.</span> ${esc(ant?.text || g.repeat || g.antiphon)}</p>`));
+    }
+  }
+  if (after.length) main.append(el(`<div class="block">${renderBlocks(after)}</div>`));
+}
+
+/** iBreviary prints the repetendum of a responsory after two spaces; mark it with a star. */
+function responsoryBlocks(blocks) {
+  return blocks.map((b) => (b.kind === 'versicle' ? { ...b, text: b.text.replace(/\s{2,}/, ' * '), r: b.r?.replace(/\s{2,}/, ' * ') } : b));
+}
+
+async function composeLectio(main, day, date) {
+  const slot = psalterSlot(day, date, 'lectio');
+  const entries = ocoPsalter(slot);
+  const pday = state.psalterium[`${day.psalter}-${day.dow}`];
+  const texts = pday?.hours.lectio;
+  if (!entries.length && !texts) { main.append(el('<p class="empty">Hæc hora nondum parata est.</p>')); return; }
+  main.append(el(`<h2 class="section">${HOUR_NAMES.lectio} · ${slot.dayName}, hebdomada ${ROMAN[slot.week - 1]}</h2>`));
+  await appendDeusInAdiutorium(main, day);
+
+  // two hymns: one for the night or early morning, one for the day
+  const hymns = entries.filter((e) => e.kind === 'hymn').map(withScore);
+  const night = new Date().getHours() < 7;
+  const [hymn, other] = night || hymns.length < 2 ? hymns : [hymns[1], hymns[0]];
+  const part = hymnBlocksNode(hymnPart(texts, night ? /^I\./ : /^II\./)) || hymnTextNode(texts);
+  await appendHymn(main, hymn, part);
+  if (other) main.append(el(`<p class="rubric">${night ? 'Diurno tempore' : 'Noctu vel summo mane'}: ${esc(other.title)}</p>`));
+
+  await appendPsalmody(main, entries, section(texts, 'PSALMODIA'));
+
+  // the readings are left out; their responsories are proper to the date
+  main.append(el('<h2 class="section">Lectiones</h2>'));
+  let lect = pday?.date === date ? section(texts, 'LECTIONES') : null;
+  if (!lect) lect = section((await json(`data/days/${date}.json`).catch(() => null))?.hours.lectio, 'LECTIONES');
+  if (!lect) {
+    main.append(el('<p class="rubric">Lectiones cum responsoriis huius diei nondum paratæ sunt.</p>'));
+  } else {
+    const out = [];
+    for (const b of lect.blocks) {
+      if (b.kind === 'text') continue; // the reading itself
+      if (b.kind === 'rubric' && /^LECTIO/.test(b.text)) out.push({ kind: 'heading', text: b.text });
+      else out.push(b);
+    }
+    const node = el('<div class="block lectiones"></div>');
+    for (const b of responsoryBlocks(out)) {
+      if (b.kind === 'heading') node.insertAdjacentHTML('beforeend', `<h3 class="sub">${esc(b.text[0] + b.text.slice(1).toLowerCase())}</h3>`);
+      else if (b.kind === 'rubric' && b.text === 'RESPONSORIUM') node.insertAdjacentHTML('beforeend', '<p class="rubric">Responsorium</p>');
+      else node.insertAdjacentHTML('beforeend', renderTextBlock(b));
+    }
+    main.append(node);
+  }
+  if (day.dow === 0) main.append(el('<p class="rubric">Hymnus Te Deum.</p>'));
+  const or = section(texts, 'ORATIO');
+  if (or) { main.append(el('<h2 class="section">Oratio</h2>')); main.append(el(`<div class="block">${renderBlocks(or.blocks)}</div>`)); }
+}
+
+const MEDIA = { tertia: { label: 'Tertia', title: 'AD TERTIAM' }, sexta: { label: 'Sexta', title: 'AD SEXTAM' }, nona: { label: 'Nona', title: 'AD NONAM' } };
+
+async function composeMedia(main, day, date, hour) {
+  const { label, title } = MEDIA[hour];
+  const slot = psalterSlot(day, date, hour);
+  const texts = state.psalterium[`${day.psalter}-${day.dow}`]?.hours.media;
+  const inDay = (week, dayName) => state.oco.filter((e) => e.part === 'PSALTERIUM' && e.chapter === week && e.day === dayName);
+  const today = inDay(slot.chapter, slot.dayName);
+  // the antiphons serve whichever of the three hours is said; the OCO prints them under "Hor. med." (or None)
+  const entries = today.filter((e) => ['Tertia', 'Sexta', 'Nona', 'Hor. med.'].includes(e.hour) && /^[123]$/.test(e.position || ''));
+  const hymnOf = (list) => list.find((e) => e.hour === label && e.kind === 'hymn');
+  const hymn = withScore(hymnOf(today) || hymnOf(inDay(slot.chapter, 'Feria II')) || hymnOf(inDay('HEBDOMADA I', 'Feria II')));
+  if (!entries.length && !texts) { main.append(el('<p class="empty">Hæc hora nondum parata est.</p>')); return; }
+
+  main.append(el(`<h2 class="section">${HOUR_NAMES[hour]} · ${slot.dayName}, hebdomada ${ROMAN[slot.week - 1]}</h2>`));
+  await appendDeusInAdiutorium(main, day);
+  await appendHymn(main, hymn, hymnBlocksNode(hymnPart(texts, new RegExp(`^${title}$`))));
+  await appendPsalmody(main, entries, section(texts, 'PSALMODIA'));
+
+  const own = section(texts, title);
+  if (own) {
+    let node = null;
+    for (const b of own.blocks) {
+      if (b.kind === 'rubric' && /^(LECTIO BREVIS|ORATIO)$/.test(b.text)) {
+        main.append(el(`<h2 class="section">${b.text === 'ORATIO' ? 'Oratio' : 'Lectio brevis'}</h2>`));
+        node = el('<div class="block"></div>');
+        main.append(node);
+        continue;
+      }
+      (node || main).insertAdjacentHTML('beforeend', renderTextBlock(b));
+    }
+  }
 }
 
 async function composeLaudesVesperae(main, day, date, hour) {
@@ -212,33 +361,10 @@ async function composeLaudesVesperae(main, day, date, hour) {
   if (!entries.length && !texts) { main.append(el('<p class="empty">Hæc hora nondum parata est.</p>')); return; }
 
   main.append(el(`<h2 class="section">${HOUR_NAMES[hour]} · ${slot.dayName}, hebdomada ${ROMAN[slot.week - 1]}</h2>`));
-  // Deus in adiutorium
-  const festive = day.rank === 'SUNDAY' || day.rank === 'SOLEMNITY' || day.rank === 'FEAST';
-  main.append(await chantNode(state.settings.solemn ? DEUS_IN_ADIUTORIUM.solemn : festive ? DEUS_IN_ADIUTORIUM.festive : DEUS_IN_ADIUTORIUM.ferial, { label: 'Deus, in adiutórium', annotation: '' }));
-
-  // Hymn
+  await appendDeusInAdiutorium(main, day);
   const hymns = entries.filter((e) => e.kind === 'hymn');
-  if (hymns.length) {
-    main.append(el('<h2 class="section">Hymnus</h2>'));
-    const h = hymns[0];
-    main.append(await chantNode(h.gabc, { label: esc(h.title), fallbackText: h.title, hymn: true }));
-    if (hymns.length > 1) main.append(el(`<p class="rubric">Vel: ${hymns.slice(1).map((x) => esc(x.title)).join('; ')}</p>`));
-    const t = hymnTextNode(texts); if (t) main.append(t);
-  }
-
-  // Psalmody
-  main.append(el('<h2 class="section">Psalmodia</h2>'));
-  const groups = psalmGroups(section(texts, 'PSALMODIA'));
-  for (let n = 1; n <= 3; n++) {
-    const ant = byPosition(entries, String(n));
-    const g = groups.find((x) => x.n === n);
-    main.append(await chantNode(ant?.gabc, { label: `Ant. ${n}${ant?.mode ? ` · ${esc(ant.mode)}` : ''}`, fallbackText: ant?.text || g?.antiphon }));
-    if (ant?.text) main.append(el(`<p class="ant-text"><span class="r">Ant. ${n}</span> ${esc(ant.text)}</p>`));
-    if (g) {
-      main.append(psalmodyNode(g.items, await toneFor(ant)));
-      main.append(el(`<p class="ant-text"><span class="r">Ant.</span> ${esc(ant?.text || g.repeat || g.antiphon)}</p>`));
-    }
-  }
+  await appendHymn(main, hymns[0], hymns.length ? hymnTextNode(texts) : null, hymns.slice(1));
+  await appendPsalmody(main, entries, section(texts, 'PSALMODIA'));
 
   // Short reading, responsory
   const lb = section(texts, 'LECTIO BREVIS');
@@ -327,6 +453,8 @@ async function render() {
   const frag = document.createElement('div');
   try {
     if (state.hour === 'laudes' || state.hour === 'vesperae') await composeLaudesVesperae(frag, day, state.date, state.hour);
+    else if (state.hour === 'lectio') await composeLectio(frag, day, state.date);
+    else if (MEDIA[state.hour]) await composeMedia(frag, day, state.date, state.hour);
     else await composeGeneric(frag, day, state.date, state.hour);
   } catch (e) {
     frag.append(el(`<p class="empty">Error: ${esc(e.message)}</p>`));
