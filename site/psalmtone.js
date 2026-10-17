@@ -7,7 +7,9 @@
 //        unaccented syllables between two accents of a cadence),
 //   x    any other group takes exactly one syllable (intonation, preparatory, final).
 // The first open group of a mediant is the tenor and the groups before it the
-// intonation. Formulas follow the Antiphonale Romanum II (2009), pp. 738-740
+// intonation. An open group just before an accent (the hollow note of the 2005 books)
+// is sung only when the accented word is a dactyl: the accented syllable takes it and
+// the accent's neume moves to the following syllable (Dó(g) mi(gf) num(d) in 1 d). Formulas follow the Antiphonale Romanum II (2009), pp. 738-740
 // (GregoBase 18352-18366), with the termination names of the Antiphonale Monasticum
 // 2005 that the Ordo Cantus Officii uses; each termination was checked against the
 // "E u o u a e" of the OCO antiphons on GregoBase (test/psalmtone.test.mjs).
@@ -19,14 +21,14 @@ export const TONES = {
       d: "hr g f gr 'gf d.", d2: "hr g f 'g gr gvFED.", d3: "hr g f 'gh gr gvFED.",
       f: "hr g f 'gh gr gf..", g: "hr g f 'gh gr g.", g2: "hr g f 'g gr ghg.", g3: "hr g f 'h gr g." } },
   '2': { clef: 'f3', flex: 'g', mediant: "f g hr 'i hr h.",
-    endings: { d: "hr g 'ef fr f." } },
+    endings: { d: "hr g er 'ef f." } },
   '2*': { clef: 'c3', flex: 'h', mediant: "i hi ir h i 'j ir i.",
     endings: { a: "ir h i j 'h fr f.", c: "ir 'i hr h.", d: "ir h i j 'h ir i." } },
   '3': { clef: 'c4', flex: 'h', mediant: "g hi ir 'k jr 'ih j.",
     endings: { a: "ir 'j hr 'j jr ih..", a2: "ir 'j hr hi 'h gr goh.", b: "ir 'j hr 'j jr i.",
       g: "ir 'j hr hi 'h gr g.", g2: "ir 'j hr hi 'h gr goh." } },
   '4': { clef: 'c4', flex: 'g', mediant: "h gh hr g h 'i hr h.",
-    endings: { a: "hr g h i 'g hr h.", e: "hr g h ih 'gf e.", g: "hr 'h gr g." } },
+    endings: { a: "hr g h i 'g hr h.", e: "hr g h ih gr 'gf e.", g: "hr 'h gr g." } },
   '4*': { clef: 'c4', flex: 'f', mediant: "g fg gr f g 'h gr g.",
     endings: { e: "gr 'h fr 'g er e." } },
   '5': { clef: 'c3', flex: 'f', mediant: "d f hr 'i hr h.",
@@ -152,14 +154,29 @@ function parseCadence(str, shift) {
 // ------------------------------------------------------------------ syllables
 const VOWEL = /[aeiouyáéíóúýæǽœëäöü]/i;
 const ACCENTED = /[áéíóúýǽ]/i;
-const PREFIX_I = /^(ad|ab|ob|sub|con|in|dis|per|trans)$/i;
+const PREFIX_I = /^(ad|ab|ob|sub|con|in|dis)$/i; // not per-, trans-: pe-ri-é-runt, tran-si-é-runt
 const ONSETS = ['str', 'spr', 'scr', 'sc', 'st', 'sp', 'ct', 'gn', 'ps', 'qu', 'gu', 'ch', 'ph', 'th', 'rh',
   'bl', 'br', 'cl', 'cr', 'dr', 'fl', 'fr', 'gl', 'gr', 'pl', 'pr', 'tr'];
-const MONOSYLLABLES = /^(cui|huic|heu|seu|neu|ceu)$/i;
+const MONOSYLLABLES = /^(heu|seu|neu|ceu)$/i; // the chant books sing cu-i, hu-ic
 const NO_DIPHTHONG = /^(israel|ismael|michael|raphael|aer|aere|aerem|aeris)$/i;
 
 /** Split one word (letters only) into syllables: returns [{text, accent}] with accent on the stressed one. */
 export function syllabifyWord(word) {
+  // a combining acute (œ́) belongs to its vowel: analyse without it, put it back after
+  if (/\u0301/.test(word)) {
+    const marks = [];
+    const bare = word.replace(/(.)\u0301/g, (m, c, i) => { marks.push(i - marks.length); return c; });
+    const syls = syllabifyWord(bare);
+    let pos = 0, mi = 0;
+    for (const s of syls) {
+      const end = pos + s.text.length;
+      let t = '';
+      for (let i = pos; i < end; i++) { t += bare[i]; if (marks[mi] === i) { t += '\u0301'; mi++; } }
+      if (/\u0301/.test(t) && !s.accent) { syls.forEach((x) => { x.accent = false; x.primary = false; }); s.accent = s.primary = true; }
+      s.text = t; pos = end;
+    }
+    return syls;
+  }
   const low = word.toLowerCase();
   if (MONOSYLLABLES.test(low)) return [{ text: word, accent: false }];
   // find vowel nuclei
@@ -198,17 +215,13 @@ export function syllabifyWord(word) {
   const syls = [];
   for (let k = 0; k < nuclei.length; k++) syls.push({ text: word.slice(cuts[k], cuts[k + 1]), accent: false });
   let acc = syls.findIndex((s) => ACCENTED.test(s.text));
-  if (acc < 0) acc = /^israel$/i.test(low) ? 0 : syls.length - 2; // unmarked: disyllables, and a few names
+  // unmarked: disyllables on the first; longer words are names or a missing mark
+  // (Áaron, Ísrael, sǽcula): first of three, else the antepenult
+  if (acc < 0) acc = syls.length <= 3 ? 0 : syls.length - 3;
   syls[acc].accent = true;
   syls[acc].primary = true;
-  // secondary accents, counting back by two from the main accent; with three syllables
-  // before it the secondary moves to the first (glò-ri-fi-cá-bo)
-  let n = acc;
-  while (n >= 2) {
-    const s = n === 3 ? 0 : n - 2;
-    syls[s].accent = true;
-    n = s;
-  }
+  // secondary accents, counting back by two from the main accent (con-tà-bu-é-runt)
+  for (let n = acc - 2; n >= 0; n -= 2) syls[n].accent = true;
   return syls;
 }
 
@@ -220,7 +233,7 @@ export function syllabify(line) {
   const out = [];
   for (const m of line.matchAll(/(\s*)(\S+)/g)) {
     const [, space, token] = m;
-    const w = /^([^\p{L}]*)([\p{L}]+(?:[-'][\p{L}]+)*)([^\p{L}]*)$/u.exec(token);
+    const w = /^([^\p{L}]*)([\p{L}][\p{L}\p{M}]*(?:[-'][\p{L}\p{M}]+)*)([^\p{L}\p{M}]*)$/u.exec(token);
     if (!w) {
       if (out.length) out[out.length - 1].text += space + token; // stray punctuation
       continue;
@@ -242,6 +255,41 @@ export function syllabify(line) {
  * Each syllable gets {notes, role}, role ∈ intonation | tenor | prep | accent | fill | final.
  */
 export function pointHalf(syls, cadence, { intone = false } = {}) {
+  syls = withSecondaryAccents(syls);
+  const out = pointCadence(syls, cadence, { intone });
+  const k = cadence.intonation.length;
+  if (!intone || !k || out.slice(0, k).every((s) => s.role === 'intonation')) return out;
+  // A half too short for both the intonation and the whole cadence ("Magníficat *"): the
+  // intonation is kept, and only the end of the cadence is sung on what remains, its last
+  // accent when an accented syllable is left, else the tenor and the final note.
+  const head = syls.slice(0, k).map((s, i) => ({ ...s, notes: cadence.intonation[i], role: 'intonation' }));
+  const rest = syls.slice(k);
+  if (!rest.length) return head;
+  const G = cadence.groups;
+  const lastAcc = G.map((g) => g.accent).lastIndexOf(true);
+  const hasAccent = rest.slice(0, -1).some((s) => s.accent);
+  const groups = lastAcc >= 0 && hasAccent ? G.slice(lastAcc) : G.slice(lastAcc + 1).filter((g) => !g.open).slice(-1);
+  return [...head, ...pointCadence(rest, { intonation: [], tenor: cadence.tenor, groups }, {})];
+}
+
+/**
+ * Accents for the cadences across words, as jgabc and the Solesmes books count them: in
+ * a run of three or more unaccented syllables an accent falls every second syllable back
+ * from the next accent or from the end, so a final monosyllable makes the syllable before
+ * it a cadence accent ("lí-be-ra me": ra me sung as a spondee).
+ */
+function withSecondaryAccents(syls) {
+  const out = syls.map((s) => ({ ...s }));
+  let next = out.length;
+  for (let i = out.length - 1; i >= 0; i--) {
+    if (!out[i].accent) continue;
+    while ((next -= 2) > i + 1) out[next].accent = true;
+    next = i;
+  }
+  return out;
+}
+
+function pointCadence(syls, cadence, { intone = false } = {}) {
   const N = syls.length;
   const out = syls.map((s) => ({ ...s, notes: cadence.tenor, role: 'tenor' }));
   if (!N) return out;
@@ -260,16 +308,27 @@ export function pointHalf(syls, cadence, { intone = false } = {}) {
   } else accSyl = N - 1 - after.filter((g) => !g.open).length;
   const fixed = after.filter((g) => !g.open);
   const open = after.find((g) => g.open);
+  const hollow = lastG > 0 && G[lastG - 1].open && !open ? G[lastG - 1] : null;
+  if (hollow && N - 1 - accSyl > fixed.length && accSyl + 1 < N) {
+    // dactyl: the accent on the hollow note, the cadence one syllable later
+    set(accSyl, hollow.notes, 'accent');
+    let j = N - 1;
+    for (let f = fixed.length - 1; f >= 0 && j > accSyl + 1; f--, j--) set(j, fixed[f].notes, 'final');
+    for (; j > accSyl + 1; j--) set(j, fixed[0].notes, 'fill');
+    set(accSyl + 1, G[lastG].notes, 'fill');
+    out.hollow = true;
+  }
   let i = N - 1, f = fixed.length - 1;
-  while (f >= 0 && i > accSyl) { set(i, fixed[f].notes, 'final'); i--; f--; }
-  if (f >= 0) { // fewer syllables than notes: gather the rest onto the first one
+  if (!out.hollow) while (f >= 0 && i > accSyl) { set(i, fixed[f].notes, 'final'); i--; f--; }
+  if (!out.hollow && f >= 0) { // fewer syllables than notes: gather the rest onto the first one
     const j = Math.min(N - 1, accSyl + 1);
     const extra = fixed.slice(0, f + 1).map((g) => g.notes).join('');
     if (j > accSyl) out[j].notes = extra + out[j].notes;
   }
-  for (; i > accSyl; i--) set(i, (open || fixed[0]).notes, 'fill');
-  if (lastG < 0) { i = accSyl; }
-  else set(accSyl, G[lastG].notes, 'accent');
+  if (!out.hollow) {
+    for (; i > accSyl; i--) set(i, (open || fixed[0]).notes, 'fill');
+    if (lastG >= 0) set(accSyl, G[lastG].notes, 'accent');
+  }
 
   // earlier accents, right to left
   let nextSyl = accSyl;

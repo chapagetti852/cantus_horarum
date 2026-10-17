@@ -15,7 +15,7 @@ COMMON_TONES = [4121, 18178, 7864, 18107, 18108, 4321, 15303, 15301, 15302, 1784
                 # invitatory psalm 94 (Liber Hymnarius tones II-VII, IV*, IV**, VI*, VI**, D, E)
                 8218, 10397, 15508, 7669, 16356, 10248, 9664, 10035, 15059, 9834, 9707, 9642,
                 # conclusions of Lauds and Vespers (Antiphonale Romanum II pp. 761-765)
-                4322, 4323, 17802, 3972, 16976, 16129, 16665]
+                4322, 3972, 16976, 16129, 16665]
 
 
 def main():

@@ -13,7 +13,7 @@ const DOMINE_LABIA = { ferial: 18107, festive: 18108 };
 const PATER_NOSTER = { ferial: 4321, festive: 15303 }; // Antiphonale Monasticum 2005, pp. 533-534
 // Conclusions: Antiphonale Monasticum 2005 p. 546 (little hours), Antiphonale Romanum II pp. 761-765
 const BENEDICAMUS_HORAE = { ferial: 17847, festive: 17848 };
-const DOMINUS_VOBISCUM = 4322, ITE_IN_PACE = 4323, ITE_ALLELUIA = 17802;
+const DOMINUS_VOBISCUM = 4322;
 const BENEDICAMUS = { christmas: 16665, solemn: 16129, sunday: 16976, other: 3972 };
 // Psalm 94 (95) in the Liber Hymnarius (1983) tones, by the mode of the invitatory antiphon
 const INVITATORY_TONES = { '2': 8218, '3': 10397, '4': 15508, '4*': 7669, '4**': 16356, '5': 10248, '6': 9664, '6*': 10035, '6**': 15059, '7': 9834, D: 9707, E: 9642 };
@@ -184,7 +184,8 @@ function pointedPsalmNode(b, ctx, { canticle = false } = {}) {
   node.insertAdjacentHTML('beforeend', head);
   const h = node.querySelector('.psalm-head');
   const toneLabel = `<span class="tone">Tonus ${esc(ctx.tone)}${ctx.ending ? ' ' + esc(ctx.ending) : ''}</span>`;
-  if (h) h.insertAdjacentHTML('beforeend', toneLabel); else node.insertAdjacentHTML('afterbegin', `<div class="psalm-head">${toneLabel}</div>`);
+  // Gospel canticles: the antiphon above already shows the mode
+  if (!canticle) { if (h) h.insertAdjacentHTML('beforeend', toneLabel); else node.insertAdjacentHTML('afterbegin', `<div class="psalm-head">${toneLabel}</div>`); }
   let first = true;
   if (state.settings.psalms !== 'text') {
     const bodies = [];
@@ -228,6 +229,7 @@ function psalmodyNode(blocks, ctx, opts = {}) {
     return out;
   }, []);
   for (const b of blocks) {
+    if (isNavigation(b)) continue;
     if (ctx && b.kind === 'psalm') node.append(pointedPsalmNode(b, ctx, opts));
     else if (ctx && b.kind === 'text' && b.lines.some((l) => typeof l === 'string' && /\*\s*$/.test(l))) {
       node.append(pointedPsalmNode({ kind: 'psalm', strophes: [b.lines.filter((l) => typeof l === 'string')] }, ctx, opts));
@@ -235,6 +237,10 @@ function psalmodyNode(blocks, ctx, opts = {}) {
   }
   return node;
 }
+/** iBreviary's links to other parts of the book ("Commune Pastorum", "Psalmodia …"). */
+const isNavigation = (b) => b.kind === 'text' && b.lines.length === 1 && typeof b.lines[0] === 'string'
+  && /^(Commune|Proprium|Psalmodia|Psalterium|Ordinarium)\b/.test(b.lines[0]) && b.lines[0].length < 60;
+
 /** Canticle verses in iBreviary come as consecutive text blocks; join them into one psalm. */
 function canticleBlocks(blocks) {
   const out = [];
@@ -252,7 +258,7 @@ function canticleBlocks(blocks) {
  * A score, without label (the annotation above the initial gives the mode). Without a
  * score, `fallbackText` is shown after `fallbackLabel`.
  */
-async function chantNode(gabcId, { annotation = null, fallbackText = null, fallbackLabel = 'Ant.' } = {}) {
+async function chantNode(gabcId, { annotation = null, fallbackText = null, fallbackLabel = 'Ant.', transform = null } = {}) {
   const wrap = el('<div class="chant"><div class="score"></div></div>');
   const score = wrap.querySelector('.score');
   const src = gabcId ? await loadGabc(gabcId) : null;
@@ -260,12 +266,16 @@ async function chantNode(gabcId, { annotation = null, fallbackText = null, fallb
     score.innerHTML = fallbackText ? `<p class="ant-text">${fallbackLabel ? `<span class="r">${esc(fallbackLabel)}</span> ` : ''}${esc(fallbackText)}</p>` : '<p class="missing">Notatio deest.</p>';
     return wrap;
   }
-  const { header, body } = splitGabc(src);
+  const { header, body: raw } = splitGabc(src);
   const ann = annotation ?? header.annotation ?? (header.mode ? `${header.mode}${header['mode-modifier'] || ''}` : null);
+  const body = transform ? transform(withoutEuouae(raw)) : withoutEuouae(raw);
   layouts.push(renderChant(score, body, { annotation: ann }));
   wrap.dataset.notated = '1';
   return wrap;
 }
+/** An antiphon's "E u o u a e" is left out: the psalm's first verse is notated anyway. */
+const withoutEuouae = (body) => body.replace(/\s*(?:<[^>]+>)*E(?:<\/[^>]+>)*\([^)]*\)\s*u\([^)]*\)\s*o\([^)]*\)\s*u\([^)]*\)\s*a\([^)]*\)\s*e\.?\([^)]*\)\s*(\(::\))?/g, '');
+
 /** An antiphon: its score, or its text when there is none. */
 const antiphonNode = (ant, fallbackText) => chantNode(ant?.gabc, { fallbackText: ant?.text || fallbackText });
 
@@ -302,6 +312,18 @@ function withScore(h) {
 }
 
 const isFestive = (day) => day.rank === 'SUNDAY' || day.rank === 'SOLEMNITY' || day.rank === 'FEAST';
+/**
+ * The Deus in adiutorium scores carry both endings: "… sæculórum. Amen. Allelúia." and,
+ * after "In Quadr.", the Lenten "… sæculórum. Amen." Keep the one of the season.
+ */
+function openingForSeason(body, cel) {
+  const lent = cel.seasons?.some((x) => x === 'LENT' || x === 'HOLY_WEEK');
+  const m = /<i>In Quadr\.<\/i>\s*†\(\)\s*([\s\S]*?)\(::\)\s*$/.exec(body);
+  let main = m ? body.slice(0, m.index) : body;
+  main = main.replace(/\(::z-\)\s*$/, '(::)');
+  if (lent && m) main = main.replace(/†\s*sæ[\s\S]*$/, `${m[1].trim()} (::)`);
+  return main.replace(/†\s*/, '');
+}
 /** Deus, in adiutorium: solemn tone at Lauds and Vespers of solemnities, festive on Sundays and feasts, else ferial. */
 function openingTone(cel, hour) {
   if (cel.rank === 'SOLEMNITY' && (hour === 'laudes' || hour === 'vesperae')) return DEUS_IN_ADIUTORIUM.solemn;
@@ -312,7 +334,7 @@ function openingTone(cel, hour) {
 async function appendOpening(main, day, hour, propers = {}) {
   const cel = propers._cel || day; // I Vespers belong to the morrow's celebration
   if (state.settings.invitatory === hour && await appendInvitatory(main, cel, propers.I)) return;
-  main.append(await chantNode(openingTone(cel, hour), { annotation: '' }));
+  main.append(await chantNode(openingTone(cel, hour), { annotation: '', transform: (b) => openingForSeason(b, cel) }));
 }
 
 /** The invitatory antiphon of the day: the psalter's follows a one-week cycle (printed under week I). */
@@ -519,7 +541,7 @@ async function composeLaudesVesperae(main, day, date, hour) {
   main.append(el(`<h2 class="section">${hour === 'laudes' ? 'Benedictus' : 'Magnificat'}</h2>`));
   const ceAnt = ce?.blocks.find((b) => b.kind === 'antiphon')?.text;
   main.append(await antiphonNode(cant, ceAnt));
-  if (ce) main.append(psalmodyNode(canticleBlocks(ce.blocks.filter((b) => b.kind !== 'antiphon')), await toneFor(cant), { canticle: true }));
+  if (ce) main.append(psalmodyNode(canticleBlocks(ce.blocks.filter((b) => b.kind !== 'antiphon' && b.kind !== 'rubric')), await toneFor(cant), { canticle: true }));
   main.append(await antiphonNode(cant, ceAnt));
 
   // Intercessions, Pater noster (sung), collect, conclusion
@@ -544,7 +566,7 @@ function precesNode(blocks) {
   for (let k = 0; k < blocks.length; k++) {
     const b = blocks[k];
     if (b.kind === 'text' && blocks[k + 1]?.kind === 'rubric' && blocks[k + 1].text === '—' && blocks[k + 2]?.kind === 'text') {
-      node.insertAdjacentHTML('beforeend', `<p class="intention">${html(b)} <span class="r">—</span> ${html(blocks[k + 2])}</p>`);
+      node.insertAdjacentHTML('beforeend', `<p class="intention">${html(b)}<br><span class="r">—</span> ${html(blocks[k + 2])}</p>`);
       k += 2;
     } else if (b.kind === 'text') node.insertAdjacentHTML('beforeend', `<p class="intro">${html(b)}</p>`);
     else node.insertAdjacentHTML('beforeend', renderTextBlock(b));
@@ -553,30 +575,37 @@ function precesNode(blocks) {
 }
 
 /**
- * The collect and the conclusion of an hour, with the dismissals sung: Dominus vobiscum
- * and the blessing, Ite in pace (or a Benedicamus Domino of the day's rank) when a priest
- * or deacon presides; Benedicamus Domino at the little hours and the Office of Readings.
+ * The collect and the conclusion of an hour. Lauds and Vespers: with a priest or deacon
+ * presiding (an option), Dominus vobiscum and the blessing; otherwise Dominus nos
+ * benedicat; then Benedicamus Domino of the day's rank (Antiphonale Romanum II). The
+ * little hours and the Office of Readings end with Benedicamus Domino (AM 2005).
  */
 async function conclusionNode(blocks, cel, hour) {
   const node = el('<div class="block"></div>');
   const textOf = (b) => (b?.kind === 'text' ? b.lines.map((l) => (typeof l === 'string' ? l : l.text)).join(' ') : '');
-  const easterOctave = cel.seasons?.includes('EASTER_TIME') && (cel.week === 1 || /pentecost/.test(cel.id || ''));
-  for (let k = 0; k < blocks.length; k++) {
-    const b = blocks[k], t = textOf(b);
-    if (/^Dóminus vobíscum/.test(t)) {
-      node.append(await chantNode(DOMINUS_VOBISCUM, { annotation: '' }));
-      while (k + 1 < blocks.length && !(blocks[k + 1].kind === 'rubric')) k++; // ℟, the blessing, ℟ Amen
-    } else if (/^Ite in pace/.test(t)) {
-      node.append(await chantNode(easterOctave ? ITE_ALLELUIA : ITE_IN_PACE, { annotation: '' }));
-      node.append(el('<p class="rubric">Vel:</p>'));
-      node.append(await chantNode(benedicamusFor(cel), { annotation: '' }));
-      if (blocks[k + 1]?.kind === 'versicle') k++;
-    } else if (/^Benedicámus Dómino/.test(t)) {
-      node.append(await chantNode(isFestive(cel) ? BENEDICAMUS_HORAE.festive : BENEDICAMUS_HORAE.ferial, { annotation: '' }));
-      if (blocks[k + 1]?.kind === 'versicle') k++;
-    } else node.insertAdjacentHTML('beforeend', renderTextBlock(b));
+  const major = hour === 'laudes' || hour === 'vesperae';
+  // the collect and its Amen; iBreviary's rubrics and formulas of the conclusion are replaced
+  const end = blocks.findIndex((b, k) => k > 0 && (b.kind === 'rubric' || /^(Dóminus vobíscum|Dóminus nos|Benedicámus Dómino)/.test(textOf(b))));
+  node.insertAdjacentHTML('beforeend', renderBlocks(end < 0 ? blocks : blocks.slice(0, end)));
+  if (!major) {
+    if (blocks.some((b) => /^Benedicámus Dómino/.test(textOf(b)))) node.append(await chantNode(isFestive(cel) ? BENEDICAMUS_HORAE.festive : BENEDICAMUS_HORAE.ferial, { annotation: '' }));
+    return node;
   }
+  if (state.settings.presider) node.append(await chantNode(DOMINUS_VOBISCUM, { annotation: '' }));
+  else node.append(chantFromGabc(DOMINUS_NOS_BENEDICAT));
+  node.append(await chantNode(benedicamusFor(cel), { annotation: '' }));
   return node;
+}
+/**
+ * Dominus nos benedicat: no score in the books; recited on one pitch with the falls of
+ * the blessing "Benedicat vos" of the Antiphonale Romanum II (p. 761).
+ */
+const DOMINUS_NOS_BENEDICAT = '(c3) DO(h)mi(h)nus(h) nos(h) be(h)ne(h)dí(g)cat,(f) (,) et(h) ab(h) om(h)ni(h) ma(h)lo(h) de(h)fén(g)dat,(f) (;) et(h) ad(h) vi(h)tam(h) per(h)dú(h)cat(h) æ(h)tér(g)nam.(f) (::) <sp>R/</sp> A(h)men.(h) (::)';
+function chantFromGabc(body) {
+  const wrap = el('<div class="chant"><div class="score"></div></div>');
+  layouts.push(renderChant(wrap.firstChild, body, { annotation: '' }));
+  wrap.dataset.notated = '1';
+  return wrap;
 }
 function benedicamusFor(cel) {
   if (cel.seasons?.includes('CHRISTMAS_TIME') && isFestive(cel)) return BENEDICAMUS.christmas;
@@ -618,7 +647,6 @@ async function composeGeneric(main, day, date, hour) {
       if (s.title === 'CANTICUM EVANGELICUM') {
         const ant = entries.find((e) => (e.position || '').startsWith('Nunc') && e.kind !== 'reference');
         const a = s.blocks.find((b) => b.kind === 'antiphon');
-        main.append(el(`<div class="block">${renderBlocks(s.blocks.filter((b) => b.kind === 'rubric'))}</div>`));
         await antiphon(ant, 'Ant. ad Nunc dimittis', a?.text);
         main.append(psalmodyNode(canticleBlocks(s.blocks.filter((b) => b.kind !== 'antiphon' && b.kind !== 'rubric')), await toneFor(ant), { canticle: true }));
         await antiphon(ant, '', a?.text);
@@ -666,6 +694,7 @@ function applySettings() {
   $('#opt-dark').checked = state.settings.theme === 'dark' || (!state.settings.theme && matchMedia('(prefers-color-scheme: dark)').matches);
   $('#opt-psalms').value = state.settings.psalms || '';
   $('#opt-memoria').value = state.settings.memoria || '';
+  $('#opt-presider').checked = !!state.settings.presider;
   $('#opt-invitatory').value = state.settings.invitatory || '';
 }
 function saveSettings() { localStorage.setItem('settings', JSON.stringify(state.settings)); }
@@ -687,6 +716,7 @@ async function boot() {
   $('#opt-dark').onchange = (e) => { state.settings.theme = e.target.checked ? 'dark' : 'light'; saveSettings(); applySettings(); };
   $('#opt-psalms').onchange = (e) => { state.settings.psalms = e.target.value || undefined; saveSettings(); render(); };
   $('#opt-memoria').onchange = (e) => { state.settings.memoria = e.target.value || undefined; saveSettings(); render(); };
+  $('#opt-presider').onchange = (e) => { state.settings.presider = e.target.checked || undefined; saveSettings(); render(); };
   $('#opt-invitatory').onchange = (e) => { state.settings.invitatory = e.target.value || undefined; saveSettings(); render(); };
   watchResize(layouts);
   render();

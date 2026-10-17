@@ -69,6 +69,14 @@ Each psalm is drawn as one score, verse after verse; an option draws only the fi
 verse in notes and the others as text with cadence accents in bold and preparatory
 syllables in italic. Gospel canticles take the intonation on every verse.
 `test/psalmtone.test.mjs` checks the table against the E u o u a e of every OCO antiphon.
+The pointing follows jgabc's rules: secondary accents every second syllable back from
+the main accent and, across words, from the next accent or the end of the half-verse (so
+a final monosyllable makes "lí-be-ra me" end as a spondee); a hollow note before an
+accent (1 d, 2 d, 4 e) takes a dactyl's accented syllable and moves the cadence one
+syllable on; a half-verse too short for intonation and cadence keeps the intonation
+("Ma-gní-fi-cat *"). `scripts/tones/compare_jgabc.mjs` points every half-verse of the
+psalter with every cadence through both engines: 99.97% of the comparable cases agree;
+the rest are syllable divisions chosen on purpose (ad-iú-tor, Is-ra-el, cu-i).
 
 ### Calendar
 
@@ -124,17 +132,22 @@ psalter days are the fallback.
 Deus, in adiutorium takes its tone from the day (Antiphonale Monasticum 2005: ferial on
 weekdays and memorials, festive on Sundays and feasts, solemn at Lauds and Vespers of
 solemnities). The Pater noster at Lauds and Vespers is sung (AM 2005 pp. 533–534,
-ferial or festive). The conclusions are sung: Dominus vobiscum with the blessing, Ite in
-pace (with alleluia in the Easter octave) or a Benedicamus Domino of the day's rank
-(Antiphonale Romanum II pp. 761–765) when a priest or deacon presides, and Benedicamus
-Domino at the little hours and the Office of Readings (AM 2005 p. 546).
+ferial or festive). The conclusions are sung, Benedicamus
+Domino at the little hours and the Office of Readings (AM 2005 p. 546). At Lauds and
+Vespers an option says whether a priest or deacon presides: then Dominus vobiscum and
+the blessing (AR II p. 761), otherwise Dominus nos benedicat (recited on the formula of
+that blessing, as the books give no score); then Benedicamus Domino of the day's rank
+(AR II pp. 764–765). Deus in adiutorium ends with Alleluia, or in Lent with the Lenten
+ending its score carries.
 
 ### Short responsories
 
 The OCO's short responsories are single pieces; `scripts/oco/match_responsoria.py`
 matches them to GregoBase scores of part "rb" (Antiphonale Monasticum and Romanum
-first), comparing the full text where one incipit serves several responsories. 123 of
-165 have a score; the others show iBreviary's text.
+first), comparing the full text where one incipit serves several responsories, and
+taking a score only when it carries most of the OCO's text. 92 of 165 have a score; the
+others show iBreviary's text and are listed with their OCO pages in
+`docs/responsoria-sine-notis.md` (most are the psalter's ferial ones in mode 6).
 
 ### Memorials
 

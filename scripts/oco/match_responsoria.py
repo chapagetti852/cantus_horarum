@@ -66,21 +66,23 @@ def main():
             continue
         n = min(len(words), 4)
         cands = [c for c in rb if norm(c["incipit"])[:n] == words[:n]]
-        if not cands and n > 2:
-            cands = [c for c in rb if norm(c["incipit"])[:2] == words[:2]]
+        # the same incipit serves several responsories (other verse, alleluias): the text
+        # decides, and a score that does not carry most of the OCO's words is not taken
+        text = set(norm(e.get("text") or e.get("title")))
+        scored = []
+        for c in cands:
+            words_c = lyrics(c["id"])
+            share = len(text & words_c) / max(1, len(text))
+            scored.append((share, -len(words_c - text), rank(c), c))
+        scored.sort(key=lambda x: (-x[0], -x[1], x[2]))
+        cands = [x[3] for x in scored if x[0] >= 0.6]
         if not cands:
-            # no responsory score: better text than an antiphon with the same incipit
+            # no responsory score: better text than another piece
             m = by_oco.get(e["id"])
-            if m and m.get("gregobase") and parts.get(m["gregobase"]) not in ("rb", "re"):
+            if m and m.get("gregobase"):
                 m.update(gregobase=None, confidence="rb-none")
                 changed += 1
             continue
-        # the same incipit serves several responsories (other verse, alleluias): the text decides
-        text = set(norm(e.get("text") or e.get("title")))
-        if len(cands) > 1:
-            cands = sorted(cands, key=lambda c: (-len(text & lyrics(c["id"])) + len(lyrics(c["id"]) - text) * 0.5, rank(c)))
-        else:
-            cands = sorted(cands, key=rank)
         best = cands[0]
         found += 1
         m = by_oco.get(e["id"])

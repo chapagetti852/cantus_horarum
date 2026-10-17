@@ -69,6 +69,7 @@ export function context(cel, date, mode = isSanctoral(cel) ? 'sanctoral' : 'temp
 
 // ---------------------------------------------------------------- slot codes
 const SEASON_NAMES = { A: 'A', Adv: 'A', N: 'N', Q: 'Q', P: 'P', TP: 'P' };
+const COMMON_RANK = { Mart: 3, PlM: 3, UnM: 3, Virg: 2, Doct: 1 };
 const COMMON_CODES = /^(Ap|BMV|PlM|UnM|Mart|Past|Doct|Virg|Vir|Viro|Mul|Rel|Mis|Educ|Ded|Def)(Pl)?$/;
 
 const inList = (n, spec) => spec.split('.').some((part) => {
@@ -111,7 +112,9 @@ export function scoreTempus(tempus, c) {
     else if ((m = /^\d*([A-Z][A-Za-z]+)$/.exec(t)) && c.named && m[1] === c.named) s = 98;
     else if ((m = /^\d*([A-Z][A-Za-z]+(?:-[A-Z][a-z]+)?)$/.exec(t)) && COMMON_CODES.test(m[1].split('-')[0])) {
       const names = m[1].replace(/Pl$/, '').split('-').map((x) => (x === 'Viro' ? 'Vir' : x));
-      s = S && names.some((n) => c.commons.has(n)) ? 40 : 0;
+      // a martyr bishop is first a martyr: the more particular common wins
+      const hit = names.filter((n) => c.commons.has(n));
+      s = S && hit.length ? 40 + Math.max(...hit.map((n) => COMMON_RANK[n] || 0)) : 0;
       if (s && /Pl$/.test(m[1])) bonus += c.plural ? 5 : -100;
     } else if (t === 'TP' && tokens.length > 1) {
       // with another selector (Ap TP) it qualifies it: Easter only, preferred then
@@ -178,15 +181,17 @@ function pick(slots, oco, c, hour, kind, place) {
     if (!lm) continue;
     const s = scoreTempus(tempus, c);
     if (!s) continue;
-    const score = s * 10 + lm - offs.indexOf(officium);
+    const entry = entryFor(oco, ids, lhym, kind, row, c);
+    if (!entry) continue;
+    // at equal particularity, a piece with a score before one without
+    const score = s * 10 + lm - offs.indexOf(officium) + (entry.gabc ? 5 : 0);
     if (best && best.score >= score) continue;
-    const entry = entryFor(oco, ids, lhym, kind, row);
-    if (entry) best = { score, tempusScore: s, entry, tempus };
+    best = { score, tempusScore: s, entry, tempus };
   }
   return best;
 }
 
-function entryFor(oco, ids, lhym, kind, row) {
+function entryFor(oco, ids, lhym, kind, row, c) {
   if (kind === 'h') {
     // a page of the Liber Hymnarius may hold several hymns, and the OCO body sometimes
     // cites another page: the incipit decides
@@ -199,8 +204,15 @@ function entryFor(oco, ids, lhym, kind, row) {
     return list.find((e) => e.gabc) || list[0] || (row[6] ? { kind: 'hymn', title: row[6], lhym } : null);
   }
   const list = (ids || []).map((i) => oco.byId.get(i)).filter(Boolean);
-  const want = kind === 'i' ? (e) => e.kind === 'invitatorium' : (e) => e.kind !== 'reference';
-  return list.find((e) => want(e) && e.gabc) || list.find(want) || null;
+  // the index's links reach every piece with that incipit: keep the right genre
+  const isResp = (e) => e.kind === 'resp_brevis' || /br\./.test(e.position || '');
+  const want = kind === 'i' ? (e) => e.kind === 'invitatorium'
+    : kind === 'r' ? isResp
+      : (e) => e.kind !== 'reference' && e.kind !== 'hymn' && e.kind !== 'invitatorium' && !isResp(e);
+  // the alleluia form in Eastertide only
+  const tp = c?.season === 'P';
+  const fits = (e) => want(e) && /allel/i.test(e.title || '') === tp;
+  return list.find((e) => fits(e) && e.gabc) || list.find(fits) || list.find((e) => want(e) && e.gabc) || list.find(want) || null;
 }
 
 export function indexOco(entries) {
