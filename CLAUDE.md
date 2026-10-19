@@ -58,7 +58,8 @@ Read `README.md` first: it explains every pipeline.
   copied by `scripts/build.mjs`. Scores are fetched per file from `gabc/<id>.gabc`.
 - The UI follows Breviarium Gregorianum (breviariumgregorianum.com) as closely as
   possible: EB Garamond, bar with hour select, date and gear; rank / title / hour heading;
-  psalm modes Plenus (all notated) and Compactus (first verse notated, numbered list).
+  psalm modes Plenus (all notated) and Compactus (first verse notated, numbered list);
+  a ▶ on every score sings it (`site/player.js`, Web Audio, voice range in settings).
 - Mobile first (390 px), legible, serif, rubrics in red, notes follow the text colour
   (night mode). Settings live in the header (gear). No grey labels over scores; where a
   score is shown its text is not repeated. Hymns and psalms are each one full score

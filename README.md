@@ -86,6 +86,15 @@ the celebration and the hour, red psalm titles, and the two psalm modes of its s
 *Plenus* (every verse in notes, numbered) and *Compactus* (the first verse in notes, the
 others a numbered list pointed in bold and italic).
 
+### Singing the scores
+
+Every score has a ▶ (as on Breviarium Gregorianum) that sings it: `site/player.js` reads
+the GABC into pitches (staff positions, clef, flats until the next bar) and lengths (equal
+notes; mora, episema, liquescence, bars) and plays them with the Web Audio API, a soft
+voice-like tone, the note being sung lit red in the score. Chant has no absolute pitch:
+the piece is moved so that its middle lies in the voice chosen in the settings (gravis,
+media, acuta). `test/player.test.mjs` checks the reading.
+
 ### Calendar
 
 [romcal](https://github.com/romcal/romcal) 3 with its General Roman Calendar plugin,

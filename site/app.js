@@ -733,6 +733,7 @@ function applySettings() {
   if (state.settings.theme) document.documentElement.dataset.theme = state.settings.theme; else delete document.documentElement.dataset.theme;
   $('#text-size').value = state.settings.size || 100;
   $('#opt-theme').value = state.settings.theme || '';
+  $('#opt-voice').value = state.settings.voice || '';
   for (const b of document.querySelectorAll('.mode')) b.setAttribute('aria-checked', String(b.dataset.psalms === (state.settings.psalms || '')));
   $('#opt-memoria').value = state.settings.memoria || '';
   $('#opt-presider').value = state.settings.presider ? '1' : '';
@@ -752,6 +753,7 @@ async function boot() {
   $('#hour').onchange = (e) => { state.hour = e.target.value; render(); };
   $('#settings-toggle').onclick = () => { const s = $('#settings'); s.hidden = !s.hidden; $('#settings-toggle').setAttribute('aria-expanded', String(!s.hidden)); };
   $('#text-size').oninput = (e) => { state.settings.size = Number(e.target.value); saveSettings(); applySettings(); render(); };
+  $('#opt-voice').onchange = (e) => { state.settings.voice = e.target.value || undefined; saveSettings(); };
   $('#opt-theme').onchange = (e) => { state.settings.theme = e.target.value || undefined; saveSettings(); applySettings(); };
   for (const b of document.querySelectorAll('.mode')) b.onclick = () => { state.settings.psalms = b.dataset.psalms || undefined; saveSettings(); applySettings(); render(); };
   $('#opt-memoria').onchange = (e) => { state.settings.memoria = e.target.value || undefined; saveSettings(); render(); };

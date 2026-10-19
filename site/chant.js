@@ -1,5 +1,6 @@
 // Render GABC with Exsurge into a container, re-laying out on resize.
 // Exsurge (MIT, Fr. Matthew Spencer) is loaded globally from vendor/exsurge.min.js.
+import { play, stop, notesOf } from './player.js';
 
 const gabcCache = new Map();
 
@@ -63,6 +64,7 @@ export function renderChant(el, body, { annotation = null, dropCap = true } = {}
     el.innerHTML = `<p class="missing">Notatio legi non potuit (${e.message}).</p>`;
     return () => {};
   }
+  addPlayButton(el, cleaned);
   let lastWidth = -1;
   const layout = () => {
     const width = Math.floor(el.clientWidth) || Math.floor(document.body.clientWidth - 32);
@@ -79,6 +81,42 @@ export function renderChant(el, body, { annotation = null, dropCap = true } = {}
   };
   layout();
   return layout;
+}
+
+/**
+ * A ▶ over the score (as Breviarium Gregorianum has): sings it, ■ stops. The note being
+ * sung turns red when the drawn notes match the read ones one for one.
+ */
+function addPlayButton(el, body) {
+  if (!el.parentNode || el.previousElementSibling?.classList.contains('score-tools')) return;
+  if (!notesOf(body).some((n) => !n.rest)) return;
+  const tools = document.createElement('div');
+  tools.className = 'score-tools';
+  const btn = document.createElement('button');
+  btn.className = 'play';
+  btn.type = 'button';
+  btn.setAttribute('aria-label', 'Cane');
+  btn.textContent = '▶';
+  tools.append(btn);
+  el.before(tools);
+  btn.onclick = () => {
+    if (btn.classList.contains('playing')) { stop(); return; }
+    const settings = JSON.parse(localStorage.getItem('settings') || '{}');
+    const drawn = [...el.querySelectorAll('svg use.note, svg use[class~="note"]')];
+    const count = notesOf(body).filter((n) => !n.rest).length;
+    let lit = null;
+    btn.classList.add('playing');
+    btn.textContent = '■';
+    play(body, {
+      voice: settings.voice,
+      onNote: (i) => {
+        if (lit) lit.style.fill = '';
+        lit = drawn.length === count && i >= 0 ? drawn[i] : null;
+        if (lit) lit.style.fill = 'var(--rubric)';
+      },
+      onEnd: () => { btn.classList.remove('playing'); btn.textContent = '▶'; },
+    });
+  };
 }
 
 /** Keep every rendered chant fitted to its container. */

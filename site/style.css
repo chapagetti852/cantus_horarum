@@ -112,6 +112,9 @@ h3.sub { font-weight: 700; font-size: 1em; margin: 1.2em 0 .2em; }
 /* Exsurge leaves the notes to the SVG's default black: follow the text colour (night) */
 .score svg { fill: currentColor; font-feature-settings: "locl" 0; }
 .score svg .rubric, .score svg .annotation { fill: var(--rubric); }
+.score-tools { display: flex; justify-content: flex-end; margin: 0 0 -6px; position: relative; z-index: 1; }
+.score-tools .play { width: 36px; height: 26px; border-radius: 6px; background: var(--bg-raised); color: var(--fg); font-size: 12px; line-height: 26px; }
+.score-tools .play.playing { color: var(--rubric); }
 .chant .missing { color: var(--fg-soft); font-style: italic; }
 .ant-text { margin: .1em 0 .4em; }
 .ant-text .r { font-weight: 600; font-style: normal; }
