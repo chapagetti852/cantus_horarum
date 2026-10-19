@@ -87,10 +87,14 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .settings-title { text-align: center; margin: 2px 0 8px; }
 .modes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px; }
 .mode { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-.mode .preview { width: 100%; background: var(--bg); border-radius: 10px; padding: 8px 8px 6px; border: 3px solid transparent; display: flex; flex-direction: column; gap: 3px; text-align: left; font-size: 13px; overflow: hidden; white-space: nowrap; }
+.mode .preview { width: 100%; background: var(--bg); border-radius: 10px; padding: 6px; border: 3px solid transparent; display: block; }
 .mode[aria-checked="true"] .preview { border-color: var(--rubric); }
 .mode[aria-checked="true"] .mode-name { color: var(--rubric); }
-.mode .staff { display: block; height: 16px; background: repeating-linear-gradient(to bottom, var(--fg) 0 1px, transparent 1px 5px); opacity: .55; }
+/* the miniature scores of the two modes, drawn in the text colour */
+.mini { display: block; width: 100%; height: auto; fill: var(--fg); }
+.mini line { stroke: var(--fg); stroke-width: .45; opacity: .8; }
+.mini text { font-size: 9.5px; font-family: "EB Garamond", serif; font-feature-settings: "locl" 0; fill: var(--fg); }
+.mini .mini-r { fill: var(--rubric); }
 .row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid var(--rule); }
 .row select { font: inherit; color: inherit; background: transparent; border: 0; text-align: right; max-width: 55%; }
 .row input[type=range] { flex: 0 1 50%; }
