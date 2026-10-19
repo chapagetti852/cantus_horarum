@@ -15,7 +15,19 @@ const PATER_NOSTER = { ferial: 4321, festive: 15303 }; // Antiphonale Monasticum
 const BENEDICAMUS_HORAE = { ferial: 17847, festive: 17848 };
 // Dominus vobiscum … Benedicat vos: AR II p. 761; at solemnities the solemn tone (GR 1974 p. 817 B)
 const DOMINUS_VOBISCUM = { simple: 4322, solemn: 7463 };
-const BENEDICAMUS = { christmas: 16665, solemn: 16129, sunday: 16976, other: 3972 };
+// Benedicamus Domino at Lauds and Vespers, by rank and hour: Antiphonale Monasticum 2005
+// pp. 541-546 (its "in Festis ad Laudes" is not on GregoBase: feasts sing the Vespers one at
+// both hours), and the Antiphonale Romanum II's for the feasts and octave of Christmas (p. 764)
+const BENEDICAMUS = {
+  major: { vesperae1: 20680, laudes: 20681, vesperae: 20682 },
+  solemnity: { laudes: 20683, vesperae: 19868 },
+  christmas: 16665,
+  feast: 19187,
+  sunday: 19188,
+  ferial: { laudes: 20715, vesperae: 19189 },
+};
+// the "sollemnitates maiores": the Lord's great days (the octave of Easter sings Easter's)
+const MAIOR = /^(nativity_of_the_lord|epiphany_of_the_lord|easter_(sunday|monday|tuesday|wednesday|thursday|friday|saturday)|ascension_of_the_lord|pentecost_sunday)$/;
 // Psalm 94 (95) in the Liber Hymnarius (1983) tones, by the mode of the invitatory antiphon
 const INVITATORY_TONES = { '2': 8218, '3': 10397, '4': 15508, '4*': 7669, '4**': 16356, '5': 10248, '6': 9664, '6*': 10035, '6**': 15059, '7': 9834, D: 9707, E: 9642 };
 
@@ -600,7 +612,7 @@ async function composeLaudesVesperae(main, day, date, hour) {
     main.append(await chantNode(isFestive(cel) ? PATER_NOSTER.festive : PATER_NOSTER.ferial, { annotation: '' }));
   }
   const or = section(texts, 'ORATIO');
-  if (or) { main.append(el('<h2 class="section">Oratio</h2>')); main.append(await conclusionNode(or.blocks, cel, hour)); }
+  if (or) { main.append(el('<h2 class="section">Oratio</h2>')); main.append(await conclusionNode(or.blocks, cel, hour, { first: propers._first })); }
 }
 
 /**
@@ -627,7 +639,7 @@ function precesNode(blocks) {
  * benedicat; then Benedicamus Domino of the day's rank (Antiphonale Romanum II). The
  * little hours and the Office of Readings end with Benedicamus Domino (AM 2005).
  */
-async function conclusionNode(blocks, cel, hour) {
+async function conclusionNode(blocks, cel, hour, { first = false } = {}) {
   const node = el('<div class="block"></div>');
   const textOf = (b) => (b?.kind === 'text' ? b.lines.map((l) => (typeof l === 'string' ? l : l.text)).join(' ') : '');
   const major = hour === 'laudes' || hour === 'vesperae';
@@ -638,9 +650,10 @@ async function conclusionNode(blocks, cel, hour) {
     if (blocks.some((b) => /^Benedicámus Dómino/.test(textOf(b)))) node.append(await chantNode(isFestive(cel) ? BENEDICAMUS_HORAE.festive : BENEDICAMUS_HORAE.ferial, { annotation: '' }));
     return node;
   }
-  if (state.settings.presider) node.append(await chantNode(cel.rank === 'SOLEMNITY' ? DOMINUS_VOBISCUM.solemn : DOMINUS_VOBISCUM.simple, { annotation: '' }));
+  const solemn = ['major', 'solemnity'].includes(rankOf(cel));
+  if (state.settings.presider) node.append(await chantNode(solemn ? DOMINUS_VOBISCUM.solemn : DOMINUS_VOBISCUM.simple, { annotation: '' }));
   else node.append(chantFromGabc(dominusNosBenedicat(cel)));
-  node.append(await chantNode(benedicamusFor(cel), { annotation: '' }));
+  node.append(await chantNode(benedicamusFor(cel, first && hour === 'vesperae' ? 'vesperae1' : hour), { annotation: '' }));
   return node;
 }
 /**
@@ -661,8 +674,9 @@ const DOMINUS_NOS_BENEDICAT = {
   ferial: '(c3) DO(h)mi(h)nus(h) nos(h) be(h)ne(h)dí(h)cat,(f) (;) et(h) ab(h) om(h)ni(h) ma(h)lo(g) de(f)fén(h)dat,(h) (;) et(h) ad(h) vi(h)tam(h) per(h)dú(h)cat(h) æ(h)tér(h)nam.(d) (::) <sp>R/</sp> A(h)men.(h) (::)',
 };
 function dominusNosBenedicat(cel) {
-  if (cel.rank === 'SOLEMNITY') return DOMINUS_NOS_BENEDICAT.solemn;
-  return isFestive(cel) ? DOMINUS_NOS_BENEDICAT.festive : DOMINUS_NOS_BENEDICAT.ferial;
+  const r = rankOf(cel);
+  if (r === 'major' || r === 'solemnity') return DOMINUS_NOS_BENEDICAT.solemn;
+  return r === 'ferial' ? DOMINUS_NOS_BENEDICAT.ferial : DOMINUS_NOS_BENEDICAT.festive;
 }
 function chantFromGabc(body) {
   const wrap = el('<div class="chant"><div class="score"></div></div>');
@@ -670,11 +684,25 @@ function chantFromGabc(body) {
   wrap.dataset.notated = '1';
   return wrap;
 }
-function benedicamusFor(cel) {
-  if (cel.seasons?.includes('CHRISTMAS_TIME') && isFestive(cel)) return BENEDICAMUS.christmas;
-  if (cel.rank === 'SOLEMNITY' || /blessed_virgin_mary|^our_lady/.test(cel.id || '')) return BENEDICAMUS.solemn;
-  if (cel.rank === 'SUNDAY' && cel.seasons?.includes('ORDINARY_TIME')) return BENEDICAMUS.sunday;
-  return BENEDICAMUS.other;
+/** The rank that chooses the conclusion's tones; All Souls is sung as a weekday. */
+function rankOf(cel) {
+  if (MAIOR.test(cel.id || '')) return 'major';
+  if (cel.id === 'commemoration_of_all_the_faithful_departed') return 'ferial';
+  if (cel.rank === 'SOLEMNITY') return 'solemnity';
+  if (cel.rank === 'FEAST') return 'feast';
+  if (cel.rank === 'SUNDAY') return 'sunday';
+  return 'ferial';
+}
+/** Benedicamus Domino for Lauds ("laudes"), I Vespers ("vesperae1") or Vespers. */
+function benedicamusFor(cel, hour) {
+  const r = rankOf(cel);
+  const at = (set) => set[hour] || set.vesperae;
+  if (r === 'major') return at(BENEDICAMUS.major);
+  if (cel.seasons?.includes('CHRISTMAS_TIME') && (r !== 'ferial' || /^christmas_octave/.test(cel.id || ''))) return BENEDICAMUS.christmas;
+  if (r === 'solemnity') return at(BENEDICAMUS.solemnity);
+  if (r === 'feast') return BENEDICAMUS.feast;
+  if (r === 'sunday') return BENEDICAMUS.sunday;
+  return at(BENEDICAMUS.ferial);
 }
 
 /**
