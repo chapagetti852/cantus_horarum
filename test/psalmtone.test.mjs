@@ -4,7 +4,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
 import './jgabc.mjs';
-import { versesOf, verseGabc, psalmGabc, gloriaEnd, toneContext, parseMode } from '../site/psalmtone.js';
+import { TONES, versesOf, verseGabc, psalmGabc, gloriaEnd, toneContext, parseMode } from '../site/psalmtone.js';
 
 test('pointing as jgabc\'s psalm-tone tool does it', () => {
   const ctx = { tone: '1', ending: 'd', clef: 'c4', shift: 0 };
@@ -27,6 +27,16 @@ test('Gospel canticles: the solemn mediant on the first verse only', () => {
   // the second verse: the simple mediant, its intonation repeated
   assert.match(g, /et\(g\)/);
   assert.doesNotMatch(g.split('(::)')[1], /\(hg\)|\(gj\)/);
+});
+
+test('every tone sings every syllable (jgabc needs "jr jr" between two accents on one pitch)', () => {
+  const verses = ['Nunc dimíttis servum tuum, Dómine, * secúndum verbum tuum in pace,', 'quia vidérunt óculi mei * salutáre tuum,',
+    'Sicut erat in princípio, et nunc et semper, * et in sǽcula sæculórum. Amen.', 'Magníficat * ánima mea Dóminum,'];
+  const letters = (s) => s.normalize('NFD').replace(/[^a-zæœ]/gi, '').toLowerCase();
+  for (const [tone, t] of Object.entries(TONES)) for (const ending of Object.keys(t.endings)) for (const solemn of [false, true]) for (const v of verses) {
+    const g = verseGabc(v, { tone, ending, shift: 0, clef: t.clef }, { intone: true, first: true, solemn });
+    assert.equal(letters(g.replace(/\([^)]*\)/g, '').replace(/<[^>]*>/g, '')), letters(v), `${tone}${ending}${solemn ? ' solemn' : ''}: ${v}`);
+  }
 });
 
 test('mode labels', () => {

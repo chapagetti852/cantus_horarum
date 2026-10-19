@@ -13,7 +13,8 @@ const DOMINE_LABIA = { ferial: 18107, festive: 18108 };
 const PATER_NOSTER = { ferial: 4321, festive: 15303 }; // Antiphonale Monasticum 2005, pp. 533-534
 // Conclusions: Antiphonale Monasticum 2005 p. 546 (little hours), Antiphonale Romanum II pp. 761-765
 const BENEDICAMUS_HORAE = { ferial: 17847, festive: 17848 };
-const DOMINUS_VOBISCUM = 4322;
+// Dominus vobiscum … Benedicat vos: AR II p. 761; at solemnities the solemn tone (GR 1974 p. 817 B)
+const DOMINUS_VOBISCUM = { simple: 4322, solemn: 7463 };
 const BENEDICAMUS = { christmas: 16665, solemn: 16129, sunday: 16976, other: 3972 };
 // Psalm 94 (95) in the Liber Hymnarius (1983) tones, by the mode of the invitatory antiphon
 const INVITATORY_TONES = { '2': 8218, '3': 10397, '4': 15508, '4*': 7669, '4**': 16356, '5': 10248, '6': 9664, '6*': 10035, '6**': 15059, '7': 9834, D: 9707, E: 9642 };
@@ -79,8 +80,8 @@ function followReference(e) {
 const memoriaDeFeria = (cel) => cel?.rank === 'MEMORIAL' && isSanctoral(cel) && cel.seasons?.includes('ORDINARY_TIME') && state.settings.memoria !== 'commune';
 function ocoCompline(day, hour) {
   // Compline follows a one-week cycle; Sunday has one form after I Vespers (used on
-  // Saturday evening) and one after II Vespers. The hymn and the Nunc dimittis
-  // antiphon are printed once, under the Sunday form.
+  // Saturday evening) and one after II Vespers. The hymn, the responsory and the Nunc
+  // dimittis antiphon are printed once, under the Sunday form.
   const pool = state.oco.filter((e) => e.part === 'PSALTERIUM' && e.chapter === 'AD COMPLETORIUM');
   const sunday = pool.filter((e) => e.day === 'In Dominica et sollemnitatibus');
   const hymn = sunday.filter((e) => e.kind === 'hymn');
@@ -90,7 +91,9 @@ function ocoCompline(day, hour) {
   else if (day.dow === 0) own = sunday.filter((e) => e.hour === 'Post II Vesp.' && e.kind !== 'hymn');
   else own = pool.filter((e) => e.day === DAY_NAMES[day.dow]);
   own = own.filter((e) => !(e.position === 'Nunc' && e.kind === 'reference'));
-  return [...hymn, ...own.filter((e) => e.position !== 'Nunc'), ...nunc];
+  // so is the responsory In manus tuas (with its Eastertide form)
+  const rb = own.some((e) => /^In manus tuas/.test(e.text || '')) ? [] : sunday.filter((e) => /^In manus tuas/.test(e.text || ''));
+  return [...hymn, ...own.filter((e) => e.position !== 'Nunc'), ...rb, ...nunc];
 }
 
 function byPosition(entries, pos) {
@@ -147,8 +150,10 @@ function psalmGroups(section) {
   const groups = [];
   let cur = null;
   for (const b of section?.blocks || []) {
-    if (b.kind === 'antiphon' && b.n) { cur = { n: b.n, antiphon: b.text, items: [] }; groups.push(cur); }
-    else if (b.kind === 'antiphon' && cur) { cur.repeat = b.text; }
+    // an antiphon opens a group, or repeats the open one after its psalm (Compline's are not numbered)
+    if (b.kind === 'antiphon' && (b.n || !cur || (cur.items.length && cur.repeat !== undefined) || !cur.items.length)) {
+      cur = { n: b.n || groups.length + 1, antiphon: b.text, items: [] }; groups.push(cur);
+    } else if (b.kind === 'antiphon' && cur) { cur.repeat = b.text; }
     else if (cur) cur.items.push(b);
   }
   return groups;
@@ -633,16 +638,32 @@ async function conclusionNode(blocks, cel, hour) {
     if (blocks.some((b) => /^Benedicámus Dómino/.test(textOf(b)))) node.append(await chantNode(isFestive(cel) ? BENEDICAMUS_HORAE.festive : BENEDICAMUS_HORAE.ferial, { annotation: '' }));
     return node;
   }
-  if (state.settings.presider) node.append(await chantNode(DOMINUS_VOBISCUM, { annotation: '' }));
-  else node.append(chantFromGabc(DOMINUS_NOS_BENEDICAT));
+  if (state.settings.presider) node.append(await chantNode(cel.rank === 'SOLEMNITY' ? DOMINUS_VOBISCUM.solemn : DOMINUS_VOBISCUM.simple, { annotation: '' }));
+  else node.append(chantFromGabc(dominusNosBenedicat(cel)));
   node.append(await chantNode(benedicamusFor(cel), { annotation: '' }));
   return node;
 }
 /**
- * Dominus nos benedicat: no score in the books; recited on one pitch with the falls of
- * the blessing "Benedicat vos" of the Antiphonale Romanum II (p. 761).
+ * Dominus nos benedicat has no score in the books. It is pointed here on the tones the
+ * books give for the blessing and the collect, by rank, each cadence placed by the accents:
+ * - solemnities: the solemn blessing tone (Graduale Romanum 1974 p. 817, tone B): the
+ *   first member falls on its last syllable, the second rises to the upper note on its
+ *   last accent, the third bends after the accent of perdúcat and closes on ætérnam;
+ * - Sundays and feasts: the blessing of the Antiphonale Romanum II p. 761 (Benedicat vos):
+ *   the two syllables before the last accent of the first members dip a third and a fourth
+ *   below the reciting note ("om-ní-po-tens Dé-us"), the last falls after its accent;
+ * - other days: the ferial tone of the collect (AR II p. 759): the first member falls after
+ *   its accent, the second has the metrum ("oc-cur-rén-tes"), the last falls to d.
  */
-const DOMINUS_NOS_BENEDICAT = '(c3) DO(h)mi(h)nus(h) nos(h) be(h)ne(h)dí(g)cat,(f) (,) et(h) ab(h) om(h)ni(h) ma(h)lo(h) de(h)fén(g)dat,(f) (;) et(h) ad(h) vi(h)tam(h) per(h)dú(h)cat(h) æ(h)tér(g)nam.(f) (::) <sp>R/</sp> A(h)men.(h) (::)';
+const DOMINUS_NOS_BENEDICAT = {
+  solemn: "(c4) DO(g)mi(h)nus(h) nos(h) be(h)ne(h)dí(h)cat,(g.) (;) et(g) ab(h) om(h)ni(h) ma(h)lo(h) de(h)fén(i)dat,(h_') (,) et(h) ad(h) vi(h)tam(h) per(h)dú(h)cat(g) æ(h)tér(hg)nam.(g.) (::) <sp>R/</sp> A(g)men.(gh..) (::)",
+  festive: '(c3) DO(h)mi(h)nus(h) nos(h) be(g)ne(f)dí(h)cat,(h) (;) et(h) ab(h) om(h)ni(h) ma(h)lo(g) de(f)fén(h)dat,(h) (,) et(h) ad(h) vi(h)tam(h) per(h)dú(h)cat(h) æ(h)tér(h)nam.(f) (::) <sp>R/</sp> A(h)men.(h) (::)',
+  ferial: '(c3) DO(h)mi(h)nus(h) nos(h) be(h)ne(h)dí(h)cat,(f) (;) et(h) ab(h) om(h)ni(h) ma(h)lo(g) de(f)fén(h)dat,(h) (;) et(h) ad(h) vi(h)tam(h) per(h)dú(h)cat(h) æ(h)tér(h)nam.(d) (::) <sp>R/</sp> A(h)men.(h) (::)',
+};
+function dominusNosBenedicat(cel) {
+  if (cel.rank === 'SOLEMNITY') return DOMINUS_NOS_BENEDICAT.solemn;
+  return isFestive(cel) ? DOMINUS_NOS_BENEDICAT.festive : DOMINUS_NOS_BENEDICAT.ferial;
+}
 function chantFromGabc(body) {
   const wrap = el('<div class="chant"><div class="score"></div></div>');
   layouts.push(renderChant(wrap.firstChild, body, { annotation: '' }));
@@ -656,47 +677,76 @@ function benedicamusFor(cel) {
   return BENEDICAMUS.other;
 }
 
-async function composeGeneric(main, day, date, hour) {
+/**
+ * Compline, in the order of the Liturgia Horarum: Deus in adiutorium (sung, by rank), the
+ * examination of conscience, the hymn, the psalmody, the short reading, the responsory In
+ * manus tuas, the Nunc dimittis with Salva nos, the collect, the blessing Noctem quietam
+ * (AM 2005 p. 540) and the antiphon of Our Lady of the season (AM 2005 pp. 472-477).
+ */
+async function composeCompline(main, day, date, hour) {
   const texts = await textsFor(day, date, hour);
   const slot = psalterSlot(day, date, hour);
-  const entries = withPropers(hour === 'completorium' ? ocoCompline(day, hour) : ocoPsalter(slot), await propersFor(day, date, hour));
-  // antiphons of the psalms and of the canticle go with their texts below, when there are texts
-  const inline = (e) => texts && e.kind !== 'hymn' && /^(\d|Nunc)/.test(e.position || '');
-  main.append(hourTitle(hour, slot, await propersFor(day, date, hour)));
-  for (const e of entries) {
-    if (inline(e)) continue;
-    if (e.kind === 'reference') { main.append(el(`<p class="rubric">${esc(e.position || '')} ${esc(e.title)}</p>`)); continue; }
-    if (e.kind === 'hymn') { await appendHymn(main, withScore(e), hymnTextNode(texts)); continue; }
-    main.append(await chantNode(e.gabc, { fallbackText: e.text }));
+  const propers = await propersFor(day, date, hour);
+  const entries = withPropers(ocoCompline(day, hour), propers);
+  if (!entries.length && !texts) { main.append(el('<p class="empty">Hæc hora nondum parata est.</p>')); return; }
+  const cel = propers._cel || day;
+  const paschal = cel.seasons?.includes('EASTER_TIME');
+
+  main.append(hourTitle(hour, slot, propers));
+  await appendOpening(main, day, hour, propers);
+  // iBreviary's opening section: only its rubric (the examination of conscience) is kept
+  const opening = texts?.find((s) => s.title && /^Completorium$/i.test(s.title));
+  for (const b of opening?.blocks || []) if (b.kind === 'rubric') main.insertAdjacentHTML('beforeend', renderTextBlock(b));
+
+  await appendHymn(main, withScore(entries.find((e) => e.kind === 'hymn')), hymnTextNode(texts));
+  await appendPsalmody(main, entries.filter((e) => e.kind !== 'reference'), section(texts, 'PSALMODIA'));
+
+  const lb = section(texts, 'LECTIO BREVIS');
+  if (lb) { main.append(el('<h2 class="section">Lectio brevis</h2>')); main.append(el(`<div class="block">${renderBlocks(lb.blocks)}</div>`)); }
+
+  // In manus tuas: the OCO's score (with its alleluias in Eastertide), else the text
+  const rbs = entries.filter((e) => e.kind !== 'reference' && e.gabc && /^In manus tuas/.test(e.text || ''));
+  const rb = rbs.find((e) => /allel[uú]ia/i.test(e.text) === paschal) || rbs[0];
+  const rbText = section(texts, 'RESPONSORIUM BREVE');
+  if (rb || rbText) {
+    main.append(el('<h2 class="section">Responsorium breve</h2>'));
+    const node = rb ? await chantNode(rb.gabc, { annotation: '' }) : null;
+    if (node?.dataset.notated) main.append(node);
+    else if (rbText) main.append(el(`<div class="block">${renderBlocks(responsoryBlocks(rbText.blocks))}</div>`));
   }
-  const antiphon = async (e, label, fallback) => main.append(await antiphonNode(e, fallback));
-  if (texts) {
-    for (const s of texts) {
-      if (!s.title || /^(Breviarium|PSALMI INVITATORII)$/.test(s.title) || s.blocks.length === 0) continue;
-      main.append(el(`<h2 class="section">${esc(s.title)}</h2>`));
-      if (s.title === 'PSALMODIA') {
-        const groups = psalmGroups(s);
-        for (const g of groups) {
-          const ant = byPosition(entries.filter((e) => e.kind !== 'reference'), String(g.n));
-          await antiphon(ant, `Ant. ${g.n}`, g.antiphon);
-          main.append(psalmodyNode(g.items, await toneFor(ant)));
-          await antiphon(ant, '', g.repeat || g.antiphon);
-        }
-        if (groups.length) continue;
-      }
-      if (s.title === 'HYMNUS' && entries.some((e) => e.kind === 'hymn')) continue; // with its score above
-      if (s.title === 'ORATIO') { main.append(await conclusionNode(s.blocks, day, hour)); continue; }
-      if (s.title === 'CANTICUM EVANGELICUM') {
-        const ant = entries.find((e) => (e.position || '').startsWith('Nunc') && e.kind !== 'reference');
-        const a = s.blocks.find((b) => b.kind === 'antiphon');
-        await antiphon(ant, 'Ant. ad Nunc dimittis', a?.text);
-        main.append(psalmodyNode(canticleBlocks(s.blocks.filter((b) => b.kind !== 'antiphon' && b.kind !== 'rubric')), await toneFor(ant), { canticle: true }));
-        await antiphon(ant, '', a?.text);
-        continue;
-      }
-      main.append(el(`<div class="block">${renderBlocks(s.blocks)}</div>`));
-    }
-  } else if (!entries.length) main.append(el('<p class="empty">Hæc hora nondum parata est.</p>'));
+
+  const ce = section(texts, 'CANTICUM EVANGELICUM');
+  const nunc = entries.find((e) => (e.position || '').startsWith('Nunc') && e.kind !== 'reference');
+  main.append(el('<h2 class="section">Nunc dimittis</h2>'));
+  const ceAnt = ce?.blocks.find((b) => b.kind === 'antiphon')?.text;
+  main.append(await antiphonNode(nunc, ceAnt));
+  if (ce) main.append(psalmodyNode(canticleBlocks(ce.blocks.filter((b) => b.kind !== 'antiphon' && b.kind !== 'rubric')), await toneFor(nunc), { canticle: true }));
+  main.append(await antiphonNode(nunc, ceAnt));
+
+  // the collect (as text), then the blessing and the antiphon of Our Lady, sung
+  const or = section(texts, 'ORATIO');
+  if (or) {
+    main.append(el('<h2 class="section">Oratio</h2>'));
+    const text = (b) => (b.kind === 'text' ? b.lines.map((l) => (typeof l === 'string' ? l : l.text)).join(' ') : '');
+    const end = or.blocks.findIndex((b) => /^Noctem/.test(text(b)) || (b.kind === 'rubric' && /Mariam|antiphon/i.test(b.text)));
+    main.append(el(`<div class="block">${renderBlocks(end < 0 ? or.blocks : or.blocks.slice(0, end))}</div>`));
+  }
+  main.append(el('<h2 class="section">Benedictio</h2>'));
+  main.append(await chantNode(NOCTEM_QUIETAM, { annotation: '' }));
+  main.append(el('<h2 class="section">Antiphona ad B. Mariam Virginem</h2>'));
+  main.append(await chantNode(marianAntiphon(cel, date), { annotation: '' }));
+}
+const NOCTEM_QUIETAM = 20685;
+// Antiphonale Monasticum 2005: Alma (p. 472), Ave Regina (p. 474), Regina cæli (p. 475), Salve Regina, simple tone (p. 477)
+const MARIAN = { alma: 4694, ave: 18754, regina: 18753, salve: 18655 };
+/** The antiphon of Our Lady by season: Alma from Advent to the Presentation (2 Feb), Ave Regina to Holy Week, Regina cæli in Eastertide, Salve Regina after. */
+function marianAntiphon(cel, date) {
+  const s = cel.seasons || [];
+  const [, m, d] = date.split('-').map(Number);
+  if (s.includes('EASTER_TIME')) return MARIAN.regina;
+  if (s.includes('ADVENT') || s.includes('CHRISTMAS_TIME') || m === 1 || (m === 2 && d <= 2)) return MARIAN.alma;
+  if (s.includes('LENT') || s.includes('PASCHAL_TRIDUUM') || m === 2 || m === 3) return MARIAN.ave;
+  return MARIAN.salve;
 }
 
 async function render() {
@@ -713,7 +763,7 @@ async function render() {
     if (state.hour === 'laudes' || state.hour === 'vesperae') await composeLaudesVesperae(frag, day, state.date, state.hour);
     else if (state.hour === 'lectio') await composeLectio(frag, day, state.date);
     else if (MEDIA[state.hour]) await composeMedia(frag, day, state.date, state.hour);
-    else await composeGeneric(frag, day, state.date, state.hour);
+    else await composeCompline(frag, day, state.date, state.hour);
   } catch (e) {
     frag.append(el(`<p class="empty">Error: ${esc(e.message)}</p>`));
     console.error(e);

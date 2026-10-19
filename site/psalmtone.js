@@ -28,7 +28,7 @@ export const TONES = {
     endings: { d: "hr g er 'ef f." } },
   '2*': { clef: 'c3', flex: 'h', mediant: "i hi ir h i 'j ir i.", solemn: "i hi ir ih hj j 'ij ir i.",
     endings: { a: "ir h i j 'h fr f.", c: "ir 'i hr h.", d: "ir h i j 'h ir i." } },
-  '3': { clef: 'c4', flex: 'h', mediant: "g hi ir 'k jr 'ih j.", solemn: "g hi ir 'jk jr jr 'ih hj..",
+  '3': { clef: 'c4', flex: 'h', mediant: "g hi ir 'k jr jr 'ih j.", solemn: "g hi ir 'jk jr jr 'ih hj..",
     endings: { a: "ir 'j hr 'j jr ih..", a2: "ir 'j hr hi 'h gr goh.", b: "ir 'j hr 'j jr i.",
       g: "ir 'j hr hi 'h gr g.", g2: "ir 'j hr hi 'h gr goh." } },
   '4': { clef: 'c4', flex: 'g', mediant: "h gh hr g h 'i hr h.", solemn: "h gh hr hg gi i 'hi hr h.",

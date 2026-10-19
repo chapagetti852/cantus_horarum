@@ -54,7 +54,10 @@ export function renderChant(el, body, { annotation = null, dropCap = true, scale
   const cleaned = body
     .replace(/<v>\\greheightstar<\/v>/g, '*')
     .replace(/<alt>[\s\S]*?<\/alt>/g, '')
-    .replace(/\(z0?\)|\(Z\)/g, '');
+    .replace(/\(z0?\)|\(Z\)/g, '')
+    // the books set the rest of the first word in capitals beside the initial (NOctem): here
+    // the initial is the drop cap, and the rest reads as ordinary text
+    .replace(/^(\s*(?:\([^)]*\)\s*)?)(\p{Lu})(\p{Lu}+)/u, (m, pre, ini, rest) => (dropCap ? pre + ini + rest.toLowerCase() : m));
   let score;
   try {
     const mappings = exsurge.Gabc.createMappingsFromSource(ctxt, cleaned);
