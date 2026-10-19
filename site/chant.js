@@ -67,6 +67,7 @@ export function renderChant(el, body, { annotation = null, dropCap = true, scale
     el.innerHTML = `<p class="missing">Notatio legi non potuit (${e.message}).</p>`;
     return () => {};
   }
+  el.gabc = cleaned; // for the player: a psalm is sung at its antiphon's pitch
   // a miniature (the settings' mode cards): laid out `scale` times wider, then shrunk to fit
   if (scale === 1) addPlayButton(el, cleaned);
   let lastWidth = -1;
@@ -115,6 +116,7 @@ function addPlayButton(el, body) {
     btn.textContent = '■';
     play(body, {
       voice: settings.voice,
+      key: keyOf(el),
       onNote: (i) => {
         if (lit) lit.style.fill = '';
         lit = drawn.length === count && i >= 0 ? drawn[i] : null;
@@ -123,6 +125,20 @@ function addPlayButton(el, body) {
       onEnd: () => { btn.classList.remove('playing'); btn.textContent = '▶'; },
     });
   };
+}
+
+/**
+ * The score whose pitch a score is sung at: the first notated score of its key group
+ * (an antiphon and its psalm or canticle, marked with data-key by app.js).
+ */
+function keyOf(el) {
+  const k = el.closest('[data-key]')?.dataset.key;
+  if (!k) return null;
+  for (const g of document.querySelectorAll(`[data-key="${k}"]`)) {
+    const sc = [...g.querySelectorAll('.score')].find((x) => x.gabc);
+    if (sc) return sc.gabc;
+  }
+  return null;
 }
 
 /** Keep every rendered chant fitted to its container. */

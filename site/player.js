@@ -1,11 +1,18 @@
-// Sing a score: read its GABC into notes and play them with the Web Audio API (no
-// library). One score sounds at a time; the note being sung is coloured in the score
-// when the drawn notes can be told apart one by one.
+// Sing a score: read its GABC into notes and play them with the Web Audio API. One score
+// sounds at a time; the note being sung is coloured in the score when the drawn notes can
+// be told apart one by one.
+//
+// Voice: recorded choir "aah" notes (FluidR3 GM soundfont, "Choir Aahs", by Frank Wen,
+// CC BY 3.0, as packaged by gleitz/midi-js-soundfonts) in audio/choir/, one every three
+// semitones, each note sung from the nearest one; a little church reverberation. Until
+// the recordings have loaded (or if they cannot) a soft synthesized tone stands in.
 //
 // Pitch: GABC letters are staff positions (a below the staff … m above it); the clef
 // says which is C (c-clef) or F (f-clef), a flat (ix) lowers that position until the
-// next bar. The whole piece is then moved so that its middle sits where the chosen voice
-// sings (setting "Vox"): chant has no absolute pitch.
+// next bar. The piece is then moved so that its middle sits where the chosen voice sings
+// (setting "Vox"): chant has no absolute pitch. A psalm is moved by its antiphon's
+// middle (`key`), so the two sound at the same pitch, as the tone is written to match
+// the antiphon.
 // Rhythm: equal notes, as the Solesmes books sing them; a mora (.) doubles a note, an
 // episema (_) lengthens it, a liquescent (~) is light; bars breathe.
 
@@ -65,11 +72,63 @@ export function notesOf(body) {
 
 let audio = null;
 let current = null; // { stop() }
+let room = null; // the reverberation every voice goes through
 
 function ctx() {
   audio ||= new (window.AudioContext || window.webkitAudioContext)();
   if (audio.state === 'suspended') audio.resume();
   return audio;
+}
+
+// the recorded notes: name -> midi
+const SAMPLES = { E2: 40, G2: 43, Bb2: 46, Db3: 49, E3: 52, G3: 55, Bb3: 58, Db4: 61, E4: 64, G4: 67, Bb4: 70, Db5: 73 };
+let buffers = null; // midi -> AudioBuffer, once loaded
+let loading = null;
+function loadSamples(ac) {
+  loading ||= Promise.all(Object.entries(SAMPLES).map(async ([name, midi]) => {
+    const r = await fetch(`audio/choir/${name}.mp3`);
+    if (!r.ok) throw new Error(name);
+    return [midi, await ac.decodeAudioData(await r.arrayBuffer())];
+  })).then((list) => { buffers = new Map(list); }).catch(() => { buffers = null; });
+  return loading;
+}
+
+/** A church: a few seconds of decaying noise as the impulse response, mixed under the dry voice. */
+function roomOf(ac) {
+  if (room?.context === ac) return room.input;
+  const input = ac.createGain();
+  const dry = ac.createGain(); dry.gain.value = 0.8;
+  const wet = ac.createGain(); wet.gain.value = 0.32;
+  const conv = ac.createConvolver();
+  const len = Math.floor(ac.sampleRate * 2.6);
+  const ir = ac.createBuffer(2, len, ac.sampleRate);
+  for (let c = 0; c < 2; c++) {
+    const d = ir.getChannelData(c);
+    for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / len) ** 3.2;
+  }
+  conv.buffer = ir;
+  input.connect(dry).connect(ac.destination);
+  input.connect(conv).connect(wet).connect(ac.destination);
+  room = { context: ac, input };
+  return input;
+}
+
+/** One sung note from the nearest recording, slurred into the next (a short overlap). */
+function sampled(ac, out, midi, t0, t1) {
+  let best = null;
+  for (const m of buffers.keys()) if (best === null || Math.abs(m - midi) < Math.abs(best - midi)) best = m;
+  const src = ac.createBufferSource();
+  src.buffer = buffers.get(best);
+  src.playbackRate.value = 2 ** ((midi - best) / 12);
+  const g = ac.createGain();
+  const end = t1 + 0.08;
+  g.gain.setValueAtTime(0, t0);
+  g.gain.linearRampToValueAtTime(0.9, t0 + 0.05);
+  g.gain.setValueAtTime(0.9, Math.max(t0 + 0.05, end - 0.12));
+  g.gain.linearRampToValueAtTime(0, end);
+  src.connect(g).connect(out);
+  src.start(t0, 0.02);
+  src.stop(end + 0.02);
 }
 
 /** A soft, voice-like tone: a few harmonics through a gentle low-pass. */
@@ -99,30 +158,37 @@ function voice(ac, out, freq, t0, t1) {
  * Play a score's notes. `onNote(i)` is called as the i-th note sounds (-1 at the end).
  * Returns a handle with stop().
  */
-export function play(body, { voice: v = 'media', tempo = 0.36, onNote = () => {}, onEnd = () => {} } = {}) {
+export async function play(body, { voice: v = 'media', key = null, tempo = 0.36, onNote = () => {}, onEnd = () => {} } = {}) {
   stop();
   const notes = notesOf(body);
-  const sung = notes.filter((n) => !n.rest).map((n) => n.midi).sort((a, b) => a - b);
-  if (!sung.length) return null;
-  // move the piece so its middle sits in the chosen voice
-  const shift = (VOICES[v] ?? VOICES.media) - sung[Math.floor(sung.length / 2)];
+  const middle = (b) => { const s = notesOf(b).filter((n) => !n.rest).map((n) => n.midi).sort((x, y) => x - y); return s.length ? s[Math.floor(s.length / 2)] : null; };
+  const mid = (key && middle(key)) ?? middle(body);
+  if (mid === null) return null;
+  // move the piece (or its antiphon) so that the middle sits in the chosen voice
+  const shift = (VOICES[v] ?? VOICES.media) - mid;
   const ac = ctx();
+  const token = {};
+  current = { token, stop() { onEnd(); } };
+  if (!buffers) await Promise.race([loadSamples(ac), new Promise((r) => setTimeout(r, 2500))]);
+  if (current?.token !== token) return null; // stopped, or another score started, while loading
   const out = ac.createGain();
-  out.gain.value = 0.9;
-  out.connect(ac.destination);
+  out.gain.value = buffers ? 0.55 : 0.9;
+  out.connect(roomOf(ac));
   let t = ac.currentTime + 0.08;
   const timers = [];
   let i = 0;
   for (const n of notes) {
     if (n.rest) { t += n.rest * tempo; continue; }
     const t1 = t + n.dur * tempo;
-    voice(ac, out, 440 * 2 ** ((n.midi + shift - 69) / 12), t, t1);
+    if (buffers) sampled(ac, out, n.midi + shift, t, t1);
+    else voice(ac, out, 440 * 2 ** ((n.midi + shift - 69) / 12), t, t1);
     const k = i++;
     timers.push(setTimeout(() => onNote(k), (t - ac.currentTime) * 1000));
     t = t1;
   }
   const end = setTimeout(() => { stop(); }, (t - ac.currentTime) * 1000 + 100);
   current = {
+    token,
     stop() {
       timers.forEach(clearTimeout);
       clearTimeout(end);

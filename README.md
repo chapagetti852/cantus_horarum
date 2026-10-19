@@ -92,10 +92,13 @@ others a numbered list pointed in bold and italic).
 
 Every score has a ▶ (as on Breviarium Gregorianum) that sings it: `site/player.js` reads
 the GABC into pitches (staff positions, clef, flats until the next bar) and lengths (equal
-notes; mora, episema, liquescence, bars) and plays them with the Web Audio API, a soft
-voice-like tone, the note being sung lit red in the score. Chant has no absolute pitch:
-the piece is moved so that its middle lies in the voice chosen in the settings (gravis,
-media, acuta). `test/player.test.mjs` checks the reading.
+notes; mora, episema, liquescence, bars) and plays them with the Web Audio API in a
+recorded choir voice (`site/audio/choir/`, one note every three semitones) with a little
+church reverberation, the note being sung lit red in the score. Chant has no absolute
+pitch: the piece is moved so that its middle lies in the voice chosen in the settings
+(gravis, media, acuta); a psalm or canticle is moved by its antiphon (they are one "key
+group", `data-key`), since the tone is written at the antiphon's pitch.
+`test/player.test.mjs` checks the reading.
 
 ### Calendar
 
@@ -224,3 +227,5 @@ npm install && npm run build:calendar
 - Ordo Cantus Officii, editio cum cantu — antiphonale.net (texts © Libreria Editrice
   Vaticana, used privately). GregoBase transcriptions — CC0. jgabc — public domain.
   Exsurge — MIT. romcal — MIT. Liturgia Horarum texts from iBreviary — for private use only.
+- Choir voice: "Choir Aahs" of the FluidR3 GM soundfont (Frank Wen), CC BY 3.0, per-note
+  MP3s from gleitz/midi-js-soundfonts.

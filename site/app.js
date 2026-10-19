@@ -335,6 +335,14 @@ async function chantNode(gabcId, { annotation = null, fallbackText = null, fallb
 /** An antiphon's "E u o u a e" is left out: the psalm's first verse is notated anyway. */
 const withoutEuouae = (body) => body.replace(/\s*(?:<[^>]+>)*E(?:<\/[^>]+>)*\([^)]*\)\s*u\([^)]*\)\s*o\([^)]*\)\s*u\([^)]*\)\s*a\([^)]*\)\s*e\.?\([^)]*\)\s*(\(::\))?/g, '');
 
+/** Mark an antiphon and its psalm or canticle as one key group: the player sings them at one pitch. */
+let keySeq = 0;
+function keyed(...nodes) {
+  const k = String(++keySeq);
+  for (const n of nodes) n.dataset.key = k;
+  return nodes;
+}
+
 /** An antiphon: its score, or its text when there is none. */
 const antiphonNode = (ant, fallbackText) => chantNode(ant?.gabc, { fallbackText: ant?.text || fallbackText });
 
@@ -412,8 +420,9 @@ async function appendInvitatory(main, day, proper = null) {
   main.append(el('<h2 class="section">Invitatorium</h2>'));
   main.append(await chantNode(isFestive(day) ? DOMINE_LABIA.festive : DOMINE_LABIA.ferial, { annotation: '' }));
   const antText = (ant.text || ant.title).replace(/([.!?])\s.*$/, '$1'); // the OCO text runs on into "Veníte, …"
-  const antiphon = () => chantNode(ant.gabc, { fallbackText: antText });
-  main.append(await antiphon());
+  const [first] = keyed(await chantNode(ant.gabc, { fallbackText: antText }));
+  const antiphon = async () => { const n = await chantNode(ant.gabc, { fallbackText: antText }); n.dataset.key = first.dataset.key; return n; };
+  main.append(first);
   const toneId = INVITATORY_TONES[ant.mode];
   const src = toneId ? await loadGabc(toneId) : null;
   if (!src) { main.append(el('<p class="rubric">Psalmus 94 (95): notatio deest.</p>')); return true; }
@@ -423,6 +432,7 @@ async function appendInvitatory(main, day, proper = null) {
   main.append(el(`<div class="psalm-head"><span class="ref">Psalmus 94 (95)</span><span class="tone">Tonus ${esc(ant.mode)}</span></div>`));
   for (const st of strophes) {
     const sc = el('<div class="score verse-score"></div>');
+    sc.dataset.key = first.dataset.key;
     main.append(sc);
     layouts.push(renderChant(sc, `${clef} ${st} (::)`, { dropCap: false }));
     main.append(await antiphon());
@@ -469,11 +479,9 @@ async function appendPsalmody(main, entries, psalmodySection, { single = null } 
     const ant = byPosition(entries, String(n));
     const g = groups.find((x) => x.n === n);
     if (!ant && !g) continue;
-    main.append(await antiphonNode(ant, g?.antiphon));
-    if (g) {
-      main.append(psalmodyNode(g.items, await toneFor(ant)));
-      main.append(await antiphonNode(ant, g.repeat || g.antiphon));
-    }
+    const before = await antiphonNode(ant, g?.antiphon);
+    main.append(before);
+    if (g) main.append(...keyed(before, psalmodyNode(g.items, await toneFor(ant)), await antiphonNode(ant, g.repeat || g.antiphon)));
   }
   if (after.length) main.append(el(`<div class="block">${renderBlocks(after)}</div>`));
 }
@@ -599,9 +607,9 @@ async function composeLaudesVesperae(main, day, date, hour) {
   const ce = section(texts, 'CANTICUM EVANGELICUM');
   main.append(el(`<h2 class="section">${hour === 'laudes' ? 'Benedictus' : 'Magnificat'}</h2>`));
   const ceAnt = ce?.blocks.find((b) => b.kind === 'antiphon')?.text;
-  main.append(await antiphonNode(cant, ceAnt));
-  if (ce) main.append(psalmodyNode(canticleBlocks(ce.blocks.filter((b) => b.kind !== 'antiphon' && b.kind !== 'rubric')), await toneFor(cant), { canticle: true, solemn: true }));
-  main.append(await antiphonNode(cant, ceAnt));
+  main.append(...keyed(await antiphonNode(cant, ceAnt),
+    ...(ce ? [psalmodyNode(canticleBlocks(ce.blocks.filter((b) => b.kind !== 'antiphon' && b.kind !== 'rubric')), await toneFor(cant), { canticle: true, solemn: true })] : []),
+    await antiphonNode(cant, ceAnt)));
 
   // Intercessions, Pater noster (sung), collect, conclusion
   const cel = propers._cel || day;
@@ -747,9 +755,9 @@ async function composeCompline(main, day, date, hour) {
   const nunc = entries.find((e) => (e.position || '').startsWith('Nunc') && e.kind !== 'reference');
   main.append(el('<h2 class="section">Nunc dimittis</h2>'));
   const ceAnt = ce?.blocks.find((b) => b.kind === 'antiphon')?.text;
-  main.append(await antiphonNode(nunc, ceAnt));
-  if (ce) main.append(psalmodyNode(canticleBlocks(ce.blocks.filter((b) => b.kind !== 'antiphon' && b.kind !== 'rubric')), await toneFor(nunc), { canticle: true }));
-  main.append(await antiphonNode(nunc, ceAnt));
+  main.append(...keyed(await antiphonNode(nunc, ceAnt),
+    ...(ce ? [psalmodyNode(canticleBlocks(ce.blocks.filter((b) => b.kind !== 'antiphon' && b.kind !== 'rubric')), await toneFor(nunc), { canticle: true })] : []),
+    await antiphonNode(nunc, ceAnt)));
 
   // the collect (as text), then the blessing and the antiphon of Our Lady, sung
   const or = section(texts, 'ORATIO');
