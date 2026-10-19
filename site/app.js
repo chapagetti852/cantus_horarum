@@ -191,7 +191,7 @@ async function toneFor(entry) {
  * text, cadence accents in bold and preparatory syllables in italic. Gospel canticles
  * take the intonation on every verse.
  */
-function pointedPsalmNode(b, ctx, { canticle = false, segments = null } = {}) {
+function pointedPsalmNode(b, ctx, { canticle = false, solemn = false, segments = null } = {}) {
   const node = el('<div class="psalm"></div>');
   const head = renderPsalmBlock({ ...b, strophes: [] });
   node.insertAdjacentHTML('beforeend', head);
@@ -210,7 +210,7 @@ function pointedPsalmNode(b, ctx, { canticle = false, segments = null } = {}) {
     if (!verses.length) continue;
     if (state.settings.psalms !== 'text') {
       // Plenus: the run as one score, verses numbered
-      const body = psalmGabc(verses, ctx, { canticle, firstIntoned: !first }).replace(/^\([^)]*\)\s*/, '');
+      const body = psalmGabc(verses, ctx, { canticle, solemn, firstIntoned: !first }).replace(/^\([^)]*\)\s*/, '');
       const numbered = body.split(/(?<=\(::\))\s*/).filter(Boolean).map((v) => `${++n}. ${v}`).join(' ');
       const sc = el('<div class="score psalm-score"></div>');
       node.append(sc);
@@ -222,7 +222,7 @@ function pointedPsalmNode(b, ctx, { canticle = false, segments = null } = {}) {
       if (first) {
         const sc = el('<div class="score verse-score"></div>');
         node.append(sc);
-        layouts.push(renderChant(sc, `(${ctx.clef}) ${++n}. ${verseGabc(verses[0], ctx, { intone: true, first: true })}`, { dropCap: false }));
+        layouts.push(renderChant(sc, `(${ctx.clef}) ${++n}. ${verseGabc(verses[0], ctx, { intone: true, first: true, solemn })}`, { dropCap: false }));
         k = 1;
       }
       const ol = el(`<ol class="verses" start="${n + 1}"></ol>`);
@@ -583,7 +583,7 @@ async function composeLaudesVesperae(main, day, date, hour) {
   main.append(el(`<h2 class="section">${hour === 'laudes' ? 'Benedictus' : 'Magnificat'}</h2>`));
   const ceAnt = ce?.blocks.find((b) => b.kind === 'antiphon')?.text;
   main.append(await antiphonNode(cant, ceAnt));
-  if (ce) main.append(psalmodyNode(canticleBlocks(ce.blocks.filter((b) => b.kind !== 'antiphon' && b.kind !== 'rubric')), await toneFor(cant), { canticle: true }));
+  if (ce) main.append(psalmodyNode(canticleBlocks(ce.blocks.filter((b) => b.kind !== 'antiphon' && b.kind !== 'rubric')), await toneFor(cant), { canticle: true, solemn: true }));
   main.append(await antiphonNode(cant, ceAnt));
 
   // Intercessions, Pater noster (sung), collect, conclusion
@@ -739,6 +739,31 @@ function applySettings() {
   $('#opt-presider').value = state.settings.presider ? '1' : '';
   $('#opt-invitatory').value = state.settings.invitatory || '';
 }
+// The two psalm modes, shown in their cards as they will look: Ps 5 on tone 8 g
+const MINI_VERSES = [
+  'Verba mea áuribus pércipe, Dómine; * intéllege clamórem meum.',
+  'Inténde voci oratiónis meæ, * rex meus et Deus meus.',
+  'Quóniam ad te orábo, Dómine; * mane exáudies vocem meam.',
+];
+function drawModePreviews() {
+  const ctx = toneContext('8g');
+  const scale = 2.4 * (state.settings.size || 100) / 100;
+  for (const card of document.querySelectorAll('.mode .mini')) {
+    const compact = card.closest('.mode').dataset.psalms === 'text';
+    const sc = el('<div class="score"></div>');
+    card.replaceChildren(sc);
+    if (compact) {
+      renderChant(sc, `(${ctx.clef}) 1. ${verseGabc(MINI_VERSES[0], ctx, { intone: true, first: true })}`, { dropCap: false, scale });
+      const ol = el('<ol start="2"></ol>');
+      for (const v of MINI_VERSES.slice(1)) ol.append(el(`<li>${verseHtml(v, ctx, 1)}</li>`));
+      card.append(ol);
+    } else {
+      const body = psalmGabc(MINI_VERSES.slice(0, 2), ctx).replace(/^\([^)]*\)\s*/, '');
+      const numbered = body.split(/(?<=\(::\))\s*/).filter(Boolean).map((v, i) => `${i + 1}. ${v}`).join(' ');
+      renderChant(sc, `(${ctx.clef}) ${numbered}`, { dropCap: false, scale });
+    }
+  }
+}
 function saveSettings() { localStorage.setItem('settings', JSON.stringify(state.settings)); }
 
 async function boot() {
@@ -751,7 +776,12 @@ async function boot() {
   applySettings();
   $('#date').onchange = (e) => { if (e.target.value) { state.date = e.target.value; render(); } };
   $('#hour').onchange = (e) => { state.hour = e.target.value; render(); };
-  $('#settings-toggle').onclick = () => { const s = $('#settings'); s.hidden = !s.hidden; $('#settings-toggle').setAttribute('aria-expanded', String(!s.hidden)); };
+  $('#settings-toggle').onclick = () => {
+    const s = $('#settings');
+    s.hidden = !s.hidden;
+    $('#settings-toggle').setAttribute('aria-expanded', String(!s.hidden));
+    if (!s.hidden) drawModePreviews();
+  };
   $('#text-size').oninput = (e) => { state.settings.size = Number(e.target.value); saveSettings(); applySettings(); render(); };
   $('#opt-voice').onchange = (e) => { state.settings.voice = e.target.value || undefined; saveSettings(); };
   $('#opt-theme').onchange = (e) => { state.settings.theme = e.target.value || undefined; saveSettings(); applySettings(); };

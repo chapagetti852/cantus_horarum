@@ -90,11 +90,13 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .mode .preview { width: 100%; background: var(--bg); border-radius: 10px; padding: 6px; border: 3px solid transparent; display: block; }
 .mode[aria-checked="true"] .preview { border-color: var(--rubric); }
 .mode[aria-checked="true"] .mode-name { color: var(--rubric); }
-/* the miniature scores of the two modes, drawn in the text colour */
-.mini { display: block; width: 100%; height: auto; fill: var(--fg); }
-.mini line { stroke: var(--fg); stroke-width: .45; opacity: .8; }
-.mini text { font-size: 9.5px; font-family: "EB Garamond", serif; font-feature-settings: "locl" 0; fill: var(--fg); }
-.mini .mini-r { fill: var(--rubric); }
+/* the miniature scores of the two modes: real scores, laid out wide and shrunk (app.js) */
+.mini { height: 132px; overflow: hidden; pointer-events: none; text-align: left; }
+.mini .score { margin: 0; }
+.mini .score svg { display: block; }
+.mini ol { margin: 3px 0 0; padding: 0 0 0 13px; font-size: 8.6px; line-height: 1.3; }
+.mini ol b { font-weight: 700; }
+.mini ol .star, .mini ol .flex { color: var(--rubric); }
 .row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid var(--rule); }
 .row select { font: inherit; color: inherit; background: transparent; border: 0; text-align: right; max-width: 55%; }
 .row input[type=range] { flex: 0 1 50%; }

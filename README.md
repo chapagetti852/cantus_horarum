@@ -61,7 +61,9 @@ The pointing is jgabc's own engine, the one behind its psalm-tone tool
 `util.js`, `psalmtone.js` and the Hypher Latin hyphenation patterns, vendored in
 `site/vendor/jgabc/` (a small shim stands in for jQuery) and called as that page calls
 them: intonation on the first verse (every verse of a Gospel canticle), flex, mediant,
-termination, accented syllables bold and preparatory ones italic.
+termination, accented syllables bold and preparatory ones italic. The first verse of the
+Benedictus and the Magnificat takes the solemn mediant (jgabc's "Solemn Tone"), the others
+the simple one with the intonation repeated.
 
 The verses are given to it as the tool gives them with "Nova Vulgata" ticked: one verse
 per line, "first half † flex * second half". `scripts/texts/verses.mjs` (run by the

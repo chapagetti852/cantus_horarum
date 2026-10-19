@@ -15,36 +15,38 @@
 // of the 2005 books. Formulas follow the Antiphonale Romanum II (2009), pp. 738-740
 // (GregoBase 18352-18366), with the termination names of the Antiphonale Monasticum
 // 2005 that the Ordo Cantus Officii uses; each termination is checked against the
-// "E u o u a e" of the OCO antiphons (test/psalmtone.test.mjs).
+// "E u o u a e" of the OCO antiphons (test/psalmtone.test.mjs). `solemn` is the solemn
+// mediant of the Gospel canticles (jgabc's, after the Liber Usualis), sung on the first verse
+// of the Benedictus and the Magnificat; 4* and D take tone 4 alt's a step lower.
 
 export const TONES = {
-  '1': { clef: 'c4', flex: 'g', mediant: "f gh hr 'ixi hr 'g hr h.",
+  '1': { clef: 'c4', flex: 'g', mediant: "f gh hr 'ixi hr 'g hr h.", solemn: "f gh hr hg ixgi h hr 'hg gh..",
     endings: { a: "hr g f 'g hr h.", a2: "hr g f 'g gr goh.", a3: "hr g f 'gh gr gh..",
       d: "hr g f gr 'gf d.", d2: "hr g f 'g gr gvFED.", d3: "hr g f 'gh gr gvFED.",
       f: "hr g f 'gh gr gf..", g: "hr g f 'gh gr g.", g2: "hr g f 'g gr ghg.", g3: "hr g f 'h gr g." } },
-  '2': { clef: 'f3', flex: 'g', mediant: "f g hr 'i hr h.",
+  '2': { clef: 'f3', flex: 'g', mediant: "f g hr 'i hr h.", solemn: "e fe eh hr hg hi i 'hi hr h.",
     endings: { d: "hr g er 'ef f." } },
-  '2*': { clef: 'c3', flex: 'h', mediant: "i hi ir h i 'j ir i.",
+  '2*': { clef: 'c3', flex: 'h', mediant: "i hi ir h i 'j ir i.", solemn: "i hi ir ih hj j 'ij ir i.",
     endings: { a: "ir h i j 'h fr f.", c: "ir 'i hr h.", d: "ir h i j 'h ir i." } },
-  '3': { clef: 'c4', flex: 'h', mediant: "g hi ir 'k jr 'ih j.",
+  '3': { clef: 'c4', flex: 'h', mediant: "g hi ir 'k jr 'ih j.", solemn: "g hi ir 'jk jr jr 'ih hj..",
     endings: { a: "ir 'j hr 'j jr ih..", a2: "ir 'j hr hi 'h gr goh.", b: "ir 'j hr 'j jr i.",
       g: "ir 'j hr hi 'h gr g.", g2: "ir 'j hr hi 'h gr goh." } },
-  '4': { clef: 'c4', flex: 'g', mediant: "h gh hr g h 'i hr h.",
+  '4': { clef: 'c4', flex: 'g', mediant: "h gh hr g h 'i hr h.", solemn: "h gh hr hg gi i 'hi hr h.",
     endings: { a: "hr g h i 'g hr h.", e: "hr g h ih gr 'gf e.", g: "hr 'h gr g." } },
-  '4*': { clef: 'c4', flex: 'f', mediant: "g fg gr f g 'h gr g.",
+  '4*': { clef: 'c4', flex: 'f', mediant: "g fg gr f g 'h gr g.", solemn: "g fg gr gf fh h 'gh gr g.",
     endings: { e: "gr 'h fr 'g er e." } },
-  '5': { clef: 'c3', flex: 'f', mediant: "d f hr 'i hr h.",
+  '5': { clef: 'c3', flex: 'f', mediant: "d f hr 'i hr h.", solemn: "d f hr i 'i hr h.",
     endings: { a: "hr 'i gr 'h fr f." } },
-  '6': { clef: 'c4', flex: 'g', mediant: "f gh hr g 'h fr f.",
+  '6': { clef: 'c4', flex: 'g', mediant: "f gh hr g 'h fr f.", solemn: "f gh hr hg ixgi h hr 'hg gh..",
     endings: { f: "hr f gh 'g fr f." } },
-  '7': { clef: 'c3', flex: 'h', mediant: "hg hi ir 'k jr 'i jr j.",
+  '7': { clef: 'c3', flex: 'h', mediant: "hg hi ir 'k jr 'i jr j.", solemn: "ehg hi ir 'ik jr jr 'ji ij..",
     endings: { a: "ir 'j ir 'h hr gf..", b: "ir 'j ir 'h hr g.", c: "ir 'j ir 'h hr gh..",
       c2: "ir 'j ir 'h hr ih..", d: "ir 'j ir 'h hr goi." } },
-  '8': { clef: 'c4', flex: 'h', mediant: "g h jr 'k jr j.",
+  '8': { clef: 'c4', flex: 'h', mediant: "g h jr 'k jr j.", solemn: "g hg gj jr ji jk k 'jk jr j.",
     endings: { a: "jr i j 'h gr gh..", c: "jr h j 'k jr j.", g: "jr i j 'h gr g.", g2: "jr i j 'h gr ghg." } },
   'C': { clef: 'c3', flex: 'f', mediant: "hr g f 'h hr h.",
     endings: { c: "hr h.", c2: "hr f h 'i hr h." } },
-  'D': { clef: 'c4', flex: 'f', mediant: "g fg gr f g 'h gr g.",
+  'D': { clef: 'c4', flex: 'f', mediant: "g fg gr f g 'h gr g.", solemn: "g fg gr gf fh h 'gh gr g.",
     endings: { g: "gr f g h 'f gr g.", f: "gr 'g fr f.", d: "gr f g h 'f dr d." } },
   'E': { clef: 'c4', flex: 'g', mediant: "hr 'g fr f.",
     endings: { e: "hr 'ixi gr 'ixi hr h." } },
@@ -164,17 +166,18 @@ function cadences(ctx) {
     const clef = ctx.clef || t.clef;
     const med = E.getGabcTones(shiftGabc(t.mediant, ctx.shift), undefined, false, clef);
     const ter = E.getGabcTones(shiftGabc(t.endings[ctx.ending], ctx.shift), undefined, false, clef);
-    cadenceCache.set(key, { med, medPlain: E.removeIntonation(E.$.extend(true, {}, med)), ter, clef });
+    const sol = t.solemn ? E.getGabcTones(shiftGabc(t.solemn, ctx.shift), undefined, false, clef) : med;
+    cadenceCache.set(key, { med, medPlain: E.removeIntonation(E.$.extend(true, {}, med)), sol, ter, clef });
   }
   return cadenceCache.get(key);
 }
 
-function halfGabc(text, ctx, part, { intone = false, first = false, result } = {}) {
+function halfGabc(text, ctx, part, { intone = false, first = false, solemn = false, result } = {}) {
   const E = jg();
   const c = cadences(ctx);
   const mediant = part === 'mediant';
   return E.applyPsalmTone({
-    text: text.trim(), gabc: mediant ? (intone ? c.med : c.medPlain) : c.ter, clef: c.clef,
+    text: text.trim(), gabc: mediant ? (solemn ? c.sol : intone ? c.med : c.medPlain) : c.ter, clef: c.clef,
     useOpenNotes: false, useBoldItalic: true, firstPrefix: true, onlyVowel: false,
     format: E.bi_formats.gabc, verseNumber: '', prefix: mediant, suffix: !mediant,
     italicizeIntonation: false, result: result || { shortened: false },
@@ -182,23 +185,23 @@ function halfGabc(text, ctx, part, { intone = false, first = false, result } = {
   });
 }
 
-/** A verse ("… † … * …") as GABC, without clef. */
-export function verseGabc(verse, ctx, { intone = false, first = false, result } = {}) {
+/** A verse ("… † … * …") as GABC, without clef; `solemn`: the solemn mediant. */
+export function verseGabc(verse, ctx, { intone = false, first = false, solemn = false, result } = {}) {
   const line = jg().splitLine(verse);
-  const m = halfGabc(line[0], ctx, 'mediant', { intone, first, result });
+  const m = halfGabc(line[0], ctx, 'mediant', { intone, first, solemn, result });
   return line.length === 1 ? `${m} (::)` : `${m} *(:) ${halfGabc(line[1], ctx, 'termination')} (::)`;
 }
 
 /**
  * A whole psalm (verses "… † … * …") as one GABC score: the intonation on the first verse
  * (kept for the next one when the first is too short to take it), on every verse of a
- * Gospel canticle.
+ * Gospel canticle; `solemn`: the first verse on the solemn mediant (Benedictus, Magnificat).
  */
-export function psalmGabc(verses, ctx, { canticle = false, firstIntoned = false } = {}) {
+export function psalmGabc(verses, ctx, { canticle = false, firstIntoned = false, solemn = false } = {}) {
   let intone = !firstIntoned; // a later run of the same psalm: the intonation was sung
-  const out = verses.map((v) => {
+  const out = verses.map((v, i) => {
     const result = { shortened: false };
-    const g = verseGabc(v, ctx, { intone: intone || canticle, first: intone, result });
+    const g = verseGabc(v, ctx, { intone: intone || canticle, first: intone, solemn: solemn && i === 0 && !firstIntoned, result });
     if (!result.shortened) intone = false;
     return g;
   });

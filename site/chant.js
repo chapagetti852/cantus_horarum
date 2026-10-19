@@ -46,7 +46,7 @@ function makeContext(fontSizePx) {
  * Draw GABC into `el`. `annotation` goes above the drop cap (e.g. "8g" or "Ant. 1").
  * Returns a function that re-lays the chant out for the current width.
  */
-export function renderChant(el, body, { annotation = null, dropCap = true } = {}) {
+export function renderChant(el, body, { annotation = null, dropCap = true, scale = 1 } = {}) {
   // lyrics a little larger than the text, as in Breviarium Gregorianum (21 px against 18.7)
   const fontSize = (parseFloat(getComputedStyle(document.body).fontSize) || 18.67) * 1.12;
   const ctxt = makeContext(fontSize);
@@ -64,17 +64,20 @@ export function renderChant(el, body, { annotation = null, dropCap = true } = {}
     el.innerHTML = `<p class="missing">Notatio legi non potuit (${e.message}).</p>`;
     return () => {};
   }
-  addPlayButton(el, cleaned);
+  // a miniature (the settings' mode cards): laid out `scale` times wider, then shrunk to fit
+  if (scale === 1) addPlayButton(el, cleaned);
   let lastWidth = -1;
   const layout = () => {
     const width = Math.floor(el.clientWidth) || Math.floor(document.body.clientWidth - 32);
     if (!width || width === lastWidth) return;
     lastWidth = width;
-    ctxt.width = width;
+    const w = Math.round(width * scale);
+    ctxt.width = w;
     score.performLayoutAsync(ctxt, () => {
-      score.layoutChantLines(ctxt, width, () => {
+      score.layoutChantLines(ctxt, w, () => {
         const svg = score.createSvgNode(ctxt);
-        svg.removeAttribute('viewBox');
+        if (scale === 1) svg.removeAttribute('viewBox');
+        else { svg.removeAttribute('width'); svg.removeAttribute('height'); svg.style.width = '100%'; }
         el.replaceChildren(svg);
       });
     });

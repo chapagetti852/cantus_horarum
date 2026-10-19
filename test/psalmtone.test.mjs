@@ -20,6 +20,15 @@ test('pointing as jgabc\'s psalm-tone tool does it', () => {
   assert.match(p, /†/, 'flex');
 });
 
+test('Gospel canticles: the solemn mediant on the first verse only', () => {
+  const ctx = toneContext('8g', null, { identify: false });
+  const g = psalmGabc(['Magníficat * ánima mea Dóminum,', 'et exsultávit spíritus meus * in Deo salvatóre meo,'], ctx, { canticle: true, solemn: true });
+  assert.match(g, /Ma\(g\)gní\(hg\)fi\(gj\)cat\(j\.\)/);
+  // the second verse: the simple mediant, its intonation repeated
+  assert.match(g, /et\(g\)/);
+  assert.doesNotMatch(g.split('(::)')[1], /\(hg\)|\(gj\)/);
+});
+
 test('mode labels', () => {
   assert.deepEqual(parseMode('8g'), { tone: '8', ending: 'g' });
   assert.deepEqual(parseMode('2*a'), { tone: '2*', ending: 'a' });
