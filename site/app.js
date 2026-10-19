@@ -29,6 +29,22 @@ const BENEDICAMUS = {
 };
 // the "sollemnitates maiores": the Lord's great days (the octave of Easter sings Easter's)
 const MAIOR = /^(nativity_of_the_lord|epiphany_of_the_lord|easter_(sunday|monday|tuesday|wednesday|thursday|friday|saturday)|ascension_of_the_lord|pentecost_sunday)$/;
+// Responsories of the Office of Readings that GregoBase has from the Liber Hymnarius (1983) and
+// the Antiphonale Monasticum 2005: the first words of the response and of the verse
+// (lower case, unaccented) that iBreviary's text must begin with
+const RESPONSORIA = [
+  [16139, 'hodie nobis caelorum', 'gloria in'], [16360, 'hodie nobis de', 'hodie illuxit'],
+  [16205, 'comedetis carnes et', 'non moyses'], [16108, 'ecce apparebit dominus', ''],
+  [16135, 'nihil inquinatum in', 'est enim'], [19647, 'hodie in iordane', 'caeli aperti'],
+  [20401, 'iudaea et ierusalem', 'constantes estote'], [20438, 'illuminare illuminare ierusalem', 'et ambulabunt'],
+  [20687, 'duo seraphim clamabant', 'tres sunt'],
+];
+const plainWords = (s) => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+  .replace(/æ/g, 'ae').replace(/œ/g, 'oe').replace(/j/g, 'i').replace(/[^a-z ]/g, ' ').replace(/\s+/g, ' ').trim();
+function responsoryScore(r, v) {
+  const R = plainWords(r), V = plainWords(v);
+  return RESPONSORIA.find(([, a, b]) => R.startsWith(a) && (!b || V.startsWith(b)))?.[0] || null;
+}
 // Psalm 94 (95) in the Liber Hymnarius (1983) tones, by the mode of the invitatory antiphon
 const INVITATORY_TONES = { '2': 8218, '3': 10397, '4': 15508, '4*': 7669, '4**': 16356, '5': 10248, '6': 9664, '6*': 10035, '6**': 15059, '7': 9834, D: 9707, E: 9642 };
 
@@ -484,7 +500,8 @@ async function appendPsalmody(main, entries, psalmodySection, { single = null } 
     main.append(before);
     if (g) main.append(...keyed(before, psalmodyNode(g.items, await toneFor(ant)), await antiphonNode(ant, g.repeat || g.antiphon)));
   }
-  if (after.length) main.append(el(`<div class="block">${renderBlocks(after)}</div>`));
+  // the versicle before the readings (Office of Readings), sung
+  for (const v of after) main.append(versicleNode(v));
 }
 
 /** iBreviary prints the repetendum of a responsory after two spaces; mark it with a star. */
@@ -523,13 +540,27 @@ async function composeLectio(main, day, date) {
       if (b.kind === 'rubric' && /^LECTIO/.test(b.text)) out.push({ kind: 'heading', text: b.text });
       else out.push(b);
     }
-    const node = el('<div class="block lectiones text"></div>');
-    for (const b of responsoryBlocks(out)) {
-      if (b.kind === 'heading') node.insertAdjacentHTML('beforeend', `<h3 class="sub">${esc(b.text[0] + b.text.slice(1).toLowerCase())}</h3>`);
-      else if (b.kind === 'rubric' && b.text === 'RESPONSORIUM') node.insertAdjacentHTML('beforeend', '<p class="rubric">Responsorium</p>');
-      else node.insertAdjacentHTML('beforeend', renderTextBlock(b));
-    }
+    let node = el('<div class="block lectiones text"></div>');
     main.append(node);
+    const blocks = responsoryBlocks(out);
+    for (let i = 0; i < blocks.length; i++) {
+      const b = blocks[i];
+      if (b.kind === 'heading') node.insertAdjacentHTML('beforeend', `<h3 class="sub">${esc(b.text[0] + b.text.slice(1).toLowerCase())}</h3>`);
+      else if (b.kind === 'rubric' && b.text === 'RESPONSORIUM') {
+        node.insertAdjacentHTML('beforeend', '<p class="rubric">Responsorium</p>');
+        // a responsory with a score: the score in place of the text
+        const k = blocks.findIndex((x, j) => j > i && x.kind === 'versicle' && x.sign === '℟');
+        const r = blocks[k], v = blocks[k + 1];
+        const id = r && blocks.slice(i + 1, k).every((x) => x.kind !== 'heading') ? responsoryScore(r.text, v?.sign === '℣' ? v.text : '') : null;
+        if (id) {
+          for (const x of blocks.slice(i + 1, k)) node.insertAdjacentHTML('beforeend', renderTextBlock(x)); // its reference
+          main.append(await chantNode(id, { annotation: undefined }));
+          node = el('<div class="block lectiones text"></div>');
+          main.append(node);
+          i = v?.sign === '℣' ? k + 1 : k;
+        }
+      } else node.insertAdjacentHTML('beforeend', renderTextBlock(b));
+    }
   }
   if (day.dow === 0) main.append(el('<p class="rubric">Hymnus Te Deum.</p>'));
   const or = section(texts, 'ORATIO');
