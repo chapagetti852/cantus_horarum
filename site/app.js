@@ -2,6 +2,7 @@
 import { loadGabc, renderChant, splitGabc, watchResize } from './chant.js';
 import { toneContext, versesOf, psalmGabc, verseGabc, verseHtml } from './psalmtone.js';
 import { resolveHour, indexOco, celebrationFor, isSanctoral } from './resolve.js';
+import { collectGabc, readingGabc, versicleGabc } from './recitation.js';
 
 const HOURS = ['lectio', 'laudes', 'tertia', 'sexta', 'nona', 'vesperae', 'completorium'];
 const HOUR_NAMES = { lectio: 'Officium lectionis', laudes: 'Laudes matutinæ', tertia: 'Tertia', sexta: 'Sexta', nona: 'Nona', vesperae: 'Vesperæ', completorium: 'Completorium' };
@@ -555,19 +556,23 @@ async function composeMedia(main, day, date, hour) {
   await appendHymn(main, hymn, hymnBlocksNode(hymnPart(texts, new RegExp(`^${title}$`))) || (propers.H ? hymnTextNode(texts) : null));
   await appendPsalmody(main, entries, section(texts, 'PSALMODIA'), { single: propers['1'] || null });
 
+  // the hour's own part: the short reading with its versicle, then the collect
   const own = section(texts, title);
   if (own) {
-    let node = null;
-    for (const b of own.blocks) {
-      if (b.kind === 'rubric' && /^(LECTIO BREVIS|ORATIO)$/.test(b.text)) {
-        main.append(el(`<h2 class="section">${b.text === 'ORATIO' ? 'Oratio' : 'Lectio brevis'}</h2>`));
-        node = el('<div class="block"></div>');
-        main.append(node);
-        continue;
-      }
-      (node || main).insertAdjacentHTML('beforeend', renderTextBlock(b));
+    const at = (t) => own.blocks.findIndex((b) => b.kind === 'rubric' && b.text === t);
+    const lbAt = at('LECTIO BREVIS'), orAt = at('ORATIO');
+    const first = [lbAt, orAt].filter((k) => k >= 0);
+    for (const b of own.blocks.slice(0, first.length ? Math.min(...first) : undefined)) main.insertAdjacentHTML('beforeend', renderTextBlock(b));
+    if (lbAt >= 0) {
+      main.append(el('<h2 class="section">Lectio brevis</h2>'));
+      const part = own.blocks.slice(lbAt + 1, orAt > lbAt ? orAt : undefined);
+      main.append(readingNode(part.filter((b) => b.kind !== 'versicle')));
+      for (const v of part.filter((b) => b.kind === 'versicle')) main.append(versicleNode(v));
     }
-    if (node) node.replaceWith(await conclusionNode(own.blocks.slice(own.blocks.findIndex((b) => b.kind === 'rubric' && b.text === 'ORATIO') + 1), propers._cel || day, hour));
+    if (orAt >= 0) {
+      main.append(el('<h2 class="section">Oratio</h2>'));
+      main.append(await conclusionNode(own.blocks.slice(orAt + 1), propers._cel || day, hour));
+    }
   }
 }
 
@@ -591,7 +596,7 @@ async function composeLaudesVesperae(main, day, date, hour) {
 
   // Short reading, responsory
   const lb = part('LECTIO BREVIS');
-  if (lb) { main.append(el('<h2 class="section">Lectio brevis</h2>')); main.append(el(`<div class="block">${renderBlocks(lb.blocks)}</div>`)); }
+  if (lb) { main.append(el('<h2 class="section">Lectio brevis</h2>')); main.append(readingNode(lb.blocks)); }
   // the short responsory is one piece of music: its score, or else the text
   const rb = entries.find((e) => e.kind !== 'reference' && (e.kind === 'resp_brevis' || /br\./.test(e.position || '')));
   const rbText = part('RESPONSORIUM BREVE');
@@ -653,7 +658,7 @@ async function conclusionNode(blocks, cel, hour, { first = false } = {}) {
   const major = hour === 'laudes' || hour === 'vesperae';
   // the collect and its Amen; iBreviary's rubrics and formulas of the conclusion are replaced
   const end = blocks.findIndex((b, k) => k > 0 && (b.kind === 'rubric' || /^(Dóminus vobíscum|Dóminus nos|Benedicámus Dómino)/.test(textOf(b))));
-  node.insertAdjacentHTML('beforeend', renderBlocks(end < 0 ? blocks : blocks.slice(0, end)));
+  node.append(collectNode(end < 0 ? blocks : blocks.slice(0, end)));
   if (!major) {
     if (blocks.some((b) => /^Benedicámus Dómino/.test(textOf(b)))) node.append(await chantNode(isFestive(cel) ? BENEDICAMUS_HORAE.festive : BENEDICAMUS_HORAE.ferial, { annotation: '' }));
     return node;
@@ -686,11 +691,43 @@ function dominusNosBenedicat(cel) {
   if (r === 'major' || r === 'solemnity') return DOMINUS_NOS_BENEDICAT.solemn;
   return r === 'ferial' ? DOMINUS_NOS_BENEDICAT.ferial : DOMINUS_NOS_BENEDICAT.festive;
 }
-function chantFromGabc(body) {
+function chantFromGabc(body, { dropCap = true } = {}) {
   const wrap = el('<div class="chant"><div class="score"></div></div>');
-  layouts.push(renderChant(wrap.firstChild, body, { annotation: '' }));
+  layouts.push(renderChant(wrap.firstChild, body, { annotation: dropCap ? '' : null, dropCap }));
   wrap.dataset.notated = '1';
   return wrap;
+}
+
+// Short readings, collects and the versicles of the little hours, sung on the common tones
+// of the AM 2005 / AR II (site/recitation.js), unless the setting asks for the text.
+const blockText = (b) => (b?.kind === 'text' ? b.lines.map((l) => (typeof l === 'string' ? l : l.text)).join(' ') : '');
+const recited = () => state.settings.recite !== 'text';
+/** A short reading: its reference, then the reading on the lesson tone. */
+function readingNode(blocks) {
+  const node = el('<div class="block"></div>');
+  const text = blocks.filter((b) => b.kind === 'text').map(blockText).join(' ').trim();
+  const gabc = recited() && text ? readingGabc(text) : null;
+  if (!gabc) { node.insertAdjacentHTML('beforeend', renderBlocks(blocks)); return node; }
+  node.insertAdjacentHTML('beforeend', renderBlocks(blocks.filter((b) => b.kind !== 'text')));
+  node.append(chantFromGabc(gabc, { dropCap: false }));
+  return node;
+}
+/** A collect, with Orémus before it and Amen after when iBreviary gives them, on the collect tone. */
+function collectNode(blocks) {
+  const node = el('<div class="block"></div>');
+  const texts = blocks.filter((b) => b.kind === 'text');
+  const oremus = /^Orémus\.?$/.test(blockText(texts[0]).trim());
+  const text = texts.slice(oremus ? 1 : 0).map(blockText).join(' ').trim();
+  if (!recited() || !text) { node.insertAdjacentHTML('beforeend', renderBlocks(blocks)); return node; }
+  const amen = blocks.some((b) => b.kind === 'versicle' && /^Amen/.test(b.text));
+  node.insertAdjacentHTML('beforeend', renderBlocks(blocks.filter((b) => b.kind === 'rubric')));
+  node.append(chantFromGabc(collectGabc(text, { oremus, amen }), { dropCap: false }));
+  return node;
+}
+/** The versicle and response after the short reading of a little hour. */
+function versicleNode(b) {
+  if (!recited() || !b.text) return el(`<div class="block">${renderTextBlock(b)}</div>`);
+  return chantFromGabc(versicleGabc(b.text, b.r), { dropCap: false });
 }
 /** The rank that chooses the conclusion's tones; All Souls is sung as a weekday. */
 function rankOf(cel) {
@@ -738,7 +775,7 @@ async function composeCompline(main, day, date, hour) {
   await appendPsalmody(main, entries.filter((e) => e.kind !== 'reference'), section(texts, 'PSALMODIA'));
 
   const lb = section(texts, 'LECTIO BREVIS');
-  if (lb) { main.append(el('<h2 class="section">Lectio brevis</h2>')); main.append(el(`<div class="block">${renderBlocks(lb.blocks)}</div>`)); }
+  if (lb) { main.append(el('<h2 class="section">Lectio brevis</h2>')); main.append(readingNode(lb.blocks)); }
 
   // In manus tuas: the OCO's score (with its alleluias in Eastertide), else the text
   const rbs = entries.filter((e) => e.kind !== 'reference' && e.gabc && /^In manus tuas/.test(e.text || ''));
@@ -765,7 +802,7 @@ async function composeCompline(main, day, date, hour) {
     main.append(el('<h2 class="section">Oratio</h2>'));
     const text = (b) => (b.kind === 'text' ? b.lines.map((l) => (typeof l === 'string' ? l : l.text)).join(' ') : '');
     const end = or.blocks.findIndex((b) => /^Noctem/.test(text(b)) || (b.kind === 'rubric' && /Mariam|antiphon/i.test(b.text)));
-    main.append(el(`<div class="block">${renderBlocks(end < 0 ? or.blocks : or.blocks.slice(0, end))}</div>`));
+    main.append(collectNode(end < 0 ? or.blocks : or.blocks.slice(0, end)));
   }
   main.append(el('<h2 class="section">Benedictio</h2>'));
   main.append(await chantNode(NOCTEM_QUIETAM, { annotation: '' }));
@@ -824,6 +861,7 @@ function applySettings() {
   $('#opt-memoria').value = state.settings.memoria || '';
   $('#opt-presider').value = state.settings.presider ? '1' : '';
   $('#opt-invitatory').value = state.settings.invitatory || '';
+  $('#opt-recite').value = state.settings.recite || '';
 }
 // The two psalm modes, shown in their cards as they will look: Ps 5 on tone 8 g
 const MINI_VERSES = [
@@ -875,6 +913,7 @@ async function boot() {
   $('#opt-memoria').onchange = (e) => { state.settings.memoria = e.target.value || undefined; saveSettings(); render(); };
   $('#opt-presider').onchange = (e) => { state.settings.presider = e.target.value ? true : undefined; saveSettings(); render(); };
   $('#opt-invitatory').onchange = (e) => { state.settings.invitatory = e.target.value || undefined; saveSettings(); render(); };
+  $('#opt-recite').onchange = (e) => { state.settings.recite = e.target.value || undefined; saveSettings(); render(); };
   watchResize(layouts);
   render();
 }

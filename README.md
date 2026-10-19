@@ -88,6 +88,22 @@ the celebration and the hour, red psalm titles, and the two psalm modes of its s
 *Plenus* (every verse in notes, numbered) and *Compactus* (the first verse in notes, the
 others a numbered list pointed in bold and italic).
 
+### Readings, collects, versicles
+
+Short readings, collects and the versicles of the little hours are sung on the common
+tones of the Antiphonale Monasticum 2005 (vol. I) and the Antiphonale Romanum II (2009),
+as GregoBase transcribes them (20918-20920): `site/recitation.js` splits the text at its
+punctuation and points each member with jgabc's engine, the cadence written as a
+psalm-tone formula. Collects (AM p. 536, AR II p. 759, *tonus ferialis*): on do, flexa
+to la after the last accent, metrum (si, la before the accent) at the principal division,
+punctum to fa; the conclusion likewise ("Fílium tuum" flexa, "Spíritus Sancti, Deus"
+metrum). Readings (AM p. 529, AR II p. 756): flexa at a colon or semicolon, punctum at a
+full stop, the question (si, la, si) and the conclusion rising to re with mi on the last
+accent but one. Versicles at the little hours (AM p. 532): on do, falling to la after the
+last accent. An option shows them as text instead. `test/recitation.test.mjs` checks the
+books' examples. Only the ferial forms are on GregoBase; the festive or solemn forms and
+the melismatic versicle before the readings of the Office of Readings are still to come.
+
 ### Singing the scores
 
 Every score has a ▶ (as on Breviarium Gregorianum) that sings it: `site/player.js` reads
