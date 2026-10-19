@@ -100,7 +100,8 @@ punctum to fa; the conclusion likewise ("Fílium tuum" flexa, "Spíritus Sancti,
 metrum). Readings (AM p. 529, AR II p. 756): flexa at a colon or semicolon, punctum at a
 full stop, the question (si, la, si) and the conclusion rising to re with mi on the last
 accent but one. Versicles at the little hours (AM p. 532): on do, falling to la after the
-last accent. An option shows them as text instead. `test/recitation.test.mjs` checks the
+last accent. For now only the versicles are sung; readings and collects stand as text
+(`SING_READINGS` in `site/app.js` turns them on). `test/recitation.test.mjs` checks the
 books' examples. Only the ferial forms are on GregoBase; the festive or solemn forms and
 the melismatic versicle before the readings of the Office of Readings are still to come.
 

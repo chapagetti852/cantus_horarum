@@ -746,15 +746,17 @@ function chantFromGabc(body, { dropCap = true } = {}) {
   return wrap;
 }
 
-// Short readings, collects and the versicles of the little hours, sung on the common tones
-// of the AM 2005 / AR II (site/recitation.js), unless the setting asks for the text.
+// The versicles are sung on the common tones of the AM 2005 / AR II (site/recitation.js).
+// Short readings and collects can be sung the same way (SING_READINGS); for now they stand
+// as text.
+const SING_READINGS = false;
 const blockText = (b) => (b?.kind === 'text' ? b.lines.map((l) => (typeof l === 'string' ? l : l.text)).join(' ') : '');
 const recited = () => state.settings.recite !== 'text';
 /** A short reading: its reference, then the reading on the lesson tone. */
 function readingNode(blocks) {
   const node = el('<div class="block"></div>');
   const text = blocks.filter((b) => b.kind === 'text').map(blockText).join(' ').trim();
-  const gabc = recited() && text ? readingGabc(text) : null;
+  const gabc = SING_READINGS && recited() && text ? readingGabc(text) : null;
   if (!gabc) { node.insertAdjacentHTML('beforeend', renderBlocks(blocks)); return node; }
   node.insertAdjacentHTML('beforeend', renderBlocks(blocks.filter((b) => b.kind !== 'text')));
   node.append(chantFromGabc(gabc, { dropCap: false }));
@@ -766,7 +768,7 @@ function collectNode(blocks) {
   const texts = blocks.filter((b) => b.kind === 'text');
   const oremus = /^Orémus\.?$/.test(blockText(texts[0]).trim());
   const text = texts.slice(oremus ? 1 : 0).map(blockText).join(' ').trim();
-  if (!recited() || !text) { node.insertAdjacentHTML('beforeend', renderBlocks(blocks)); return node; }
+  if (!SING_READINGS || !recited() || !text) { node.insertAdjacentHTML('beforeend', renderBlocks(blocks)); return node; }
   const amen = blocks.some((b) => b.kind === 'versicle' && /^Amen/.test(b.text));
   node.insertAdjacentHTML('beforeend', renderBlocks(blocks.filter((b) => b.kind === 'rubric')));
   node.append(chantFromGabc(collectGabc(text, { oremus, amen }), { dropCap: false }));
@@ -993,7 +995,6 @@ function applySettings() {
   $('#opt-memoria').value = state.settings.memoria || '';
   $('#opt-presider').value = state.settings.presider ? '1' : '';
   $('#opt-invitatory').value = state.settings.invitatory || '';
-  $('#opt-recite').value = state.settings.recite || '';
   $('#opt-translation').value = state.settings.translation || '';
 }
 // The two psalm modes, shown in their cards as they will look: Ps 5 on tone 8 g
@@ -1046,7 +1047,6 @@ async function boot() {
   $('#opt-memoria').onchange = (e) => { state.settings.memoria = e.target.value || undefined; saveSettings(); render(); };
   $('#opt-presider').onchange = (e) => { state.settings.presider = e.target.value ? true : undefined; saveSettings(); render(); };
   $('#opt-invitatory').onchange = (e) => { state.settings.invitatory = e.target.value || undefined; saveSettings(); render(); };
-  $('#opt-recite').onchange = (e) => { state.settings.recite = e.target.value || undefined; saveSettings(); render(); };
   $('#opt-translation').onchange = (e) => { state.settings.translation = e.target.value || undefined; saveSettings(); render(); };
   $('#pdf-format').value = state.settings.pdf || 'a5';
   $('#pdf-format').onchange = (e) => { state.settings.pdf = e.target.value; saveSettings(); };
