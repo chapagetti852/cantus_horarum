@@ -31,11 +31,15 @@ jobs:
         with:
           path: |
             cache/ibreviary
+            cache/dlc
             cache/texts
           key: ibreviary-${{ github.run_id }}
           restore-keys: ibreviary-
       - name: Fetch the window of daily texts
         run: node scripts/texts/window.mjs 3 35
+        continue-on-error: true
+      - name: Fetch their translations (English, Chinese)
+        run: node scripts/texts/translations.mjs 3 35
         continue-on-error: true
       - name: Build site
         run: node scripts/build.mjs

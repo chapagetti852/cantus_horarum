@@ -22,8 +22,8 @@ const UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/6
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 export class IBreviary {
-  constructor({ cacheDir = 'cache/ibreviary/la', delayMs = 2500, log = console } = {}) {
-    this.cacheDir = cacheDir; this.delayMs = delayMs; this.log = log;
+  constructor({ lang = 'la', cacheDir = `cache/ibreviary/${lang}`, delayMs = 2500, log = console } = {}) {
+    this.lang = lang; this.cacheDir = cacheDir; this.delayMs = delayMs; this.log = log;
     this.cookie = null; this.date = null; this.lastAt = 0;
   }
 
@@ -49,12 +49,12 @@ export class IBreviary {
     return res.text();
   }
 
-  /** Point the session at a date (ISO) in Latin. */
+  /** Point the session at a date (ISO) in the session's language (Latin unless told otherwise). */
   async setDate(iso) {
     if (this.date === iso) return;
     const [y, m, d] = iso.split('-').map(Number);
     if (!this.cookie) await this.request('opzioni.php');
-    await this.request('opzioni.php', { method: 'POST', body: `lang=la&giorno=${d}&mese=${m}&anno=${y}&ok=ok` });
+    await this.request('opzioni.php', { method: 'POST', body: `lang=${this.lang}&giorno=${d}&mese=${m}&anno=${y}&ok=ok` });
     this.date = iso;
   }
 
@@ -67,7 +67,7 @@ export class IBreviary {
     if (!/id="contenuto"/.test(html)) throw new Error(`${iso} ${hour}: unexpected page`);
     mkdirSync(dir, { recursive: true });
     writeFileSync(file, html);
-    this.log.log(`fetched ${iso} ${hour}`);
+    this.log.log(`fetched ${this.lang === 'la' ? '' : this.lang + ' '}${iso} ${hour}`);
     return html;
   }
 }

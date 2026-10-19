@@ -165,6 +165,31 @@ every day at 03:00 Hong Kong time, with iBreviary's pages cached between runs, s
 date has its own collect, readings' responsories and proper texts; the 28 committed
 psalter days are the fallback.
 
+### Translations
+
+An option shows a translation under the Latin: English (iBreviary in English) or Chinese
+(the Hong Kong Diocesan Liturgy Commission's daily office, 每日日課, catholic-dlc.org.hk,
+published a month at a time). `scripts/texts/translations.mjs` fetches both for the same
+window as the Latin into `cache/texts/tr/<lang>/` (the Pages workflow runs it after
+`window.mjs`), reading each hour into one shape: hymn, psalms with their antiphons,
+reading, responsory, Gospel canticle antiphon, intercessions, collect, the readings of the
+Office of Readings, the parts of each little hour. `site/translate.js` lays each piece
+under its Latin only when it is the same text: psalms by number (canticles by place), and
+what is proper to the day only when the short reading (or the first reading of the Office
+of Readings) has the same chapter and verse, since iBreviary's English follows the United
+States calendar and Hong Kong its own. Short pieces stand open, psalms, hymns and long
+readings fold.
+
+### PDF
+
+The settings have a PDF control: A4, A5 or Letter pages, or a booklet (A5 pages two to an
+A4 sheet, half-Letter pages two to a Letter sheet, in saddle-stitch order: print both
+sides, flip on the short edge, fold). `site/print.js` composes the hour again into a
+column as wide as the page's text, every score drawn one SVG per system
+(`createSvgNodeForEachLine`) so pages break between staves, cuts it into atoms (systems,
+paragraphs, verses, a heading kept with what follows), pours them into pages and opens
+the print dialog, where "Save as PDF" makes the file.
+
 ### Chants of the ordinary
 
 Deus, in adiutorium takes its tone from the day (Antiphonale Monasticum 2005: ferial on

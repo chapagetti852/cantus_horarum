@@ -100,4 +100,14 @@ for (const dir of [daysDir, join(root, 'cache/texts/days')]) {
   }
 }
 
-console.log(`dist/: ${compact.length} entries, ${copied} gabc files (${missing} missing), psalter days ${Object.keys(psalterium).length}/28, ${dayFiles} day files, verses ${verseStats.fromNV}/${verseStats.total} from the Nova Vulgata`);
+// ---- translations (scripts/texts/translations.mjs, cache/texts/tr/<lang>, not committed) ----
+const trFiles = {};
+for (const lang of ['en', 'zh']) {
+  const dir = join(root, 'cache/texts/tr', lang);
+  if (!existsSync(dir)) continue;
+  mkdirSync(join(dist, 'data/tr', lang), { recursive: true });
+  for (const f of readdirSync(dir).filter((f) => f.endsWith('.json'))) cpSync(join(dir, f), join(dist, 'data/tr', lang, f));
+  trFiles[lang] = readdirSync(dir).filter((f) => f.endsWith('.json')).length;
+}
+
+console.log(`dist/: ${compact.length} entries, ${copied} gabc files (${missing} missing), psalter days ${Object.keys(psalterium).length}/28, ${dayFiles} day files, verses ${verseStats.fromNV}/${verseStats.total} from the Nova Vulgata, translations ${JSON.stringify(trFiles)}`);

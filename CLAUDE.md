@@ -40,7 +40,11 @@ Read `README.md` first: it explains every pipeline.
 - `scripts/calendar/build.mjs` — romcal 3 (dev) + `@romcal/calendar.general-roman`, Latin
   localisation → `site/data/calendar/YYYY.json` (2025–2032).
 - `scripts/texts/window.mjs` — rolling window of daily texts (today−3 … today+35) into
-  `cache/texts/days/`; the build copies them to `dist/data/days/`.
+  `cache/texts/days/`; the build copies them to `dist/data/days/`. Sunday solemnities
+  take another year's weekday texts (iBreviary gives the Sunday). `translations.mjs`
+  fetches English / Chinese for the same window into `cache/texts/tr/`.
+- `site/recitation.js` sings readings, collects, versicles on the AM 2005 / AR II common
+  tones; `site/print.js` makes PDF pages and booklets through the print dialog.
 - `scripts/texts/ibreviary.mjs` — Latin office texts from ibreviary.com/m2 (POST date to
   opzioni.php, session cookie, then breviario.php?s=…). Run with `NODE_USE_ENV_PROXY=1`
   in cloud sessions. Output `data/texts/days/<date>.json`; `data/texts/psalter-days.json`
@@ -86,4 +90,7 @@ window (`scripts/texts/window.mjs`, run daily by the Pages workflow into the git
 To do:
 1. Compline on solemnities (Sunday forms); optional memorials as a choice; Saturday
    memorial of Our Lady; feminine/plural variants of the commons.
-2. Hong Kong diocesan calendar; English / Cantonese translations line by line (later).
+2. Hong Kong diocesan calendar. Translations (English from iBreviary, Chinese from the
+   Hong Kong DLC, `scripts/texts/translations.mjs`, `site/translate.js`) are in; the
+   festive/solemn common tones and the melismatic versicle (AM 2005 pp. 527-539) are not
+   on GregoBase yet (`site/recitation.js` has the ferial ones).

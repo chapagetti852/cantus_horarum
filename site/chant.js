@@ -3,6 +3,9 @@
 import { play, stop, notesOf } from './player.js';
 
 const gabcCache = new Map();
+// print (site/print.js): every system its own SVG, so a page can break between staves
+let perLine = false;
+export function setPerLine(v) { perLine = !!v; }
 
 export async function loadGabc(id) {
   if (!gabcCache.has(id)) {
@@ -71,22 +74,29 @@ export function renderChant(el, body, { annotation = null, dropCap = true, scale
   // a miniature (the settings' mode cards): laid out `scale` times wider, then shrunk to fit
   if (scale === 1) addPlayButton(el, cleaned);
   let lastWidth = -1;
-  const layout = () => {
+  const lines = perLine;
+  // returns a promise that the score is drawn (print waits for every score)
+  const layout = () => new Promise((resolve) => {
     const width = Math.floor(el.clientWidth) || Math.floor(document.body.clientWidth - 32);
-    if (!width || width === lastWidth) return;
+    if (!width || width === lastWidth) { resolve(); return; }
     lastWidth = width;
     const w = Math.round(width * scale);
     ctxt.width = w;
     score.performLayoutAsync(ctxt, () => {
       score.layoutChantLines(ctxt, w, () => {
-        const svg = score.createSvgNode(ctxt);
-        if (scale === 1) svg.removeAttribute('viewBox');
-        else { svg.removeAttribute('width'); svg.removeAttribute('height'); svg.style.width = '100%'; }
-        el.replaceChildren(svg);
+        if (lines) {
+          el.replaceChildren(...score.createSvgNodeForEachLine(ctxt).map((svg) => { svg.removeAttribute('viewBox'); return svg; }));
+        } else {
+          const svg = score.createSvgNode(ctxt);
+          if (scale === 1) svg.removeAttribute('viewBox');
+          else { svg.removeAttribute('width'); svg.removeAttribute('height'); svg.style.width = '100%'; }
+          el.replaceChildren(svg);
+        }
+        resolve();
       });
     });
-  };
-  layout();
+  });
+  if (!lines) layout();
   return layout;
 }
 
