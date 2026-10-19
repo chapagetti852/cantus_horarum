@@ -54,7 +54,9 @@ Read `README.md` first: it explains every pipeline.
   holds the tones and calls jgabc's own pointing engine (`site/vendor/jgabc/`, as on
   bbloomf.github.io/jgabc/psalmtone.html with Nova Vulgata verses: `scripts/texts/verses.mjs`
   + `data/novavulgata/`), `chant.js` renders GABC with Exsurge (`site/vendor/exsurge.min.js`, from bbloomf/jgabc, public domain).
-  Fonts: EB Garamond (OFL) in `site/fonts/`.
+  Fonts: EB Garamond (OFL) in `site/fonts/`, its Latin language system (`locl` for
+  `LAT`, which turns u into v) removed from `ebgaramond-latin.woff2`, since Safari applies it
+  under `lang="la"` whatever `font-feature-settings` says.
 
 ## Conventions
 
