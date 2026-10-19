@@ -9,6 +9,7 @@
 //                                oco-<entry id>.gabc for scores read from the OCO itself (data/gabc-oco)
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { attachVerses } from './texts/verses.mjs';
 
 const root = new URL('..', import.meta.url).pathname;
 const dist = join(root, 'dist');
@@ -77,6 +78,9 @@ if (existsSync(daysDir)) {
     if (!psalterium[key]) psalterium[key] = { date: day.date, hours: day.hours };
   }
 }
+// psalm verses as jgabc takes them (Nova Vulgata where it matches): scripts/texts/verses.mjs
+const verseStats = { fromNV: 0, total: 0 };
+for (const d of Object.values(psalterium)) attachVerses(d.hours, root, verseStats);
 writeFileSync(join(dist, 'data/psalterium.json'), JSON.stringify(psalterium));
 
 // ---- texts of particular days ------------------------------------------------
@@ -87,9 +91,11 @@ mkdirSync(join(dist, 'data/days'), { recursive: true });
 for (const dir of [daysDir, join(root, 'cache/texts/days')]) {
   if (!existsSync(dir)) continue;
   for (const f of readdirSync(dir).filter((f) => f.endsWith('.json'))) {
-    writeFileSync(join(dist, 'data/days', f), JSON.stringify(JSON.parse(readFileSync(join(dir, f), 'utf8'))));
+    const day = JSON.parse(readFileSync(join(dir, f), 'utf8'));
+    attachVerses(day.hours, root, verseStats);
+    writeFileSync(join(dist, 'data/days', f), JSON.stringify(day));
     dayFiles++;
   }
 }
 
-console.log(`dist/: ${compact.length} entries, ${copied} gabc files (${missing} missing), psalter days ${Object.keys(psalterium).length}/28, ${dayFiles} day files`);
+console.log(`dist/: ${compact.length} entries, ${copied} gabc files (${missing} missing), psalter days ${Object.keys(psalterium).length}/28, ${dayFiles} day files, verses ${verseStats.fromNV}/${verseStats.total} from the Nova Vulgata`);

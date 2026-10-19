@@ -1,39 +1,39 @@
-@font-face { font-family: "Crimson"; src: url(fonts/crimson-roman-webfont.woff2) format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: "Crimson"; src: url(fonts/crimson-italic-webfont.woff2) format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
-@font-face { font-family: "Crimson"; src: url(fonts/crimson-semibold-webfont.woff2) format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
-@font-face { font-family: "Crimson"; src: url(fonts/crimson-bold-webfont.woff2) format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+/* Modelled on Breviarium Gregorianum (breviariumgregorianum.com): EB Garamond, a warm
+   white page, red rubrics, a slim bar with hour, date and settings, centred headings,
+   red psalm titles, numbered verses. */
+@font-face { font-family: "EB Garamond"; src: url(fonts/ebgaramond-latin-ext.woff2) format("woff2"); font-weight: 400 800; font-style: normal; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "EB Garamond"; src: url(fonts/ebgaramond-italic-latin-ext.woff2) format("woff2"); font-weight: 400 800; font-style: italic; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "EB Garamond"; src: url(fonts/ebgaramond-latin.woff2) format("woff2"); font-weight: 400 800; font-style: normal; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "EB Garamond"; src: url(fonts/ebgaramond-italic-latin.woff2) format("woff2"); font-weight: 400 800; font-style: italic; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 
 :root {
-  --bg: #f7f3ea;
-  --bg-raised: #fffdf7;
-  --fg: #231f1a;
-  --fg-soft: #6b625a;
-  --rubric: #a4221c;
-  --rule: #d9d0bf;
-  --accent: #7a1f1a;
+  --bg: #faf7f5;
+  --bg-raised: #f0ebe7;
+  --fg: #111;
+  --fg-soft: #5d5650;
+  --rubric: #e22613;
+  --rule: #ddd5cf;
   --exsurge-negative-fill: var(--bg);
   --size: 100;
   color-scheme: light;
 }
 :root[data-theme="dark"] {
   --bg: #1b1a17;
-  --bg-raised: #23211d;
-  --fg: #e8e1d3;
+  --bg-raised: #2a2824;
+  --fg: #ece6da;
   --fg-soft: #a69d8f;
-  --rubric: #e06a5c;
+  --rubric: #f0705f;
   --rule: #3a362f;
-  --accent: #e08f84;
   color-scheme: dark;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #1b1a17;
-    --bg-raised: #23211d;
-    --fg: #e8e1d3;
+    --bg-raised: #2a2824;
+    --fg: #ece6da;
     --fg-soft: #a69d8f;
-    --rubric: #e06a5c;
+    --rubric: #f0705f;
     --rule: #3a362f;
-    --accent: #e08f84;
     color-scheme: dark;
   }
 }
@@ -44,88 +44,98 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--fg);
-  font-family: "Crimson", "Crimson Text", Georgia, "Times New Roman", serif;
-  font-size: calc(1.15rem * var(--size) / 100);
-  line-height: 1.4;
+  font-family: "EB Garamond", "Crimson Text", Garamond, Georgia, serif;
+  /* EB Garamond's Latin forms write u as v (LAVDES): the ecclesiastical spelling keeps u */
+  font-feature-settings: "locl" 0;
+  font-size: calc(18.67px * var(--size) / 100);
+  line-height: 1.35;
   padding-bottom: env(safe-area-inset-bottom);
 }
+button, select, input { font-feature-settings: "locl" 0; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+.r, .rubric { color: var(--rubric); }
 
-/* ---------- header ---------- */
+/* ---------- top bar ---------- */
 .top {
   position: sticky; top: 0; z-index: 5;
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--rule);
+  background: var(--bg);
   padding-top: env(safe-area-inset-top);
 }
-.date-row { display: flex; align-items: stretch; max-width: 46rem; margin: 0 auto; }
-.nav { flex: 0 0 2.6rem; font-size: 1.8rem; line-height: 1; color: var(--fg-soft); }
-.nav:active { color: var(--accent); }
-.date-label { flex: 1; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: .55rem .25rem .35rem; text-align: center; cursor: pointer; }
-.date-label input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
-.date-name { font-variant: small-caps; letter-spacing: .03em; font-size: 1em; line-height: 1.15; }
-.date-sub { color: var(--fg-soft); font-size: .78em; font-style: italic; margin-top: .1em; }
-.hours { display: flex; max-width: 46rem; margin: 0 auto; overflow-x: auto; scrollbar-width: none; }
-.hours::-webkit-scrollbar { display: none; }
-.hours button { flex: 1 0 auto; padding: .35rem .6rem .5rem; font-size: .82em; font-variant: small-caps; letter-spacing: .04em; color: var(--fg-soft); border-bottom: 2px solid transparent; }
-.hours button[aria-current="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+.bar { display: flex; align-items: center; gap: 8px; max-width: 44rem; margin: 0 auto; padding: 8px 12px; }
+.logo { flex: 0 0 auto; display: block; width: 40px; height: 40px; }
+.logo svg { width: 100%; height: 100%; display: block; }
+.logo rect { fill: var(--rubric); }
+.logo path { fill: var(--bg); }
+.bar select, .bar input[type=date] {
+  font: inherit; font-size: 17px; color: var(--fg); background: var(--bg-raised);
+  border: 0; border-radius: 6px; padding: 7px 10px; min-width: 0; height: 40px;
+}
+.bar select { flex: 0 1 auto; max-width: 11em; }
+.bar input[type=date] { flex: 1 1 auto; }
+.gear { flex: 0 0 auto; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 6px; background: var(--bg-raised); }
+.gear svg { width: 22px; height: 22px; fill: var(--fg); }
+.gear[aria-expanded="true"] { outline: 2px solid var(--rubric); }
 
-/* ---------- office body ---------- */
-.office { max-width: 44rem; margin: 0 auto; padding: 1rem 16px 3rem; }
+/* ---------- settings ---------- */
+.settings {
+  max-width: 44rem; margin: 0 auto 8px; padding: 10px 16px 6px;
+  background: var(--bg-raised); border-radius: 10px; font-size: 17px;
+  max-height: calc(100vh - 80px); overflow: auto;
+}
+@media (max-width: 46rem) { .settings { margin: 0 12px 8px; } }
+.settings[hidden] { display: none; }
+.settings-title { text-align: center; margin: 2px 0 8px; }
+.modes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px; }
+.mode { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.mode .preview { width: 100%; background: var(--bg); border-radius: 10px; padding: 8px 8px 6px; border: 3px solid transparent; display: flex; flex-direction: column; gap: 3px; text-align: left; font-size: 13px; overflow: hidden; white-space: nowrap; }
+.mode[aria-checked="true"] .preview { border-color: var(--rubric); }
+.mode[aria-checked="true"] .mode-name { color: var(--rubric); }
+.mode .staff { display: block; height: 16px; background: repeating-linear-gradient(to bottom, var(--fg) 0 1px, transparent 1px 5px); opacity: .55; }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid var(--rule); }
+.row select { font: inherit; color: inherit; background: transparent; border: 0; text-align: right; max-width: 55%; }
+.row input[type=range] { flex: 0 1 50%; }
+
+/* ---------- the office ---------- */
+.office { max-width: 44rem; margin: 0 auto; padding: 0 16px 4rem; }
 .loading, .empty { color: var(--fg-soft); font-style: italic; text-align: center; margin: 3rem 0; }
-.rubric, .r { color: var(--rubric); }
-.rubric { font-style: italic; font-size: .88em; margin: .9em 0 .3em; }
-h2.section { font-variant: small-caps; letter-spacing: .08em; font-weight: 400; font-size: .95em; color: var(--rubric); margin: 1.8em 0 .5em; text-align: center; }
-h2.section::before, h2.section::after { content: " ✠ "; opacity: .5; }
+.title-block { text-align: center; margin: 48px 0 8px; }
+.title-block .rank { color: var(--rubric); margin: 0 0 -4px; }
+.title-block h1 { font-size: 2em; line-height: 1.1; font-weight: 700; margin: 0; padding: 0 12px; }
+.title-block .tempora { margin: 4px 0 0; }
+h2.hour { text-align: center; font-size: 17px; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; margin: 56px 0 0; }
+h2.section { text-align: center; font-size: 18px; font-weight: 700; margin: 40px 0 18px; }
+.rubric { font-style: italic; font-size: .92em; margin: .9em 0 .3em; }
 .block { margin: .6em 0; }
-h3.sub { font-variant: small-caps; letter-spacing: .05em; font-weight: 400; font-size: .9em; color: var(--fg-soft); margin: 1.2em 0 .2em; }
-.chant { margin: .8em 0 .4em; overflow: hidden; }
+h3.sub { font-weight: 700; font-size: 1em; margin: 1.2em 0 .2em; }
+.chant { margin: .6em 0 .4em; overflow: hidden; }
 .chant svg { display: block; max-width: 100%; height: auto; }
 /* Exsurge leaves the notes to the SVG's default black: follow the text colour (night) */
-.score svg { fill: currentColor; }
+.score svg { fill: currentColor; font-feature-settings: "locl" 0; }
 .score svg .rubric, .score svg .annotation { fill: var(--rubric); }
-.psalm-score { margin: .3em 0 .6em; }
 .chant .missing { color: var(--fg-soft); font-style: italic; }
 .ant-text { margin: .1em 0 .4em; }
 .ant-text .r { font-weight: 600; font-style: normal; }
-.psalm-head { margin: 1em 0 .2em; display: flex; flex-wrap: wrap; gap: .2em .8em; align-items: baseline; }
-.psalm-head .ref { font-variant: small-caps; letter-spacing: .04em; color: var(--rubric); }
+
+/* psalms */
+.psalm { margin-top: 24px; }
+.psalm-head { margin: 0 0 4px; display: flex; flex-wrap: wrap; gap: 0 .6em; align-items: baseline; }
+.psalm-head .ref { color: var(--rubric); }
 .psalm-head .title { font-style: italic; color: var(--fg-soft); font-size: .9em; }
-.psalm-head .tone { margin-left: auto; color: var(--rubric); font-size: .8em; font-style: italic; }
-.verse-score { margin: .2em 0 .5em; }
-.verse-score svg { display: block; max-width: 100%; height: auto; }
+.psalm-head .tone { margin-left: auto; color: var(--rubric); font-size: .85em; font-style: italic; }
 .sentence { font-style: italic; color: var(--fg-soft); font-size: .88em; margin: 0 0 .5em; }
-.strophe { margin: 0 0 .7em; }
-.strophe .line { padding-left: 1.6em; text-indent: -1.6em; }
-.strophe .line .flex, .strophe .line .star { color: var(--rubric); font-weight: 400; }
-.line .acc { font-weight: 700; } /* the semibold face lacks accented vowels */
-.line .prep { font-style: italic; }
+.psalm-score, .verse-score { margin: .2em 0 .5em; }
+ol.verses { margin: 18px 0; padding: 0 0 0 32px; font-size: 20px; }
+ol.verses li { margin: 3px 0; padding-left: 2px; }
+ol.verses li.strophe-start { margin-top: 12px; }
+ol.verses li::marker { font-variant-numeric: lining-nums; }
+ol.verses b { font-weight: 700; }
+ol.verses .star, ol.verses .flex { color: var(--rubric); }
+
+/* versicles, texts, intercessions */
 .versicle { margin: .3em 0; padding-left: 1.6em; text-indent: -1.6em; }
 .versicle .r { font-weight: 600; }
 .text p { margin: .25em 0; }
 .hymn p { margin: 0 0 .7em; }
-.preces .intention { margin: .4em 0 0; }
-.preces .response { margin: 0 0 .2em 1.6em; color: var(--fg-soft); }
-.gloria { color: var(--fg-soft); }
-.doxology { margin: 0 0 .7em; }
-details.alt > summary { color: var(--fg-soft); font-style: italic; cursor: pointer; font-size: .9em; }
-.source { color: var(--fg-soft); font-size: .75em; text-align: right; }
-
-/* ---------- settings (in the header) ---------- */
-.gear { font-size: 1.3rem; }
-.gear[aria-expanded="true"] { color: var(--accent); }
-.settings { display: grid; gap: .6rem; max-width: 44rem; margin: 0 auto; padding: .6rem 16px .8rem; border-top: 1px solid var(--rule); font-size: .9em; }
-.settings[hidden] { display: none; }
-.settings label { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
-.settings input[type=range] { flex: 1; }
-.settings select { font: inherit; color: inherit; background: var(--bg-raised); border: 1px solid var(--rule); border-radius: 4px; padding: .1em .3em; max-width: 100%; }
-
-/* ---------- intercessions ---------- */
 .preces .intro { margin: .3em 0 .6em; }
 .preces .intention { margin: .45em 0; padding-left: 1.2em; text-indent: -1.2em; }
 .preces .intention .r { padding: 0 .2em; }
-
-@media (min-width: 700px) {
-  body { font-size: calc(1.22rem * var(--size) / 100); }
-}

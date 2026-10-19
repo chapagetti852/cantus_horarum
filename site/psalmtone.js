@@ -1,19 +1,21 @@
-// Psalm-tone pointing: fit a Latin verse to a Gregorian psalm tone.
+// Psalm tones: the tone table, which tone and ending an antiphon calls for, and the
+// pointing of verses to it.
 //
-// The tone strings use the notation of jgabc's psalmtone.js (Benjamin Bloomfield,
-// public domain): space-separated GABC note groups, one per syllable, where
-//   'x   is sung on an accented syllable,
-//   xr   is an "open" note that takes any number (0+) of syllables (the tenor, or the
-//        unaccented syllables between two accents of a cadence),
-//   x    any other group takes exactly one syllable (intonation, preparatory, final).
-// The first open group of a mediant is the tenor and the groups before it the
-// intonation. An open group just before an accent (the hollow note of the 2005 books)
-// is sung only when the accented word is a dactyl: the accented syllable takes it and
-// the accent's neume moves to the following syllable (Dó(g) mi(gf) num(d) in 1 d). Formulas follow the Antiphonale Romanum II (2009), pp. 738-740
+// The pointing is jgabc's own engine (Benjamin Bloomfield's psalm-tone tool,
+// https://bbloomf.github.io/jgabc/psalmtone.html, public domain), vendored in
+// site/vendor/jgabc and called exactly as that page calls it: its Latin syllables (Hypher
+// patterns), accents, flex, mediant, termination, intonation on the first verse (every
+// verse of a Gospel canticle), bold accented and italic preparatory syllables for verses
+// in text. In the browser it is global; Node tests hand it over with setEngine().
+//
+// The tone strings use jgabc's notation: space-separated GABC note groups, one per
+// syllable, where 'x is sung on an accented syllable, xr is an open note taking any
+// number of syllables (the tenor, or those between two accents), and the groups before
+// the tenor are the intonation; an open group just before an accent is the hollow note
+// of the 2005 books. Formulas follow the Antiphonale Romanum II (2009), pp. 738-740
 // (GregoBase 18352-18366), with the termination names of the Antiphonale Monasticum
-// 2005 that the Ordo Cantus Officii uses; each termination was checked against the
-// "E u o u a e" of the OCO antiphons on GregoBase (test/psalmtone.test.mjs).
-// The pointing engine itself is a fresh, smaller implementation of the same rules.
+// 2005 that the Ordo Cantus Officii uses; each termination is checked against the
+// "E u o u a e" of the OCO antiphons (test/psalmtone.test.mjs).
 
 export const TONES = {
   '1': { clef: 'c4', flex: 'g', mediant: "f gh hr 'ixi hr 'g hr h.",
@@ -90,12 +92,17 @@ export function shiftGabc(notes, n) {
 const lastPitch = (notes) => (notes.match(/[a-mA-M]/g) || []).pop()?.toLowerCase();
 
 const EUOUAE = /E\(([^)]*)\)\s*u\(([^)]*)\)\s*o\(([^)]*)\)\s*u\(([^)]*)\)\s*a\(([^)]*)\)\s*e\.?\(([^)]*)\)/;
-const GLORIA_END = [{ text: 'et in sǽcula sæculórum. Amen.', part: 'termination' }];
 /** Pitches of note groups relative to the last one: the shape of a termination. */
 function shape(groups) {
   const ps = groups.map((g) => (g.replace(/([a-m])x\1/gi, '$1').match(/[a-m]/gi) || []).map((c) => PITCH.indexOf(c.toLowerCase())));
   const last = ps[ps.length - 1]?.[ps[ps.length - 1].length - 1] ?? 0;
   return ps.map((p) => p.map((x) => x - last).join(',')).join(' ');
+}
+
+/** The note groups the ending sings on "et in sǽcula sæculórum. Amen" (its last six: the E u o u a e). */
+export function gloriaEnd(ctx) {
+  const g = halfGabc('et in sǽcula sæculórum. Amen.', ctx, 'termination');
+  return [...g.matchAll(/\(([^)]*)\)/g)].map((m) => m[1]).filter((n) => /[a-m]/i.test(n)).slice(-6);
 }
 
 /**
@@ -115,8 +122,7 @@ export function toneContext(mode, antiphonGabc = null, { identify = true } = {})
     let found = null;
     for (const tone of order) {
       for (const ending of Object.keys(TONES[tone].endings)) {
-        const got = pointVerse(GLORIA_END, { tone, ending, shift: 0 })[0].syllables.slice(-6).map((x) => x.notes);
-        if (shape(got) === want) { found = { tone, ending }; break; }
+        if (shape(gloriaEnd({ tone, ending, shift: 0, clef: TONES[tone].clef })) === want) { found = { tone, ending }; break; }
       }
       if (found) break;
     }
@@ -139,237 +145,77 @@ export function toneContext(mode, antiphonGabc = null, { identify = true } = {})
   return { ...pm, clef, shift, name: `${pm.tone}${pm.ending}` };
 }
 
-function parseCadence(str, shift) {
-  const groups = str.trim().split(/\s+/).map((g) => {
-    const accent = g[0] === "'";
-    if (accent) g = g.slice(1);
-    const open = /r$/.test(g);
-    if (open) g = g.slice(0, -1);
-    return { notes: shiftGabc(g, shift), accent, open };
+// ------------------------------------------------------------------ jgabc's engine
+let engine = null;
+/** Node: hand over a context in which jgabc's scripts have run (see test/jgabc.mjs). */
+export function setEngine(e) { engine = e; }
+function jg() {
+  const e = engine || globalThis;
+  if (typeof e.applyPsalmTone !== 'function') throw new Error('jgabc engine not loaded (site/vendor/jgabc)');
+  return e;
+}
+const cadenceCache = new Map();
+/** jgabc's parsed tones for a context: mediant (with and without intonation) and termination. */
+function cadences(ctx) {
+  const key = `${ctx.tone}|${ctx.ending}|${ctx.shift}|${ctx.clef}`;
+  if (!cadenceCache.has(key)) {
+    const E = jg();
+    const t = TONES[ctx.tone];
+    const clef = ctx.clef || t.clef;
+    const med = E.getGabcTones(shiftGabc(t.mediant, ctx.shift), undefined, false, clef);
+    const ter = E.getGabcTones(shiftGabc(t.endings[ctx.ending], ctx.shift), undefined, false, clef);
+    cadenceCache.set(key, { med, medPlain: E.removeIntonation(E.$.extend(true, {}, med)), ter, clef });
+  }
+  return cadenceCache.get(key);
+}
+
+function halfGabc(text, ctx, part, { intone = false, first = false, result } = {}) {
+  const E = jg();
+  const c = cadences(ctx);
+  const mediant = part === 'mediant';
+  return E.applyPsalmTone({
+    text: text.trim(), gabc: mediant ? (intone ? c.med : c.medPlain) : c.ter, clef: c.clef,
+    useOpenNotes: false, useBoldItalic: true, firstPrefix: true, onlyVowel: false,
+    format: E.bi_formats.gabc, verseNumber: '', prefix: mediant, suffix: !mediant,
+    italicizeIntonation: false, result: result || { shortened: false },
+    favor: mediant ? (first ? 'intonation' : '') : 'termination',
   });
-  const t = groups.findIndex((g) => g.open);
-  return { intonation: groups.slice(0, Math.max(t, 0)).map((g) => g.notes), tenor: groups[t]?.notes, groups: groups.slice(t + 1) };
 }
 
-// ------------------------------------------------------------------ syllables
-const VOWEL = /[aeiouyáéíóúýæǽœëäöü]/i;
-const ACCENTED = /[áéíóúýǽ]/i;
-const PREFIX_I = /^(ad|ab|ob|sub|con|in|dis)$/i; // not per-, trans-: pe-ri-é-runt, tran-si-é-runt
-const ONSETS = ['str', 'spr', 'scr', 'sc', 'st', 'sp', 'ct', 'gn', 'ps', 'qu', 'gu', 'ch', 'ph', 'th', 'rh',
-  'bl', 'br', 'cl', 'cr', 'dr', 'fl', 'fr', 'gl', 'gr', 'pl', 'pr', 'tr'];
-const MONOSYLLABLES = /^(heu|seu|neu|ceu)$/i; // the chant books sing cu-i, hu-ic
-const NO_DIPHTHONG = /^(israel|ismael|michael|raphael|aer|aere|aerem|aeris)$/i;
-
-/** Split one word (letters only) into syllables: returns [{text, accent}] with accent on the stressed one. */
-export function syllabifyWord(word) {
-  // a combining acute (œ́) belongs to its vowel: analyse without it, put it back after
-  if (/\u0301/.test(word)) {
-    const marks = [];
-    const bare = word.replace(/(.)\u0301/g, (m, c, i) => { marks.push(i - marks.length); return c; });
-    const syls = syllabifyWord(bare);
-    let pos = 0, mi = 0;
-    for (const s of syls) {
-      const end = pos + s.text.length;
-      let t = '';
-      for (let i = pos; i < end; i++) { t += bare[i]; if (marks[mi] === i) { t += '\u0301'; mi++; } }
-      if (/\u0301/.test(t) && !s.accent) { syls.forEach((x) => { x.accent = false; x.primary = false; }); s.accent = s.primary = true; }
-      s.text = t; pos = end;
-    }
-    return syls;
-  }
-  const low = word.toLowerCase();
-  if (MONOSYLLABLES.test(low)) return [{ text: word, accent: false }];
-  // find vowel nuclei
-  const nuclei = [];
-  for (let i = 0; i < low.length; i++) {
-    const c = low[i];
-    if (!VOWEL.test(c)) continue;
-    const prev = low[i - 1], next = low[i + 1];
-    if (c === 'u' && (prev === 'q' || (prev === 'g' && low[i - 2] === 'n')) && next && VOWEL.test(next)) continue;
-    if (c === 'i' && next && VOWEL.test(next) && next !== 'i') {
-      const last = nuclei[nuclei.length - 1];
-      if (i === 0) continue; // iam, Iesus, iustítia
-      if (last && last[1] === i && !/[ëäöü]/.test(prev)) continue; // eius, maior
-      if (PREFIX_I.test(low.slice(0, i).normalize('NFD').replace(/\p{M}/gu, ''))) continue; // adiútor, ádiuvet, iniústus
-    }
-    const last = nuclei[nuclei.length - 1];
-    const pair = last && last[1] === i ? low.slice(last[0], i + 1) : '';
-    if (pair && /^(ae|áe|aé|oe|óe|oé|au|áu)$/.test(pair) && !NO_DIPHTHONG.test(low)) { last[1] = i + 1; continue; }
-    nuclei.push([i, i + 1]);
-  }
-  if (nuclei.length <= 1) return [{ text: word, accent: false, mono: true }];
-  // cut points between nuclei
-  const cuts = [0];
-  for (let k = 0; k < nuclei.length - 1; k++) {
-    const a = nuclei[k][1], b = nuclei[k + 1][0];
-    const cluster = low.slice(a, b);
-    let onset = cluster.length <= 1 ? cluster.length : 1;
-    if (cluster.length >= 2) {
-      const o = ONSETS.find((x) => x.length <= cluster.length && cluster.endsWith(x) && !(x === 'gu' && cluster.length === 2 && cluster[0] !== 'n'));
-      if (o) onset = o.length;
-    }
-    if (k === 0 && /^ex$/.test(low.slice(0, b))) onset = 0; // ex-áudi, ex-áltat
-    cuts.push(b - onset);
-  }
-  cuts.push(word.length);
-  const syls = [];
-  for (let k = 0; k < nuclei.length; k++) syls.push({ text: word.slice(cuts[k], cuts[k + 1]), accent: false });
-  let acc = syls.findIndex((s) => ACCENTED.test(s.text));
-  // unmarked: disyllables on the first; longer words are names or a missing mark
-  // (Áaron, Ísrael, sǽcula): first of three, else the antepenult
-  if (acc < 0) acc = syls.length <= 3 ? 0 : syls.length - 3;
-  syls[acc].accent = true;
-  syls[acc].primary = true;
-  // secondary accents, counting back by two from the main accent (con-tà-bu-é-runt)
-  for (let n = acc - 2; n >= 0; n -= 2) syls[n].accent = true;
-  return syls;
+/** A verse ("… † … * …") as GABC, without clef. */
+export function verseGabc(verse, ctx, { intone = false, first = false, result } = {}) {
+  const line = jg().splitLine(verse);
+  const m = halfGabc(line[0], ctx, 'mediant', { intone, first, result });
+  return line.length === 1 ? `${m} (::)` : `${m} *(:) ${halfGabc(line[1], ctx, 'termination')} (::)`;
 }
 
 /**
- * Split a line of text into syllables carrying their spacing and punctuation:
- * [{text, accent, wordStart, wordEnd}]
+ * A whole psalm (verses "… † … * …") as one GABC score: the intonation on the first verse
+ * (kept for the next one when the first is too short to take it), on every verse of a
+ * Gospel canticle.
  */
-export function syllabify(line) {
-  const out = [];
-  for (const m of line.matchAll(/(\s*)(\S+)/g)) {
-    const [, space, token] = m;
-    const w = /^([^\p{L}]*)([\p{L}][\p{L}\p{M}]*(?:[-'][\p{L}\p{M}]+)*)([^\p{L}\p{M}]*)$/u.exec(token);
-    if (!w) {
-      if (out.length) out[out.length - 1].text += space + token; // stray punctuation
-      continue;
-    }
-    const parts = w[2].split('-').flatMap((p) => syllabifyWord(p));
-    parts.forEach((s, i) => out.push({
-      text: (i === 0 ? space + w[1] : '') + s.text + (i === parts.length - 1 ? w[3] : ''),
-      accent: parts.length > 1 && s.accent,
-      primary: parts.length > 1 && !!s.primary,
-      wordStart: i === 0, wordEnd: i === parts.length - 1,
-    }));
-  }
-  return out;
+export function psalmGabc(verses, ctx, { canticle = false, firstIntoned = false } = {}) {
+  let intone = !firstIntoned; // a later run of the same psalm: the intonation was sung
+  const out = verses.map((v) => {
+    const result = { shortened: false };
+    const g = verseGabc(v, ctx, { intone: intone || canticle, first: intone, result });
+    if (!result.shortened) intone = false;
+    return g;
+  });
+  return `(${cadences(ctx).clef}) ${out.join(' ')}`;
 }
 
-// ------------------------------------------------------------------ pointing
-/**
- * Assign the notes of a cadence to the syllables of a half-verse.
- * Each syllable gets {notes, role}, role ∈ intonation | tenor | prep | accent | fill | final.
- */
-export function pointHalf(syls, cadence, { intone = false } = {}) {
-  syls = withSecondaryAccents(syls);
-  const out = pointCadence(syls, cadence, { intone });
-  const k = cadence.intonation.length;
-  if (!intone || !k || out.slice(0, k).every((s) => s.role === 'intonation')) return out;
-  // A half too short for both the intonation and the whole cadence ("Magníficat *"): the
-  // intonation is kept, and only the end of the cadence is sung on what remains, its last
-  // accent when an accented syllable is left, else the tenor and the final note.
-  const head = syls.slice(0, k).map((s, i) => ({ ...s, notes: cadence.intonation[i], role: 'intonation' }));
-  const rest = syls.slice(k);
-  if (!rest.length) return head;
-  const G = cadence.groups;
-  const lastAcc = G.map((g) => g.accent).lastIndexOf(true);
-  const hasAccent = rest.slice(0, -1).some((s) => s.accent);
-  const groups = lastAcc >= 0 && hasAccent ? G.slice(lastAcc) : G.slice(lastAcc + 1).filter((g) => !g.open).slice(-1);
-  return [...head, ...pointCadence(rest, { intonation: [], tenor: cadence.tenor, groups }, {})];
+/** A verse as text, the cadences' accented syllables bold and the preparatory ones italic. */
+export function verseHtml(verse, ctx, i = 0) {
+  const E = jg();
+  const c = cadences(ctx);
+  const line = E.splitLine(verse);
+  const half = (t, tones, mediant) => E.addBoldItalic(t, tones.accents, tones.preparatory, tones.afterLastAccent, 'html', false, '', mediant, !mediant, i)
+    .replace(/<span style='float:left[^>]*>.*?<\/span>/, '').replace(/<br\/?>\s*$/, '');
+  const h = half(line[0], c.med, true) + (line.length > 1 ? ' <span class="star">*</span> ' + half(line[1], c.ter, false) : '');
+  return h.replace(/†/g, '<span class="flex">†</span>');
 }
 
-/**
- * Accents for the cadences across words, as jgabc and the Solesmes books count them: in
- * a run of three or more unaccented syllables an accent falls every second syllable back
- * from the next accent or from the end, so a final monosyllable makes the syllable before
- * it a cadence accent ("lí-be-ra me": ra me sung as a spondee).
- */
-function withSecondaryAccents(syls) {
-  const out = syls.map((s) => ({ ...s }));
-  let next = out.length;
-  for (let i = out.length - 1; i >= 0; i--) {
-    if (!out[i].accent) continue;
-    while ((next -= 2) > i + 1) out[next].accent = true;
-    next = i;
-  }
-  return out;
-}
-
-function pointCadence(syls, cadence, { intone = false } = {}) {
-  const N = syls.length;
-  const out = syls.map((s) => ({ ...s, notes: cadence.tenor, role: 'tenor' }));
-  if (!N) return out;
-  const G = cadence.groups;
-  const accentIdx = G.map((g, i) => (g.accent ? i : -1)).filter((i) => i >= 0);
-  const set = (i, notes, role) => { if (i >= 0 && i < N) { out[i].notes = notes; out[i].role = role; } };
-
-  // groups after the last accent (or the whole cadence when it has none)
-  const lastG = accentIdx.length ? accentIdx[accentIdx.length - 1] : -1;
-  const after = G.slice(lastG + 1);
-  let accSyl;
-  if (lastG >= 0) {
-    accSyl = -1;
-    for (let i = N - 1; i >= 0; i--) if (syls[i].accent && i < N - 1) { accSyl = i; break; }
-    if (accSyl < 0) accSyl = Math.max(0, N - 2);
-  } else accSyl = N - 1 - after.filter((g) => !g.open).length;
-  const fixed = after.filter((g) => !g.open);
-  const open = after.find((g) => g.open);
-  const hollow = lastG > 0 && G[lastG - 1].open && !open ? G[lastG - 1] : null;
-  if (hollow && N - 1 - accSyl > fixed.length && accSyl + 1 < N) {
-    // dactyl: the accent on the hollow note, the cadence one syllable later
-    set(accSyl, hollow.notes, 'accent');
-    let j = N - 1;
-    for (let f = fixed.length - 1; f >= 0 && j > accSyl + 1; f--, j--) set(j, fixed[f].notes, 'final');
-    for (; j > accSyl + 1; j--) set(j, fixed[0].notes, 'fill');
-    set(accSyl + 1, G[lastG].notes, 'fill');
-    out.hollow = true;
-  }
-  let i = N - 1, f = fixed.length - 1;
-  if (!out.hollow) while (f >= 0 && i > accSyl) { set(i, fixed[f].notes, 'final'); i--; f--; }
-  if (!out.hollow && f >= 0) { // fewer syllables than notes: gather the rest onto the first one
-    const j = Math.min(N - 1, accSyl + 1);
-    const extra = fixed.slice(0, f + 1).map((g) => g.notes).join('');
-    if (j > accSyl) out[j].notes = extra + out[j].notes;
-  }
-  if (!out.hollow) {
-    for (; i > accSyl; i--) set(i, (open || fixed[0]).notes, 'fill');
-    if (lastG >= 0) set(accSyl, G[lastG].notes, 'accent');
-  }
-
-  // earlier accents, right to left
-  let nextSyl = accSyl;
-  for (let a = accentIdx.length - 2; a >= 0; a--) {
-    const gap = G.slice(accentIdx[a] + 1, accentIdx[a + 1]);
-    const o = gap.findIndex((g) => g.open);
-    const head = o < 0 ? [] : gap.slice(0, o), tail = o < 0 ? gap : gap.slice(o + 1);
-    const gapOpen = o < 0 ? null : gap[o];
-    const limit = nextSyl - 1 - tail.length - head.length;
-    let s = -1;
-    for (let k = limit; k >= Math.max(0, limit - (gapOpen ? 2 : 0)); k--) if (syls[k]?.accent) { s = k; break; }
-    if (s < 0) s = Math.max(0, limit - (gapOpen ? 1 : 0));
-    tail.forEach((g, k) => set(nextSyl - tail.length + k, g.notes, 'prep'));
-    head.forEach((g, k) => set(s + 1 + k, g.notes, 'fill'));
-    for (let k = s + 1 + head.length; k < nextSyl - tail.length; k++) set(k, gapOpen.notes, 'fill');
-    set(s, G[accentIdx[a]].notes, 'accent');
-    nextSyl = s;
-  }
-
-  // preparatory syllables before the first accent
-  const firstG = accentIdx.length ? accentIdx[0] : G.length;
-  const preps = G.slice(0, firstG).filter((g) => !g.open);
-  const room = Math.min(preps.length, nextSyl);
-  preps.slice(preps.length - room).forEach((g, k) => set(nextSyl - room + k, g.notes, 'prep'));
-  const tenorEnd = nextSyl - room; // syllables [0, tenorEnd) stay on the tenor
-  if (intone && cadence.intonation.length && cadence.intonation.length <= tenorEnd) {
-    cadence.intonation.forEach((n, k) => set(k, n, 'intonation'));
-  }
-  return out;
-}
-
-function flexCadence(tenor, flex) {
-  return { intonation: [], tenor, groups: [{ notes: tenor, accent: true }, { notes: flex, open: true }, { notes: flex }] };
-}
-
-/**
- * Group the printed lines of a strophe into verses. A verse is
- * [{text, part}] with part 'flex' (up to †), 'mediant' (up to *) or 'termination'.
- * Long halves run over several lines; a new verse starts at the first capitalised
- * line after the second half has begun (or at the line that carries the next sign).
- */
 export function versesOf(lines) {
   const verses = [];
   let i = 0;
@@ -402,60 +248,4 @@ export function versesOf(lines) {
     i = Math.max(end, j + 1);
   }
   return verses;
-}
-
-const stripSigns = (t) => t.replace(/\s*[*†]\s*$/, '');
-
-/**
- * Point a verse to a tone. Returns lines: [{part, syllables:[{text, notes, role}], sign}]
- * `intone`: sing the intonation on this verse (first verse of a psalm; every verse of a
- * Gospel canticle).
- */
-export function pointVerse(verse, ctx, { intone = false } = {}) {
-  const tone = TONES[ctx.tone];
-  const med = parseCadence(tone.mediant, ctx.shift);
-  const term = parseCadence(tone.endings[ctx.ending], ctx.shift);
-  const flex = flexCadence(med.tenor, shiftGabc(tone.flex, ctx.shift));
-  const lines = verse.map((l) => ({ part: l.part, sign: /†\s*$/.test(l.text) ? '†' : /\*\s*$/.test(l.text) ? '*' : '', syllables: syllabify(stripSigns(l.text)) }));
-  let first = true;
-  for (const part of ['flex', 'mediant', 'termination']) {
-    const ls = lines.filter((l) => l.part === part);
-    if (!ls.length) continue;
-    const all = ls.flatMap((l) => l.syllables);
-    const pointed = pointHalf(all, part === 'flex' ? flex : part === 'mediant' ? med : term, { intone: intone && first && part !== 'termination' });
-    let n = 0;
-    for (const l of ls) { l.syllables = pointed.slice(n, n + l.syllables.length); n += l.syllables.length; }
-    if (part !== 'termination') first = false;
-  }
-  return lines;
-}
-
-const gabcText = (t) => t.replace(/[{}<>|()[\]]/g, '');
-/** One pointed verse as a GABC body (with clef). */
-export function verseGabc(pointed, ctx) {
-  let g = `(${ctx.clef}) `;
-  for (const l of pointed) {
-    for (const s of l.syllables) g += `${s.wordStart && !/^\s/.test(s.text) && g.length > 5 ? ' ' : ''}${gabcText(s.text)}(${s.notes})`;
-    if (l.sign === '†') g += ' †(,)';
-    if (l.sign === '*') g += ' *(:)';
-    g += ' ';
-  }
-  return g.trim() + ' (::)';
-}
-
-const escHtml = (s) => String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
-/** One pointed line as HTML: accents of the cadences bold, preparatory syllables italic. */
-export function lineHtml(line) {
-  let h = '';
-  for (const s of line.syllables) {
-    const t = escHtml(s.text);
-    const lead = /^\s+/.exec(t)?.[0] || '';
-    const body = t.slice(lead.length);
-    if (s.role === 'accent') h += `${lead}<span class="acc">${body}</span>`;
-    else if (s.role === 'prep' && line.part !== 'flex') h += `${lead}<span class="prep">${body}</span>`;
-    else h += t;
-  }
-  if (line.sign === '†') h += ' <span class="flex">†</span>';
-  if (line.sign === '*') h += ' <span class="star">*</span>';
-  return h.trim();
 }

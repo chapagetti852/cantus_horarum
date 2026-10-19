@@ -56,27 +56,35 @@ Notation is drawn in the browser by [Exsurge](https://github.com/frmatthew/exsur
 
 ### Psalm tones
 
-`site/psalmtone.js` points each verse to its tone. The tone formulas are written in
-jgabc's psalm-tone notation and follow the Antiphonale Romanum II (2009) pp. 738–740
-(GregoBase 18352–18366), with the Antiphonale Monasticum 2005 ending names the OCO uses
-(`8g`, `2*a`, `4*e`, `Dg`, `per.` …). The engine (a smaller rewrite of jgabc's rules,
-which depend on jQuery) splits Latin into syllables, finds the main and secondary
-accents from the printed accent marks, groups iBreviary's printed lines into verses
-(flex †, mediant *, termination), and fits the intonation, accents, preparatory
-syllables and tenor. Each antiphon's own "E u o u a e" picks the ending when the OCO
-label disagrees and sets the pitch, so the tone sits where the antiphon is written.
-Each psalm is drawn as one score, verse after verse; an option draws only the first
-verse in notes and the others as text with cadence accents in bold and preparatory
-syllables in italic. Gospel canticles take the intonation on every verse.
-`test/psalmtone.test.mjs` checks the table against the E u o u a e of every OCO antiphon.
-The pointing follows jgabc's rules: secondary accents every second syllable back from
-the main accent and, across words, from the next accent or the end of the half-verse (so
-a final monosyllable makes "lí-be-ra me" end as a spondee); a hollow note before an
-accent (1 d, 2 d, 4 e) takes a dactyl's accented syllable and moves the cadence one
-syllable on; a half-verse too short for intonation and cadence keeps the intonation
-("Ma-gní-fi-cat *"). `scripts/tones/compare_jgabc.mjs` points every half-verse of the
-psalter with every cadence through both engines: 99.97% of the comparable cases agree;
-the rest are syllable divisions chosen on purpose (ad-iú-tor, Is-ra-el, cu-i).
+The pointing is jgabc's own engine, the one behind its psalm-tone tool
+(https://bbloomf.github.io/jgabc/psalmtone.html, Benjamin Bloomfield, public domain):
+`util.js`, `psalmtone.js` and the Hypher Latin hyphenation patterns, vendored in
+`site/vendor/jgabc/` (a small shim stands in for jQuery) and called as that page calls
+them: intonation on the first verse (every verse of a Gospel canticle), flex, mediant,
+termination, accented syllables bold and preparatory ones italic.
+
+The verses are given to it as the tool gives them with "Nova Vulgata" ticked: one verse
+per line, "first half † flex * second half". `scripts/texts/verses.mjs` (run by the
+build) groups iBreviary's printed lines into such verses by jgabc's own Nova Vulgata
+psalter and canticles (`data/novavulgata/`): where a Nova Vulgata verse is word for word
+what iBreviary prints and ends at a printed line's end it gives the boundaries (96% of
+verses), elsewhere the * and † of the printed lines do. The words stay the Liturgia
+Horarum's; the Nova Vulgata's diaereses (Israël) are taken over.
+
+`site/psalmtone.js` holds the tone table in jgabc's notation, after the Antiphonale
+Romanum II (2009) pp. 738–740 (GregoBase 18352–18366), with the Antiphonale Monasticum
+2005 ending names the OCO uses (`8g`, `2*a`, `4*e`, `Dg`, `per.` …). Each antiphon's own
+"E u o u a e" picks the ending when the OCO label disagrees and sets the pitch, so the tone
+sits where the antiphon is written. `test/psalmtone.test.mjs` (with jgabc loaded by
+`test/jgabc.mjs`) checks the table against the E u o u a e of every OCO antiphon.
+
+### The page
+
+Modelled on Breviarium Gregorianum (breviariumgregorianum.com): EB Garamond (OFL,
+`site/fonts/`), a slim bar with the hour, the date and the settings, the rank in red over
+the celebration and the hour, red psalm titles, and the two psalm modes of its settings:
+*Plenus* (every verse in notes, numbered) and *Compactus* (the first verse in notes, the
+others a numbered list pointed in bold and italic).
 
 ### Calendar
 

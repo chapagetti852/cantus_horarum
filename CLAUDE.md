@@ -47,13 +47,18 @@ Read `README.md` first: it explains every pipeline.
   maps psalter week-day → a quiet 2026 Ordinary Time date. The build turns those into
   `dist/data/psalterium.json` keyed `"<psalterWeek>-<dow>"` (0 = Sunday).
 - `site/` — plain HTML/CSS/JS, no framework. `app.js` composes an hour, `psalmtone.js`
-  points psalm verses to a tone, `chant.js` renders GABC with Exsurge (`site/vendor/exsurge.min.js`, from bbloomf/jgabc, public domain).
-  Fonts: Crimson (OFL) in `site/fonts/`.
+  holds the tones and calls jgabc's own pointing engine (`site/vendor/jgabc/`, as on
+  bbloomf.github.io/jgabc/psalmtone.html with Nova Vulgata verses: `scripts/texts/verses.mjs`
+  + `data/novavulgata/`), `chant.js` renders GABC with Exsurge (`site/vendor/exsurge.min.js`, from bbloomf/jgabc, public domain).
+  Fonts: EB Garamond (OFL) in `site/fonts/`.
 
 ## Conventions
 
 - Keep the app dependency-free and static; data is precomputed by scripts, committed, and
   copied by `scripts/build.mjs`. Scores are fetched per file from `gabc/<id>.gabc`.
+- The UI follows Breviarium Gregorianum (breviariumgregorianum.com) as closely as
+  possible: EB Garamond, bar with hour select, date and gear; rank / title / hour heading;
+  psalm modes Plenus (all notated) and Compactus (first verse notated, numbered list).
 - Mobile first (390 px), legible, serif, rubrics in red, notes follow the text colour
   (night mode). Settings live in the header (gear). No grey labels over scores; where a
   score is shown its text is not repeated. Hymns and psalms are each one full score

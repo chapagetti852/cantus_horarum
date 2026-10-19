@@ -3,14 +3,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
-import { syllabify, versesOf, pointVerse, toneContext, parseMode } from '../site/psalmtone.js';
+import './jgabc.mjs';
+import { versesOf, verseGabc, psalmGabc, gloriaEnd, toneContext, parseMode } from '../site/psalmtone.js';
 
-const syl = (t) => syllabify(t).map((s) => s.text.trim()).join('|');
-
-test('Latin syllables', () => {
-  assert.equal(syl('Verba mea áuribus pércipe, Dómine;'), 'Ver|ba|me|a|áu|ri|bus|pér|ci|pe,|Dó|mi|ne;');
-  assert.equal(syl('eius quia Dei Iesus adiutórium ádiuvet'), 'e|ius|qui|a|De|i|Ie|sus|ad|iu|tó|ri|um|ád|iu|vet');
-  assert.equal(syl('sanctus lingua exáudi Israel'), 'san|ctus|lin|gua|ex|áu|di|Is|ra|el');
+test('pointing as jgabc\'s psalm-tone tool does it', () => {
+  const ctx = { tone: '1', ending: 'd', clef: 'c4', shift: 0 };
+  // a half-verse too short for intonation and mediant keeps the intonation; a dactyl before the hollow note
+  const g = psalmGabc(['Magníficat * ánima mea Dóminum.', 'et exsultávit spíritus meus * in Deo salvatóre meo,'], ctx, { canticle: true });
+  assert.match(g, /^\(c4\) Ma\(f\)gní\(gh\)fi\(h\)cat\(h\.\) \*\(:\)/);
+  assert.match(g, /<b>Dó<\/b>\(g\)<b>mi<\/b>\(gf\)num\.\(d\.\)/);
+  assert.match(g, /et\(f\) ex\(gh\)sul/, 'canticles take the intonation on every verse');
+  // psalms only on the first; flex
+  const p = psalmGabc(['Verba mea áuribus pércipe, Dómine; * intéllege gémitum meum.', 'Quóniam ad te orábo, Dómine, † mane exáudies vocem meam; * mane astábo tibi et exspectábo.'], { tone: '8', ending: 'g', clef: 'c4', shift: 0 });
+  assert.match(p, /Ver\(g\)ba\(h\)/);
+  assert.match(p, /Quón?\(j\)/, 'no intonation on the second verse');
+  assert.match(p, /†/, 'flex');
 });
 
 test('mode labels', () => {
@@ -39,7 +46,6 @@ const pitches = (n) => (n.replace(/([a-m])x\1/gi, '$1').match(/[a-m]/gi) || []).
 // mode numbers carry no ending, and the OCO's 2*d / 2*f are sung to tone D's endings.
 test('terminations reproduce the antiphons\' E u o u a e', { skip: !existsSync('dist/data/oco.json') && 'run the build first' }, () => {
   const oco = JSON.parse(readFileSync('dist/data/oco.json', 'utf8'));
-  const gloria = [{ text: 'et in sǽcula sæculórum. Amen.', part: 'termination' }];
   const byLabel = {};
   for (const e of oco) {
     if (!e.gabc || !parseMode(e.mode) || e.kind === 'hymn' || /^(\d\**|2\*[df])$/.test(e.mode)) continue;
@@ -48,7 +54,7 @@ test('terminations reproduce the antiphons\' E u o u a e', { skip: !existsSync('
     const src = readFileSync(path, 'utf8');
     const eu = /E\(([^)]*)\)\s*u\(([^)]*)\)\s*o\(([^)]*)\)\s*u\(([^)]*)\)\s*a\(([^)]*)\)\s*e\.?\(([^)]*)\)/.exec(src);
     if (!eu) continue;
-    const got = pointVerse(gloria, toneContext(e.mode, src, { identify: false }))[0].syllables.slice(-6).map((s) => pitches(s.notes)).join(' ');
+    const got = gloriaEnd(toneContext(e.mode, src, { identify: false })).map(pitches).join(' ');
     const want = eu.slice(1).map(pitches).join(' ');
     const l = (byLabel[e.mode] ||= { n: 0, ok: 0, bad: [] });
     l.n++;
@@ -69,9 +75,8 @@ test('the E u o u a e chooses the ending when there is one', { skip: !existsSync
     const eu = /E\(([^)]*)\)\s*u\(([^)]*)\)\s*o\(([^)]*)\)\s*u\(([^)]*)\)\s*a\(([^)]*)\)\s*e\.?\(([^)]*)\)/.exec(src);
     if (!eu || !parseMode(e.mode)) continue;
     n++;
-    const got = pointVerse(gloria(), toneContext(e.mode, src))[0].syllables.slice(-6).map((s) => pitches(s.notes)).join(' ');
+    const got = gloriaEnd(toneContext(e.mode, src)).map(pitches).join(' ');
     if (got === eu.slice(1).map(pitches).join(' ')) found++;
   }
   assert.ok(found / n > 0.97, `${found}/${n}`);
 });
-function gloria() { return [{ text: 'et in sǽcula sæculórum. Amen.', part: 'termination' }]; }

@@ -30,7 +30,7 @@ function makeContext(fontSizePx) {
   ctxt.textColor = 'currentColor';
   ctxt.staffLineColor = ctxt.neumeLineColor = ctxt.dividerLineColor = 'currentColor';
   ctxt.negativeFillColor = 'var(--exsurge-negative-fill, #fff)';
-  ctxt.setFont("'Crimson', 'Crimson Text', serif", fontSizePx);
+  ctxt.setFont("'EB Garamond', 'Crimson Text', serif", fontSizePx);
   ctxt.textStyles.dropCap.size = fontSizePx * 3.1;
   ctxt.textStyles.annotation.size = fontSizePx * 0.72;
   ctxt.textStyles.annotation.color = 'var(--rubric, #a4221c)';
@@ -46,7 +46,8 @@ function makeContext(fontSizePx) {
  * Returns a function that re-lays the chant out for the current width.
  */
 export function renderChant(el, body, { annotation = null, dropCap = true } = {}) {
-  const fontSize = parseFloat(getComputedStyle(document.body).fontSize) || 18;
+  // lyrics a little larger than the text, as in Breviarium Gregorianum (21 px against 18.7)
+  const fontSize = (parseFloat(getComputedStyle(document.body).fontSize) || 18.67) * 1.12;
   const ctxt = makeContext(fontSize);
   // Exsurge wants a bare body; strip stray header lines and Gregorio-only macros.
   const cleaned = body

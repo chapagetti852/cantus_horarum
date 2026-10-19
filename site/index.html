@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#f7f3ea" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#faf7f5" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1b1a17" media="(prefers-color-scheme: dark)">
 <meta name="robots" content="noindex">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -16,42 +16,51 @@
 </head>
 <body>
 <header class="top">
-  <div class="date-row">
-    <button class="nav" id="prev" aria-label="Dies praecedens">‹</button>
-    <label class="date-label">
-      <span id="date-name" class="date-name">…</span>
-      <span id="date-sub" class="date-sub"></span>
-      <input type="date" id="date" aria-label="Dies">
-    </label>
-    <button class="nav" id="next" aria-label="Dies sequens">›</button>
-    <button class="nav gear" id="settings-toggle" aria-label="Optiones" aria-expanded="false" aria-controls="settings">⚙︎</button>
+  <div class="bar">
+    <a class="logo" href="./" aria-label="Cantus Horarum"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="5"/><path d="M16 5c1.6 3 2 5.5 1.5 8.5 3-.5 5.5-.1 8.5 1.5-3 1.6-5.5 2-8.5 1.5.5 3 .1 5.5-1.5 8.5-1.6-3-2-5.5-1.5-8.5-3 .5-5.5.1-8.5-1.5 3-1.6 5.5-2 8.5-1.5C14 10.5 14.4 8 16 5z"/></svg></a>
+    <select id="hour" aria-label="Hora">
+      <option value="lectio">Officium lectionis</option>
+      <option value="laudes">Laudes</option>
+      <option value="tertia">Tertia</option>
+      <option value="sexta">Sexta</option>
+      <option value="nona">Nona</option>
+      <option value="vesperae">Vesperæ</option>
+      <option value="completorium">Completorium</option>
+    </select>
+    <input type="date" id="date" aria-label="Dies">
+    <button class="gear" id="settings-toggle" aria-label="Optiones" aria-expanded="false" aria-controls="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.4 13a7.6 7.6 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.4 7.4 0 0 0-1.7-1L15 3.3h-4l-.4 2.6a7.4 7.4 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.6 7.6 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a7.4 7.4 0 0 0 1.7 1l.4 2.6h4l.4-2.6a7.4 7.4 0 0 0 1.7-1l2.5 1 2-3.5zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" transform="translate(-1 0)"/></svg></button>
   </div>
   <div id="settings" class="settings" hidden>
-    <label>Litterae <input type="range" id="text-size" min="85" max="140" step="5" value="100"></label>
-    <label><input type="checkbox" id="opt-dark"> Nox</label>
-    <label>Psalmi <select id="opt-psalms"><option value="">toti in notis</option><option value="text">primus versus in notis, ceteri in textu</option></select></label>
-    <label>Invitatorium ante <select id="opt-invitatory"><option value="">—</option><option value="lectio">Officium lectionis</option><option value="laudes">Laudes</option></select></label>
-    <label><input type="checkbox" id="opt-presider"> Præest sacerdos vel diaconus</label>
-    <label>In memoriis, a lectione brevi <select id="opt-memoria"><option value="">de feria</option><option value="commune">de communi</option></select></label>
+    <p class="settings-title">Psalmorum modus</p>
+    <div class="modes" role="radiogroup" aria-label="Psalmorum modus">
+      <button class="mode" data-psalms="text" role="radio">
+        <span class="preview"><span class="staff"></span><span class="ptext">1. Verba me-a áuribus</span><span class="ptext">2. Inténde voci <b>clamó</b>ris</span></span>
+        <span class="mode-name">Compactus</span>
+      </button>
+      <button class="mode" data-psalms="" role="radio">
+        <span class="preview"><span class="staff"></span><span class="ptext">Verba me-a áuribus</span><span class="staff"></span><span class="ptext"><b>pér</b>ci-pe, <span class="r">*</span></span></span>
+        <span class="mode-name">Plenus</span>
+      </button>
+    </div>
+    <label class="row">Invitatorium ante <select id="opt-invitatory"><option value="">—</option><option value="lectio">Officium lectionis</option><option value="laudes">Laudes</option></select></label>
+    <label class="row">In memoriis, a lectione brevi <select id="opt-memoria"><option value="">de feria</option><option value="commune">de communi</option></select></label>
+    <label class="row">Præest sacerdos vel diaconus <select id="opt-presider"><option value="">Non</option><option value="1">Ita</option></select></label>
+    <label class="row">Nox <select id="opt-theme"><option value="">ut systema</option><option value="light">Non</option><option value="dark">Ita</option></select></label>
+    <label class="row">Litterae <input type="range" id="text-size" min="85" max="140" step="5" value="100"></label>
   </div>
-  <nav class="hours" id="hours" aria-label="Horae">
-    <button data-hour="lectio">Lect.</button>
-    <button data-hour="laudes">Laudes</button>
-    <button data-hour="tertia">Tertia</button>
-    <button data-hour="sexta">Sexta</button>
-    <button data-hour="nona">Nona</button>
-    <button data-hour="vesperae">Vesp.</button>
-    <button data-hour="completorium">Compl.</button>
-  </nav>
 </header>
 
 <main id="office" class="office">
   <p class="loading">Paratur…</p>
 </main>
 
-
-
 <script src="vendor/exsurge.min.js"></script>
+<script src="vendor/jgabc/shim.js"></script>
+<script src="vendor/jgabc/jquery.hypher.js"></script>
+<script src="vendor/jgabc/la-hypher.js"></script>
+<script src="vendor/jgabc/util.js"></script>
+<script src="vendor/jgabc/psalmtone.js"></script>
+<script src="vendor/jgabc/after.js"></script>
 <script type="module" src="app.js"></script>
 </body>
 </html>
