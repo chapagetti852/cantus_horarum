@@ -5,9 +5,9 @@
 //
 // Usage:  node scripts/texts/window.mjs [daysBack=3] [daysAhead=35] [outDir=cache/texts/days]
 // The build reads cache/texts/days as well as data/texts/days (the committed psalter days).
-import { existsSync, mkdirSync, readdirSync, rmSync, unlinkSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, unlinkSync } from 'node:fs';
 import { join } from 'node:path';
-import { IBreviary, buildDay } from './ibreviary.mjs';
+import { IBreviary, buildDay, properKey } from './ibreviary.mjs';
 
 const back = Number(process.argv[2] ?? 3);
 const ahead = Number(process.argv[3] ?? 35);
@@ -30,7 +30,14 @@ if (existsSync(htmlCache)) {
 const ib = new IBreviary();
 let fetched = 0, failed = 0;
 for (const d of want) {
-  if (existsSync(join(outDir, `${d}.json`))) continue;
+  // a day is kept unless what its texts should be made of has changed (a Sunday solemnity
+  // taking another year's texts, its I Vespers on the Saturday)
+  const file = join(outDir, `${d}.json`);
+  if (existsSync(file)) {
+    let key = null;
+    try { key = JSON.parse(readFileSync(file, 'utf8')).proper?.key ?? null; } catch { key = undefined; }
+    if (key === properKey(d)) continue;
+  }
   try {
     await buildDay(d, { ib, outDir });
     fetched++;

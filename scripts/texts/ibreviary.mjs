@@ -245,12 +245,109 @@ export function parseHour(html) {
   return sections;
 }
 
+// ------------------------------------------------- Sunday solemnities and feasts
+//
+// iBreviary's Latin edition lets the Sunday per annum win over the fixed-date solemnities
+// and feasts of the Lord that fall on it: 2025-06-29 (Peter and Paul), 2025-09-14 (Holy
+// Cross), 2025-11-09 (Lateran) and 2026-11-01 (All Saints) all come back as the Sunday,
+// with the Sunday's I Vespers on the Saturday. Such a Sunday takes its texts from a year in
+// which the same date is a weekday (Compline stays the Sunday's, after II Vespers); the
+// Saturday's Vespers become the celebration's I Vespers, from that year's eve when iBreviary
+// gives them there, else built from its II Vespers (the same hymn, Magnificat and collect)
+// with the I Vespers psalmody borrowed as I_VESPERS_PSALMODY says. The movable celebrations
+// (Trinity, Christ the King, Holy Family …) iBreviary gets right and are left alone.
+
+const calendars = {};
+function celebration(iso) {
+  const y = iso.slice(0, 4);
+  if (!(y in calendars)) {
+    try { calendars[y] = JSON.parse(readFileSync(new URL(`../../site/data/calendar/${y}.json`, import.meta.url), 'utf8')); } catch { calendars[y] = {}; }
+  }
+  return calendars[y][iso]?.[0] ?? null;
+}
+const weekday = (iso) => new Date(`${iso}T12:00:00Z`).getUTCDay();
+const addDays = (iso, n) => new Date(Date.parse(`${iso}T12:00:00Z`) + n * 86400000).toISOString().slice(0, 10);
+
+// iBreviary has no I Vespers of All Saints in any year: their psalms (Ps 112, Ps 147,
+// Eph 1) are those of the I Vespers of the Assumption, which it does give.
+const I_VESPERS_PSALMODY = { all_saints: { id: 'assumption_of_the_blessed_virgin_mary', md: '-08-15' } };
+
+/** Dates (other years) where celebration `id` falls on `md` on a weekday; Tuesday–Friday first, so the eve is a weekday too. */
+function weekdayDates(md, id, year) {
+  const out = [];
+  for (let k = 1; k <= 7; k++) {
+    for (const y of [year + k, year - k]) {
+      const d = `${y}${md}`;
+      if (celebration(d)?.id === id && weekday(d) >= 1 && weekday(d) <= 5) out.push(d);
+    }
+  }
+  return out.sort((a, b) => (weekday(a) === 1) - (weekday(b) === 1));
+}
+
+/** For a Sunday kept as a fixed-date solemnity or feast: { id, date } of the same celebration on a weekday. */
+export function donorFor(iso) {
+  const cel = celebration(iso);
+  if (!cel || weekday(iso) !== 0 || /sunday/.test(cel.id) || !['SOLEMNITY', 'FEAST'].includes(cel.rank)) return null;
+  if (cel.id === 'commemoration_of_all_the_faithful_departed') return null; // on a Sunday the office is the Sunday's
+  const date = weekdayDates(iso.slice(4), cel.id, Number(iso.slice(0, 4)))[0];
+  return date ? { id: cel.id, date } : null;
+}
+
+/** What a date's texts are made of, when not simply its own pages: compared by window.mjs to refetch stale days. */
+export function properKey(iso) {
+  const own = donorFor(iso);
+  if (own) return `${own.id}@${own.date}`;
+  const morrow = weekday(iso) === 6 && donorFor(addDays(iso, 1));
+  return morrow ? `I Vesp. ${morrow.id}@${morrow.date}` : null;
+}
+
+const firstText = (secs, title) => JSON.stringify(secs.find((s) => s.title === title)?.blocks.find((b) => b.kind === 'text')?.lines[0] ?? null);
+
+/** The I Vespers of the celebration kept on `date` (a weekday), from its eve when iBreviary gives them there:
+ *  the eve's Vespers then share their hymn with the day's II Vespers, or the collect with its Lauds. */
+async function firstVespersFromEve(ib, date) {
+  const eve = parseHour(await ib.page(addDays(date, -1), 'vesperae'));
+  const same = (a, b, title) => firstText(a, title) !== 'null' && firstText(a, title) === firstText(b, title);
+  const ok = same(eve, parseHour(await ib.page(date, 'vesperae')), 'HYMNUS') || same(eve, parseHour(await ib.page(date, 'laudes')), 'ORATIO');
+  return ok ? eve : null;
+}
+
+async function firstVespers(ib, donor, sources) {
+  const eve = await firstVespersFromEve(ib, donor.date);
+  if (eve) { sources.vesperae = `${addDays(donor.date, -1)} vesperae`; return eve; }
+  const secs = parseHour(await ib.page(donor.date, 'vesperae'));
+  sources.vesperae = `${donor.date} vesperae (II Vesp.)`;
+  const borrow = I_VESPERS_PSALMODY[donor.id];
+  if (borrow) {
+    for (const d of weekdayDates(borrow.md, borrow.id, Number(donor.date.slice(0, 4)))) {
+      const other = await firstVespersFromEve(ib, d);
+      const ps = other?.find((s) => s.title === 'PSALMODIA');
+      const at = secs.findIndex((s) => s.title === 'PSALMODIA');
+      if (!ps || at < 0) continue;
+      secs[at] = ps;
+      sources.vesperae += `, psalmody ${addDays(d, -1)} vesperae`;
+      break;
+    }
+  }
+  return secs;
+}
+
 export async function buildDay(iso, { ib = new IBreviary(), outDir = 'data/texts/days' } = {}) {
   const day = { date: iso, hours: {} };
+  const own = donorFor(iso);
+  const morrow = !own && weekday(iso) === 6 ? donorFor(addDays(iso, 1)) : null;
+  const sources = {};
   for (const hour of Object.keys(HOURS)) {
-    const html = await ib.page(iso, hour);
-    day.hours[hour] = parseHour(html);
+    if (own && hour !== 'completorium') {
+      day.hours[hour] = parseHour(await ib.page(own.date, hour));
+      sources[hour] = `${own.date} ${hour}`;
+    } else if (morrow && hour === 'vesperae') {
+      day.hours[hour] = await firstVespers(ib, morrow, sources);
+    } else {
+      day.hours[hour] = parseHour(await ib.page(iso, hour));
+    }
   }
+  if (own || morrow) day.proper = { key: properKey(iso), celebration: (own || morrow).id, sources };
   mkdirSync(outDir, { recursive: true });
   writeFileSync(join(outDir, `${iso}.json`), JSON.stringify(day, null, 1));
   return day;
