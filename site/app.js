@@ -825,7 +825,7 @@ const MINI_VERSES = [
 ];
 function drawModePreviews() {
   const ctx = toneContext('8g');
-  const scale = 2.4 * (state.settings.size || 100) / 100;
+  const scale = 1.45 * (state.settings.size || 100) / 100;
   for (const card of document.querySelectorAll('.mode .mini')) {
     const compact = card.closest('.mode').dataset.psalms === 'text';
     const sc = el('<div class="score"></div>');
