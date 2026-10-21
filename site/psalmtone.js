@@ -167,7 +167,12 @@ function cadences(ctx) {
     const med = E.getGabcTones(shiftGabc(t.mediant, ctx.shift), undefined, false, clef);
     const ter = E.getGabcTones(shiftGabc(t.endings[ctx.ending], ctx.shift), undefined, false, clef);
     const sol = t.solemn ? E.getGabcTones(shiftGabc(t.solemn, ctx.shift), undefined, false, clef) : med;
-    cadenceCache.set(key, { med, medPlain: E.removeIntonation(E.$.extend(true, {}, med)), sol, ter, clef });
+    // the mediant's intonation before the termination, where both halves share the tenor
+    // (not the peregrinus): a psalm begun at a second half (startAtCross)
+    const tenor = (f) => f.split(' ').find((x) => /r/.test(x));
+    const inton = t.mediant.split(' ').slice(0, t.mediant.split(' ').indexOf(tenor(t.mediant))).join(' ');
+    const terIn = inton && tenor(t.mediant) === tenor(t.endings[ctx.ending]) ? E.getGabcTones(shiftGabc(`${inton} ${t.endings[ctx.ending]}`, ctx.shift), undefined, false, clef) : ter;
+    cadenceCache.set(key, { med, medPlain: E.removeIntonation(E.$.extend(true, {}, med)), sol, ter, terIn, clef });
   }
   return cadenceCache.get(key);
 }
@@ -177,7 +182,7 @@ function halfGabc(text, ctx, part, { intone = false, first = false, solemn = fal
   const c = cadences(ctx);
   const mediant = part === 'mediant';
   return E.applyPsalmTone({
-    text: text.trim(), gabc: mediant ? (solemn ? c.sol : intone ? c.med : c.medPlain) : c.ter, clef: c.clef,
+    text: text.trim(), gabc: mediant ? (solemn ? c.sol : intone ? c.med : c.medPlain) : intone ? c.terIn : c.ter, clef: c.clef,
     useOpenNotes: false, useBoldItalic: true, firstPrefix: true, onlyVowel: false,
     format: E.bi_formats.gabc, verseNumber: '', prefix: mediant, suffix: !mediant,
     italicizeIntonation: false, result: result || { shortened: false },
@@ -185,8 +190,13 @@ function halfGabc(text, ctx, part, { intone = false, first = false, solemn = fal
   });
 }
 
-/** A verse ("… † … * …") as GABC, without clef; `solemn`: the solemn mediant. */
+/**
+ * A verse ("… † … * …") as GABC, without clef; `solemn`: the solemn mediant. A second half
+ * alone ("* …", see startAtCross) takes the termination, after the intonation when intoned.
+ */
 export function verseGabc(verse, ctx, { intone = false, first = false, solemn = false, result } = {}) {
+  const half = /^\s*\*\s*/.exec(verse);
+  if (half) return `${halfGabc(verse.slice(half[0].length), ctx, 'termination', { intone, result })} (::)`;
   const line = jg().splitLine(verse);
   const m = halfGabc(line[0], ctx, 'mediant', { intone, first, solemn, result });
   return line.length === 1 ? `${m} (::)` : `${m} *(:) ${halfGabc(line[1], ctx, 'termination')} (::)`;
@@ -212,11 +222,39 @@ export function psalmGabc(verses, ctx, { canticle = false, firstIntoned = false,
 export function verseHtml(verse, ctx, i = 0) {
   const E = jg();
   const c = cadences(ctx);
-  const line = E.splitLine(verse);
+  const alone = /^\s*\*\s*/.exec(verse); // a second half alone (startAtCross)
+  const line = E.splitLine(alone ? verse.slice(alone[0].length) : verse);
   const half = (t, tones, mediant) => E.addBoldItalic(t, tones.accents, tones.preparatory, tones.afterLastAccent, 'html', false, '', mediant, !mediant, i)
     .replace(/<span style='float:left[^>]*>.*?<\/span>/, '').replace(/<br\/?>\s*$/, '');
-  const h = half(line[0], c.med, true) + (line.length > 1 ? ' <span class="star">*</span> ' + half(line[1], c.ter, false) : '');
+  const h = alone ? half(line[0], c.ter, false)
+    : half(line[0], c.med, true) + (line.length > 1 ? ' <span class="star">*</span> ' + half(line[1], c.ter, false) : '');
   return h.replace(/†/g, '<span class="flex">†</span>');
+}
+
+/**
+ * An antiphon that quotes the opening of its psalm ends in † (Liturgia Horarum): the psalm
+ * then begins at the verse marked † ("† Dóminus protéctor…"), or at the second half marked
+ * † ("… Dómine; * † Dómine, exáudi…", kept as "* Dómine, exáudi…"), the verses before it
+ * left out. `segments`: [{strophes: [[verse]]} | {html}]; returns the segments from there
+ * and how many verses were left out (null when no verse is marked).
+ */
+export function startAtCross(segments) {
+  let skip = 0;
+  for (let s = 0; s < segments.length; s++) {
+    if (segments[s].html) continue;
+    const strophes = segments[s].strophes;
+    for (let t = 0; t < strophes.length; t++) {
+      for (let v = 0; v < strophes[t].length && skip < 4; v++, skip++) {
+        const verse = strophes[t][v];
+        const first = /^\s*†\s*/.test(verse) ? verse.replace(/^\s*†\s*/, '')
+          : /\*\s*†\s*/.test(verse) ? '* ' + verse.split(/\*\s*†\s*/)[1] : null;
+        if (first === null) continue;
+        const from = { strophes: [[first, ...strophes[t].slice(v + 1)], ...strophes.slice(t + 1)] };
+        return { segments: [...segments.slice(0, s).filter((x) => x.html), from, ...segments.slice(s + 1)], skip };
+      }
+    }
+  }
+  return null;
 }
 
 export function versesOf(lines) {

@@ -1,7 +1,7 @@
 // Cantus Horarum — compose and display one hour of the Liturgia Horarum in chant.
 import { loadGabc, renderChant, splitGabc, watchResize, setPerLine } from './chant.js';
 import { FORMATS, printColumn, printPages } from './print.js';
-import { toneContext, versesOf, psalmGabc, verseGabc, verseHtml } from './psalmtone.js';
+import { toneContext, versesOf, psalmGabc, verseGabc, verseHtml, startAtCross } from './psalmtone.js';
 import { resolveHour, indexOco, celebrationFor, isSanctoral } from './resolve.js';
 import { collectGabc, readingGabc, versicleGabc } from './recitation.js';
 import { loadTranslation, hourTranslation, trNode, psalmNumber, chapterVerse, alignPsalm, verseTrHtml, trP, precesParts, hymnKey, hymnCorresponds } from './translate.js';
@@ -227,7 +227,7 @@ async function toneFor(entry) {
  * text, cadence accents in bold and preparatory syllables in italic. Gospel canticles
  * take the intonation on every verse.
  */
-function pointedPsalmNode(b, ctx, { canticle = false, solemn = false, segments = null, tr = null } = {}) {
+function pointedPsalmNode(b, ctx, { canticle = false, solemn = false, segments = null, tr = null, fromCross = false } = {}) {
   const node = el('<div class="psalm"></div>');
   const head = renderPsalmBlock({ ...b, strophes: [] });
   node.insertAdjacentHTML('beforeend', head);
@@ -238,10 +238,17 @@ function pointedPsalmNode(b, ctx, { canticle = false, solemn = false, segments =
   // the verses as jgabc takes them (the build groups them, from the Nova Vulgata where it can),
   // in runs, with whatever stands between them (a refrain, a rubric) kept in its place
   segments ||= [{ strophes: versesOfBlock(b) }];
-  // its translation, verse by verse where the verses pair (site/translate.js), else after it
+  // its translation, verse by verse where the verses pair (site/translate.js), else after it;
+  // paired with the whole psalm, the translations keeping the verses the antiphon quotes
   const lang = state.tr?.lang;
   const al = tr?.lines?.length ? alignPsalm(segments.filter((x) => !x.html).flatMap((x) => x.strophes), tr.lines, lang) : null;
-  const under = (i) => (al?.mode === 'verse' ? (al.under[i - 1] || []).map(verseTrHtml).join(' ') : '');
+  // after an antiphon ending in † the psalm begins at the verse marked † (startAtCross);
+  // elsewhere that mark is dropped
+  const cut = fromCross ? startAtCross(segments) : null;
+  const skip = cut?.skip || 0;
+  segments = (cut?.segments || segments).map((x) => (x.html ? x
+    : { strophes: x.strophes.map((st) => st.map((v) => v.replace(/^\s*†\s*/, '').replace(/\*\s*†\s*/, '* '))) }));
+  const under = (i) => (al?.mode === 'verse' ? (al.under[i - 1 + skip] || []).map(verseTrHtml).join(' ') : '');
   let n = 0;
   let first = true;
   for (const seg of segments) {
@@ -308,8 +315,14 @@ function psalmodyNode(blocks, ctx, opts = {}) {
   // with refrains, rubrics and versicles between them kept in place
   let psalm = null;
   // `trFor(head)`: the translation of each psalm, asked in order (appendPsalmody)
-  const { trFor, ...rest } = opts;
-  const flush = () => { if (psalm) node.append(pointedPsalmNode(psalm.head, ctx, { ...rest, segments: psalm.segs, tr: trFor?.(psalm.head) })); psalm = null; };
+  // `fromCross`: the antiphon ends in †, its first psalm begins at the verse marked † (pointedPsalmNode)
+  const { trFor, fromCross, ...rest } = opts;
+  let cross = fromCross;
+  const flush = () => {
+    if (psalm) node.append(pointedPsalmNode(psalm.head, ctx, { ...rest, segments: psalm.segs, tr: trFor?.(psalm.head), fromCross: cross }));
+    if (psalm) cross = false;
+    psalm = null;
+  };
   for (let i = 0; i < blocks.length; i++) {
     const b = blocks[i];
     const headed = b.kind === 'psalm' && (b.ref || b.title || b.part);
@@ -385,7 +398,7 @@ function keyed(...nodes) {
 }
 
 /** An antiphon: its score, or its text when there is none. */
-const antiphonNode = (ant, fallbackText) => chantNode(ant?.gabc, { fallbackText: ant?.text || fallbackText });
+const antiphonNode = (ant, fallbackText) => chantNode(ant?.gabc, { fallbackText: (ant?.text || fallbackText)?.replace(/\s*†\s*$/, '') });
 
 function hymnTextNode(hourTexts) {
   const h = section(hourTexts, 'HYMNUS');
@@ -537,6 +550,10 @@ async function appendHymnOnly(main, hymn, textNode, alternatives = []) {
   }
 }
 
+const words = (t) => t.normalize('NFD').toLowerCase().replace(/[^a-z\s]/g, '').replace(/j/g, 'i').replace(/v/g, 'u').split(/\s+/).filter((w) => w.length > 2);
+/** The OCO's antiphon says what iBreviary's says (most of its words), perhaps in another order. */
+const sameWords = (sung, printed) => { const w = words(sung), p = new Set(words(printed)); return w.filter((x) => p.has(x)).length >= w.length * 0.6; };
+
 /** Antiphons 1-3 from the OCO, each with its psalms pointed to its tone; returns what followed the last psalm. */
 async function appendPsalmody(main, entries, psalmodySection, { single = null } = {}) {
   main.append(el('<h2 class="section">Psalmodia</h2>'));
@@ -558,7 +575,10 @@ async function appendPsalmody(main, entries, psalmodySection, { single = null } 
     main.append(before);
     const used = [];
     const trFor = (head) => { const t = nextTrPsalm(head); used.push(t); return t; };
-    if (g) main.append(...keyed(before, psalmodyNode(g.items, await toneFor(ant), { trFor }), await antiphonNode(ant, g.repeat || g.antiphon)));
+    // iBreviary's antiphon ends in † when it quotes the psalm's opening; the OCO's may put
+    // the same words otherwise ("Illuminátio mea et salus mea Dóminus"), or be another antiphon
+    const fromCross = /†\s*$/.test(g?.antiphon || '') && (!ant?.text || sameWords(ant.text, g.antiphon));
+    if (g) main.append(...keyed(before, psalmodyNode(g.items, await toneFor(ant), { trFor, fromCross }), await antiphonNode(ant, g.repeat || g.antiphon)));
     if (used[0]?.ant) before.after(trP(state.tr.lang, esc(used[0].ant)));
   }
   // the versicle before the readings (Office of Readings), sung

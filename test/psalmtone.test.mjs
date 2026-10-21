@@ -4,7 +4,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
 import './jgabc.mjs';
-import { TONES, versesOf, verseGabc, psalmGabc, gloriaEnd, toneContext, parseMode } from '../site/psalmtone.js';
+import { TONES, versesOf, verseGabc, verseHtml, psalmGabc, gloriaEnd, toneContext, parseMode, startAtCross } from '../site/psalmtone.js';
 
 test('pointing as jgabc\'s psalm-tone tool does it', () => {
   const ctx = { tone: '1', ending: 'd', clef: 'c4', shift: 0 };
@@ -18,6 +18,34 @@ test('pointing as jgabc\'s psalm-tone tool does it', () => {
   assert.match(p, /Ver\(g\)ba\(h\)/);
   assert.match(p, /Quón?\(j\)/, 'no intonation on the second verse');
   assert.match(p, /†/, 'flex');
+});
+
+test('an antiphon ending in †: the psalm begins at the verse marked †', () => {
+  // Ps 26 (Wednesday I, Vespers): the antiphon is its first verse
+  const ps26 = [{ strophes: [[
+    'Dóminus illuminátio mea et salus mea, * quem timébo?',
+    '† Dóminus protéctor vitæ meæ, * a quo trepidábo?',
+    'Dum apprópiant super me nocéntes, * ut edant carnes meas;',
+  ], ['Si consístant advérsum me castra, * non timébit cor meum;']] }];
+  const c = startAtCross(ps26);
+  assert.equal(c.skip, 1);
+  assert.deepEqual(c.segments[0].strophes[0], ['Dóminus protéctor vitæ meæ, * a quo trepidábo?', 'Dum apprópiant super me nocéntes, * ut edant carnes meas;']);
+  assert.equal(c.segments[0].strophes.length, 2);
+  const ctx = { tone: '8', ending: 'g', clef: 'c4', shift: 0 };
+  assert.match(psalmGabc(c.segments[0].strophes.flat(), ctx), /^\(c4\) Dó\(g\)mi\(h\)nus\(j/, 'the intonation on the new first verse');
+  // Ps 129 (Wednesday, Compline): the antiphon is the first half; the psalm begins at the second,
+  // sung with the intonation and the termination
+  const ps129 = [{ strophes: [['De profúndis clamávi ad te, Dómine; * † Dómine, exáudi vocem meam.', 'Fiant aures tuæ intendéntes * in vocem deprecatiónis meæ.']] }];
+  const h = startAtCross(ps129);
+  assert.equal(h.skip, 0);
+  assert.equal(h.segments[0].strophes[0][0], '* Dómine, exáudi vocem meam.');
+  const g = verseGabc(h.segments[0].strophes[0][0], ctx, { intone: true, first: true });
+  assert.match(g, /^Dó\(g\)mi\(h\)ne/, 'intonation');
+  assert.match(g, /\(g\.\) \(::\)$/, 'termination g');
+  assert.doesNotMatch(g, /\*/);
+  assert.doesNotMatch(verseHtml(h.segments[0].strophes[0][0], ctx), /\*/);
+  // a flex is not the mark; no mark, no change
+  assert.equal(startAtCross([{ strophes: [['Quóniam ad te orábo, Dómine, † mane exáudies vocem meam; * mane astábo tibi.']] }]), null);
 });
 
 test('Gospel canticles: the solemn mediant on the first verse only', () => {
