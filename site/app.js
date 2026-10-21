@@ -7,7 +7,7 @@ import { collectGabc, readingGabc, versicleGabc } from './recitation.js';
 import { loadTranslation, hourTranslation, trNode, psalmNumber, chapterVerse, alignPsalm, verseTrHtml, trP, precesParts, hymnKey, hymnCorresponds } from './translate.js';
 
 const HOURS = ['lectio', 'laudes', 'tertia', 'sexta', 'nona', 'vesperae', 'completorium'];
-const HOUR_NAMES = { lectio: 'Officium lectionis', laudes: 'Laudes matutinæ', tertia: 'Tertia', sexta: 'Sexta', nona: 'Nona', vesperae: 'Vesperæ', completorium: 'Completorium' };
+const HOUR_NAMES = { lectio: 'Office of Readings', laudes: 'Lauds', tertia: 'Terce', sexta: 'Sext', nona: 'None', vesperae: 'Vespers', completorium: 'Compline' };
 const DAY_NAMES = ['Dominica', 'Feria II', 'Feria III', 'Feria IV', 'Feria V', 'Feria VI', 'Sabbato'];
 const ROMAN = ['I', 'II', 'III', 'IV'];
 const TEXT_HOUR = { lectio: 'lectio', laudes: 'laudes', tertia: 'media', sexta: 'media', nona: 'media', vesperae: 'vesperae', completorium: 'completorium' };
@@ -144,9 +144,10 @@ async function propersFor(day, date, hour) {
     return { ...resolveHour(state.slots, state.ocoIndex, cel, first ? addDays(date, 1) : date, h, { memoriaCommune: state.settings.memoria === 'commune' }).out, ...meta };
   } catch (e) { console.error(e); return meta; }
 }
-const RANK_NAMES = { SOLEMNITY: 'Sollemnitas', FEAST: 'Festum', MEMORIAL: 'Memoria', OPTIONAL_MEMORIAL: 'Memoria ad libitum', SUNDAY: 'Dominica', WEEKDAY: 'Feria' };
+// The interface is in English; the celebration's name and the texts stay Latin
+const RANK_NAMES = { SOLEMNITY: 'Solemnity', FEAST: 'Feast', MEMORIAL: 'Memorial', OPTIONAL_MEMORIAL: 'Optional memorial', SUNDAY: 'Sunday', WEEKDAY: 'Weekday' };
 const SEASON_NAMES = { ADVENT: 'Adventus', CHRISTMAS_TIME: 'Nativitatis', LENT: 'Quadragesimæ', HOLY_WEEK: 'Hebdomadæ sanctæ', PASCHAL_TRIDUUM: 'Tridui paschalis', EASTER_TIME: 'Paschæ', ORDINARY_TIME: 'per annum' };
-const HOUR_HEADINGS = { lectio: 'Ad Officium lectionis', laudes: 'Ad Laudes matutinas', tertia: 'Ad Tertiam', sexta: 'Ad Sextam', nona: 'Ad Nonam', vesperae: 'Ad Vesperas', vesperae1: 'Ad I Vesperas', completorium: 'Ad Completorium' };
+const HOUR_HEADINGS = { lectio: 'Office of Readings', laudes: 'Lauds', tertia: 'Terce', sexta: 'Sext', nona: 'None', vesperae: 'Vespers', vesperae1: 'First Vespers', completorium: 'Compline' };
 const capitalize = (t) => t.charAt(0).toUpperCase() + t.slice(1);
 /**
  * The head of an hour, as Breviarium Gregorianum sets it: the rank in red, the
@@ -159,7 +160,7 @@ function hourTitle(hour, slot, propers) {
   const tempora = cel.week != null && season ? `${DAY_NAMES[cel.dow]} hebdomadæ ${ROMAN_NUM(cel.week)} ${season === 'per annum' ? 'per annum' : season}` : '';
   node.innerHTML = `<p class="rank">${esc(RANK_NAMES[cel.rank] || '')}</p>
     <h1>${esc(capitalize(cel.name || ''))}</h1>
-    <p class="tempora">${esc([isSanctoral(cel) && tempora && `Tempora: ${tempora}`, `hebd. ${ROMAN[slot.week - 1]} psalterii`].filter(Boolean).join(' · '))}</p>`;
+    <p class="tempora">${esc([isSanctoral(cel) && tempora, `Psalter week ${ROMAN[slot.week - 1]}`].filter(Boolean).join(' · '))}</p>`;
   const frag = document.createDocumentFragment();
   frag.append(node, el(`<h2 class="hour">${HOUR_HEADINGS[propers._first ? 'vesperae1' : hour]}</h2>`));
   return frag;
@@ -232,7 +233,7 @@ function pointedPsalmNode(b, ctx, { canticle = false, solemn = false, segments =
   const head = renderPsalmBlock({ ...b, strophes: [] });
   node.insertAdjacentHTML('beforeend', head);
   const h = node.querySelector('.psalm-head');
-  const toneLabel = `<span class="tone">Tonus ${esc(ctx.tone)}${ctx.ending ? ' ' + esc(ctx.ending) : ''}</span>`;
+  const toneLabel = `<span class="tone">Tone ${esc(ctx.tone)}${ctx.ending ? ' ' + esc(ctx.ending) : ''}</span>`;
   // Gospel canticles: the antiphon above already shows the mode
   if (!canticle) { if (h) h.insertAdjacentHTML('beforeend', toneLabel); else node.insertAdjacentHTML('afterbegin', `<div class="psalm-head">${toneLabel}</div>`); }
   // the verses as jgabc takes them (the build groups them, from the Nova Vulgata where it can),
@@ -376,7 +377,7 @@ async function chantNode(gabcId, { annotation = null, fallbackText = null, fallb
   const score = wrap.querySelector('.score');
   const src = gabcId ? await loadGabc(gabcId) : null;
   if (!src) {
-    score.innerHTML = fallbackText ? `<p class="ant-text">${fallbackLabel ? `<span class="r">${esc(fallbackLabel)}</span> ` : ''}${esc(fallbackText)}</p>` : '<p class="missing">Notatio deest.</p>';
+    score.innerHTML = fallbackText ? `<p class="ant-text">${fallbackLabel ? `<span class="r">${esc(fallbackLabel)}</span> ` : ''}${esc(fallbackText)}</p>` : '<p class="missing">No score.</p>';
     return wrap;
   }
   const { header, body: raw } = splitGabc(src);
@@ -471,7 +472,7 @@ function invitatoryAntiphon(day) {
 async function appendInvitatory(main, day, proper = null) {
   const ant = proper || invitatoryAntiphon(day);
   if (!ant) return false;
-  main.append(el('<h2 class="section">Invitatorium</h2>'));
+  main.append(el('<h2 class="section">Invitatory</h2>'));
   main.append(await chantNode(isFestive(day) ? DOMINE_LABIA.festive : DOMINE_LABIA.ferial, { annotation: '' }));
   const antText = (ant.text || ant.title).replace(/([.!?])\s.*$/, '$1'); // the OCO text runs on into "Veníte, …"
   const [first] = keyed(await chantNode(ant.gabc, { fallbackText: antText }));
@@ -479,11 +480,11 @@ async function appendInvitatory(main, day, proper = null) {
   main.append(first);
   const toneId = INVITATORY_TONES[ant.mode];
   const src = toneId ? await loadGabc(toneId) : null;
-  if (!src) { main.append(el('<p class="rubric">Psalmus 94 (95): notatio deest.</p>')); return true; }
+  if (!src) { main.append(el('<p class="rubric">Psalm 94 (95): no score.</p>')); return true; }
   const { body } = splitGabc(src);
   const clef = /^\s*(\([cf]b?[1-4]\))/.exec(body)?.[1] || '(c4)';
   const strophes = body.replace(/^\s*\([cf]b?[1-4]\)/, '').split(/\(::Z?\)/).map((x) => x.trim()).filter((x) => /[a-z]\(/i.test(x));
-  main.append(el(`<div class="psalm-head"><span class="ref">Psalmus 94 (95)</span><span class="tone">Tonus ${esc(ant.mode)}</span></div>`));
+  main.append(el(`<div class="psalm-head"><span class="ref">Psalmus 94 (95)</span><span class="tone">Tone ${esc(ant.mode)}</span></div>`));
   for (const st of strophes) {
     const sc = el('<div class="score verse-score"></div>');
     sc.dataset.key = first.dataset.key;
@@ -533,10 +534,10 @@ function hymnTrNode(key, latinStrophes) {
 }
 async function appendHymnOnly(main, hymn, textNode, alternatives = []) {
   if (!hymn && !textNode) return;
-  main.append(el('<h2 class="section">Hymnus</h2>'));
+  main.append(el('<h2 class="section">Hymn</h2>'));
   const src = hymn?.gabc ? await loadGabc(hymn.gabc) : null;
   if (hymn) main.append(await chantNode(hymn.gabc, { fallbackText: src ? null : hymn.title, fallbackLabel: '' }));
-  if (alternatives.length) main.append(el(`<p class="rubric">Vel: ${alternatives.map((x) => esc(x.title)).join('; ')}</p>`));
+  if (alternatives.length) main.append(el(`<p class="rubric">Or: ${alternatives.map((x) => esc(x.title)).join('; ')}</p>`));
   if (!textNode) return;
   const body = src ? splitGabc(src).body : '';
   const complete = /\s2\.?\s*[(A-ZÆŒ]/.test(body) || (body.match(/\(::\)/g) || []).length > 1;
@@ -556,7 +557,7 @@ const sameWords = (sung, printed) => { const w = words(sung), p = new Set(words(
 
 /** Antiphons 1-3 from the OCO, each with its psalms pointed to its tone; returns what followed the last psalm. */
 async function appendPsalmody(main, entries, psalmodySection, { single = null } = {}) {
-  main.append(el('<h2 class="section">Psalmodia</h2>'));
+  main.append(el('<h2 class="section">Psalmody</h2>'));
   state.trAt = 0; state.trPrev = null;
   let groups = psalmGroups(psalmodySection);
   if (single) { // one proper antiphon for all the psalms (little hours in the seasons and on feasts)
@@ -597,7 +598,7 @@ async function composeLectio(main, day, date) {
   const entries = withPropers(ocoPsalter(slot), propers);
   const texts = await textsFor(day, date, 'lectio');
   const ownDate = hasOwnTexts(date) || state.psalterium[`${day.psalter}-${day.dow}`]?.date === date;
-  if (!entries.length && !texts) { main.append(el('<p class="empty">Hæc hora nondum parata est.</p>')); return; }
+  if (!entries.length && !texts) { main.append(el('<p class="empty">This hour is not available yet.</p>')); return; }
   main.append(hourTitle('lectio', slot, propers));
   await appendOpening(main, day, 'lectio', propers);
 
@@ -607,15 +608,15 @@ async function composeLectio(main, day, date) {
   const [hymn, other] = night || hymns.length < 2 ? hymns : [hymns[1], hymns[0]];
   const part = hymnBlocksNode(hymnPart(texts, night ? /^I\./ : /^II\./)) || hymnTextNode(texts);
   await appendHymn(main, hymn, part);
-  if (other) main.append(el(`<p class="rubric">${night ? 'Diurno tempore' : 'Noctu vel summo mane'}: ${esc(other.title)}</p>`));
+  if (other) main.append(el(`<p class="rubric">${night ? 'By day' : 'At night or early in the morning'}: ${esc(other.title)}</p>`));
 
   await appendPsalmody(main, entries, section(texts, 'PSALMODIA'));
 
   // the readings and their responsories are proper to the date
-  main.append(el('<h2 class="section">Lectiones</h2>'));
+  main.append(el('<h2 class="section">Readings</h2>'));
   const lect = ownDate ? section(texts, 'LECTIONES') : null;
   if (!lect) {
-    main.append(el('<p class="rubric">Lectiones cum responsoriis huius diei nondum paratæ sunt.</p>'));
+    main.append(el('<p class="rubric">The readings and responsories of this day are not available yet.</p>'));
   } else {
     const out = [];
     for (const b of lect.blocks) {
@@ -637,7 +638,7 @@ async function composeLectio(main, day, date) {
         const l = trL[at];
         if (l && putTr([...(l.title ? [l.title] : []), ...l.lines])) { node = el('<div class="block lectiones text"></div>'); main.append(node); }
         respTr = l?.responsory?.length ? l.responsory : null;
-        node.insertAdjacentHTML('beforeend', '<p class="rubric">Responsorium</p>');
+        node.insertAdjacentHTML('beforeend', '<p class="rubric">Responsory</p>');
         // a responsory with a score: the score in place of the text
         const k = blocks.findIndex((x, j) => j > i && x.kind === 'versicle' && x.sign === '℟');
         const r = blocks[k], v = blocks[k + 1];
@@ -653,9 +654,9 @@ async function composeLectio(main, day, date) {
     }
     flushResp();
   }
-  if (day.dow === 0) main.append(el('<p class="rubric">Hymnus Te Deum.</p>'));
+  if (day.dow === 0) main.append(el('<p class="rubric">The hymn Te Deum follows.</p>'));
   const or = section(texts, 'ORATIO');
-  if (or) { main.append(el('<h2 class="section">Oratio</h2>')); main.append(await conclusionNode(or.blocks, propers._cel || day, 'lectio', { tr: state.tr?.same ? state.tr.t.oratio : null })); }
+  if (or) { main.append(el('<h2 class="section">Concluding Prayer</h2>')); main.append(await conclusionNode(or.blocks, propers._cel || day, 'lectio', { tr: state.tr?.same ? state.tr.t.oratio : null })); }
 }
 
 const MEDIA = { tertia: { label: 'Tertia', title: 'AD TERTIAM' }, sexta: { label: 'Sexta', title: 'AD SEXTAM' }, nona: { label: 'Nona', title: 'AD NONAM' } };
@@ -671,7 +672,7 @@ async function composeMedia(main, day, date, hour) {
   const hymnOf = (list) => list.find((e) => e.hour === label && e.kind === 'hymn');
   const propers = await propersFor(day, date, hour);
   const hymn = withScore(propers.H || hymnOf(today) || hymnOf(inDay(slot.chapter, 'Feria II')) || hymnOf(inDay('HEBDOMADA I', 'Feria II')));
-  if (!entries.length && !texts) { main.append(el('<p class="empty">Hæc hora nondum parata est.</p>')); return; }
+  if (!entries.length && !texts) { main.append(el('<p class="empty">This hour is not available yet.</p>')); return; }
 
   main.append(hourTitle(hour, slot, propers));
   await appendOpening(main, day, hour, propers);
@@ -686,7 +687,7 @@ async function composeMedia(main, day, date, hour) {
     const first = [lbAt, orAt].filter((k) => k >= 0);
     for (const b of own.blocks.slice(0, first.length ? Math.min(...first) : undefined)) main.insertAdjacentHTML('beforeend', renderTextBlock(b));
     if (lbAt >= 0) {
-      main.append(el('<h2 class="section">Lectio brevis</h2>'));
+      main.append(el('<h2 class="section">Short Reading</h2>'));
       const part = own.blocks.slice(lbAt + 1, orAt > lbAt ? orAt : undefined);
       main.append(readingNode(part.filter((b) => b.kind !== 'versicle')));
       appendTr(main, state.tr?.own.reading?.lines);
@@ -694,7 +695,7 @@ async function composeMedia(main, day, date, hour) {
       appendTr(main, state.tr?.own.versicle);
     }
     if (orAt >= 0) {
-      main.append(el('<h2 class="section">Oratio</h2>'));
+      main.append(el('<h2 class="section">Concluding Prayer</h2>'));
       main.append(await conclusionNode(own.blocks.slice(orAt + 1), propers._cel || day, hour, { tr: state.tr?.same ? state.tr.own.oratio : null }));
     }
   }
@@ -706,7 +707,7 @@ async function composeLaudesVesperae(main, day, date, hour) {
   const entries = withPropers(ocoPsalter(slot), propers);
   // Saturday Vespers texts are stored under the Saturday itself (iBreviary gives I Vespers there)
   const texts = await textsFor(day, date, hour);
-  if (!entries.length && !texts) { main.append(el('<p class="empty">Hæc hora nondum parata est.</p>')); return; }
+  if (!entries.length && !texts) { main.append(el('<p class="empty">This hour is not available yet.</p>')); return; }
 
   main.append(hourTitle(hour, slot, propers));
   await appendOpening(main, day, hour, propers);
@@ -720,12 +721,12 @@ async function composeLaudesVesperae(main, day, date, hour) {
 
   // Short reading, responsory
   const lb = part('LECTIO BREVIS');
-  if (lb) { main.append(el('<h2 class="section">Lectio brevis</h2>')); main.append(readingNode(lb.blocks)); appendTr(main, state.tr?.own.reading?.lines); }
+  if (lb) { main.append(el('<h2 class="section">Short Reading</h2>')); main.append(readingNode(lb.blocks)); appendTr(main, state.tr?.own.reading?.lines); }
   // the short responsory is one piece of music: its score, or else the text
   const rb = entries.find((e) => e.kind !== 'reference' && (e.kind === 'resp_brevis' || /br\./.test(e.position || '')));
   const rbText = part('RESPONSORIUM BREVE');
   if (rb || rbText) {
-    main.append(el('<h2 class="section">Responsorium breve</h2>'));
+    main.append(el('<h2 class="section">Short Responsory</h2>'));
     const node = rb?.gabc ? await chantNode(rb.gabc, { annotation: '' }) : null;
     if (node?.dataset.notated) main.append(node);
     else if (rbText) main.append(el(`<div class="block">${renderBlocks(rbText.blocks)}</div>`));
@@ -741,13 +742,13 @@ async function composeLaudesVesperae(main, day, date, hour) {
   // Intercessions, Pater noster (sung), collect, conclusion
   const cel = propers._cel || day;
   const preces = part('PRECES');
-  if (preces) { main.append(el('<h2 class="section">Preces</h2>')); main.append(precesNode(preces.blocks, state.tr?.same ? state.tr.own.preces : null)); }
+  if (preces) { main.append(el('<h2 class="section">Intercessions</h2>')); main.append(precesNode(preces.blocks, state.tr?.same ? state.tr.own.preces : null)); }
   if (section(texts, 'PATER NOSTER')) {
-    main.append(el('<h2 class="section">Pater noster</h2>'));
+    main.append(el('<h2 class="section">Lord’s Prayer</h2>'));
     main.append(await chantNode(isFestive(cel) ? PATER_NOSTER.festive : PATER_NOSTER.ferial, { annotation: '' }));
   }
   const or = section(texts, 'ORATIO');
-  if (or) { main.append(el('<h2 class="section">Oratio</h2>')); main.append(await conclusionNode(or.blocks, cel, hour, { first: propers._first, tr: state.tr?.same ? state.tr.own.oratio : null })); }
+  if (or) { main.append(el('<h2 class="section">Concluding Prayer</h2>')); main.append(await conclusionNode(or.blocks, cel, hour, { first: propers._first, tr: state.tr?.same ? state.tr.own.oratio : null })); }
 }
 
 /**
@@ -877,6 +878,9 @@ function collectNode(blocks) {
   return node;
 }
 // ------------------------------------------------------------------ translations
+// Shelved for now (no setting in the page): the code and the fetched texts stay, ready to
+// be switched on again with this flag and the "Translation" row in index.html.
+const TRANSLATIONS = false;
 /** Append a translation (site/translate.js) when one is chosen; `proper`: only when it is the same office. */
 function appendTr(main, lines, { proper = true, head = null, fold = false } = {}) {
   const T = state.tr;
@@ -962,7 +966,7 @@ async function composeCompline(main, day, date, hour) {
   const slot = psalterSlot(day, date, hour);
   const propers = await propersFor(day, date, hour);
   const entries = withPropers(ocoCompline(day, hour), propers);
-  if (!entries.length && !texts) { main.append(el('<p class="empty">Hæc hora nondum parata est.</p>')); return; }
+  if (!entries.length && !texts) { main.append(el('<p class="empty">This hour is not available yet.</p>')); return; }
   const cel = propers._cel || day;
   const paschal = cel.seasons?.includes('EASTER_TIME');
 
@@ -976,14 +980,14 @@ async function composeCompline(main, day, date, hour) {
   await appendPsalmody(main, entries.filter((e) => e.kind !== 'reference'), section(texts, 'PSALMODIA'));
 
   const lb = section(texts, 'LECTIO BREVIS');
-  if (lb) { main.append(el('<h2 class="section">Lectio brevis</h2>')); main.append(readingNode(lb.blocks)); appendTr(main, state.tr?.own.reading?.lines); }
+  if (lb) { main.append(el('<h2 class="section">Short Reading</h2>')); main.append(readingNode(lb.blocks)); appendTr(main, state.tr?.own.reading?.lines); }
 
   // In manus tuas: the OCO's score (with its alleluias in Eastertide), else the text
   const rbs = entries.filter((e) => e.kind !== 'reference' && e.gabc && /^In manus tuas/.test(e.text || ''));
   const rb = rbs.find((e) => /allel[uú]ia/i.test(e.text) === paschal) || rbs[0];
   const rbText = section(texts, 'RESPONSORIUM BREVE');
   if (rb || rbText) {
-    main.append(el('<h2 class="section">Responsorium breve</h2>'));
+    main.append(el('<h2 class="section">Short Responsory</h2>'));
     const node = rb ? await chantNode(rb.gabc, { annotation: '' }) : null;
     if (node?.dataset.notated) main.append(node);
     else if (rbText) main.append(el(`<div class="block">${renderBlocks(responsoryBlocks(rbText.blocks))}</div>`));
@@ -998,15 +1002,15 @@ async function composeCompline(main, day, date, hour) {
   // the collect (as text), then the blessing and the antiphon of Our Lady, sung
   const or = section(texts, 'ORATIO');
   if (or) {
-    main.append(el('<h2 class="section">Oratio</h2>'));
+    main.append(el('<h2 class="section">Concluding Prayer</h2>'));
     const text = (b) => (b.kind === 'text' ? b.lines.map((l) => (typeof l === 'string' ? l : l.text)).join(' ') : '');
     const end = or.blocks.findIndex((b) => /^Noctem/.test(text(b)) || (b.kind === 'rubric' && /Mariam|antiphon/i.test(b.text)));
     main.append(collectNode(end < 0 ? or.blocks : or.blocks.slice(0, end)));
     appendTr(main, state.tr?.own.oratio, { proper: false });
   }
-  main.append(el('<h2 class="section">Benedictio</h2>'));
+  main.append(el('<h2 class="section">Blessing</h2>'));
   main.append(await chantNode(NOCTEM_QUIETAM, { annotation: '' }));
-  main.append(el('<h2 class="section">Antiphona ad B. Mariam Virginem</h2>'));
+  main.append(el('<h2 class="section">Antiphon of Our Lady</h2>'));
   main.append(await chantNode(marianAntiphon(cel, date), { annotation: '' }));
 }
 const NOCTEM_QUIETAM = 20685;
@@ -1024,13 +1028,13 @@ function marianAntiphon(cel, date) {
 
 async function render() {
   const main = $('#office');
-  main.replaceChildren(el('<p class="loading">Paratur…</p>'));
+  main.replaceChildren(el('<p class="loading">Loading…</p>'));
   layouts.length = 0;
   const days = await calendarFor(state.date);
   const day = days[0];
   $('#hour').value = state.hour;
   document.title = `${HOUR_NAMES[state.hour]} · ${day ? capitalize(day.name) : state.date} · Cantus Horarum`;
-  if (!day) { main.replaceChildren(el('<p class="empty">Calendarium huius anni deest.</p>')); return; }
+  if (!day) { main.replaceChildren(el('<p class="empty">There is no calendar for this year.</p>')); return; }
   const frag = await composeHour(day);
   main.replaceChildren(...frag.childNodes);
   layouts.forEach((f) => f());
@@ -1041,7 +1045,7 @@ async function render() {
 async function composeHour(day) {
   const frag = document.createElement('div');
   state.tr = null;
-  if (state.settings.translation) {
+  if (TRANSLATIONS && state.settings.translation) {
     const t = await loadTranslation(state.settings.translation, state.date);
     state.tr = hourTranslation(t, state.hour, latinReadingRef(await textsFor(day, state.date, state.hour), state.hour));
   }
@@ -1104,7 +1108,7 @@ function applySettings() {
   $('#opt-memoria').value = state.settings.memoria || '';
   $('#opt-presider').value = state.settings.presider ? '1' : '';
   $('#opt-invitatory').value = state.settings.invitatory || '';
-  $('#opt-translation').value = state.settings.translation || '';
+  if ($('#opt-translation')) $('#opt-translation').value = state.settings.translation || '';
 }
 // The two psalm modes, shown in their cards as they will look: Ps 116 on tone 8 g, its
 // short verses large enough to read
@@ -1158,7 +1162,7 @@ async function boot() {
   $('#opt-memoria').onchange = (e) => { state.settings.memoria = e.target.value || undefined; saveSettings(); render(); };
   $('#opt-presider').onchange = (e) => { state.settings.presider = e.target.value ? true : undefined; saveSettings(); render(); };
   $('#opt-invitatory').onchange = (e) => { state.settings.invitatory = e.target.value || undefined; saveSettings(); render(); };
-  $('#opt-translation').onchange = (e) => { state.settings.translation = e.target.value || undefined; saveSettings(); render(); };
+  if ($('#opt-translation')) $('#opt-translation').onchange = (e) => { state.settings.translation = e.target.value || undefined; saveSettings(); render(); };
   $('#pdf-format').value = state.settings.pdf || 'a5';
   $('#pdf-format').onchange = (e) => { state.settings.pdf = e.target.value; saveSettings(); };
   $('#pdf-make').onclick = () => makePdf($('#pdf-format').value);

@@ -10,8 +10,8 @@ export const FORMATS = {
   a4: { label: 'A4', page: [210, 297], margin: [17, 16], zoom: 0.8 },
   a5: { label: 'A5', page: [148, 210], margin: [12, 12], zoom: 0.68 },
   letter: { label: 'Letter', page: [215.9, 279.4], margin: [18, 16], zoom: 0.8 },
-  'booklet-a4': { label: 'Libellus A4 (A5)', page: [148.5, 210], sheet: [297, 210], margin: [12, 11], zoom: 0.68 },
-  'booklet-letter': { label: 'Libellus Letter', page: [139.7, 215.9], sheet: [279.4, 215.9], margin: [11, 11], zoom: 0.66 },
+  'booklet-a4': { label: 'Booklet A4 (A5)', page: [148.5, 210], sheet: [297, 210], margin: [12, 11], zoom: 0.68 },
+  'booklet-letter': { label: 'Booklet Letter', page: [139.7, 215.9], sheet: [279.4, 215.9], margin: [11, 11], zoom: 0.66 },
 };
 const PX = 96 / 25.4; // CSS px per mm
 const FOLIO = 22; // px kept at the foot of each page for its number

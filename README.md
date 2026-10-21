@@ -168,7 +168,12 @@ psalter days are the fallback.
 
 ### Translations
 
-An option shows a translation under the Latin: English (iBreviary in English) or Chinese
+Shelved for now: `TRANSLATIONS = false` in `site/app.js` and no "Translation" row in the
+settings; the fetching, the data and the layout below stay, to be switched on again.
+The interface itself (settings, headings, rank, messages) is in English; the
+celebration's name, the season's day and every text of the office stay Latin.
+
+When on, an option shows a translation under the Latin: English (iBreviary in English) or Chinese
 (the Hong Kong Diocesan Liturgy Commission's daily office, 每日日課, catholic-dlc.org.hk,
 published a month at a time). `scripts/texts/translations.mjs` fetches both for the same
 window as the Latin into `cache/texts/tr/<lang>/` (the Pages workflow runs it after

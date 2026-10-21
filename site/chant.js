@@ -67,7 +67,7 @@ export function renderChant(el, body, { annotation = null, dropCap = true, scale
     score = new exsurge.ChantScore(ctxt, mappings, dropCap);
     if (annotation) score.annotation = new exsurge.Annotation(ctxt, annotation);
   } catch (e) {
-    el.innerHTML = `<p class="missing">Notatio legi non potuit (${e.message}).</p>`;
+    el.innerHTML = `<p class="missing">The score could not be read (${e.message}).</p>`;
     return () => {};
   }
   el.gabc = cleaned; // for the player: a psalm is sung at its antiphon's pitch
@@ -117,7 +117,7 @@ function addPlayButton(el, body) {
   const btn = document.createElement('button');
   btn.className = 'play';
   btn.type = 'button';
-  btn.setAttribute('aria-label', 'Cane');
+  btn.setAttribute('aria-label', 'Play');
   btn.textContent = '▶';
   tools.append(btn);
   el.before(tools);
