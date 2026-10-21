@@ -94,7 +94,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .mini { height: 210px; overflow: hidden; pointer-events: none; text-align: left; }
 .mini .score { margin: 0; }
 .mini .score svg { display: block; }
-.mini ol { margin: 4px 0 0; padding: 0 0 0 17px; font-size: 12.5px; line-height: 1.3; }
+.mini ol { margin: 4px 0 0; padding: 0 0 0 19px; font-size: 14px; line-height: 1.3; }
 .mini ol b { font-weight: 700; }
 .mini ol .star, .mini ol .flex { color: var(--rubric); }
 .row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid var(--rule); }
@@ -155,11 +155,15 @@ ol.verses .star, ol.verses .flex { color: var(--rubric); }
 .colophon a { color: inherit; }
 
 /* translations under the Latin (site/translate.js): smaller, set off by a rule; long pieces fold */
-.tr { font-size: 0.9em; line-height: 1.45; margin: 0.35em 0 1.1em; padding-left: 0.8em; border-left: 2px solid var(--rule); }
+.tr { font-size: 0.93em; font-style: italic; line-height: 1.35; margin: 2px 0 10px; }
 .tr p { margin: 0 0 0.45em; }
-.tr summary { color: var(--rubric); cursor: pointer; font-size: 0.92em; margin-bottom: 0.3em; }
+.tr b { font-weight: 700; }
+.tr .r { color: var(--rubric); font-style: normal; }
+.tr summary { color: var(--rubric); cursor: pointer; }
 .tr .tr-head { font-style: italic; }
-.tr .r { color: var(--rubric); }
+/* Chinese is not set in italics; a serif CJK face beside EB Garamond */
+.tr:lang(zh) { font-style: normal; font-family: "Noto Serif TC", "Songti TC", "PMingLiU", "Source Han Serif TC", serif; font-size: 0.9em; line-height: 1.55; }
+ol.verses li .tr { margin: 1px 0 6px; font-size: 0.88em; }
 :lang(zh) { font-family: "EB Garamond", "PingFang HK", "Noto Serif TC", "Songti TC", "Noto Sans TC", serif; }
 
 /* PDF (site/print.js): a print control in the settings; the pages, off screen until printed */

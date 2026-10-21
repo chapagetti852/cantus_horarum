@@ -93,6 +93,9 @@ To do:
 1. Compline on solemnities (Sunday forms); optional memorials as a choice; Saturday
    memorial of Our Lady; feminine/plural variants of the commons.
 2. Hong Kong diocesan calendar. Translations (English from iBreviary, Chinese from the
-   Hong Kong DLC, `scripts/texts/translations.mjs`, `site/translate.js`) are in; the
+   Hong Kong DLC, `scripts/texts/translations.mjs`, `site/translate.js`) are in, verse by
+   verse as Breviarium Gregorianum; hymns need judging in `data/hymns/match.json` as new
+   ones enter the window (the build lists them), English for those without in
+   `data/hymns/en.json`. The
    festive/solemn common tones and the melismatic versicle (AM 2005 pp. 527-539) are not
    on GregoBase yet (`site/recitation.js` has the ferial ones).

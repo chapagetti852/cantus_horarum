@@ -110,4 +110,30 @@ for (const lang of ['en', 'zh']) {
   trFiles[lang] = readdirSync(dir).filter((f) => f.endsWith('.json')).length;
 }
 
+// ---- hymns: which translated hymn is the Latin one's, and the app's own English ----------
+const hymnTable = JSON.parse(readFileSync(join(root, 'data/hymns/match.json'), 'utf8'));
+const hymnEn = JSON.parse(readFileSync(join(root, 'data/hymns/en.json'), 'utf8'));
+writeFileSync(join(dist, 'data/hymns.json'), JSON.stringify({ match: hymnTable, en: hymnEn }));
+{ // Latin hymns of the window not judged yet in data/hymns/match.json, or without any English
+  const { hymnKey } = await import('../site/translate.js');
+  const unjudged = new Set(), noEnglish = new Set();
+  for (const f of readdirSync(join(dist, 'data/days'))) {
+    const day = JSON.parse(readFileSync(join(dist, 'data/days', f), 'utf8'));
+    for (const secs of Object.values(day.hours || {})) {
+      for (const sec of (secs || []).filter((x) => x.title === 'HYMNUS')) {
+        sec.blocks.forEach((b, i) => {
+          const prev = sec.blocks[i - 1];
+          if (b.kind !== 'text' || !(i === 0 || (prev?.kind === 'rubric' && /^(Ad (Tertiam|Sextam|Nonam)|Vel:?)$/.test(prev.text)))) return;
+          const k = hymnKey(typeof b.lines[0] === 'string' ? b.lines[0] : b.lines[0]?.text);
+          if (!k || /^psalmodia/.test(k)) return;
+          if (!(k in hymnTable)) unjudged.add(k);
+          else if (!hymnTable[k].en && !hymnEn[k] && prev?.text !== 'Vel:' && prev?.text !== 'Vel') noEnglish.add(k);
+        });
+      }
+    }
+  }
+  if (unjudged.size) console.log(`hymns not judged in data/hymns/match.json: ${[...unjudged].join('; ')}`);
+  if (noEnglish.size) console.log(`hymns without English (data/hymns/en.json): ${[...noEnglish].join('; ')}`);
+}
+
 console.log(`dist/: ${compact.length} entries, ${copied} gabc files (${missing} missing), psalter days ${Object.keys(psalterium).length}/28, ${dayFiles} day files, verses ${verseStats.fromNV}/${verseStats.total} from the Nova Vulgata, translations ${JSON.stringify(trFiles)}`);

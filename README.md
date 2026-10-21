@@ -174,12 +174,31 @@ published a month at a time). `scripts/texts/translations.mjs` fetches both for 
 window as the Latin into `cache/texts/tr/<lang>/` (the Pages workflow runs it after
 `window.mjs`), reading each hour into one shape: hymn, psalms with their antiphons,
 reading, responsory, Gospel canticle antiphon, intercessions, collect, the readings of the
-Office of Readings, the parts of each little hour. `site/translate.js` lays each piece
-under its Latin only when it is the same text: psalms by number (canticles by place), and
-what is proper to the day only when the short reading (or the first reading of the Office
-of Readings) has the same chapter and verse, since iBreviary's English follows the United
-States calendar and Hong Kong its own. Short pieces stand open, psalms, hymns and long
-readings fold.
+Office of Readings, the parts of each little hour. It is laid out as Breviarium Gregorianum lays its translations: a
+smaller italic paragraph under the Latin (Chinese upright).
+
+- Psalms and canticles (the Gospel canticles too) verse by verse. `site/translate.js`
+  reads the translated psalm into verses by its own marks (`*` or `※`, `†` `＋`, a blank
+  line between strophes; the Hong Kong doxology, one verse there, is split in two as in
+  the Latin) and pairs them with the Latin verses in order by their share of the psalm's
+  length (Gale and Church's alignment: one or two Latin verses with one or two
+  translated): the Hong Kong office keeps the Latin division, the English Grail psalter
+  often joins or splits verses. Compactus: each verse's translation under it; Plenus: one
+  paragraph of numbered verses after each score. Where the verses cannot be paired the
+  translation stands whole after the psalm.
+- Antiphons under their score; intercessions intention by intention when they are as many;
+  the collect under the collect, before the blessing; each reading of the Office of
+  Readings under it, its responsory's after the responsory.
+- Hymns: the translated office's hymn only when it is the Latin hymn's translation
+  (`data/hymns/match.json`, judged by meaning: the English office keeps some hymns of its
+  own calendar, the Chinese paraphrases freely), as one paragraph with numbered strophes;
+  in English, where iBreviary has none, the app's own (`data/hymns/en.json`). The build
+  names the hymns of the window not yet judged.
+
+Psalms are matched by number (a canticle by chapter and verse, a part of a psalm by the
+psalm before it); what is proper to the day only when the short reading (or either reading
+of the Office of Readings) is the same chapter with overlapping verses, since iBreviary's
+English follows the United States calendar and Hong Kong its own.
 
 ### PDF
 

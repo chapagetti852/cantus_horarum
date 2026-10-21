@@ -49,7 +49,7 @@ function makeContext(fontSizePx) {
  * Draw GABC into `el`. `annotation` goes above the drop cap (e.g. "8g" or "Ant. 1").
  * Returns a function that re-lays the chant out for the current width.
  */
-export function renderChant(el, body, { annotation = null, dropCap = true, scale = 1 } = {}) {
+export function renderChant(el, body, { annotation = null, dropCap = true, scale = 1, maxLines = 0 } = {}) {
   // lyrics a little larger than the text, as in Breviarium Gregorianum (21 px against 18.7)
   const fontSize = (parseFloat(getComputedStyle(document.body).fontSize) || 18.67) * 1.12;
   const ctxt = makeContext(fontSize);
@@ -71,7 +71,8 @@ export function renderChant(el, body, { annotation = null, dropCap = true, scale
     return () => {};
   }
   el.gabc = cleaned; // for the player: a psalm is sung at its antiphon's pitch
-  // a miniature (the settings' mode cards): laid out `scale` times wider, then shrunk to fit
+  // a miniature (the settings' mode cards): laid out `scale` times wider, then shrunk to fit,
+  // `maxLines` keeping only its first systems
   if (scale === 1) addPlayButton(el, cleaned);
   let lastWidth = -1;
   const lines = perLine;
@@ -84,7 +85,11 @@ export function renderChant(el, body, { annotation = null, dropCap = true, scale
     ctxt.width = w;
     score.performLayoutAsync(ctxt, () => {
       score.layoutChantLines(ctxt, w, () => {
-        if (lines) {
+        if (maxLines) { // a miniature showing only its first systems
+          el.replaceChildren(...score.createSvgNodeForEachLine(ctxt).slice(0, maxLines).map((svg) => {
+            svg.removeAttribute('width'); svg.removeAttribute('height'); svg.style.width = '100%'; svg.style.display = 'block'; return svg;
+          }));
+        } else if (lines) {
           el.replaceChildren(...score.createSvgNodeForEachLine(ctxt).map((svg) => { svg.removeAttribute('viewBox'); return svg; }));
         } else {
           const svg = score.createSvgNode(ctxt);

@@ -68,7 +68,9 @@ export function versesForStrophes(strophes, root) {
       if (c.w.length > W.length || !c.w.every((w, k) => W[k] === w)) continue;
       let n = 0, j = i;
       while (j < lines.length && n < c.w.length) n += words[j++].length;
-      if (n === c.w.length && (!best || c.w.length > best.c.w.length)) best = { c, j };
+      // one Nova Vulgata verse may hold two of the Liturgia Horarum's (two mediants): not taken
+      const mediants = lines.slice(i, j).reduce((m, l) => m + (l.text.match(/\*/g) || []).length, 0);
+      if (n === c.w.length && mediants <= 1 && (!best || c.w.length > best.c.w.length)) best = { c, j };
     }
     total++;
     if (best) {

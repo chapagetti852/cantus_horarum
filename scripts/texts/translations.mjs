@@ -17,6 +17,9 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, unlinkSync, writeFile
 import { join } from 'node:path';
 import { IBreviary, HOURS, parseHour } from './ibreviary.mjs';
 
+// The shape of the files written: 2 adds the Gospel canticles' own text (gospel.lines).
+const FORMAT = 2;
+
 // ------------------------------------------------------------------ English (iBreviary)
 
 const plain = (b) => (b.kind === 'text' ? b.lines.map((l) => (typeof l === 'string' ? l : l.text)) : []);
@@ -159,7 +162,12 @@ export function englishHour(hour, secs) {
     h.responsory = runLines(rs.blocks.filter((b) => !skip.includes(b)), { stop: (b) => b.kind === 'rubric' && /antiphon for the Gospel/i.test(b.text) });
   }
   const gc = sec(secs, /^GOSPEL CANTICLE$/);
-  if (gc) { const a = gc.blocks.find((b) => b.kind === 'antiphon'); if (a) h.gospel = { ant: a.text }; }
+  if (gc) {
+    const a = gc.blocks.find((b) => b.kind === 'antiphon');
+    // the canticle itself, a strophe per block, to lay verse by verse under the Latin
+    const lines = gc.blocks.filter((b) => b.kind === 'text' && !isEm(b)).flatMap((b) => ['', ...plain(b).map((l) => l.replace(/^My \+ /, 'My '))]).slice(1);
+    if (a || lines.length) h.gospel = { ant: a?.text || null, lines };
+  }
   const pc = sec(secs, /^INTERCESSIONS$/);
   if (pc) h.preces = runLines(pc.blocks);
   const or = sec(secs, /^CONCLUDING PRAYER$/);
@@ -266,7 +274,13 @@ export function chineseHour(hour, lines) {
     h.reading = zhReading(lines);
     h.responsory = between(lines, /^短對答詠$/, /(讚主曲|謝主曲|西默盎|^\(路)/);
     const gAt = lines.findIndex((l) => GOSPEL.test(l));
-    if (gAt >= 0) { const a = lines.slice(gAt).find((l) => ANT.test(l)); if (a) h.gospel = { ant: ANT.exec(a)[1].trim() }; }
+    if (gAt >= 0) {
+      const a = lines.slice(gAt).find((l) => ANT.test(l));
+      // the canticle: after its reference "(路1:46-55)", up to the antiphon's repetition
+      const from = lines.findIndex((l, i) => i > gAt && /^\(路/.test(l));
+      const to = from < 0 ? -1 : lines.findIndex((l, i) => i > from && (ANT.test(l) || /^(結束禱詞|禱詞)$/.test(l)));
+      h.gospel = { ant: a ? ANT.exec(a)[1].trim() : null, lines: from < 0 ? [] : lines.slice(from + 1, to < 0 ? undefined : to) };
+    }
     const pr = between(lines, /^禱詞$/, /^(天主經|結束禱詞)$/);
     if (pr.length) h.preces = pr;
   }
@@ -318,11 +332,12 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     let made = 0, missing = 0;
     for (const d of want) {
       const file = join(dir, `${d}.json`);
-      if (existsSync(file)) continue;
+      // made again from the cached pages when the shape has changed since (FORMAT)
+      if (existsSync(file) && JSON.parse(readFileSync(file, 'utf8')).v === FORMAT) continue;
       try {
         const day = lang === 'en' ? await buildEnglish(d, ib) : await buildChinese(d);
         if (!day) { missing++; continue; }
-        writeFileSync(file, JSON.stringify(day));
+        writeFileSync(file, JSON.stringify({ v: FORMAT, ...day }));
         made++;
       } catch (e) { missing++; console.error(`${lang} ${d}: ${e.message}`); }
     }

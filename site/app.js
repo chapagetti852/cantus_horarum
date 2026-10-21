@@ -4,7 +4,7 @@ import { FORMATS, printColumn, printPages } from './print.js';
 import { toneContext, versesOf, psalmGabc, verseGabc, verseHtml } from './psalmtone.js';
 import { resolveHour, indexOco, celebrationFor, isSanctoral } from './resolve.js';
 import { collectGabc, readingGabc, versicleGabc } from './recitation.js';
-import { loadTranslation, hourTranslation, trNode, psalmNumber } from './translate.js';
+import { loadTranslation, hourTranslation, trNode, psalmNumber, chapterVerse, alignPsalm, verseTrHtml, trP, precesParts, hymnKey, hymnCorresponds } from './translate.js';
 
 const HOURS = ['lectio', 'laudes', 'tertia', 'sexta', 'nona', 'vesperae', 'completorium'];
 const HOUR_NAMES = { lectio: 'Officium lectionis', laudes: 'Laudes matutinæ', tertia: 'Tertia', sexta: 'Sexta', nona: 'Nona', vesperae: 'Vesperæ', completorium: 'Completorium' };
@@ -227,7 +227,7 @@ async function toneFor(entry) {
  * text, cadence accents in bold and preparatory syllables in italic. Gospel canticles
  * take the intonation on every verse.
  */
-function pointedPsalmNode(b, ctx, { canticle = false, solemn = false, segments = null } = {}) {
+function pointedPsalmNode(b, ctx, { canticle = false, solemn = false, segments = null, tr = null } = {}) {
   const node = el('<div class="psalm"></div>');
   const head = renderPsalmBlock({ ...b, strophes: [] });
   node.insertAdjacentHTML('beforeend', head);
@@ -238,6 +238,10 @@ function pointedPsalmNode(b, ctx, { canticle = false, solemn = false, segments =
   // the verses as jgabc takes them (the build groups them, from the Nova Vulgata where it can),
   // in runs, with whatever stands between them (a refrain, a rubric) kept in its place
   segments ||= [{ strophes: versesOfBlock(b) }];
+  // its translation, verse by verse where the verses pair (site/translate.js), else after it
+  const lang = state.tr?.lang;
+  const al = tr?.lines?.length ? alignPsalm(segments.filter((x) => !x.html).flatMap((x) => x.strophes), tr.lines, lang) : null;
+  const under = (i) => (al?.mode === 'verse' ? (al.under[i - 1] || []).map(verseTrHtml).join(' ') : '');
   let n = 0;
   let first = true;
   for (const seg of segments) {
@@ -247,10 +251,17 @@ function pointedPsalmNode(b, ctx, { canticle = false, solemn = false, segments =
     if (state.settings.psalms !== 'text') {
       // Plenus: the run as one score, verses numbered
       const body = psalmGabc(verses, ctx, { canticle, solemn, firstIntoned: !first }).replace(/^\([^)]*\)\s*/, '');
+      const from = n + 1;
       const numbered = body.split(/(?<=\(::\))\s*/).filter(Boolean).map((v) => `${++n}. ${v}`).join(' ');
       const sc = el('<div class="score psalm-score"></div>');
       node.append(sc);
       layouts.push(renderChant(sc, `(${ctx.clef}) ${numbered}`, { dropCap: false }));
+      // as Breviarium Gregorianum: the run's translation in one paragraph, its verses numbered
+      if (al?.mode === 'verse') {
+        const html = [];
+        for (let i = from; i <= n; i++) if (under(i)) html.push(`<b>${i}.</b> ${under(i)}`);
+        if (html.length) node.append(trP(lang, html.join(' ')));
+      }
     } else {
       // Compactus: the psalm's first verse in notes with the intonation, the others numbered,
       // cadence accents bold and preparatory syllables italic (as jgabc and Breviarium Gregorianum)
@@ -259,6 +270,7 @@ function pointedPsalmNode(b, ctx, { canticle = false, solemn = false, segments =
         const sc = el('<div class="score verse-score"></div>');
         node.append(sc);
         layouts.push(renderChant(sc, `(${ctx.clef}) ${++n}. ${verseGabc(verses[0], ctx, { intone: true, first: true, solemn })}`, { dropCap: false }));
+        if (under(n)) node.append(trP(lang, under(n)));
         k = 1;
       }
       const ol = el(`<ol class="verses" start="${n + 1}"></ol>`);
@@ -269,11 +281,13 @@ function pointedPsalmNode(b, ctx, { canticle = false, solemn = false, segments =
         li.innerHTML = canticle ? verseHtml(v, ctx, 0) : verseHtml(v, ctx, n);
         ol.append(li);
         n++;
+        if (under(n)) li.append(trP(lang, under(n)));
       }));
       if (ol.children.length) node.append(ol);
     }
     first = false;
   }
+  if (al?.mode === 'block') { const t = trNode(lang, al.lines); if (t) node.append(t); }
   return node;
 }
 /** A block's verses: grouped by the build, else from its printed lines. */
@@ -293,10 +307,18 @@ function psalmodyNode(blocks, ctx, opts = {}) {
   // canticle of Ap 19 with its alleluias) every block of verses up to the next heading,
   // with refrains, rubrics and versicles between them kept in place
   let psalm = null;
-  const flush = () => { if (psalm) node.append(pointedPsalmNode(psalm.head, ctx, { ...opts, segments: psalm.segs })); psalm = null; };
+  // `trFor(head)`: the translation of each psalm, asked in order (appendPsalmody)
+  const { trFor, ...rest } = opts;
+  const flush = () => { if (psalm) node.append(pointedPsalmNode(psalm.head, ctx, { ...rest, segments: psalm.segs, tr: trFor?.(psalm.head) })); psalm = null; };
   for (let i = 0; i < blocks.length; i++) {
     const b = blocks[i];
     const headed = b.kind === 'psalm' && (b.ref || b.title || b.part);
+    if (headed && psalm && !psalm.segs.length && b.kind === 'psalm' && !b.ref && psalm.head.ref) {
+      // a psalm's heading, then its first part with the verses (Ps 26 I): one psalm
+      psalm.head = { ...psalm.head, part: b.part, sentence: b.sentence || psalm.head.sentence };
+      if (hasVerses(b)) psalm.segs.push({ strophes: versesOfBlock(b) });
+      continue;
+    }
     if (headed || (!psalm && hasVerses(b))) {
       flush();
       psalm = { head: b.kind === 'psalm' ? b : { kind: 'psalm', strophes: [] }, segs: [] };
@@ -464,9 +486,37 @@ async function appendInvitatory(main, day, proper = null) {
  * strophe, the others follow as text.
  */
 async function appendHymn(main, hymn, textNode, alternatives = []) {
+  // the Latin hymn: its incipit (the OCO's title, else the text's first line) and strophes
+  const firstLine = textNode?.innerHTML.split(/<br\s*\/?>/)[0].replace(/<[^>]*>/g, '') || '';
+  const key = hymnKey(hymn?.title?.replace(/\s*\(.*$/, '') || firstLine);
+  const latinStrophes = textNode ? textNode.querySelectorAll(':scope > p').length : 0;
   await appendHymnOnly(main, hymn, textNode, alternatives);
-  const h = state.tr?.t.hymn;
-  if (hymn || textNode) appendTr(main, Array.isArray(h) ? h : h?.[state.hour], { fold: true, head: 'Hymnus' });
+  if ((hymn || textNode) && state.tr) {
+    const node = hymnTrNode(key, latinStrophes);
+    if (node) main.append(node);
+  }
+}
+/**
+ * The hymn's translation after it, as Breviarium Gregorianum: one paragraph, its strophes
+ * numbered when they are as many as the Latin's. Only the translated office's hymn that is
+ * this hymn's translation (data/hymns/match.json); in English, else the app's own.
+ */
+function hymnTrNode(key, latinStrophes) {
+  const T = state.tr;
+  const h = T.t.hymn;
+  const lines = Array.isArray(h) ? h : h?.[state.hour];
+  let strophes = null;
+  if (lines?.length && hymnCorresponds(state.hymns?.match, key, T.lang, lines[0])) {
+    strophes = lines.reduce((a, l) => { if (l === '') a.push([]); else a[a.length - 1].push(l); return a; }, [[]]).filter((x) => x.length);
+  } else if (T.lang === 'en' && state.hymns?.en?.[key]) strophes = state.hymns.en[key];
+  if (!strophes) return null;
+  const join = (ls) => ls.map(esc).join(T.lang === 'zh' ? '' : ' ');
+  const numbered = strophes.length > 1 && strophes.length === latinStrophes;
+  if (numbered) return trP(T.lang, strophes.map((st, i) => `<b>${i + 1}.</b> ${join(st)}`).join(' '));
+  const div = el('<div class="tr"></div>');
+  div.lang = T.lang === 'zh' ? 'zh-Hant-HK' : T.lang;
+  div.innerHTML = strophes.map((st) => `<p>${join(st)}</p>`).join('');
+  return div;
 }
 async function appendHymnOnly(main, hymn, textNode, alternatives = []) {
   if (!hymn && !textNode) return;
@@ -490,6 +540,7 @@ async function appendHymnOnly(main, hymn, textNode, alternatives = []) {
 /** Antiphons 1-3 from the OCO, each with its psalms pointed to its tone; returns what followed the last psalm. */
 async function appendPsalmody(main, entries, psalmodySection, { single = null } = {}) {
   main.append(el('<h2 class="section">Psalmodia</h2>'));
+  state.trAt = 0; state.trPrev = null;
   let groups = psalmGroups(psalmodySection);
   if (single) { // one proper antiphon for all the psalms (little hours in the seasons and on feasts)
     groups = groups.length ? [{ n: 1, antiphon: single.text, items: groups.flatMap((g) => g.items) }] : [];
@@ -505,8 +556,10 @@ async function appendPsalmody(main, entries, psalmodySection, { single = null } 
     if (!ant && !g) continue;
     const before = await antiphonNode(ant, g?.antiphon);
     main.append(before);
-    if (g) main.append(...keyed(before, psalmodyNode(g.items, await toneFor(ant)), await antiphonNode(ant, g.repeat || g.antiphon)));
-    if (g) trPsalm(main, n - 1, g.items.find((b) => b.kind === 'psalm' && b.ref)?.ref);
+    const used = [];
+    const trFor = (head) => { const t = nextTrPsalm(head); used.push(t); return t; };
+    if (g) main.append(...keyed(before, psalmodyNode(g.items, await toneFor(ant), { trFor }), await antiphonNode(ant, g.repeat || g.antiphon)));
+    if (used[0]?.ant) before.after(trP(state.tr.lang, esc(used[0].ant)));
   }
   // the versicle before the readings (Office of Readings), sung
   for (const v of after) main.append(versicleNode(v));
@@ -552,10 +605,18 @@ async function composeLectio(main, day, date) {
     let node = el('<div class="block lectiones text"></div>');
     main.append(node);
     const blocks = responsoryBlocks(out);
+    // each reading's translation under it, its responsory's after the responsory
+    const trL = state.tr?.same ? state.tr.t.lectiones || [] : [];
+    let at = -1, respTr = null;
+    const putTr = (lines) => { const t = lines?.length ? trNode(state.tr.lang, lines) : null; if (t) main.append(t); return !!t; };
+    const flushResp = () => { if (respTr) { putTr(respTr); node = el('<div class="block lectiones text"></div>'); main.append(node); respTr = null; } };
     for (let i = 0; i < blocks.length; i++) {
       const b = blocks[i];
-      if (b.kind === 'heading') node.insertAdjacentHTML('beforeend', `<h3 class="sub">${esc(b.text[0] + b.text.slice(1).toLowerCase())}</h3>`);
+      if (b.kind === 'heading') { flushResp(); at++; node.insertAdjacentHTML('beforeend', `<h3 class="sub">${esc(b.text[0] + b.text.slice(1).toLowerCase())}</h3>`); }
       else if (b.kind === 'rubric' && b.text === 'RESPONSORIUM') {
+        const l = trL[at];
+        if (l && putTr([...(l.title ? [l.title] : []), ...l.lines])) { node = el('<div class="block lectiones text"></div>'); main.append(node); }
+        respTr = l?.responsory?.length ? l.responsory : null;
         node.insertAdjacentHTML('beforeend', '<p class="rubric">Responsorium</p>');
         // a responsory with a score: the score in place of the text
         const k = blocks.findIndex((x, j) => j > i && x.kind === 'versicle' && x.sign === '℟');
@@ -570,13 +631,11 @@ async function composeLectio(main, day, date) {
         }
       } else node.insertAdjacentHTML('beforeend', renderTextBlock(b));
     }
-  }
-  for (const l of state.tr?.same ? state.tr.t.lectiones || [] : []) {
-    appendTr(main, [...(l.title ? [l.title] : []), ...l.lines, ...(l.responsory?.length ? ['', ...l.responsory] : [])], { fold: true, head: [l.head, l.ref].filter(Boolean).join(' ') });
+    flushResp();
   }
   if (day.dow === 0) main.append(el('<p class="rubric">Hymnus Te Deum.</p>'));
   const or = section(texts, 'ORATIO');
-  if (or) { main.append(el('<h2 class="section">Oratio</h2>')); main.append(await conclusionNode(or.blocks, propers._cel || day, 'lectio')); appendTr(main, state.tr?.t.oratio); }
+  if (or) { main.append(el('<h2 class="section">Oratio</h2>')); main.append(await conclusionNode(or.blocks, propers._cel || day, 'lectio', { tr: state.tr?.same ? state.tr.t.oratio : null })); }
 }
 
 const MEDIA = { tertia: { label: 'Tertia', title: 'AD TERTIAM' }, sexta: { label: 'Sexta', title: 'AD SEXTAM' }, nona: { label: 'Nona', title: 'AD NONAM' } };
@@ -616,8 +675,7 @@ async function composeMedia(main, day, date, hour) {
     }
     if (orAt >= 0) {
       main.append(el('<h2 class="section">Oratio</h2>'));
-      main.append(await conclusionNode(own.blocks.slice(orAt + 1), propers._cel || day, hour));
-      appendTr(main, state.tr?.own.oratio);
+      main.append(await conclusionNode(own.blocks.slice(orAt + 1), propers._cel || day, hour, { tr: state.tr?.same ? state.tr.own.oratio : null }));
     }
   }
 }
@@ -658,39 +716,61 @@ async function composeLaudesVesperae(main, day, date, hour) {
   const cant = byPosition(entries, hour === 'laudes' ? 'B' : 'M');
   const ce = section(texts, 'CANTICUM EVANGELICUM');
   main.append(el(`<h2 class="section">${hour === 'laudes' ? 'Benedictus' : 'Magnificat'}</h2>`));
-  const ceAnt = ce?.blocks.find((b) => b.kind === 'antiphon')?.text;
-  main.append(...keyed(await antiphonNode(cant, ceAnt),
-    ...(ce ? [psalmodyNode(canticleBlocks(ce.blocks.filter((b) => b.kind !== 'antiphon' && b.kind !== 'rubric')), await toneFor(cant), { canticle: true, solemn: true })] : []),
-    await antiphonNode(cant, ceAnt)));
-  appendTr(main, state.tr?.own.gospel ? [state.tr.own.gospel.ant] : null);
+  await appendGospelCanticle(main, cant, ce, { solemn: true });
 
   // Intercessions, Pater noster (sung), collect, conclusion
   const cel = propers._cel || day;
   const preces = part('PRECES');
-  if (preces) { main.append(el('<h2 class="section">Preces</h2>')); main.append(precesNode(preces.blocks)); appendTr(main, state.tr?.own.preces); }
+  if (preces) { main.append(el('<h2 class="section">Preces</h2>')); main.append(precesNode(preces.blocks, state.tr?.same ? state.tr.own.preces : null)); }
   if (section(texts, 'PATER NOSTER')) {
     main.append(el('<h2 class="section">Pater noster</h2>'));
     main.append(await chantNode(isFestive(cel) ? PATER_NOSTER.festive : PATER_NOSTER.ferial, { annotation: '' }));
   }
   const or = section(texts, 'ORATIO');
-  if (or) { main.append(el('<h2 class="section">Oratio</h2>')); main.append(await conclusionNode(or.blocks, cel, hour, { first: propers._first })); appendTr(main, state.tr?.own.oratio); }
+  if (or) { main.append(el('<h2 class="section">Oratio</h2>')); main.append(await conclusionNode(or.blocks, cel, hour, { first: propers._first, tr: state.tr?.same ? state.tr.own.oratio : null })); }
+}
+
+/**
+ * A Gospel canticle between its antiphons, the antiphon's translation under the first (when
+ * the translated office is the same; Compline's always is) and the canticle's verse by verse.
+ */
+async function appendGospelCanticle(main, ant, ce, { solemn = false, proper = true } = {}) {
+  const ceAnt = ce?.blocks.find((b) => b.kind === 'antiphon')?.text;
+  const g = state.tr?.own.gospel;
+  const first = await antiphonNode(ant, ceAnt);
+  const trAnt = g?.ant && (!proper || state.tr.same) ? [trP(state.tr.lang, esc(g.ant))] : [];
+  const canticle = ce ? [psalmodyNode(canticleBlocks(ce.blocks.filter((b) => b.kind !== 'antiphon' && b.kind !== 'rubric')), await toneFor(ant),
+    { canticle: true, solemn, trFor: () => (g?.lines?.length ? { lines: g.lines } : null) })] : [];
+  main.append(...keyed(first, ...canticle, await antiphonNode(ant, ceAnt)));
+  first.after(...trAnt);
 }
 
 /**
  * Intercessions: the introduction with its response, then each intention as one line,
  * its two halves joined by a red dash.
  */
-function precesNode(blocks) {
+function precesNode(blocks, trLines = null) {
   const node = el('<div class="block preces"></div>');
   const html = (b) => b.lines.map((l) => (typeof l === 'string' ? esc(l) : `<i>${esc(l.text)}</i>`)).join(' ');
+  // the translation under each intention when they are as many, else after them all
+  const T = trLines?.length ? precesParts(trLines) : null;
+  const latinPairs = blocks.filter((b, k) => b.kind === 'text' && blocks[k + 1]?.kind === 'rubric' && blocks[k + 1].text === '—').length;
+  const each = T && T.pairs.length === latinPairs;
+  const lang = state.tr?.lang;
+  let i = 0, intro = false;
   for (let k = 0; k < blocks.length; k++) {
     const b = blocks[k];
     if (b.kind === 'text' && blocks[k + 1]?.kind === 'rubric' && blocks[k + 1].text === '—' && blocks[k + 2]?.kind === 'text') {
       node.insertAdjacentHTML('beforeend', `<p class="intention">${html(b)}<br><span class="r">—</span> ${html(blocks[k + 2])}</p>`);
+      if (each) { const [a, z] = T.pairs[i]; node.append(trP(lang, `${esc(a)}<br><span class="r">—</span> ${esc(z)}`, 'intention-tr')); }
+      i++;
       k += 2;
-    } else if (b.kind === 'text') node.insertAdjacentHTML('beforeend', `<p class="intro">${html(b)}</p>`);
-    else node.insertAdjacentHTML('beforeend', renderTextBlock(b));
+    } else if (b.kind === 'text') {
+      node.insertAdjacentHTML('beforeend', `<p class="intro">${html(b)}</p>`);
+      if (each && !intro && T.intro.length) { node.append(trP(lang, T.intro.map((l) => esc(l).replace(/^(領|眾)[：:]\s*/, '')).join('<br>'))); intro = true; }
+    } else node.insertAdjacentHTML('beforeend', renderTextBlock(b));
   }
+  if (T && !each) { const t = trNode(lang, trLines); if (t) node.append(t); }
   return node;
 }
 
@@ -700,13 +780,15 @@ function precesNode(blocks) {
  * benedicat; then Benedicamus Domino of the day's rank (Antiphonale Romanum II). The
  * little hours and the Office of Readings end with Benedicamus Domino (AM 2005).
  */
-async function conclusionNode(blocks, cel, hour, { first = false } = {}) {
+async function conclusionNode(blocks, cel, hour, { first = false, tr = null } = {}) {
   const node = el('<div class="block"></div>');
   const textOf = (b) => (b?.kind === 'text' ? b.lines.map((l) => (typeof l === 'string' ? l : l.text)).join(' ') : '');
   const major = hour === 'laudes' || hour === 'vesperae';
   // the collect and its Amen; iBreviary's rubrics and formulas of the conclusion are replaced
   const end = blocks.findIndex((b, k) => k > 0 && (b.kind === 'rubric' || /^(Dóminus vobíscum|Dóminus nos|Benedicámus Dómino)/.test(textOf(b))));
   node.append(collectNode(end < 0 ? blocks : blocks.slice(0, end)));
+  // the collect's translation under it, before the blessing (Breviarium Gregorianum)
+  if (tr?.length && state.tr) { const t = trNode(state.tr.lang, tr); if (t) node.append(t); }
   if (!major) {
     if (blocks.some((b) => /^Benedicámus Dómino/.test(textOf(b)))) node.append(await chantNode(isFestive(cel) ? BENEDICAMUS_HORAE.festive : BENEDICAMUS_HORAE.ferial, { annotation: '' }));
     return node;
@@ -782,27 +864,38 @@ function appendTr(main, lines, { proper = true, head = null, fold = false } = {}
   const node = trNode(T.lang, lines, { head, fold });
   if (node) main.append(node);
 }
-/** The translation of the n-th psalm (0-based): by its number, or by its place for a canticle or a part. */
-function trPsalm(main, n, latinRef) {
+/**
+ * The translation of the hour's next psalm (heading block `head`): the translated hour's
+ * psalm at the same place, if it is the same psalm (by its number; a canticle by its chapter
+ * and verse; a part of a psalm when the psalm before it was taken), else the one with its number.
+ */
+function nextTrPsalm(head) {
   const T = state.tr;
   const list = T?.t.psalms;
-  if (!list?.length) return;
-  const want = psalmNumber(latinRef, 'la');
-  let p = list[n];
-  if (want !== null && want !== undefined) {
-    const num = (x) => psalmNumber(x?.ref, T.lang);
-    if (num(p) !== null && num(p) !== want) p = list.find((x) => num(x) === want) || null;
-  } else if (!T.same) p = null;
-  if (!p) return;
-  appendTr(main, [p.ant], { proper: false });
-  appendTr(main, p.lines, { proper: false, fold: true, head: p.ref });
+  if (!list?.length) return null;
+  const at = state.trAt++;
+  const num = (x) => psalmNumber(x?.ref, T.lang);
+  const want = head.ref ? psalmNumber(head.ref, 'la') : null;
+  const same = (x) => {
+    if (!x) return false;
+    if (!head.ref) return state.trPrev !== null && !num(x); // a part: "II", "貳"
+    if (want === 'c' || num(x) === 'c') {
+      const a = chapterVerse(head.ref), b = chapterVerse(x.ref);
+      return want === num(x) && (!a || !b || a === b);
+    }
+    return want !== null && want === num(x);
+  };
+  let p = same(list[at]) ? list[at] : null;
+  if (!p && head.ref && want !== 'c' && want !== null) p = list.find((x) => num(x) === want) || null;
+  if (head.ref) state.trPrev = p;
+  return p;
 }
 /** The Latin reference of the hour's reading: the short reading, or the first reading of the Office of Readings. */
 function latinReadingRef(texts, hour) {
   const rubricAfter = (blocks, at) => blocks?.slice(at + 1).find((b) => b.kind === 'rubric')?.text;
-  if (hour === 'lectio') {
+  if (hour === 'lectio') { // both readings' references
     const lect = section(texts, 'LECTIONES');
-    return lect?.blocks.find((b) => b.kind === 'rubric' && /\d/.test(b.text))?.text || null;
+    return (lect?.blocks || []).filter((b) => b.kind === 'rubric' && /\d/.test(b.text)).map((b) => b.text);
   }
   if (MEDIA[hour]) {
     const own = section(texts, MEDIA[hour].title);
@@ -880,11 +973,7 @@ async function composeCompline(main, day, date, hour) {
   const ce = section(texts, 'CANTICUM EVANGELICUM');
   const nunc = entries.find((e) => (e.position || '').startsWith('Nunc') && e.kind !== 'reference');
   main.append(el('<h2 class="section">Nunc dimittis</h2>'));
-  const ceAnt = ce?.blocks.find((b) => b.kind === 'antiphon')?.text;
-  main.append(...keyed(await antiphonNode(nunc, ceAnt),
-    ...(ce ? [psalmodyNode(canticleBlocks(ce.blocks.filter((b) => b.kind !== 'antiphon' && b.kind !== 'rubric')), await toneFor(nunc), { canticle: true })] : []),
-    await antiphonNode(nunc, ceAnt)));
-  appendTr(main, state.tr?.own.gospel ? [state.tr.own.gospel.ant] : null, { proper: false });
+  await appendGospelCanticle(main, nunc, ce, { proper: false });
 
   // the collect (as text), then the blessing and the antiphon of Our Lady, sung
   const or = section(texts, 'ORATIO');
@@ -997,21 +1086,22 @@ function applySettings() {
   $('#opt-invitatory').value = state.settings.invitatory || '';
   $('#opt-translation').value = state.settings.translation || '';
 }
-// The two psalm modes, shown in their cards as they will look: Ps 5 on tone 8 g
+// The two psalm modes, shown in their cards as they will look: Ps 116 on tone 8 g, its
+// short verses large enough to read
 const MINI_VERSES = [
-  'Verba mea áuribus pércipe, Dómine; * intéllege clamórem meum.',
-  'Inténde voci oratiónis meæ, * rex meus et Deus meus.',
-  'Quóniam ad te orábo, Dómine; * mane exáudies vocem meam.',
+  'Laudáte Dóminum, omnes gentes, * collaudáte eum, omnes pópuli,',
+  'quóniam confirmáta est super nos misericórdia eius, * et véritas Dómini manet in ætérnum.',
+  'Glória Patri, et Fílio, * et Spirítui Sancto.',
 ];
 function drawModePreviews() {
   const ctx = toneContext('8g');
-  const scale = 1.45 * (state.settings.size || 100) / 100;
+  const scale = 1.3 * (state.settings.size || 100) / 100;
   for (const card of document.querySelectorAll('.mode .mini')) {
     const compact = card.closest('.mode').dataset.psalms === 'text';
     const sc = el('<div class="score"></div>');
     card.replaceChildren(sc);
     if (compact) {
-      renderChant(sc, `(${ctx.clef}) 1. ${verseGabc(MINI_VERSES[0], ctx, { intone: true, first: true })}`, { dropCap: false, scale });
+      renderChant(sc, `(${ctx.clef}) 1. ${verseGabc(MINI_VERSES[0], ctx, { intone: true, first: true })}`, { dropCap: false, scale, maxLines: 2 });
       const ol = el('<ol start="2"></ol>');
       for (const v of MINI_VERSES.slice(1)) ol.append(el(`<li>${verseHtml(v, ctx, 1)}</li>`));
       card.append(ol);
@@ -1025,7 +1115,8 @@ function drawModePreviews() {
 function saveSettings() { localStorage.setItem('settings', JSON.stringify(state.settings)); }
 
 async function boot() {
-  const [oco, psalterium, slots] = await Promise.all([json('data/oco.json'), json('data/psalterium.json').catch(() => ({})), json('data/slots.json').catch(() => [])]);
+  const [oco, psalterium, slots, hymns] = await Promise.all([json('data/oco.json'), json('data/psalterium.json').catch(() => ({})), json('data/slots.json').catch(() => []), json('data/hymns.json').catch(() => ({}))]);
+  state.hymns = hymns;
   state.oco = oco; state.psalterium = psalterium; state.slots = slots; state.ocoIndex = indexOco(oco);
   const m = /^#(\d{4}-\d{2}-\d{2})\/(\w+)$/.exec(location.hash);
   state.date = m ? m[1] : iso(new Date());
