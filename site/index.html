@@ -11,13 +11,16 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Cantus Horarum</title>
 <link rel="manifest" href="manifest.json">
+<link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="Cantus Horarum">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header class="top">
   <div class="bar">
-    <a class="logo" href="./" aria-label="Cantus Horarum"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="5"/><path d="M16 5c1.6 3 2 5.5 1.5 8.5 3-.5 5.5-.1 8.5 1.5-3 1.6-5.5 2-8.5 1.5.5 3 .1 5.5-1.5 8.5-1.6-3-2-5.5-1.5-8.5-3 .5-5.5.1-8.5-1.5 3-1.6 5.5-2 8.5-1.5C14 10.5 14.4 8 16 5z"/></svg></a>
+    <a class="logo" href="./" aria-label="Cantus Horarum"><svg viewBox="0 0 512 512" aria-hidden="true"><rect class="bg" width="512" height="512" rx="112"/><g class="staff"><rect y="144" width="512" height="16"/><rect y="208" width="512" height="16"/><rect y="272" width="512" height="16"/><rect y="336" width="512" height="16"/></g><g class="notes"><path d="M112 144Q152 152 192 144V224Q152 216 112 224Z"/><path d="M192 208Q232 216 272 208V288Q232 280 192 288Z"/><rect x="112" y="144" width="16" height="144"/><path d="M304 272Q344 280 384 272V352Q344 344 304 352Z"/></g></svg></a>
     <select id="hour" aria-label="Hour">
       <option value="lectio">Office of Readings</option>
       <option value="laudes">Lauds</option>

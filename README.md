@@ -221,6 +221,16 @@ settings then offer Download and, where the browser has a share sheet, Share (on
 iPhone: Print, Save to Files). The print dialog is not used, as iOS Safari ignores a page's
 paper size and margins and prints on whatever paper its dialog picks.
 
+### Icons
+
+`scripts/icons/make_icons.py` draws the icon (a clivis and a punctum falling down a
+four-line staff, cream on a deep red) and writes every size from one drawing:
+`site/icon.svg`, `site/favicon.ico` (16 drawn pixel by pixel, 32, 48), the 180 px
+Apple touch icon (full bleed, opaque), and the manifest's 192/512 PNGs, "any" (rounded) and
+"maskable" (full bleed). On a 512 grid where 16 units make one pixel at 32 px, the staff
+lines are one pixel and the notes five, so the favicon is crisp. The header logo is the
+same drawing inline in `index.html`.
+
 ### Sources of the scores
 
 Every score shows, small at its top right beside ▶, where its notation comes from: the book

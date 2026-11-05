@@ -64,8 +64,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .bar { display: flex; align-items: center; gap: 8px; max-width: 44rem; margin: 0 auto; padding: 8px 12px; }
 .logo { flex: 0 0 auto; display: block; width: 40px; height: 40px; }
 .logo svg { width: 100%; height: 100%; display: block; }
-.logo rect { fill: var(--rubric); }
-.logo path { fill: var(--bg); }
+.logo .bg { fill: #a8261b; }
+.logo .staff { fill: #f8f0e1; fill-opacity: .36; }
+.logo .notes { fill: #f8f0e1; }
 .bar select, .bar input[type=date] {
   font: inherit; font-size: 17px; color: var(--fg); background: var(--bg-raised);
   border: 0; border-radius: 6px; padding: 7px 10px; min-width: 0; height: 40px;
