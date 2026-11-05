@@ -10,6 +10,7 @@
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { attachVerses } from './texts/verses.mjs';
+import { gregobaseLabel } from '../site/sources.js';
 
 const root = new URL('..', import.meta.url).pathname;
 const dist = join(root, 'dist');
@@ -59,10 +60,30 @@ const COMMON_TONES = [4121, 18178, 7864, 18107, 18108, 4321, 15303, 15301, 15302
 const ids = new Set([...compact.map((e) => e.gabc).filter(Boolean), ...COMMON_TONES]);
 mkdirSync(join(dist, 'gabc'), { recursive: true });
 let copied = 0, missing = 0;
+// each file headed with where its notation comes from (site/sources.js), shown at the top
+// right of the score: "LH 197", "AM I 215", "A&R III 93", "OCO 343" (the page of the OCO)
+const chantsById = new Map(JSON.parse(readFileSync(join(root, 'data/gregobase/chants.json'), 'utf8')).map((c) => [c.id, c]));
+const entriesById = new Map(entries.map((e) => [e.id, e]));
+const headerOf = (txt) => {
+  const h = {};
+  for (const part of txt.split(/^%%\s*$/m).slice(0, -1)) for (const line of part.split('\n')) {
+    const m = /^([\w-]+)\s*:\s*(.*?);?\s*$/.exec(line);
+    if (m) h[m[1]] = m[2];
+  }
+  return h;
+};
+const sourceLabels = {};
 for (const id of ids) {
-  const src = String(id).startsWith('oco-') ? join(root, 'data/gabc-oco', `${String(id).slice(4)}.gabc`) : join(gabcCache, `${id}.gabc`);
-  if (existsSync(src)) { cpSync(src, join(dist, 'gabc', `${id}.gabc`)); copied++; } else missing++;
+  const oco = String(id).startsWith('oco-');
+  const src = oco ? join(root, 'data/gabc-oco', `${String(id).slice(4)}.gabc`) : join(gabcCache, `${id}.gabc`);
+  if (!existsSync(src)) { missing++; continue; }
+  const txt = readFileSync(src, 'utf8');
+  const label = oco ? `OCO ${entriesById.get(Number(String(id).slice(4)))?.page ?? ''}`.trim() : gregobaseLabel(chantsById.get(Number(id)), headerOf(txt));
+  sourceLabels[label.split(' ')[0]] = (sourceLabels[label.split(' ')[0]] || 0) + 1;
+  writeFileSync(join(dist, 'gabc', `${id}.gabc`), `cantus-source: ${label.replace(/;/g, ',')};\n${oco ? '' : `gregobase-id: ${id};\n`}${txt}`);
+  copied++;
 }
+console.log('score sources:', JSON.stringify(sourceLabels));
 
 // ---- psalter texts ----------------------------------------------------------
 const daysDir = join(root, 'data/texts/days');

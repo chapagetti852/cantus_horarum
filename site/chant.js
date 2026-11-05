@@ -1,6 +1,7 @@
 // Render GABC with Exsurge into a container, re-laying out on resize.
 // Exsurge (MIT, Fr. Matthew Spencer) is loaded globally from vendor/exsurge.min.js.
 import { play, stop, notesOf } from './player.js';
+import { bookOf } from './sources.js';
 
 const gabcCache = new Map();
 // print (site/print.js): every system its own SVG, so a page can break between staves
@@ -49,7 +50,11 @@ function makeContext(fontSizePx) {
  * Draw GABC into `el`. `annotation` goes above the drop cap (e.g. "8g" or "Ant. 1").
  * Returns a function that re-lays the chant out for the current width.
  */
-export function renderChant(el, body, { annotation = null, dropCap = true, scale = 1, maxLines = 0 } = {}) {
+/**
+ * `source` ({ label, href }) is where the notation comes from ("AM I 215", site/sources.js),
+ * shown small at the top right of the score, beside its ▶.
+ */
+export function renderChant(el, body, { annotation = null, dropCap = true, scale = 1, maxLines = 0, source = null } = {}) {
   // lyrics a little larger than the text, as in Breviarium Gregorianum (21 px against 18.7)
   const fontSize = (parseFloat(getComputedStyle(document.body).fontSize) || 18.67) * 1.12;
   const ctxt = makeContext(fontSize);
@@ -73,7 +78,7 @@ export function renderChant(el, body, { annotation = null, dropCap = true, scale
   el.gabc = cleaned; // for the player: a psalm is sung at its antiphon's pitch
   // a miniature (the settings' mode cards): laid out `scale` times wider, then shrunk to fit,
   // `maxLines` keeping only its first systems
-  if (scale === 1) addPlayButton(el, cleaned);
+  if (scale === 1) addPlayButton(el, cleaned, source);
   let lastWidth = -1;
   const lines = perLine;
   // Exsurge cuts a score into one SVG per system assuming its default gap between systems
@@ -113,18 +118,29 @@ export function renderChant(el, body, { annotation = null, dropCap = true, scale
  * A ▶ over the score (as Breviarium Gregorianum has): sings it, ■ stops. The note being
  * sung turns red when the drawn notes match the read ones one for one.
  */
-function addPlayButton(el, body) {
+function addPlayButton(el, body, source = null) {
   if (!el.parentNode || el.previousElementSibling?.classList.contains('score-tools')) return;
-  if (!notesOf(body).some((n) => !n.rest)) return;
+  const playable = notesOf(body).some((n) => !n.rest);
+  if (!playable && !source?.label) return;
   const tools = document.createElement('div');
   tools.className = 'score-tools';
+  if (source?.label) {
+    const src = document.createElement(source.href ? 'a' : 'span');
+    src.className = 'score-src';
+    src.textContent = source.label;
+    const book = bookOf(source.label);
+    if (book) src.title = book.title;
+    if (source.href) { src.href = source.href; src.target = '_blank'; src.rel = 'noopener'; }
+    tools.append(src);
+  }
+  el.before(tools);
+  if (!playable) return;
   const btn = document.createElement('button');
   btn.className = 'play';
   btn.type = 'button';
   btn.setAttribute('aria-label', 'Play');
   btn.textContent = '▶';
   tools.append(btn);
-  el.before(tools);
   btn.onclick = () => {
     if (btn.classList.contains('playing')) { stop(); return; }
     const settings = JSON.parse(localStorage.getItem('settings') || '{}');

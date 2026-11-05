@@ -2,6 +2,7 @@
 import { loadGabc, renderChant, splitGabc, watchResize, setPerLine } from './chant.js';
 import { FORMATS, printColumn } from './print.js';
 import { makePdfFile } from './pdf.js';
+import { BOOKS } from './sources.js';
 import { toneContext, versesOf, psalmGabc, verseGabc, verseHtml, startAtCross } from './psalmtone.js';
 import { resolveHour, indexOco, celebrationFor, isSanctoral } from './resolve.js';
 import { collectGabc, readingGabc, versicleGabc } from './recitation.js';
@@ -264,7 +265,7 @@ function pointedPsalmNode(b, ctx, { canticle = false, solemn = false, segments =
       const numbered = body.split(/(?<=\(::\))\s*/).filter(Boolean).map((v) => `${++n}. ${v}`).join(' ');
       const sc = el('<div class="score psalm-score"></div>');
       node.append(sc);
-      layouts.push(renderChant(sc, `(${ctx.clef}) ${numbered}`, { dropCap: false }));
+      layouts.push(renderChant(sc, `(${ctx.clef}) ${numbered}`, { dropCap: false, source: first ? PSALM_TONE_SOURCE : null }));
       // as Breviarium Gregorianum: the run's translation in one paragraph, its verses numbered
       if (al?.mode === 'verse') {
         const html = [];
@@ -278,7 +279,7 @@ function pointedPsalmNode(b, ctx, { canticle = false, solemn = false, segments =
       if (first) {
         const sc = el('<div class="score verse-score"></div>');
         node.append(sc);
-        layouts.push(renderChant(sc, `(${ctx.clef}) ${++n}. ${verseGabc(verses[0], ctx, { intone: true, first: true, solemn })}`, { dropCap: false }));
+        layouts.push(renderChant(sc, `(${ctx.clef}) ${++n}. ${verseGabc(verses[0], ctx, { intone: true, first: true, solemn })}`, { dropCap: false, source: PSALM_TONE_SOURCE }));
         if (under(n)) node.append(trP(lang, under(n)));
         k = 1;
       }
@@ -369,6 +370,17 @@ function canticleBlocks(blocks) {
   return out;
 }
 
+/** Where a score file's notation comes from (stamped by the build, site/sources.js), linked to GregoBase. */
+function sourceOf(header) {
+  const label = header?.['cantus-source'];
+  if (!label) return null;
+  const id = header['gregobase-id'];
+  return { label, href: id ? `https://gregobase.selapa.net/chant.php?id=${id}` : null };
+}
+// the books the generated scores follow (site/sources.js)
+const PSALM_TONE_SOURCE = { label: 'AR II 738–740' };
+const RECITATION_SOURCE = { reading: { label: 'AR II 756' }, collect: { label: 'AR II 759' }, versicle: { label: 'AM I 532' } };
+
 /**
  * A score, without label (the annotation above the initial gives the mode). Without a
  * score, `fallbackText` is shown after `fallbackLabel`.
@@ -384,7 +396,7 @@ async function chantNode(gabcId, { annotation = null, fallbackText = null, fallb
   const { header, body: raw } = splitGabc(src);
   const ann = annotation ?? header.annotation ?? (header.mode ? `${header.mode}${header['mode-modifier'] || ''}` : null);
   const body = transform ? transform(withoutEuouae(raw)) : withoutEuouae(raw);
-  layouts.push(renderChant(score, body, { annotation: ann }));
+  layouts.push(renderChant(score, body, { annotation: ann, source: sourceOf(header) }));
   wrap.dataset.notated = '1';
   return wrap;
 }
@@ -482,15 +494,15 @@ async function appendInvitatory(main, day, proper = null) {
   const toneId = INVITATORY_TONES[ant.mode];
   const src = toneId ? await loadGabc(toneId) : null;
   if (!src) { main.append(el('<p class="rubric">Psalm 94 (95): no score.</p>')); return true; }
-  const { body } = splitGabc(src);
+  const { header: toneHeader, body } = splitGabc(src);
   const clef = /^\s*(\([cf]b?[1-4]\))/.exec(body)?.[1] || '(c4)';
   const strophes = body.replace(/^\s*\([cf]b?[1-4]\)/, '').split(/\(::Z?\)/).map((x) => x.trim()).filter((x) => /[a-z]\(/i.test(x));
   main.append(el(`<div class="psalm-head"><span class="ref">Psalmus 94 (95)</span><span class="tone">Tone ${esc(ant.mode)}</span></div>`));
-  for (const st of strophes) {
+  for (const [i, st] of strophes.entries()) {
     const sc = el('<div class="score verse-score"></div>');
     sc.dataset.key = first.dataset.key;
     main.append(sc);
-    layouts.push(renderChant(sc, `${clef} ${st} (::)`, { dropCap: false }));
+    layouts.push(renderChant(sc, `${clef} ${st} (::)`, { dropCap: false, source: i === 0 ? sourceOf(toneHeader) : null }));
     main.append(await antiphon());
   }
   return true;
@@ -817,7 +829,7 @@ async function conclusionNode(blocks, cel, hour, { first = false, tr = null } = 
   }
   const solemn = ['major', 'solemnity'].includes(rankOf(cel));
   if (state.settings.presider) node.append(await chantNode(solemn ? DOMINUS_VOBISCUM.solemn : DOMINUS_VOBISCUM.simple, { annotation: '' }));
-  else node.append(chantFromGabc(dominusNosBenedicat(cel)));
+  else node.append(chantFromGabc(dominusNosBenedicat(cel), { source: dominusNosBenedicatSource(cel) }));
   node.append(await chantNode(benedicamusFor(cel, first && hour === 'vesperae' ? 'vesperae1' : hour), { annotation: '' }));
   return node;
 }
@@ -838,14 +850,16 @@ const DOMINUS_NOS_BENEDICAT = {
   festive: '(c3) DO(h)mi(h)nus(h) nos(h) be(g)ne(f)dí(h)cat,(h) (;) et(h) ab(h) om(h)ni(h) ma(h)lo(g) de(f)fén(h)dat,(h) (,) et(h) ad(h) vi(h)tam(h) per(h)dú(h)cat(h) æ(h)tér(h)nam.(f) (::) <sp>R/</sp> A(h)men.(h) (::)',
   ferial: '(c3) DO(h)mi(h)nus(h) nos(h) be(h)ne(h)dí(h)cat,(f) (;) et(h) ab(h) om(h)ni(h) ma(h)lo(g) de(f)fén(h)dat,(h) (;) et(h) ad(h) vi(h)tam(h) per(h)dú(h)cat(h) æ(h)tér(h)nam.(d) (::) <sp>R/</sp> A(h)men.(h) (::)',
 };
+const DOMINUS_NOS_BENEDICAT_SOURCE = { solemn: { label: 'GR 817' }, festive: { label: 'AR II 761' }, ferial: { label: 'AR II 759' } };
 function dominusNosBenedicat(cel) {
   const r = rankOf(cel);
   if (r === 'major' || r === 'solemnity') return DOMINUS_NOS_BENEDICAT.solemn;
   return r === 'ferial' ? DOMINUS_NOS_BENEDICAT.ferial : DOMINUS_NOS_BENEDICAT.festive;
 }
-function chantFromGabc(body, { dropCap = true } = {}) {
+const dominusNosBenedicatSource = (cel) => { const r = rankOf(cel); return DOMINUS_NOS_BENEDICAT_SOURCE[r === 'major' || r === 'solemnity' ? 'solemn' : r === 'ferial' ? 'ferial' : 'festive']; };
+function chantFromGabc(body, { dropCap = true, source = null } = {}) {
   const wrap = el('<div class="chant"><div class="score"></div></div>');
-  layouts.push(renderChant(wrap.firstChild, body, { annotation: dropCap ? '' : null, dropCap }));
+  layouts.push(renderChant(wrap.firstChild, body, { annotation: dropCap ? '' : null, dropCap, source }));
   wrap.dataset.notated = '1';
   return wrap;
 }
@@ -863,7 +877,7 @@ function readingNode(blocks) {
   const gabc = SING_READINGS && recited() && text ? readingGabc(text) : null;
   if (!gabc) { node.insertAdjacentHTML('beforeend', renderBlocks(blocks)); return node; }
   node.insertAdjacentHTML('beforeend', renderBlocks(blocks.filter((b) => b.kind !== 'text')));
-  node.append(chantFromGabc(gabc, { dropCap: false }));
+  node.append(chantFromGabc(gabc, { dropCap: false, source: RECITATION_SOURCE.reading }));
   return node;
 }
 /** A collect, with Orémus before it and Amen after when iBreviary gives them, on the collect tone. */
@@ -875,7 +889,7 @@ function collectNode(blocks) {
   if (!SING_READINGS || !recited() || !text) { node.insertAdjacentHTML('beforeend', renderBlocks(blocks)); return node; }
   const amen = blocks.some((b) => b.kind === 'versicle' && /^Amen/.test(b.text));
   node.insertAdjacentHTML('beforeend', renderBlocks(blocks.filter((b) => b.kind === 'rubric')));
-  node.append(chantFromGabc(collectGabc(text, { oremus, amen }), { dropCap: false }));
+  node.append(chantFromGabc(collectGabc(text, { oremus, amen }), { dropCap: false, source: RECITATION_SOURCE.collect }));
   return node;
 }
 // ------------------------------------------------------------------ translations
@@ -933,7 +947,7 @@ function latinReadingRef(texts, hour) {
 /** The versicle and response after the short reading of a little hour. */
 function versicleNode(b) {
   if (!recited() || !b.text) return el(`<div class="block">${renderTextBlock(b)}</div>`);
-  return chantFromGabc(versicleGabc(b.text, b.r), { dropCap: false });
+  return chantFromGabc(versicleGabc(b.text, b.r), { dropCap: false, source: RECITATION_SOURCE.versicle });
 }
 /** The rank that chooses the conclusion's tones; All Souls is sung as a weekday. */
 function rankOf(cel) {
@@ -1086,12 +1100,14 @@ async function makePdf(fmt) {
   setPerLine(true);
   const name = `${HOUR_NAMES[state.hour]} ${state.date}${FORMATS[fmt].sheet ? ' booklet' : ''}.pdf`;
   try {
-    const col = printColumn(fmt);
+    const scale = (Number(state.settings.pdfSize) || 100) / 100;
+    const col = printColumn(fmt, scale);
     const frag = await composeHour(day);
     col.append(...frag.childNodes);
     await document.fonts?.ready;
     await Promise.all(layouts.map((f) => f()));
     const { blob } = await makePdfFile(col, fmt, {
+      scale,
       title: `${HOUR_NAMES[state.hour]} · ${day.name} · ${state.date}`,
       onProgress: (i, n) => { btn.textContent = `Page ${i} of ${n}…`; },
     });
@@ -1173,6 +1189,11 @@ async function boot() {
   applySettings();
   $('#date').onchange = (e) => { if (e.target.value) { state.date = e.target.value; render(); } };
   $('#hour').onchange = (e) => { state.hour = e.target.value; render(); };
+  // help and sources: the books' abbreviations from site/sources.js, the table the build labels the scores with
+  const dl = $('#help-books');
+  for (const b of BOOKS) dl.insertAdjacentHTML('beforeend', `<dt>${esc(b.abbr)}</dt><dd>${esc(b.title)}</dd>`);
+  dl.insertAdjacentHTML('beforeend', '<dt>AR II 738–740</dt><dd>On a psalm: its tone, from the psalm tones of the Antiphonale Romanum II (2009), with the endings named as in the Antiphonale Monasticum 2005, the verses pointed with jgabc.</dd>');
+  for (const b of document.querySelectorAll('.help-open')) b.onclick = () => $('#help').showModal();
   $('#settings-toggle').onclick = () => {
     const s = $('#settings');
     s.hidden = !s.hidden;
@@ -1189,6 +1210,8 @@ async function boot() {
   if ($('#opt-translation')) $('#opt-translation').onchange = (e) => { state.settings.translation = e.target.value || undefined; saveSettings(); render(); };
   $('#pdf-format').value = state.settings.pdf || 'a5';
   $('#pdf-format').onchange = (e) => { state.settings.pdf = e.target.value; saveSettings(); };
+  $('#pdf-size').value = String(state.settings.pdfSize || 100);
+  $('#pdf-size').onchange = (e) => { state.settings.pdfSize = Number(e.target.value); saveSettings(); };
   $('#pdf-make').onclick = () => makePdf($('#pdf-format').value);
   watchResize(layouts);
   render();

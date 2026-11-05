@@ -177,3 +177,22 @@ ol.verses li .tr { margin: 1px 0 6px; font-size: 0.88em; }
 .print-flow .score-tools { display: none; }
 .print-flow h2.section { margin: 22px 0 10px; }
 .print-flow .title-block { margin-top: 0; }
+
+/* the source of each score, beside its ▶ (site/sources.js) */
+.score-tools { align-items: center; gap: 8px; }
+.score-src { font-size: 11px; letter-spacing: .02em; color: var(--fg-soft); text-decoration: none; opacity: .8; white-space: nowrap; }
+a.score-src:hover { text-decoration: underline; }
+
+/* help and sources */
+.link { font: inherit; color: inherit; background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; }
+.help { max-width: min(40rem, calc(100vw - 32px)); max-height: 85vh; overflow: auto; padding: 18px 20px 22px; border: 1px solid var(--rule); border-radius: 10px; background: var(--bg); color: var(--fg); font-size: 0.9em; line-height: 1.4; }
+.help::backdrop { background: rgb(0 0 0 / .35); }
+.help h2 { font-size: 1.3em; margin: 0 2em 0.4em 0; }
+.help h3 { font-size: 1em; margin: 1.2em 0 0.3em; }
+.help ul { padding-left: 1.2em; margin: 0.3em 0; }
+.help li { margin: 0.25em 0; }
+.help a { color: inherit; }
+.help .close { position: sticky; top: 0; float: right; width: 32px; height: 32px; border-radius: 6px; background: var(--bg-raised); color: var(--fg); font-size: 20px; line-height: 32px; }
+.help-books { display: grid; grid-template-columns: minmax(3.2em, max-content) 1fr; gap: 6px 12px; margin: 0.4em 0; }
+.help-books dt { font-weight: 600; max-width: 5.2em; }
+.help-books dd { margin: 0; }

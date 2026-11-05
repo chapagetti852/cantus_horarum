@@ -46,6 +46,8 @@ Read `README.md` first: it explains every pipeline.
 - `site/recitation.js` sings readings, collects, versicles on the AM 2005 / AR II common
   tones; `site/print.js` cuts the hour into PDF pages and booklet sheets, `site/pdf.js` draws them
   into a PDF file with jsPDF + svg2pdf (`site/vendor/pdf/`) and EB Garamond TTF (`site/fonts/pdf/`).
+- `site/sources.js` — abbreviations of the books the scores come from; the build stamps each
+  GABC file with `cantus-source:`, shown beside each score's ▶ and spelt out in the help dialog.
 - `scripts/texts/ibreviary.mjs` — Latin office texts from ibreviary.com/m2 (POST date to
   opzioni.php, session cookie, then breviario.php?s=…). Run with `NODE_USE_ENV_PROXY=1`
   in cloud sessions. Output `data/texts/days/<date>.json`; `data/texts/psalter-days.json`

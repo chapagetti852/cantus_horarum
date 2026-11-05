@@ -9,7 +9,7 @@
 // again here, without CSS zoom, and copied onto a PDF page: the scores as vector drawings
 // (Exsurge's SVG through svg2pdf, prepared as bbloomf/jgabc's chant-pdf.js prepares it),
 // the text word by word where the browser put it, in EB Garamond (fonts/pdf/, OFL).
-import { FORMATS, paginate } from './print.js';
+import { FORMATS, paginate, zoomOf } from './print.js';
 
 const PT = 72 / 25.4; // PDF points per mm
 const FONT_FILES = [
@@ -336,11 +336,11 @@ function drawText(doc, run, k, ox, oy) {
  * Make the PDF of the composed column `col` (see printColumn) in format `fmt`.
  * Resolves to { blob, pages }.
  */
-export async function makePdfFile(col, fmt, { title = '', onProgress = () => {} } = {}) {
+export async function makePdfFile(col, fmt, { title = '', scale = 1, onProgress = () => {} } = {}) {
   const f = FORMATS[fmt];
   const { jsPDF, fonts } = await loadLibs();
   const colWidth = col.style.width;
-  const pages = paginate(col, fmt);
+  const pages = paginate(col, fmt, scale);
   const stage = col.parentNode;
   col.remove();
 
@@ -349,8 +349,8 @@ export async function makePdfFile(col, fmt, { title = '', onProgress = () => {} 
   FONT_FILES.forEach(([file, family, style], i) => { doc.addFileToVFS(file, fonts[i]); doc.addFont(file, family, style); });
   doc.setProperties({ title, creator: 'Cantus Horarum' });
 
-  // CSS px of the column -> PDF points: the print layout's zoom, then 96 px to 72 pt
-  const k = f.zoom * 72 / 96;
+  // CSS px of the column -> PDF points: the print layout's zoom (and size), then 96 px to 72 pt
+  const k = zoomOf(fmt, scale) * 72 / 96;
   // the order of pages on the sheets: plain pages one by one; a booklet two to a sheet, in
   // saddle-stitch order (print both sides, flip on the short edge, fold)
   let slots;

@@ -221,6 +221,16 @@ settings then offer Download and, where the browser has a share sheet, Share (on
 iPhone: Print, Save to Files). The print dialog is not used, as iOS Safari ignores a page's
 paper size and margins and prints on whatever paper its dialog picks.
 
+### Sources of the scores
+
+Every score shows, small at its top right beside ▶, where its notation comes from: the book
+and page ("LH 197", "AM I 215", "A&R III 93", "AR II 738–740" for the psalm tones, "OCO 343"
+for notation read from the Ordo's own pages). `site/sources.js` holds the abbreviations
+(in order of preference when a chant is in several books); `scripts/build.mjs` heads each
+shipped GABC file with `cantus-source:` (and `gregobase-id:`, which links the label to
+GregoBase); the help ("Help and sources", in the footer and the settings) spells them out
+with the other sources of the app. The PDF has a print size (70–150 %) beside its format.
+
 ### Chants of the ordinary
 
 Deus, in adiutorium takes its tone from the day (Antiphonale Monasticum 2005: ferial on

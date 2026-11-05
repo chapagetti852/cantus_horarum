@@ -16,15 +16,22 @@ export const FORMATS = {
 const PX = 96 / 25.4; // CSS px per mm
 const FOLIO = 22; // px kept at the foot of each page for its number
 
+/**
+ * How much smaller than on screen the column is drawn on paper: the format's own zoom, times
+ * the print size chosen in the settings (1 = 100 %). A larger size makes the column narrower
+ * in CSS pixels, so text and scores are laid out at that width and come out larger.
+ */
+export const zoomOf = (fmt, scale = 1) => FORMATS[fmt].zoom * (scale || 1);
+
 /** The column the hour is composed into, laid out off screen at the page's text width. */
-export function printColumn(fmt) {
+export function printColumn(fmt, scale = 1) {
   const f = FORMATS[fmt];
   document.getElementById('print-root')?.remove();
   const root = document.createElement('div');
   root.id = 'print-root';
   const col = document.createElement('div');
   col.className = 'office print-flow';
-  col.style.width = `${Math.floor(((f.page[0] - 2 * f.margin[0]) * PX) / f.zoom)}px`;
+  col.style.width = `${Math.floor(((f.page[0] - 2 * f.margin[0]) * PX) / zoomOf(fmt, scale))}px`;
   root.append(col);
   document.body.append(root);
   return col;
@@ -98,9 +105,9 @@ function splitParagraph(p) {
 }
 
 /** Pour the column's atoms into pages; returns arrays of nodes. */
-export function paginate(col, fmt) {
+export function paginate(col, fmt, scale = 1) {
   const f = FORMATS[fmt];
-  const height = ((f.page[1] - 2 * f.margin[1]) * PX) / f.zoom - FOLIO;
+  const height = ((f.page[1] - 2 * f.margin[1]) * PX) / zoomOf(fmt, scale) - FOLIO;
   const atoms = [...col.childNodes].flatMap((n) => atomsOf(n));
   col.replaceChildren();
   const pages = [];
