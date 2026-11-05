@@ -38,22 +38,45 @@ function atomsOf(node, wrap = (x) => x) {
   if (node.nodeType === 3) return node.textContent.trim() ? [wrap(document.createTextNode(node.textContent))] : [];
   if (node.nodeType !== 1) return [];
   if (node.matches('.score-tools, script, style')) return [];
-  const kids = [...node.childNodes].filter((k) => k.nodeType === 1 || k.textContent.trim());
   // a score drawn one system per SVG, a block of paragraphs, a psalm, a list of verses, a folded translation
-  const splittable = node.matches('.chant, .score, .block, .psalm, .lectiones, .preces, .hymn, ol, details, .tr, #print-source')
-    && kids.length > 0 && !(kids.length === 1 && kids[0].nodeType === 3);
+  const splittable = node.matches('.chant, .score, .block, .psalm, .lectiones, .preces, .hymn, ol, details, .tr, #print-source');
   if (node.matches('p') && node.textContent.length > 500) return splitParagraph(node).map(wrap);
-  if (!splittable) return [wrap(node.cloneNode(true))];
+  const units = splittable ? unitsOf(node) : [];
+  if (!splittable || units.length === 0 || (units.length === 1 && units[0].run)) return [wrap(node.cloneNode(true))];
   const out = [];
-  kids.forEach((k, i) => {
+  units.forEach((u, i) => {
     const shell = node.cloneNode(false);
     if (node.tagName === 'DETAILS') shell.open = true;
-    if (node.tagName === 'OL') shell.start = (Number(node.getAttribute('start')) || 1) + kids.slice(0, i).filter((x) => x.tagName === 'LI').length;
+    if (node.tagName === 'OL') shell.start = (Number(node.getAttribute('start')) || 1) + units.slice(0, i).filter((x) => x.node?.tagName === 'LI').length;
     if (i > 0) shell.style.marginTop = '0';
-    if (i < kids.length - 1) shell.style.marginBottom = '0';
-    out.push(...atomsOf(k, (x) => { const s = shell.cloneNode(false); if (s.tagName === 'DETAILS') s.open = true; s.append(x); return wrap(s); }));
+    if (i < units.length - 1) shell.style.marginBottom = '0';
+    const inShell = (x) => { const s = shell.cloneNode(false); if (s.tagName === 'DETAILS') s.open = true; s.append(x); return wrap(s); };
+    if (u.run) {
+      // one line of running text (a hymn verse between two <br>): its shell is a block, so the <br> itself is dropped
+      const s = shell.cloneNode(false);
+      s.append(...u.run.map((n) => n.cloneNode(true)));
+      out.push(wrap(s));
+    } else out.push(...atomsOf(u.node, inShell));
   });
   return out;
+}
+
+const INLINE = new Set(['I', 'B', 'EM', 'STRONG', 'SPAN', 'A', 'SMALL', 'SUP', 'SUB', 'U', 'RUBY']);
+/**
+ * A container's children as units: each block child on its own, and the inline content
+ * between two <br> (text, italics, rubric spans) together as one line.
+ */
+function unitsOf(node) {
+  const units = [];
+  let run = [];
+  const close = () => { if (run.some((n) => n.nodeType === 1 || n.textContent.trim())) units.push({ run }); run = []; };
+  for (const k of node.childNodes) {
+    if (k.nodeType === 3 || (k.nodeType === 1 && INLINE.has(k.tagName))) run.push(k);
+    else if (k.nodeType === 1 && k.tagName === 'BR') close();
+    else if (k.nodeType === 1) { close(); units.push({ node: k }); }
+  }
+  close();
+  return units;
 }
 /** A long paragraph (a reading) in pieces of a few sentences, so it can run over a page. */
 function splitParagraph(p) {

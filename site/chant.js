@@ -76,6 +76,10 @@ export function renderChant(el, body, { annotation = null, dropCap = true, scale
   if (scale === 1) addPlayButton(el, cleaned);
   let lastWidth = -1;
   const lines = perLine;
+  // Exsurge cuts a score into one SVG per system assuming its default gap between systems
+  // (1.5 staff intervals) and shifts each later system up by that much: with our gap of 0
+  // every system after the first was drawn higher and higher, its top cut off.
+  if (lines || maxLines) ctxt.spaceBetweenSystems = 1.5;
   // returns a promise that the score is drawn (print waits for every score)
   const layout = () => new Promise((resolve) => {
     const width = Math.floor(el.clientWidth) || Math.floor(document.body.clientWidth - 32);
