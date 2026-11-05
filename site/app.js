@@ -1,6 +1,7 @@
 // Cantus Horarum — compose and display one hour of the Liturgia Horarum in chant.
 import { loadGabc, renderChant, splitGabc, watchResize, setPerLine } from './chant.js';
-import { FORMATS, printColumn, printPages } from './print.js';
+import { FORMATS, printColumn } from './print.js';
+import { makePdfFile } from './pdf.js';
 import { toneContext, versesOf, psalmGabc, verseGabc, verseHtml, startAtCross } from './psalmtone.js';
 import { resolveHour, indexOco, celebrationFor, isSanctoral } from './resolve.js';
 import { collectGabc, readingGabc, versicleGabc } from './recitation.js';
@@ -1062,34 +1063,57 @@ async function composeHour(day) {
 }
 
 /**
- * The hour as PDF (site/print.js): composed again into a column of the page's width, in the
- * day's light colours, every score one SVG per system; then paged, and the print dialog.
+ * The hour as a PDF file (site/pdf.js): composed again into a column of the page's width,
+ * in the day's light colours, every score one SVG per system; paged (site/print.js), drawn
+ * with jsPDF, and offered as a download (and to the share sheet, where there is one: on an
+ * iPhone, Print and Save to Files are there).
  */
+let pdfUrl = null;
 async function makePdf(fmt) {
   const day = (await calendarFor(state.date))[0];
   if (!day || !FORMATS[fmt]) return;
   const btn = $('#pdf-make');
+  const link = $('#pdf-link');
+  const share = $('#pdf-share');
   btn.disabled = true;
+  link.hidden = share.hidden = true;
+  if (pdfUrl) { URL.revokeObjectURL(pdfUrl); pdfUrl = null; }
+  const label = btn.textContent;
+  btn.textContent = 'Making…';
   const theme = document.documentElement.dataset.theme;
   document.documentElement.dataset.theme = 'light';
   const screenLayouts = layouts.splice(0);
   setPerLine(true);
+  const name = `${HOUR_NAMES[state.hour]} ${state.date}${FORMATS[fmt].sheet ? ' booklet' : ''}.pdf`;
   try {
     const col = printColumn(fmt);
     const frag = await composeHour(day);
     col.append(...frag.childNodes);
     await document.fonts?.ready;
     await Promise.all(layouts.map((f) => f()));
-    printPages(col, fmt, () => {
-      if (theme) document.documentElement.dataset.theme = theme; else delete document.documentElement.dataset.theme;
-      btn.disabled = false;
+    const { blob } = await makePdfFile(col, fmt, {
+      title: `${HOUR_NAMES[state.hour]} · ${day.name} · ${state.date}`,
+      onProgress: (i, n) => { btn.textContent = `Page ${i} of ${n}…`; },
     });
+    pdfUrl = URL.createObjectURL(blob);
+    link.href = pdfUrl;
+    link.download = name;
+    link.hidden = false;
+    const file = new File([blob], name, { type: 'application/pdf' });
+    if (navigator.canShare?.({ files: [file] })) {
+      share.hidden = false;
+      share.onclick = () => navigator.share({ files: [file], title: name }).catch(() => {});
+    }
   } catch (e) {
     console.error(e);
-    btn.disabled = false;
+    alert(`The PDF could not be made: ${e.message}`);
   } finally {
+    document.getElementById('print-root')?.remove();
+    if (theme) document.documentElement.dataset.theme = theme; else delete document.documentElement.dataset.theme;
     setPerLine(false);
     layouts.splice(0, layouts.length, ...screenLayouts);
+    btn.textContent = label;
+    btn.disabled = false;
   }
 }
 

@@ -166,23 +166,14 @@ ol.verses .star, ol.verses .flex { color: var(--rubric); }
 ol.verses li .tr { margin: 1px 0 6px; font-size: 0.88em; }
 :lang(zh) { font-family: "EB Garamond", "PingFang HK", "Noto Serif TC", "Songti TC", "Noto Sans TC", serif; }
 
-/* PDF (site/print.js): a print control in the settings; the pages, off screen until printed */
-.pdf { display: flex; gap: 10px; align-items: center; }
+/* PDF (site/pdf.js): a control in the settings; the pages laid out off screen while it is made */
+.pdf { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
 .pdf select { font: inherit; color: inherit; background: transparent; border: 0; text-align: right; }
-.pdf button { font: inherit; color: var(--rubric); background: var(--bg-raised); border-radius: 6px; padding: 2px 12px; }
+.pdf button, .pdf a { font: inherit; color: var(--rubric); background: var(--bg-raised); border-radius: 6px; padding: 2px 12px; text-decoration: none; }
 .pdf button:disabled { opacity: .5; }
+.pdf [hidden] { display: none; }
 #print-root { position: absolute; left: -100000px; top: 0; background: #fff; color: #111; }
 .print-flow { max-width: none; margin: 0; padding: 0; }
 .print-flow .score-tools { display: none; }
 .print-flow h2.section { margin: 22px 0 10px; }
 .print-flow .title-block { margin-top: 0; }
-.print-page { position: relative; box-sizing: border-box; overflow: hidden; background: #fff; }
-.print-page .folio { position: absolute; bottom: 6mm; left: 0; right: 0; text-align: center; font-size: 9pt; color: #555; }
-.print-sheet { display: flex; overflow: hidden; }
-@media print {
-  html.printing body > *:not(#print-root) { display: none !important; }
-  html.printing #print-root { position: static; left: 0; }
-  html.printing body { background: #fff; margin: 0; }
-  .print-page, .print-sheet { break-after: page; page-break-after: always; }
-  .print-sheet .print-page { break-after: auto; page-break-after: auto; }
-}

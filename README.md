@@ -212,8 +212,14 @@ A4 sheet, half-Letter pages two to a Letter sheet, in saddle-stitch order: print
 sides, flip on the short edge, fold). `site/print.js` composes the hour again into a
 column as wide as the page's text, every score drawn one SVG per system
 (`createSvgNodeForEachLine`) so pages break between staves, cuts it into atoms (systems,
-paragraphs, verses, a heading kept with what follows), pours them into pages and opens
-the print dialog, where "Save as PDF" makes the file.
+paragraphs, verses, a heading kept with what follows) and pours them into pages.
+`site/pdf.js` then draws each page into a real PDF file with jsPDF and svg2pdf.js
+(`site/vendor/pdf/`, MIT): the scores as vector drawings, prepared as bbloomf/jgabc's
+`chant-pdf.js` prepares Exsurge's SVG, the text word by word where the browser placed it,
+in EB Garamond TrueType subsets (`site/fonts/pdf/`, OFL; they include ℣ and ℟). The
+settings then offer Download and, where the browser has a share sheet, Share (on an
+iPhone: Print, Save to Files). The print dialog is not used, as iOS Safari ignores a page's
+paper size and margins and prints on whatever paper its dialog picks.
 
 ### Chants of the ordinary
 

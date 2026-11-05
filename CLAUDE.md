@@ -44,7 +44,8 @@ Read `README.md` first: it explains every pipeline.
   take another year's weekday texts (iBreviary gives the Sunday). `translations.mjs`
   fetches English / Chinese for the same window into `cache/texts/tr/`.
 - `site/recitation.js` sings readings, collects, versicles on the AM 2005 / AR II common
-  tones; `site/print.js` makes PDF pages and booklets through the print dialog.
+  tones; `site/print.js` cuts the hour into PDF pages and booklet sheets, `site/pdf.js` draws them
+  into a PDF file with jsPDF + svg2pdf (`site/vendor/pdf/`) and EB Garamond TTF (`site/fonts/pdf/`).
 - `scripts/texts/ibreviary.mjs` — Latin office texts from ibreviary.com/m2 (POST date to
   opzioni.php, session cookie, then breviario.php?s=…). Run with `NODE_USE_ENV_PROXY=1`
   in cloud sessions. Output `data/texts/days/<date>.json`; `data/texts/psalter-days.json`
