@@ -168,12 +168,12 @@ psalter days are the fallback.
 
 ### Translations
 
-Shelved for now: `TRANSLATIONS = false` in `site/app.js` and no "Translation" row in the
-settings; the fetching, the data and the layout below stay, to be switched on again.
-The interface itself (settings, headings, rank, messages) is in English; the
-celebration's name, the season's day and every text of the office stay Latin.
+The settings' "Translation (beta)" row offers English (`TRANSLATION_LANGS` in `site/app.js`;
+the Chinese is fetched and laid out but not offered yet). The interface itself (settings,
+headings, rank, messages) is in English; the celebration's name, the season's day and every
+text of the office stay Latin.
 
-When on, an option shows a translation under the Latin: English (iBreviary in English) or Chinese
+The option shows a translation under the Latin: English (iBreviary in English) or Chinese
 (the Hong Kong Diocesan Liturgy Commission's daily office, 每日日課, catholic-dlc.org.hk,
 published a month at a time). `scripts/texts/translations.mjs` fetches both for the same
 window as the Latin into `cache/texts/tr/<lang>/` (the Pages workflow runs it after
@@ -197,13 +197,34 @@ smaller italic paragraph under the Latin (Chinese upright).
 - Hymns: the translated office's hymn only when it is the Latin hymn's translation
   (`data/hymns/match.json`, judged by meaning: the English office keeps some hymns of its
   own calendar, the Chinese paraphrases freely), as one paragraph with numbered strophes;
-  in English, where iBreviary has none, the app's own (`data/hymns/en.json`). The build
-  names the hymns of the window not yet judged.
+  in English, where iBreviary has none, the app's own (`data/hymns/en.json`, keyed by the
+  first three words; the OCO's two-word titles find their key there). Where the OCO's hymn
+  has no score the text printed, and translated, is iBreviary's. The build names the hymns
+  of the window not yet judged.
+- What the OCO sings is not always what the Liturgia Horarum prints (another antiphon, or
+  the same in other words). iBreviary's English stands only where the sung Latin has the
+  same words as iBreviary's Latin and the office is shared (the psalter, or a proper office
+  the English calendar keeps too); otherwise the app's own translation in iBreviary's
+  manner, `data/translations/en.json`, keyed by the Latin without accents or punctuation
+  (`ownKey` in `site/translate.js`; responsories: "\n— " before the versicle; the build
+  serves it as `data/tr/own-en.json`). New days entering the window may bring texts
+  without one: `node scripts/texts/missing_translations.cjs [from] [to]` (after the build,
+  with the window's days and English in `dist/data`) opens every hour in Chromium with
+  English on and lists the Latin texts and hymn keys left without English.
 
 Psalms are matched by number (a canticle by chapter and verse, a part of a psalm by the
 psalm before it); what is proper to the day only when the short reading (or either reading
 of the Office of Readings) is the same chapter with overlapping verses, since iBreviary's
 English follows the United States calendar and Hong Kong its own.
+
+### Visitors and version
+
+GoatCounter (open source, no cookies, no personal data) counts visits and their countries:
+`site/vendor/goatcounter.js` (its count.js, ISC) posts to
+`https://cantushorarum.goatcounter.com/count`, the dashboard of the site code
+`cantushorarum`. It counts only on the published site, not on localhost. The foot of the
+page shows `v<version> · <commit>` (from `package.json` and git, stamped by the build, also
+in `dist/version.json`); `CHANGELOG.md` says what each version changed.
 
 ### PDF
 

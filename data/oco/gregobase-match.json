@@ -6135,8 +6135,8 @@
 "page": 221,
 "incipit": "Pange lingua . . . certaminis",
 "mode": null,
-"gregobase": 8671,
-"confidence": "lhym-page",
+"gregobase": null,
+"confidence": "none",
 "candidates": []
 },
 {
@@ -6795,8 +6795,8 @@
 "page": 243,
 "incipit": "Pange lingua . . . certaminis",
 "mode": null,
-"gregobase": 8671,
-"confidence": "lhym-page",
+"gregobase": null,
+"confidence": "none",
 "candidates": []
 },
 {
@@ -7076,8 +7076,8 @@
 "page": 251,
 "incipit": "Christe cælorum Domine",
 "mode": null,
-"gregobase": 11256,
-"confidence": "lhym-page",
+"gregobase": null,
+"confidence": "none",
 "candidates": [
 17854,
 17854
@@ -16671,8 +16671,8 @@
 "page": 594,
 "incipit": "O lux beata",
 "mode": null,
-"gregobase": 14250,
-"confidence": "lhym-page",
+"gregobase": null,
+"confidence": "none",
 "candidates": []
 },
 {
@@ -21729,8 +21729,8 @@
 "page": 756,
 "incipit": "O lux salutis nuntia",
 "mode": null,
-"gregobase": 14250,
-"confidence": "lhym-page",
+"gregobase": null,
+"confidence": "none",
 "candidates": [
 17707
 ]

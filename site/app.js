@@ -6,7 +6,7 @@ import { BOOKS } from './sources.js';
 import { toneContext, versesOf, psalmGabc, verseGabc, verseHtml, startAtCross } from './psalmtone.js';
 import { resolveHour, indexOco, celebrationFor, isSanctoral } from './resolve.js';
 import { collectGabc, readingGabc, versicleGabc } from './recitation.js';
-import { loadTranslation, hourTranslation, trNode, psalmNumber, chapterVerse, alignPsalm, verseTrHtml, trP, precesParts, hymnKey, hymnCorresponds } from './translate.js';
+import { loadTranslation, loadOwn, ownKey, hourTranslation, trNode, psalmNumber, chapterVerse, alignPsalm, verseTrHtml, trP, precesParts, hymnKey, hymnCorresponds } from './translate.js';
 
 const HOURS = ['lectio', 'laudes', 'tertia', 'sexta', 'nona', 'vesperae', 'completorium'];
 const HOUR_NAMES = { lectio: 'Office of Readings', laudes: 'Lauds', tertia: 'Terce', sexta: 'Sext', nona: 'None', vesperae: 'Vespers', completorium: 'Compline' };
@@ -269,7 +269,13 @@ function pointedPsalmNode(b, ctx, { canticle = false, solemn = false, segments =
       // as Breviarium Gregorianum: the run's translation in one paragraph, its verses numbered
       if (al?.mode === 'verse') {
         const html = [];
-        for (let i = from; i <= n; i++) if (under(i)) html.push(`<b>${i}.</b> ${under(i)}`);
+        // a translated verse that covers several Latin ones (the Grail joins and splits them) is numbered by their range
+        let start = from;
+        for (let i = from; i <= n; i++) {
+          if (!under(i)) continue;
+          html.push(`<b>${start < i ? `${start}–${i}` : i}.</b> ${under(i)}`);
+          start = i + 1;
+        }
         if (html.length) node.append(trP(lang, html.join(' ')));
       }
     } else {
@@ -515,13 +521,26 @@ async function appendInvitatory(main, day, proper = null) {
 async function appendHymn(main, hymn, textNode, alternatives = []) {
   // the Latin hymn: its incipit (the OCO's title, else the text's first line) and strophes
   const firstLine = textNode?.innerHTML.split(/<br\s*\/?>/)[0].replace(/<[^>]*>/g, '') || '';
-  const key = hymnKey(hymn?.title?.replace(/\s*\(.*$/, '') || firstLine);
+  // without a score the text printed is iBreviary's, which may be another hymn: translate that
+  const key = hymnTableKey(hymn?.gabc ? hymn.title?.replace(/\s*\(.*$/, '').replace(/\s+(ut|vel|de Communi)\b.*$/, '') : null, firstLine);
   const latinStrophes = textNode ? textNode.querySelectorAll(':scope > p').length : 0;
   await appendHymnOnly(main, hymn, textNode, alternatives);
   if ((hymn || textNode) && state.tr) {
     const node = hymnTrNode(key, latinStrophes);
     if (node) main.append(node);
   }
+}
+/**
+ * The tables' key for a hymn (its first three words): the OCO often names a hymn by two
+ * ("Beate martyr"), so the printed text's first line, when it is that hymn, or the one
+ * key in the tables that begins so.
+ */
+function hymnTableKey(title, firstLine) {
+  const t = hymnKey(title || firstLine), l = hymnKey(firstLine);
+  if (!title || l.startsWith(t)) return l || t;
+  if (t.split(' ').length >= 3) return t;
+  const keys = new Set([...Object.keys(state.hymns?.match || {}), ...Object.keys(state.hymns?.en || {})].filter((k) => k.startsWith(`${t} `)));
+  return keys.size === 1 ? [...keys][0] : t;
 }
 /**
  * The hymn's translation after it, as Breviarium Gregorianum: one paragraph, its strophes
@@ -531,12 +550,14 @@ async function appendHymn(main, hymn, textNode, alternatives = []) {
 function hymnTrNode(key, latinStrophes) {
   const T = state.tr;
   const h = T.t.hymn;
-  const lines = Array.isArray(h) ? h : h?.[state.hour];
+  let lines = Array.isArray(h) ? h : h?.[state.hour];
+  // iBreviary heads its Advent hymns "Alternate Hymns"
+  while (lines?.length && (lines[0] === '' || /^alternate hymns?$/i.test(lines[0]))) lines = lines.slice(1);
   let strophes = null;
   if (lines?.length && hymnCorresponds(state.hymns?.match, key, T.lang, lines[0])) {
     strophes = lines.reduce((a, l) => { if (l === '') a.push([]); else a[a.length - 1].push(l); return a; }, [[]]).filter((x) => x.length);
   } else if (T.lang === 'en' && state.hymns?.en?.[key]) strophes = state.hymns.en[key];
-  if (!strophes) return null;
+  if (!strophes) { if (key) (window.__trMissingHymns ||= new Set()).add(key); return null; }
   const join = (ls) => ls.map(esc).join(T.lang === 'zh' ? '' : ' ');
   const numbered = strophes.length > 1 && strophes.length === latinStrophes;
   if (numbered) return trP(T.lang, strophes.map((st, i) => `<b>${i + 1}.</b> ${join(st)}`).join(' '));
@@ -573,6 +594,7 @@ async function appendPsalmody(main, entries, psalmodySection, { single = null } 
   main.append(el('<h2 class="section">Psalmody</h2>'));
   state.trAt = 0; state.trPrev = null;
   let groups = psalmGroups(psalmodySection);
+  const printed = Object.fromEntries(groups.map((g) => [g.n, g.antiphon])); // iBreviary's Latin antiphons
   if (single) { // one proper antiphon for all the psalms (little hours in the seasons and on feasts)
     groups = groups.length ? [{ n: 1, antiphon: single.text, items: groups.flatMap((g) => g.items) }] : [];
     entries = [{ ...single, position: '1' }];
@@ -593,7 +615,12 @@ async function appendPsalmody(main, entries, psalmodySection, { single = null } 
     // the same words otherwise ("Illuminátio mea et salus mea Dóminus"), or be another antiphon
     const fromCross = /†\s*$/.test(g?.antiphon || '') && (!ant?.text || sameWords(ant.text, g.antiphon));
     if (g) main.append(...keyed(before, psalmodyNode(g.items, await toneFor(ant), { trFor, fromCross }), await antiphonNode(ant, g.repeat || g.antiphon)));
-    if (used[0]?.ant) before.after(trP(state.tr.lang, esc(used[0].ant)));
+    if (state.tr) {
+      // iBreviary's English antiphon is the psalter's, or the day's when it keeps the same office
+      const shared = state.tr.same || ant?.part === 'PSALTERIUM';
+      const t = sungTr(ant?.text, single ? null : printed[n], used[0]?.ant, { shared });
+      if (t) before.after(trP(state.tr.lang, esc(t)));
+    }
   }
   // the versicle before the readings (Office of Readings), sung
   for (const v of after) main.append(versicleNode(v));
@@ -743,7 +770,7 @@ async function composeLaudesVesperae(main, day, date, hour) {
     const node = rb?.gabc ? await chantNode(rb.gabc, { annotation: '' }) : null;
     if (node?.dataset.notated) main.append(node);
     else if (rbText) main.append(el(`<div class="block">${renderBlocks(rbText.blocks)}</div>`));
-    appendTr(main, state.tr?.own.responsory);
+    appendResponsoryTr(main, node?.dataset.notated ? rb : null, rbText);
   }
 
   // Gospel canticle
@@ -772,7 +799,8 @@ async function appendGospelCanticle(main, ant, ce, { solemn = false, proper = tr
   const ceAnt = ce?.blocks.find((b) => b.kind === 'antiphon')?.text;
   const g = state.tr?.own.gospel;
   const first = await antiphonNode(ant, ceAnt);
-  const trAnt = g?.ant && (!proper || state.tr.same) ? [trP(state.tr.lang, esc(g.ant))] : [];
+  const trText = state.tr ? sungTr(ant?.text, ceAnt, g?.ant, { shared: !proper || state.tr.same }) : null;
+  const trAnt = trText ? [trP(state.tr.lang, esc(trText))] : [];
   const canticle = ce ? [psalmodyNode(canticleBlocks(ce.blocks.filter((b) => b.kind !== 'antiphon' && b.kind !== 'rubric')), await toneFor(ant),
     { canticle: true, solemn, trFor: () => (g?.lines?.length ? { lines: g.lines } : null) })] : [];
   main.append(...keyed(first, ...canticle, await antiphonNode(ant, ceAnt)));
@@ -893,9 +921,43 @@ function collectNode(blocks) {
   return node;
 }
 // ------------------------------------------------------------------ translations
-// Shelved for now (no setting in the page): the code and the fetched texts stay, ready to
-// be switched on again with this flag and the "Translation" row in index.html.
-const TRANSLATIONS = false;
+// English under the Latin (setting "Translation", beta), as Breviarium Gregorianum lays it
+// out. Chinese is built too but not offered yet.
+const TRANSLATIONS = true;
+const TRANSLATION_LANGS = new Set(['en']);
+/** The words of an antiphon as sung: without the OCO's notes after it ("E u o u a e", ⟨T.P.⟩ additions, sources). */
+const cleanSung = (t) => String(t || '').replace(/\s*E u o u a e\.?[\s\S]*$/, '').replace(/\s*⟨[^⟩]*⟩[\s\S]*$/, '').replace(/\s*†\s*$/, '').trim();
+/**
+ * The translation of an antiphon (or responsory) sung from the OCO: iBreviary's (`english`,
+ * the Liturgia Horarum's) when the text sung is the one it translates, that is the same words
+ * as iBreviary's Latin (`printed`) in an office iBreviary's English shares (`shared`); else the
+ * app's own (data/translations/en.json). Texts with neither are noted in window.__trMissing,
+ * for scripts/texts/missing_translations.cjs.
+ */
+function sungTr(sung, printed, english, { shared = true } = {}) {
+  const T = state.tr;
+  if (!T) return null;
+  const latin = cleanSung(sung || printed);
+  if (english && shared && (!sung || !printed || sameWords(sung, printed))) return english;
+  const own = state.own?.[ownKey(latin)];
+  if (own) return own;
+  if (latin) (window.__trMissing ||= new Set()).add(latin);
+  return null;
+}
+/**
+ * The short responsory's translation: iBreviary's English when the responsory sung (`rb`, the
+ * OCO's) is iBreviary's own, else the app's own translation of the one sung.
+ */
+function appendResponsoryTr(main, rb, rbText) {
+  const T = state.tr;
+  if (!T) return;
+  const printed = (rbText?.blocks || []).map((b) => (b.kind === 'versicle' ? b.text : b.kind === 'text' ? b.lines.map((l) => (typeof l === 'string' ? l : l.text)).join(' ') : '')).join(' ');
+  const sung = cleanSung(rb?.text?.replace(/℣\.|℟\./g, ' ').replace(/Glória Patri.*$/, ''));
+  if (!sung || !printed || sameWords(sung, printed)) { appendTr(main, T.own.responsory); return; }
+  const own = state.own?.[ownKey(sung)];
+  if (own) { const node = trNode(T.lang, own.split('\n')); if (node) main.append(node); return; }
+  (window.__trMissing ||= new Set()).add(sung);
+}
 /** Append a translation (site/translate.js) when one is chosen; `proper`: only when it is the same office. */
 function appendTr(main, lines, { proper = true, head = null, fold = false } = {}) {
   const T = state.tr;
@@ -1060,8 +1122,9 @@ async function render() {
 async function composeHour(day) {
   const frag = document.createElement('div');
   state.tr = null;
-  if (TRANSLATIONS && state.settings.translation) {
-    const t = await loadTranslation(state.settings.translation, state.date);
+  if (TRANSLATIONS && TRANSLATION_LANGS.has(state.settings.translation)) {
+    const [t, own] = await Promise.all([loadTranslation(state.settings.translation, state.date), loadOwn(state.settings.translation)]);
+    state.own = own;
     state.tr = hourTranslation(t, state.hour, latinReadingRef(await textsFor(day, state.date, state.hour), state.hour));
   }
   try {
@@ -1148,7 +1211,7 @@ function applySettings() {
   $('#opt-memoria').value = state.settings.memoria || '';
   $('#opt-presider').value = state.settings.presider ? '1' : '';
   $('#opt-invitatory').value = state.settings.invitatory || '';
-  if ($('#opt-translation')) $('#opt-translation').value = state.settings.translation || '';
+  if ($('#opt-translation')) $('#opt-translation').value = TRANSLATION_LANGS.has(state.settings.translation) ? state.settings.translation : '';
 }
 // The two psalm modes, shown in their cards as they will look: Ps 116 on tone 8 g, its
 // short verses large enough to read

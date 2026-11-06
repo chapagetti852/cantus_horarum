@@ -56,6 +56,10 @@ writeFileSync(join(dist, 'data/oco.json'), JSON.stringify(compact));
 
 // ---- slot codes of the OCO indices, for resolving propers (site/resolve.js) ------
 const indices = JSON.parse(readFileSync(join(root, 'data/oco/indices.json'), 'utf8'));
+// the index gives some hymns to I Vespers only where the OCO body sings them at both
+// ("Te sæculorum principem", Christ the King: "I & II Vesp."); 'V' is both
+const bothVespers = new Set(entries.filter((e) => e.kind === 'hymn' && e.lhym && /I & II/.test(e.hour || '')).map((e) => String(e.lhym)));
+for (const e of indices.hymni) if (e.officium === '1V' && bothVespers.has(String(e.lhym))) e.officium = 'V';
 const slots = [
   ...indices.antiphonae.map((e) => ['a', e.tempus, e.officium, e.locus, e.oco_ids, null, e.incipit]),
   ...indices.hymni.map((e) => ['h', e.tempus, e.officium, '', [], e.lhym, e.incipit]),
@@ -142,6 +146,14 @@ for (const lang of ['en', 'zh']) {
   mkdirSync(join(dist, 'data/tr', lang), { recursive: true });
   for (const f of readdirSync(dir).filter((f) => f.endsWith('.json'))) cpSync(join(dir, f), join(dist, 'data/tr', lang, f));
   trFiles[lang] = readdirSync(dir).filter((f) => f.endsWith('.json')).length;
+}
+// the app's own translations of the OCO's texts that are not the Liturgia Horarum's (data/translations)
+mkdirSync(join(dist, 'data/tr'), { recursive: true });
+for (const lang of ['en']) {
+  const own = JSON.parse(readFileSync(join(root, 'data/translations', `${lang}.json`), 'utf8'));
+  delete own._;
+  writeFileSync(join(dist, 'data/tr', `own-${lang}.json`), JSON.stringify(own));
+  trFiles[`own-${lang}`] = Object.keys(own).length;
 }
 
 // ---- hymns: which translated hymn is the Latin one's, and the app's own English ----------

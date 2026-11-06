@@ -98,11 +98,14 @@ window (`scripts/texts/window.mjs`, run daily by the Pages workflow into the git
 To do:
 1. Compline on solemnities (Sunday forms); optional memorials as a choice; Saturday
    memorial of Our Lady; feminine/plural variants of the commons.
-2. Hong Kong diocesan calendar. Translations (English from iBreviary, Chinese from the
-   Hong Kong DLC, `scripts/texts/translations.mjs`, `site/translate.js`) are built, verse
-   by verse as Breviarium Gregorianum, but shelved (`TRANSLATIONS = false` in `site/app.js`,
-   no setting in `index.html`); hymns need judging in `data/hymns/match.json` as new
-   ones enter the window (the build lists them), English for those without in
-   `data/hymns/en.json`. The
+2. Hong Kong diocesan calendar. English translation is on as a beta setting (README
+   "Translations"; Chinese fetched but not offered, `TRANSLATION_LANGS` in `site/app.js`).
+   As new days enter the window: judge new hymns in `data/hymns/match.json` (the build
+   lists them), and run `node scripts/texts/missing_translations.cjs` after a build with
+   the window's days in `dist/data` (download them from the live site if the local fetch
+   is slow); translate what it lists into `data/translations/en.json` (antiphons,
+   responsories: the OCO's text where it differs from the LH) or `data/hymns/en.json`
+   (hymns), plainly, in iBreviary's manner. Visitor counts: GoatCounter, site code
+   `cantushorarum`. The
    festive/solemn common tones and the melismatic versicle (AM 2005 pp. 527-539) are not
    on GregoBase yet (`site/recitation.js` has the ferial ones).

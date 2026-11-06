@@ -10,6 +10,18 @@ gets an entry here: PATCH for a fix, MINOR for something new.
   media: `navigator.audioSession` on iOS 17+, unmute.js before that), and wakes the audio
   after a call or a locked screen.
 - Version number at the foot of the page.
+- Visitor counts (number of visitors, their countries) with GoatCounter: open source,
+  no cookies, no personal data.
+- English translation (beta) in the settings, laid out as Breviarium Gregorianum: psalms
+  verse by verse, antiphons, hymns, readings, responsories, intercessions and collect
+  under the Latin. iBreviary's English where the OCO sings the Liturgia Horarum's text;
+  the app's own translation in the same manner where the OCO's text differs (279
+  antiphons and responsories of the coming weeks) and for hymns iBreviary has no English for.
+- Christ the King: its hymn at II Vespers as at I Vespers (the index gave it to I Vespers
+  only).
+- Hymns without a Liber Hymnarius score on GregoBase no longer borrow another hymn's score
+  that begins alike ("O lux beata Trinitas" had the score of "O lux beata Caelitum",
+  "Pange lingua … certaminis" that of the Corpus Christi hymn); their text is shown.
 
 ## 1.0.0 — 2026-11-05
 

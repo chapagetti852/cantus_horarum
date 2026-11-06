@@ -18,6 +18,22 @@ export async function loadTranslation(lang, date) {
 
 export const LANG_NAMES = { en: 'English', zh: '中文' };
 
+/**
+ * The app's own translations (data/translations/<lang>.json, served as data/tr/own-<lang>.json):
+ * for the Ordo Cantus Officii's antiphons and responsories where they are not the Liturgia
+ * Horarum's, so that iBreviary's English would translate another text. Keyed by ownKey().
+ */
+const ownCache = new Map();
+export function loadOwn(lang) {
+  if (!ownCache.has(lang)) ownCache.set(lang, fetch(`data/tr/own-${lang}.json`).then((r) => (r.ok ? r.json() : {})).catch(() => ({})));
+  return ownCache.get(lang);
+}
+/** A Latin text as a key: lower case, without accents, punctuation or signs, j as i, æ and œ as e. */
+export function ownKey(latin) {
+  return String(latin || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+    .replace(/æ/g, 'ae').replace(/œ/g, 'oe').replace(/j/g, 'i').replace(/[^a-z ]+/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
 /** "2 Th 3, 10b-13", "2 Thessalonians 3:10b-13", "得後3:10-13" -> "3:10". */
 export function chapterVerse(ref) {
   const m = /(\d+)\s*[,:]\s*(\d+)/.exec(String(ref || ''));
