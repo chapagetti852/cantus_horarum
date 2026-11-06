@@ -83,6 +83,9 @@ Read `README.md` first: it explains every pipeline.
   serve `dist/` and screenshot `#YYYY-MM-DD/<hour>` at width 390.
 - Work directly on `main` (the only branch); commit and push there, which deploys Pages.
 - Commit messages: plain, what and why. No model names in commits.
+- Version: bump `version` in `package.json` (semver: PATCH for a fix, MINOR for something new)
+  and add an entry to `CHANGELOG.md` with every user-visible change; the build shows it with the
+  commit at the foot of the page (`dist/version.json` too).
 
 ## Status / next steps
 

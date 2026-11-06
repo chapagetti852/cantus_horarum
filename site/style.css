@@ -197,3 +197,6 @@ a.score-src:hover { text-decoration: underline; }
 .help-books { display: grid; grid-template-columns: minmax(3.2em, max-content) 1fr; gap: 6px 12px; margin: 0.4em 0; }
 .help-books dt { font-weight: 600; max-width: 5.2em; }
 .help-books dd { margin: 0; }
+
+/* the version, small at the foot (stamped by scripts/build.mjs) */
+.colophon .version { margin-top: 0.8em; font-size: 0.8em; opacity: .6; letter-spacing: .02em; font-variant-numeric: lining-nums; }

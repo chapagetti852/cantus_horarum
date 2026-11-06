@@ -16,6 +16,8 @@
 // Rhythm: equal notes, as the Solesmes books sing them; a mora (.) doubles a note, an
 // episema (_) lengthens it, a liquescent (~) is light; bars breathe.
 
+import { unmute } from './vendor/unmute.js';
+
 const SCALE = [0, 2, 4, 5, 7, 9, 11];
 const PITCH = 'abcdefghijklm';
 export const VOICES = { gravis: 50, media: 55, acuta: 62 };
@@ -74,9 +76,26 @@ let audio = null;
 let current = null; // { stop() }
 let room = null; // the reverberation every voice goes through
 
+/**
+ * The audio context, made and woken inside the tap that asks for sound (browsers only let a
+ * page sound after a gesture). On an iPhone, Web Audio otherwise takes the ringer channel and
+ * the silent switch mutes it: iOS 17+ is told this page plays media (navigator.audioSession),
+ * older iOS gets unmute.js's silent media track, which does the same. A one-sample buffer
+ * started in the tap wakes the older Safari that wants a sound there.
+ */
 function ctx() {
-  audio ||= new (window.AudioContext || window.webkitAudioContext)();
-  if (audio.state === 'suspended') audio.resume();
+  try { if (navigator.audioSession && navigator.audioSession.type !== 'playback') navigator.audioSession.type = 'playback'; } catch { /* not allowed */ }
+  if (!audio) {
+    audio = new (window.AudioContext || window.webkitAudioContext)();
+    try { unmute(audio, false, false); } catch { /* not iOS, or no media element */ }
+  }
+  if (audio.state !== 'running') audio.resume?.().catch(() => {});
+  try {
+    const src = audio.createBufferSource();
+    src.buffer = audio.createBuffer(1, 1, audio.sampleRate);
+    src.connect(audio.destination);
+    src.start(0);
+  } catch { /* nothing to wake */ }
   return audio;
 }
 

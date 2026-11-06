@@ -9,6 +9,7 @@
 //                                oco-<entry id>.gabc for scores read from the OCO itself (data/gabc-oco)
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { execSync } from 'node:child_process';
 import { attachVerses } from './texts/verses.mjs';
 import { gregobaseLabel } from '../site/sources.js';
 
@@ -18,6 +19,18 @@ const gabcCache = process.env.GABC_CACHE || join(root, 'data/gabc');
 
 mkdirSync(dist, { recursive: true });
 cpSync(join(root, 'site'), dist, { recursive: true });
+
+// ---- version: package.json (semver, see CHANGELOG.md) and the commit, in the footer --------
+const version = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')).version;
+let commit = (process.env.GITHUB_SHA || '').slice(0, 7);
+if (!commit) { try { commit = execSync('git rev-parse --short HEAD', { cwd: root, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim(); } catch { commit = ''; } }
+const built = new Date().toISOString().slice(0, 10);
+writeFileSync(join(dist, 'version.json'), JSON.stringify({ version, commit, built }));
+{
+  const page = join(dist, 'index.html');
+  writeFileSync(page, readFileSync(page, 'utf8').replace('<p class="version" id="version">dev</p>',
+    `<p class="version" id="version" title="Built ${built}">v${version}${commit ? ` · ${commit}` : ''}</p>`));
+}
 
 // ---- OCO entries + scores -------------------------------------------------
 const entries = JSON.parse(readFileSync(join(root, 'data/oco/oco.json'), 'utf8'));
