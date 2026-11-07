@@ -326,7 +326,13 @@ option, the common; the collect is always the saint's.
 An option puts the invitatory before Lauds or the Office of Readings: *Domine, labia mea
 aperies* (Antiphonale Monasticum 2005 tones), the invitatory antiphon (proper, or the
 psalter's one-week cycle) and Psalm 94 (95) in the Liber Hymnarius tone that matches the
-antiphon's mode, the antiphon repeated after each strophe.
+antiphon's mode. The antiphon is sung and at once repeated, then after each strophe (IGLH
+34). When it ends with "Veníte, adorémus" (59 of the 78), only those words are sung after
+the five strophes and the whole antiphon after the Gloria Patri, as the Liber Hymnarius
+allows (2nd ed., 2019, praenotanda: "haec verba tantum repetere licet post unamquamque
+stropham … Sed post Gloria Patri, semper repeti debet antiphona integra"); they are cut
+from the antiphon's own score (`veniteAdoremus` in `site/app.js`). The tones' strophes end
+in a double bar written in several ways by their transcribers; all are read.
 
 Status: every hour of every day is composed: Ordinary Time from the psalter, and the
 seasons, feasts and saints from their propers. Not yet: Compline's Sunday form on

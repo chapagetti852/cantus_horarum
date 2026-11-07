@@ -492,8 +492,13 @@ function invitatoryAntiphon(day) {
 }
 
 /**
- * Domine, labia mea aperies; the antiphon; Psalm 94 (95) strophe by strophe in the tone
- * that matches the antiphon's mode, the antiphon repeated after each strophe.
+ * Domine, labia mea aperies; the antiphon, sung and at once repeated; Psalm 94 (95) strophe
+ * by strophe in the tone that matches the antiphon's mode, the antiphon after each strophe
+ * (IGLH 34: "antiphona proponitur et statim repetitur, et post singulas strophas iterum
+ * repetitur"). An antiphon ending in "venite, adoremus" has only those words after the
+ * strophes and the whole antiphon after the Gloria Patri, as the Liber Hymnarius (2nd ed.,
+ * 2019, praenotanda) allows ("haec verba tantum repetere licet post unamquamque stropham …
+ * Sed post Gloria Patri, semper repeti debet antiphona integra").
  */
 async function appendInvitatory(main, day, proper = null) {
   const ant = proper || invitatoryAntiphon(day);
@@ -501,25 +506,59 @@ async function appendInvitatory(main, day, proper = null) {
   main.append(el('<h2 class="section">Invitatory</h2>'));
   main.append(await chantNode(isFestive(day) ? DOMINE_LABIA.festive : DOMINE_LABIA.ferial, { annotation: '' }));
   const antText = (ant.text || ant.title).replace(/([.!?])\s.*$/, '$1'); // the OCO text runs on into "Veníte, …"
-  const [first] = keyed(await chantNode(ant.gabc, { fallbackText: antText }));
-  const antiphon = async () => { const n = await chantNode(ant.gabc, { fallbackText: antText }); n.dataset.key = first.dataset.key; return n; };
-  main.append(first);
+  // the books' "Ps. Veníte" after the antiphon goes: the psalm's score follows with it
+  const transform = (b) => { const i = b.indexOf('(::)'); return i < 0 ? b : b.slice(0, i + 4); };
+  const [first] = keyed(await chantNode(ant.gabc, { fallbackText: antText, transform }));
+  const antiphon = async () => { const n = await chantNode(ant.gabc, { fallbackText: antText, transform }); n.dataset.key = first.dataset.key; return n; };
+  main.append(first, await antiphon());
+  // "Veníte, adorémus" alone, cut from the antiphon's score, when it ends so
+  const src0 = ant.gabc ? await loadGabc(ant.gabc) : null;
+  const venite = src0 ? veniteAdoremus(splitGabc(src0).body) : null;
+  const refrain = async () => {
+    if (!venite) return antiphon();
+    const n = el('<div class="chant"><div class="score"></div></div>');
+    layouts.push(renderChant(n.firstChild, venite, { dropCap: false }));
+    n.dataset.notated = '1'; n.dataset.key = first.dataset.key;
+    return n;
+  };
   const toneId = INVITATORY_TONES[ant.mode];
   const src = toneId ? await loadGabc(toneId) : null;
   if (!src) { main.append(el('<p class="rubric">Psalm 94 (95): no score.</p>')); return true; }
   const { header: toneHeader, body } = splitGabc(src);
   const clef = /^\s*(\([cf]b?[1-4]\))/.exec(body)?.[1] || '(c4)';
-  const strophes = body.replace(/^\s*\([cf]b?[1-4]\)/, '').split(/\(::Z?\)/).map((x) => x.trim()).filter((x) => /[a-z]\(/i.test(x));
+  // the strophes end in a double bar, written "(::)", "(::Z)", "(::Z-)", "(::/)" or inside the
+  // last neume ("(d/eed.::Z)") as the transcribers had it
+  const strophes = body.replace(/^\s*\([cf]b?[1-4]\)/, '').replace(/^%.*$/gm, '') // and GABC comments go
+    .replace(/\(([^():]*?)\s*::[^)]*\)/g, (m, notes) => (notes.trim() ? `(${notes.trim()}) (::)` : '(::)'))
+    .replace(/\(Z-?\)/g, '')
+    .split('(::)').map((x) => x.trim()).filter((x) => /[a-z]\(/i.test(x));
   main.append(el(`<div class="psalm-head"><span class="ref">Psalmus 94 (95)</span><span class="tone">Tone ${esc(ant.mode)}</span></div>`));
   for (const [i, st] of strophes.entries()) {
     const sc = el('<div class="score verse-score"></div>');
     sc.dataset.key = first.dataset.key;
     main.append(sc);
     layouts.push(renderChant(sc, `${clef} ${st} (::)`, { dropCap: false, source: i === 0 ? sourceOf(toneHeader) : null }));
-    main.append(await antiphon());
+    main.append(await (i < strophes.length - 1 ? refrain() : antiphon())); // the last strophe is the Gloria Patri
   }
   return true;
 }
+/**
+ * The end of an invitatory antiphon's score from "ve-ní-te, a-do-ré-mus" on, with its clef,
+ * when the antiphon (before its first double bar) ends with those words; else null.
+ */
+function veniteAdoremus(body) {
+  const clef = /^\s*(\([cf]b?[1-4]\))/.exec(body)?.[1];
+  const end = body.indexOf('(::)');
+  if (!clef || end < 0) return null;
+  const ant = body.slice(0, end);
+  const n = '(\\([^)]*\\)\\s*)'; // a syllable's notes
+  // ve-ní-te, a-do-ré-mus (or ad-o-ré-mus), in Eastertide followed by al-le-lú-ia
+  const re = new RegExp(`[Vv]e${n}n[íi]${n}te,?${n}(?:<[^>]*>\\s*)*(?:a${n}do|ad${n}o)${n}ré${n}mus[.,]?${n}(?:(?:\\([,;:]\\)\\s*)?(?:<[^>]*>\\s*)*al${n}le${n}l[úu]${n}[ij]a\\.?\\([^)]*\\)\\s*)?$`);
+  const m = re.exec(ant);
+  if (!m) return null;
+  return `${clef} ${m[0].replace(/^v/, 'V').trim()} (::)`;
+}
+
 
 /**
  * The hymn as one score with all its strophes. When the score holds only the first

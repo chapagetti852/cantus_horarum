@@ -4,6 +4,14 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.3.0 — 2026-11-07
+
+- Invitatory: the antiphon is sung twice before the psalm, as the General Instruction
+  (no. 34) has it. When it ends with "Veníte, adorémus", only those words are sung after
+  each strophe and the whole antiphon after the Gloria Patri (Liber Hymnarius, 2019).
+- Invitatory in modes IV, IV* and IV**: the psalm is now cut into its strophes with the
+  antiphon between them; it ran on as one piece.
+
 ## 1.2.1 — 2026-11-07
 
 - Salus et gloria in psalter weeks I and IV: the Antiphonale Romanum II melody of p. 480,
