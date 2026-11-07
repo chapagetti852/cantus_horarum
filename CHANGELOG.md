@@ -4,6 +4,16 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.7.0 — 2026-11-07
+
+- Office of Readings: the responsories GregoBase has, above all from the Nocturnale
+  Romanum (Impetum inimicorum today, Lapides pretiosi for the Lateran…): over a thousand
+  are known now, about one a day in the coming weeks.
+- After each antiphon a custos shows the first note of its psalm or canticle.
+- Responsory scores draw their asterisk and cross.
+- Mutual enrichment: no "ex more, ad libitum" notes in the hours; a pixel spark, and a
+  burst of pixels when an option is ticked.
+
 ## 1.6.0 — 2026-11-07
 
 - Hymns with a score where they had only text: Sunday's Office of Readings in weeks II and

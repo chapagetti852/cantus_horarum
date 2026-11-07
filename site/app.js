@@ -52,9 +52,15 @@ const RESPONSORIA = [
 ];
 const plainWords = (s) => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
   .replace(/æ/g, 'ae').replace(/œ/g, 'oe').replace(/j/g, 'i').replace(/[^a-z ]/g, ' ').replace(/\s+/g, ' ').trim();
+/**
+ * The score of a responsory of the Office of Readings: those above first, then GregoBase's
+ * (data/oco/responsoria-prolixa.json, from scripts/oco/match_responsoria_prolixa.py: above all
+ * the Nocturnale Romanum), whose response and verse begin as iBreviary's do.
+ */
 function responsoryScore(r, v) {
   const R = plainWords(r), V = plainWords(v);
-  return RESPONSORIA.find(([, a, b]) => R.startsWith(a) && (!b || V.startsWith(b)))?.[0] || null;
+  return RESPONSORIA.find(([, a, b]) => R.startsWith(a) && (!b || V.startsWith(b)))?.[0]
+    || (state.responsoria || []).find(([, a, b]) => R.startsWith(a) && V.startsWith(b))?.[0] || null;
 }
 // Psalm 94 (95) in the Liber Hymnarius (1983) tones, by the mode of the invitatory antiphon
 const INVITATORY_TONES = { '2': 8218, '3': 10397, '4': 15508, '4*': 7669, '4**': 16356, '5': 10248, '6': 9664, '6*': 10035, '6**': 15059, '7': 9834, D: 9707, E: 9642 };
@@ -441,7 +447,34 @@ function keyed(...nodes) {
 }
 
 /** An antiphon: its score, or its text when there is none. */
-const antiphonNode = (ant, fallbackText) => chantNode(ant?.gabc, { fallbackText: (ant?.text || fallbackText)?.replace(/\s*†\s*$/, '') });
+const antiphonNode = (ant, fallbackText, { custos = null } = {}) => chantNode(ant?.gabc, {
+  fallbackText: (ant?.text || fallbackText)?.replace(/\s*†\s*$/, ''),
+  transform: custos ? (b) => withCustos(b, custos) : null,
+});
+/**
+ * The first note of the psalm or canticle after an antiphon, as a custos after the antiphon's
+ * double bar (as Breviarium Gregorianum and the books print it): read from the first score of
+ * the psalm node, in the antiphon's clef.
+ */
+const LETTERS = 'abcdefghijklm';
+const doOf = (clef) => { const m = /^([cf])b?([1-4])$/.exec(clef || ''); if (!m) return null; const line = 3 + 2 * (Number(m[2]) - 1); return m[1] === 'c' ? line : line + 4; };
+function firstNoteOf(node) {
+  const g = node?.querySelector?.('.score')?.gabc;
+  if (!g) return null;
+  const clef = /\(([cf]b?[1-4])\)/.exec(g)?.[1];
+  const note = /\(([^)]*)\)/g; let m; note.lastIndex = g.indexOf(`(${clef})`) + clef.length + 2;
+  while ((m = note.exec(g))) { const p = /[a-m]/i.exec(m[1].replace(/^[cf]b?[1-4]$/, '')); if (p) return { clef, letter: p[0].toLowerCase() }; }
+  return null;
+}
+function withCustos(body, first) {
+  const clefs = [...body.matchAll(/\(([cf]b?[1-4])\)/g)];
+  const antClef = clefs.length ? clefs[clefs.length - 1][1] : null;
+  const a = doOf(antClef), p = doOf(first.clef);
+  if (a === null || p === null) return body;
+  const i = a + LETTERS.indexOf(first.letter) - p;
+  if (i < 0 || i >= LETTERS.length || !/\(::\)\s*$/.test(body)) return body;
+  return body.replace(/\(::\)\s*$/, `(::) (${LETTERS[i]}+)`);
+}
 
 function hymnTextNode(hourTexts) {
   const h = section(hourTexts, 'HYMNUS');
@@ -674,14 +707,17 @@ async function appendPsalmody(main, entries, psalmodySection, { single = null, s
       if (g === last) after.length = 0; // iBreviary's closing "Allelúia" refrain, sung in the score
       continue;
     }
-    const before = await antiphonNode(ant, g?.antiphon);
-    main.append(before);
     const used = [];
     const trFor = (head) => { const t = nextTrPsalm(head); used.push(t); return t; };
     // iBreviary's antiphon ends in † when it quotes the psalm's opening; the OCO's may put
     // the same words otherwise ("Illuminátio mea et salus mea Dóminus"), or be another antiphon
     const fromCross = /†\s*$/.test(g?.antiphon || '') && (!ant?.text || sameWords(ant.text, g.antiphon));
-    if (g) main.append(...keyed(before, psalmodyNode(g.items, await toneFor(ant), { trFor, fromCross }), await antiphonNode(ant, g.repeat || g.antiphon)));
+    // the psalm first, so the antiphon can show where it begins (its custos)
+    const psalms = g ? psalmodyNode(g.items, await toneFor(ant), { trFor, fromCross }) : null;
+    const first = firstNoteOf(psalms);
+    const before = await antiphonNode(ant, g?.antiphon, { custos: first });
+    main.append(before);
+    if (g) main.append(...keyed(before, psalms, await antiphonNode(ant, g.repeat || g.antiphon)));
     if (state.tr) {
       // iBreviary's English antiphon is the psalter's, or the day's when it keeps the same office
       const shared = state.tr.same || ant?.part === 'PSALTERIUM';
@@ -882,11 +918,11 @@ async function composeLaudesVesperae(main, day, date, hour) {
 async function appendGospelCanticle(main, ant, ce, { solemn = false, proper = true } = {}) {
   const ceAnt = ce?.blocks.find((b) => b.kind === 'antiphon')?.text;
   const g = state.tr?.own.gospel;
-  const first = await antiphonNode(ant, ceAnt);
   const trText = state.tr ? sungTr(ant?.text, ceAnt, g?.ant, { shared: !proper || state.tr.same }) : null;
   const trAnt = trText ? [trP(state.tr.lang, esc(trText))] : [];
   const canticle = ce ? [psalmodyNode(canticleBlocks(ce.blocks.filter((b) => b.kind !== 'antiphon' && b.kind !== 'rubric')), await toneFor(ant),
     { canticle: true, solemn, trFor: () => (g?.lines?.length ? { lines: g.lines } : null) })] : [];
+  const first = await antiphonNode(ant, ceAnt, { custos: firstNoteOf(canticle[0]) });
   main.append(...keyed(first, ...canticle, await antiphonNode(ant, ceAnt)));
   first.after(...trAnt);
 }
@@ -995,7 +1031,7 @@ function readingNode(blocks) {
   let gabc = singReading() && text ? (chapter ? chapterGabc(text) : readingGabc(text)) : null;
   if (!gabc) {
     node.insertAdjacentHTML('beforeend', renderBlocks(blocks));
-    if (deo) node.insertAdjacentHTML('beforeend', `<p class="versicle"><span class="r">℟.</span> Deo grátias. <span class="bonus-inline">ex more, ad libitum</span></p>`);
+    if (deo) node.insertAdjacentHTML('beforeend', '<p class="versicle"><span class="r">℟.</span> Deo grátias.</p>');
     return node;
   }
   // ℟. Deo grátias at the end of the score, as the Liber Usualis has it after the Chapter (p. 123):
@@ -1003,7 +1039,6 @@ function readingNode(blocks) {
   if (deo) gabc = gabc.replace(/\s*$/, ` <sp>R/</sp> ${chapter ? 'De(h)o(h) grá(f)ti(e)as.(ef..)' : 'De(h)o(h) grá(h)ti(h)as.(h.)'} (::)`);
   node.insertAdjacentHTML('beforeend', renderBlocks(blocks.filter((b) => b.kind !== 'text')));
   node.append(chantFromGabc(gabc, { dropCap: false, source: chapter ? RECITATION_SOURCE.chapter : RECITATION_SOURCE.reading }));
-  if (deo) node.insertAdjacentHTML('beforeend', '<p class="bonus-note">℟. Deo grátias: ex more, ad libitum</p>');
   return node;
 }
 /** A collect, with Orémus before it and Amen after when iBreviary gives them, on the collect tone. */
@@ -1275,7 +1310,7 @@ function easterOf(y) {
 
 // ------------------------------------------------------------------ mutual enrichment
 // Customs of the older Roman Office the user may add (settings, "Mutual enrichment"): each
-// marked in the office by a small rubric, "ex more, ad libitum".
+// off unless ticked, so not marked in the office.
 const BONUS = {
   fidelium: 'Fidelium animæ at the end of the hours (not Compline)',
   marianPrayer: 'After the antiphon of Our Lady: its versicle, collect and Divinum auxilium',
@@ -1283,13 +1318,33 @@ const BONUS = {
   deoGratias: '℟. Deo gratias after the short reading',
 };
 const bonus = (k) => !!state.settings.bonus?.[k];
-const BONUS_NOTE = '<p class="rubric bonus-note">Ex more, ad libitum</p>';
 // both recto tono, as the Liber Usualis has Divinum auxilium (p. 277: "said recto tono in a low voice")
 const FIDELIUM = "(c3) <sp>V/</sp> Fi(e)dé(e)li(e)um(e) á(e)ni(e)mæ(e) per(e) mi(e)se(e)ri(e)cór(e)di(e)am(e) De(e)i(e) re(e)quí(e)e(e)scant(e) in(e) pa(e)ce.(e) (::) <sp>R/</sp> A(e.)men.(e.) (::)";
 const DIVINUM_AUXILIUM = "(c3) <sp>V/</sp> Di(e)ví(e)num(e) au(e)xí(e)li(e)um(e) má(e)ne(e)at(e) sem(e)per(e) no(e)bís(e)cum.(e) (::) <sp>R/</sp> A(e.)men.(e.) (::)";
+/**
+ * A little explosion of pixels from (x, y), the bigger the more bonus options are ticked:
+ * one a puff, all of them a fireworks. Nothing when the reader prefers less motion.
+ */
+function pixelBurst(x, y, power = 1) {
+  if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+  const colours = ['var(--rubric)', '#e8b923', '#f4e3a1', '#c0392b', '#ffffff', '#7a4fd0'];
+  const n = 8 + power * power * 6, reach = 30 + power * 28;
+  const host = document.querySelector('dialog[open]') || document.body;
+  const box = el('<div class="pixel-burst" aria-hidden="true"></div>');
+  const hr = host === document.body ? { left: 0, top: 0 } : host.getBoundingClientRect();
+  box.style.left = `${x - hr.left}px`; box.style.top = `${y - hr.top}px`;
+  for (let i = 0; i < n; i++) {
+    const a = Math.random() * Math.PI * 2, d = reach * (0.35 + Math.random() * 0.65);
+    const p = document.createElement('i');
+    const size = 3 + Math.floor(Math.random() * (2 + power));
+    p.style.cssText = `--dx:${Math.round(Math.cos(a) * d / 3) * 3}px;--dy:${Math.round(Math.sin(a) * d / 3) * 3}px;width:${size}px;height:${size}px;background:${colours[i % colours.length]};animation-duration:${420 + power * 120 + Math.random() * 300}ms`;
+    box.append(p);
+  }
+  host.append(box);
+  setTimeout(() => box.remove(), 1400 + power * 150);
+}
 function appendFidelium(node) {
   if (!bonus('fidelium')) return;
-  node.insertAdjacentHTML('beforeend', BONUS_NOTE);
   node.append(chantFromGabc(FIDELIUM, { dropCap: false, source: { label: 'recto tono' } }));
   appendTr(node, ['May the souls of the faithful departed, through the mercy of God, rest in peace.', '— Amen.'], { proper: false });
 }
@@ -1326,7 +1381,6 @@ function appendMarianPrayer(main, marian, date) {
   // the Alma's versicle changes at Christmas: Advent's until Compline of 23 December, Christmastide's from I Vespers of Christmas
   const key = marian === 'alma' && (md >= '12-24' || md < '06-01') ? 'almaNat' : marian;
   const p = MARIAN_PRAYER[key];
-  main.insertAdjacentHTML('beforeend', BONUS_NOTE);
   main.append(chantFromGabc(versicleGabc(p.v, p.r), { dropCap: false, source: RECITATION_SOURCE.versicle }));
   main.append(chantFromGabc(collectGabc(p.oratio, { oremus: true, amen: true }), { dropCap: false, source: RECITATION_SOURCE.collect }));
   main.append(chantFromGabc(DIVINUM_AUXILIUM, { dropCap: false, source: { label: 'LU 277' } }));
@@ -1474,8 +1528,9 @@ function drawModePreviews() {
 function saveSettings() { localStorage.setItem('settings', JSON.stringify(state.settings)); }
 
 async function boot() {
-  const [oco, psalterium, slots, hymns] = await Promise.all([json('data/oco.json'), json('data/psalterium.json').catch(() => ({})), json('data/slots.json').catch(() => []), json('data/hymns.json').catch(() => ({}))]);
+  const [oco, psalterium, slots, hymns, responsoria] = await Promise.all([json('data/oco.json'), json('data/psalterium.json').catch(() => ({})), json('data/slots.json').catch(() => []), json('data/hymns.json').catch(() => ({})), json('data/responsoria.json').catch(() => [])]);
   state.hymns = hymns;
+  state.responsoria = responsoria;
   state.oco = oco; state.psalterium = psalterium; state.slots = slots; state.ocoIndex = indexOco(oco);
   const m = /^#(\d{4}-\d{2}-\d{2})\/(\w+)$/.exec(location.hash);
   state.date = m ? m[1] : iso(new Date());
@@ -1515,6 +1570,7 @@ async function boot() {
       if (cb.checked) b[k] = true; else delete b[k];
       state.settings.bonus = Object.keys(b).length ? b : undefined;
       saveSettings(); render();
+      if (cb.checked) { const r = cb.getBoundingClientRect(); pixelBurst(r.left + r.width / 2, r.top + r.height / 2, Object.keys(b).length); }
     };
     return row;
   }));

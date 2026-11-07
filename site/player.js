@@ -37,6 +37,7 @@ export function notesOf(body) {
       flats = new Set();
       continue;
     }
+    if (/^\s*[a-m]\+\s*$/i.test(g)) continue; // a custos: drawn, not sung
     const bar = /^\s*(::|:|;|,|`)\s*$/.exec(g);
     if (bar) {
       const last = out[out.length - 1];

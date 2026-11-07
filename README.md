@@ -338,6 +338,23 @@ On memorials in Ordinary Time, Lauds and Vespers take the weekday from the short
 on (reading, responsory, canticle antiphon unless proper, intercessions), or, by the
 option, the common; the collect is always the saint's.
 
+### Responsories of the Office of Readings
+
+Each reading of the Office of Readings has its responsory, proper to the day (iBreviary's
+text). `scripts/oco/match_responsoria_prolixa.py` reads the response and the verse of every
+responsory on GregoBase in the books of the Office (above all the Nocturnale Romanum,
+Hartker 2002, which sets the Liturgia Horarum's; then the Liber Hymnarius, the Antiphonale
+Monasticum 2005, Antiphonæ et Responsoria, the Antiphonale Monasticum 1934, the Liber
+Usualis, the Liber Antiphonarius, Hartker's antiphoners, and last the newest transcriptions
+that cite no book), from the GregoBase dump (`import_dump.py` into a cache) and keeps their
+first words in `data/oco/responsoria-prolixa.json`, the scores in `data/gabc`. The app takes
+the one whose response and verse begin as iBreviary's do. In November 2026 about one
+responsory a day has a score: the Scripture reading's is mostly an old one, the Father's
+often new in 1971 and set nowhere.
+
+After an antiphon its psalm's or canticle's first note stands as a custos after the double
+bar, in the antiphon's clef (`withCustos` in `site/app.js`); the player does not sing it.
+
 ### Hymns the OCO names only in its index
 
 Some hymns have no entry with a score in the OCO's body, only a row in its index (the
@@ -361,9 +378,10 @@ the Sunday form's text (`completeHymn` in `scripts/build.mjs`), if they scan ali
 
 ### Mutual enrichment
 
-A window in the settings ("Mutual enrichment: Bonus content") adds customs of the older
-Roman Office, each marked in the hour with the rubric *ex more, ad libitum*
-(`BONUS` in `site/app.js`, saved as `settings.bonus`):
+A window in the settings ("Mutual enrichment: Bonus content", with a twinkling pixel spark
+and a burst of pixels for each option ticked, the bigger the more are on) adds customs of
+the older Roman Office, all off unless ticked (`BONUS` in `site/app.js`, saved as
+`settings.bonus`):
 
 - *Fidelium animæ per misericordiam Dei requiéscant in pace. ℟. Amen.* after the
   conclusion of every hour but Compline, recto tono.

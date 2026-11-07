@@ -48,7 +48,7 @@
     <label class="row"><span>Translation <span class="beta">beta</span></span> <select id="opt-translation"><option value="">Latin only</option><option value="en">English</option></select></label>
     <label class="row">Invitatory before <select id="opt-invitatory"><option value="">—</option><option value="lectio">Office of Readings</option><option value="laudes">Lauds</option></select></label>
     <label class="row">Memorials, from the short reading <select id="opt-memoria"><option value="">of the weekday</option><option value="commune">of the common</option></select></label>
-    <div class="row">Mutual enrichment <button type="button" class="link" id="bonus-open">Bonus content</button></div>
+    <div class="row"><span>Mutual enrichment <span class="pixel-spark" aria-hidden="true"></span></span> <button type="button" class="link" id="bonus-open">Bonus content</button></div>
     <label class="row">Short reading <select id="opt-sing-reading"><option value="">Text</option><option value="1">Sung (tonus lectionis, AR II)</option><option value="capitulum">Sung (tonus capituli, Liber Usualis)</option></select></label>
     <label class="row">Collect <select id="opt-sing-collect"><option value="">Text</option><option value="1">Sung (tonus orationis, AR II)</option></select></label>
     <label class="row">Priest or deacon present <select id="opt-presider"><option value="">No</option><option value="1">Yes</option></select></label>
@@ -72,8 +72,8 @@
 
 <dialog id="bonus" class="help bonus" aria-labelledby="bonus-title">
   <form method="dialog"><button class="close" aria-label="Close">×</button></form>
-  <h2 id="bonus-title">Mutual enrichment</h2>
-  <p class="bonus-intro">Bonus content from the older Roman Office, in the spirit of Benedict XVI’s “mutual enrichment”. Each is marked in the hour <i>ex more, ad libitum</i>.</p>
+  <h2 id="bonus-title">Mutual enrichment <span class="pixel-spark" aria-hidden="true"></span></h2>
+  <p class="bonus-intro">Bonus content from the older Roman Office, in the spirit of Benedict XVI’s “mutual enrichment”. All off unless you tick them.</p>
   <div id="bonus-list"></div>
 </dialog>
 <dialog id="help" class="help" aria-labelledby="help-title">

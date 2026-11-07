@@ -57,6 +57,9 @@ writeFileSync(join(dist, 'data/oco.json'), JSON.stringify(compact));
 // ---- slot codes of the OCO indices, for resolving propers (site/resolve.js) ------
 const indices = JSON.parse(readFileSync(join(root, 'data/oco/indices.json'), 'utf8'));
 const indexHymns = JSON.parse(readFileSync(join(root, 'data/oco/index-hymns.json'), 'utf8'));
+// the responsories of the Office of Readings on GregoBase (scripts/oco/match_responsoria_prolixa.py)
+const responsoria = JSON.parse(readFileSync(join(root, 'data/oco/responsoria-prolixa.json'), 'utf8'));
+writeFileSync(join(dist, 'data/responsoria.json'), JSON.stringify(responsoria));
 // the index gives some hymns to I Vespers only where the OCO body sings them at both
 // ("Te sæculorum principem", Christ the King: "I & II Vesp."); 'V' is both
 const bothVespers = new Set(entries.filter((e) => e.kind === 'hymn' && e.lhym && /I & II/.test(e.hour || '')).map((e) => String(e.lhym)));
@@ -79,7 +82,7 @@ const COMMON_TONES = [4121, 18178, 7864, 18107, 18108, 4321, 15303, 15301, 15302
   // responsories of the Office of Readings (RESPONSORIA in site/app.js)
   16139, 16360, 16205, 16108, 16135, 19647, 20401, 20438, 20687];
 const ids = new Set([...compact.map((e) => e.gabc).filter(Boolean), ...COMMON_TONES, 4680, 4681, 4682, 4677, 4683, 7515, 7517, 7518, 7519, 16706,
-  ...Object.values(indexHymns).flatMap((v) => (typeof v === 'object' ? Object.values(v) : [v]))]);
+  ...Object.values(indexHymns).flatMap((v) => (typeof v === 'object' ? Object.values(v) : [v])), ...responsoria.map((r) => r[0])]);
 mkdirSync(join(dist, 'gabc'), { recursive: true });
 let copied = 0, missing = 0;
 // each file headed with where its notation comes from (site/sources.js), shown at the top
