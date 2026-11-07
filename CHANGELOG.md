@@ -4,6 +4,10 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.3.1 — 2026-11-07
+
+- Invitatory: the antiphon is printed once, with the rubric "Antiphona repetitur", not twice.
+
 ## 1.3.0 — 2026-11-07
 
 - Invitatory: the antiphon is sung twice before the psalm, as the General Instruction

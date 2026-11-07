@@ -492,7 +492,7 @@ function invitatoryAntiphon(day) {
 }
 
 /**
- * Domine, labia mea aperies; the antiphon, sung and at once repeated; Psalm 94 (95) strophe
+ * Domine, labia mea aperies; the antiphon, sung and at once repeated (a rubric says so); Psalm 94 (95) strophe
  * by strophe in the tone that matches the antiphon's mode, the antiphon after each strophe
  * (IGLH 34: "antiphona proponitur et statim repetitur, et post singulas strophas iterum
  * repetitur"). An antiphon ending in "venite, adoremus" has only those words after the
@@ -510,7 +510,7 @@ async function appendInvitatory(main, day, proper = null) {
   const transform = (b) => { const i = b.indexOf('(::)'); return i < 0 ? b : b.slice(0, i + 4); };
   const [first] = keyed(await chantNode(ant.gabc, { fallbackText: antText, transform }));
   const antiphon = async () => { const n = await chantNode(ant.gabc, { fallbackText: antText, transform }); n.dataset.key = first.dataset.key; return n; };
-  main.append(first, await antiphon());
+  main.append(first, el('<p class="rubric">Antiphona repetitur.</p>')); // sung again at once (IGLH 34), not printed twice
   // "Veníte, adorémus" alone, cut from the antiphon's score, when it ends so
   const src0 = ant.gabc ? await loadGabc(ant.gabc) : null;
   const venite = src0 ? veniteAdoremus(splitGabc(src0).body) : null;
