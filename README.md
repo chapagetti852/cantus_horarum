@@ -321,6 +321,26 @@ On memorials in Ordinary Time, Lauds and Vespers take the weekday from the short
 on (reading, responsory, canticle antiphon unless proper, intercessions), or, by the
 option, the common; the collect is always the saint's.
 
+### Mutual enrichment
+
+A window in the settings ("Mutual enrichment: Bonus content") adds customs of the older
+Roman Office, each marked in the hour with the rubric *ex more, ad libitum*
+(`BONUS` in `site/app.js`, saved as `settings.bonus`):
+
+- *Fidelium animæ per misericordiam Dei requiéscant in pace. ℟. Amen.* after the
+  conclusion of every hour but Compline, recto tono.
+- After the antiphon of Our Lady at Compline, its versicle and collect (Breviarium
+  Romanum; the Alma's versicle and collect change at I Vespers of Christmas), sung on the
+  common tones, and *Divinum auxílium máneat semper nobíscum. ℟. Amen.* (Liber Usualis
+  p. 277, recto tono).
+- The antiphon of Our Lady by the traditional calendar (rubrics of 1960): Alma Redemptoris
+  from Compline of the Saturday before Advent to 1 February, Ave Regina from 2 February to
+  Wednesday of Holy Week, none in the Triduum, Regina cæli from Easter to the Friday after
+  Pentecost, Salve Regina from I Vespers of the Trinity to the eve of Advent. Without it
+  the antiphon follows the present seasons: Regina cæli in Eastertide (as the Liturgia
+  Horarum prescribes), Alma in Advent and Christmastide, Ave Regina in Lent, Salve Regina
+  in Ordinary Time.
+
 ### Invitatory
 
 An option puts the invitatory before Lauds or the Office of Readings: *Domine, labia mea

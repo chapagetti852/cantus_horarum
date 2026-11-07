@@ -4,6 +4,17 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.4.0 — 2026-11-07
+
+- "Mutual enrichment" in the settings: bonus content from the older Roman Office, each
+  marked *ex more, ad libitum* in the hour: Fidelium animæ at the end of the hours;
+  after the antiphon of Our Lady at Compline its versicle, collect and Divinum auxilium;
+  the antiphon of Our Lady by the traditional calendar (Alma to 1 February, Ave Regina
+  to Wednesday of Holy Week, none in the Triduum, Regina cæli to the Friday after
+  Pentecost).
+- Without that option the antiphon of Our Lady follows the present seasons: Salve Regina
+  in all of Ordinary Time (it was Alma in January and Ave Regina in February).
+
 ## 1.3.1 — 2026-11-07
 
 - Invitatory: the antiphon is printed once, with the rubric "Antiphona repetitur", not twice.

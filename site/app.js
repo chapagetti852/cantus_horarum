@@ -921,12 +921,14 @@ async function conclusionNode(blocks, cel, hour, { first = false, tr = null } = 
   if (tr?.length && state.tr) { const t = trNode(state.tr.lang, tr); if (t) node.append(t); }
   if (!major) {
     if (blocks.some((b) => /^Benedicámus Dómino/.test(textOf(b)))) node.append(await chantNode(isFestive(cel) ? BENEDICAMUS_HORAE.festive : BENEDICAMUS_HORAE.ferial, { annotation: '' }));
+    appendFidelium(node);
     return node;
   }
   const solemn = ['major', 'solemnity'].includes(rankOf(cel));
   if (state.settings.presider) node.append(await chantNode(solemn ? DOMINUS_VOBISCUM.solemn : DOMINUS_VOBISCUM.simple, { annotation: '' }));
   else node.append(chantFromGabc(dominusNosBenedicat(cel), { source: dominusNosBenedicatSource(cel) }));
   node.append(await chantNode(benedicamusFor(cel, first && hour === 'vesperae' ? 'vesperae1' : hour), { annotation: '' }));
+  appendFidelium(node);
   return node;
 }
 /**
@@ -1155,20 +1157,116 @@ async function composeCompline(main, day, date, hour) {
   }
   main.append(el('<h2 class="section">Blessing</h2>'));
   main.append(await chantNode(NOCTEM_QUIETAM, { annotation: '' }));
+  const marian = bonus('marianCalendar') ? marianTraditional(date) : marianAntiphon(cel, date);
+  if (!marian) { // the traditional Triduum has none
+    main.append(el('<p class="rubric bonus-note">In Triduo sacro antiphona B. Mariæ Virginis non dicitur.</p>'));
+    return;
+  }
   main.append(el('<h2 class="section">Antiphon of Our Lady</h2>'));
-  main.append(await chantNode(marianAntiphon(cel, date), { annotation: '' }));
+  main.append(await chantNode(MARIAN[marian], { annotation: '' }));
+  if (bonus('marianPrayer')) appendMarianPrayer(main, marian, date);
 }
 const NOCTEM_QUIETAM = 20685;
 // Antiphonale Monasticum 2005: Alma (p. 472), Ave Regina (p. 474), Regina cæli (p. 475), Salve Regina, simple tone (p. 477)
 const MARIAN = { alma: 4694, ave: 18754, regina: 18753, salve: 18655 };
-/** The antiphon of Our Lady by season: Alma from Advent to the Presentation (2 Feb), Ave Regina to Holy Week, Regina cæli in Eastertide, Salve Regina after. */
-function marianAntiphon(cel, date) {
+/**
+ * The antiphon of Our Lady by the seasons of the calendar: Regina cæli in Eastertide (which
+ * the Liturgia Horarum prescribes), Alma Redemptoris in Advent and Christmastide, Ave Regina
+ * in Lent and the Triduum, Salve Regina in Ordinary Time.
+ */
+function marianAntiphon(cel) {
   const s = cel.seasons || [];
-  const [, m, d] = date.split('-').map(Number);
-  if (s.includes('EASTER_TIME')) return MARIAN.regina;
-  if (s.includes('ADVENT') || s.includes('CHRISTMAS_TIME') || m === 1 || (m === 2 && d <= 2)) return MARIAN.alma;
-  if (s.includes('LENT') || s.includes('PASCHAL_TRIDUUM') || m === 2 || m === 3) return MARIAN.ave;
-  return MARIAN.salve;
+  if (s.includes('EASTER_TIME')) return 'regina';
+  if (s.includes('ADVENT') || s.includes('CHRISTMAS_TIME')) return 'alma';
+  if (s.includes('LENT') || s.includes('HOLY_WEEK') || s.includes('PASCHAL_TRIDUUM')) return 'ave';
+  return 'salve';
+}
+/**
+ * The same by the older Roman Breviary (rubrics of 1960): Alma Redemptoris from Compline of
+ * the Saturday before Advent until 1 February (Christmastide and the weeks after it), Ave
+ * Regina from Compline of 2 February until Wednesday of Holy Week, none in the Triduum,
+ * Regina cæli from Easter until the Friday after Pentecost, Salve Regina from Compline of
+ * the Saturday after Pentecost (I Vespers of the Trinity) until the Friday before Advent.
+ * `date` is the day whose Compline it is.
+ */
+function marianTraditional(date) {
+  const t = Date.parse(`${date}T12:00:00Z`), day = 864e5;
+  const y = Number(date.slice(0, 4));
+  const easter = easterOf(y);
+  const advent1 = (() => { const xmas = Date.UTC(y, 11, 25, 12); const dow = new Date(xmas).getUTCDay(); return xmas - ((dow || 7) + 21) * day; })();
+  const feb2 = Date.UTC(y, 1, 2, 12);
+  if (t >= advent1 - day || t < feb2) return 'alma';
+  if (t < easter - 3 * day) return 'ave'; // to Wednesday of Holy Week
+  if (t < easter) return null; // Holy Thursday, Good Friday, Holy Saturday
+  if (t < easter + 55 * day) return 'regina'; // to the Friday after Pentecost
+  return 'salve';
+}
+/** Easter Sunday of year `y` (Gregorian; Meeus/Jones/Butcher), as a UTC noon timestamp. */
+function easterOf(y) {
+  const a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4;
+  const f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const month = Math.floor((h + l - 7 * m + 114) / 31), dayOf = ((h + l - 7 * m + 114) % 31) + 1;
+  return Date.UTC(y, month - 1, dayOf, 12);
+}
+
+// ------------------------------------------------------------------ mutual enrichment
+// Customs of the older Roman Office the user may add (settings, "Mutual enrichment"): each
+// marked in the office by a small rubric, "ex more, ad libitum".
+const BONUS = {
+  fidelium: 'Fidelium animæ at the end of the hours (not Compline)',
+  marianPrayer: 'After the antiphon of Our Lady: its versicle, collect and Divinum auxilium',
+  marianCalendar: 'The antiphon of Our Lady by the traditional calendar',
+};
+const bonus = (k) => !!state.settings.bonus?.[k];
+const BONUS_NOTE = '<p class="rubric bonus-note">Ex more, ad libitum</p>';
+// both recto tono, as the Liber Usualis has Divinum auxilium (p. 277: "said recto tono in a low voice")
+const FIDELIUM = "(c3) <sp>V/</sp> Fi(e)dé(e)li(e)um(e) á(e)ni(e)mæ(e) per(e) mi(e)se(e)ri(e)cór(e)di(e)am(e) De(e)i(e) re(e)quí(e)e(e)scant(e) in(e) pa(e)ce.(e) (::) <sp>R/</sp> A(e.)men.(e.) (::)";
+const DIVINUM_AUXILIUM = "(c3) <sp>V/</sp> Di(e)ví(e)num(e) au(e)xí(e)li(e)um(e) má(e)ne(e)at(e) sem(e)per(e) no(e)bís(e)cum.(e) (::) <sp>R/</sp> A(e.)men.(e.) (::)";
+function appendFidelium(node) {
+  if (!bonus('fidelium')) return;
+  node.insertAdjacentHTML('beforeend', BONUS_NOTE);
+  node.append(chantFromGabc(FIDELIUM, { dropCap: false, source: { label: 'recto tono' } }));
+  appendTr(node, ['May the souls of the faithful departed, through the mercy of God, rest in peace.', '— Amen.'], { proper: false });
+}
+/** The versicle and collect of each antiphon of Our Lady (Breviarium Romanum), Divinum auxilium after. */
+const MARIAN_PRAYER = {
+  alma: {
+    v: 'Ángelus Dómini nuntiávit Maríæ.', r: 'Et concépit de Spíritu Sancto.',
+    oratio: 'Grátiam tuam, quǽsumus, Dómine, méntibus nostris infúnde: ut qui, Ángelo nuntiánte, Christi Fílii tui incarnatiónem cognóvimus, per passiónem eius et crucem ad resurrectiónis glóriam perducámur. Per eúndem Christum Dóminum nostrum.',
+    en: ['The Angel of the Lord declared unto Mary.', '— And she conceived of the Holy Spirit.', 'Let us pray. Pour forth, we beseech you, O Lord, your grace into our hearts, that we, to whom the incarnation of Christ your Son was made known by the message of an Angel, may by his passion and cross be brought to the glory of his resurrection. Through the same Christ our Lord. Amen.'],
+  },
+  almaNat: { // from Christmas to 2 February
+    v: 'Post partum, Virgo, invioláta permansísti.', r: 'Dei Génetrix, intercéde pro nobis.',
+    oratio: 'Deus, qui salútis ætérnæ, beátæ Maríæ virginitáte fecúnda, humáno géneri prǽmia præstitísti: tríbue, quǽsumus, ut ipsam pro nobis intercédere sentiámus, per quam merúimus auctórem vitæ suscípere, Dóminum nostrum Iesum Christum, Fílium tuum.',
+    en: ['After childbirth, O Virgin, you remained inviolate.', '— Mother of God, intercede for us.', 'Let us pray. O God, who by the fruitful virginity of blessed Mary bestowed on the human race the rewards of eternal salvation, grant, we pray, that we may know her intercession for us, through whom we were found worthy to receive the author of life, our Lord Jesus Christ, your Son. Amen.'],
+  },
+  ave: {
+    v: 'Dignáre me laudáre te, Virgo sacráta.', r: 'Da mihi virtútem contra hostes tuos.',
+    oratio: 'Concéde, miséricors Deus, fragilitáti nostræ præsídium: ut, qui sanctæ Dei Genetrícis memóriam ágimus, intercessiónis eius auxílio a nostris iniquitátibus resurgámus. Per eúndem Christum Dóminum nostrum.',
+    en: ['Grant that I may praise you, O holy Virgin.', '— Give me strength against your enemies.', 'Let us pray. Grant, O merciful God, protection to our frailty, that we who keep the memory of the holy Mother of God may, by the help of her intercession, rise again from our iniquities. Through the same Christ our Lord. Amen.'],
+  },
+  regina: {
+    v: 'Gaude et lætáre, Virgo María, allelúia.', r: 'Quia surréxit Dóminus vere, allelúia.',
+    oratio: 'Deus, qui per resurrectiónem Fílii tui, Dómini nostri Iesu Christi, mundum lætificáre dignátus es: præsta, quǽsumus, ut, per eius Genetrícem Vírginem Maríam, perpétuæ capiámus gáudia vitæ. Per eúndem Christum Dóminum nostrum.',
+    en: ['Rejoice and be glad, O Virgin Mary, alleluia.', '— For the Lord is truly risen, alleluia.', 'Let us pray. O God, who gave joy to the world through the resurrection of your Son, our Lord Jesus Christ, grant, we pray, that through his Mother, the Virgin Mary, we may obtain the joys of everlasting life. Through the same Christ our Lord. Amen.'],
+  },
+  salve: {
+    v: 'Ora pro nobis, sancta Dei Génetrix.', r: 'Ut digni efficiámur promissiónibus Christi.',
+    oratio: 'Omnípotens sempitérne Deus, qui gloriósæ Vírginis Matris Maríæ corpus et ánimam, ut dignum Fílii tui habitáculum éffici mererétur, Spíritu Sancto cooperánte, præparásti: da, ut cuius commemoratióne lætámur, eius pia intercessióne ab instántibus malis et a morte perpétua liberémur. Per eúndem Christum Dóminum nostrum.',
+    en: ['Pray for us, O holy Mother of God.', '— That we may be made worthy of the promises of Christ.', 'Let us pray. Almighty and everlasting God, who by the working of the Holy Spirit prepared the body and soul of the glorious Virgin Mother Mary to become a worthy dwelling for your Son, grant that we who rejoice in her commemoration may by her loving intercession be delivered from present evils and from everlasting death. Through the same Christ our Lord. Amen.'],
+  },
+};
+function appendMarianPrayer(main, marian, date) {
+  const md = date.slice(5);
+  // the Alma's versicle changes at Christmas: Advent's until Compline of 23 December, Christmastide's from I Vespers of Christmas
+  const key = marian === 'alma' && (md >= '12-24' || md < '06-01') ? 'almaNat' : marian;
+  const p = MARIAN_PRAYER[key];
+  main.insertAdjacentHTML('beforeend', BONUS_NOTE);
+  main.append(chantFromGabc(versicleGabc(p.v, p.r), { dropCap: false, source: RECITATION_SOURCE.versicle }));
+  main.append(chantFromGabc(collectGabc(p.oratio, { oremus: true, amen: true }), { dropCap: false, source: RECITATION_SOURCE.collect }));
+  main.append(chantFromGabc(DIVINUM_AUXILIUM, { dropCap: false, source: { label: 'LU 277' } }));
+  appendTr(main, [...p.en, 'May the divine assistance remain with us always. — Amen.'], { proper: false });
 }
 
 async function render() {
@@ -1338,6 +1436,21 @@ async function boot() {
   $('#opt-memoria').onchange = (e) => { state.settings.memoria = e.target.value || undefined; saveSettings(); render(); };
   $('#opt-presider').onchange = (e) => { state.settings.presider = e.target.value ? true : undefined; saveSettings(); render(); };
   $('#opt-invitatory').onchange = (e) => { state.settings.invitatory = e.target.value || undefined; saveSettings(); render(); };
+  // "Mutual enrichment": the older customs, ticked in their own small window
+  const box = $('#bonus-list');
+  box.replaceChildren(...Object.entries(BONUS).map(([k, label]) => {
+    const row = el(`<label class="bonus-row"><input type="checkbox" data-bonus="${k}"> <span>${esc(label)}</span></label>`);
+    const cb = row.querySelector('input');
+    cb.checked = bonus(k);
+    cb.onchange = () => {
+      const b = { ...(state.settings.bonus || {}) };
+      if (cb.checked) b[k] = true; else delete b[k];
+      state.settings.bonus = Object.keys(b).length ? b : undefined;
+      saveSettings(); render();
+    };
+    return row;
+  }));
+  $('#bonus-open').onclick = () => $('#bonus').showModal();
   if ($('#opt-translation')) $('#opt-translation').onchange = (e) => { state.settings.translation = e.target.value || undefined; saveSettings(); render(); };
   $('#pdf-format').value = state.settings.pdf || 'a5';
   $('#pdf-format').onchange = (e) => { state.settings.pdf = e.target.value; saveSettings(); };
