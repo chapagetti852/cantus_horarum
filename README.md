@@ -400,6 +400,13 @@ the older Roman Office, all off unless ticked (`BONUS` in `site/app.js`, saved a
   Horarum prescribes), Alma in Advent and Christmastide, Ave Regina in Lent, Salve Regina
   in Ordinary Time.
 
+### Office of Readings hymn
+
+The Office of Readings has two hymns in Ordinary Time, one for the night or early morning and
+one for the day (Sunday: Mediæ noctis or Salve dies); a proper hymn serves for both. The
+setting "Office of Readings hymn" chooses: by the hour (the night's before 7), by day, or by
+night. Only the hymn chosen is shown, with no rubric naming the other.
+
 ### Invitatory
 
 An option puts the invitatory before Lauds or the Office of Readings: *Domine, labia mea

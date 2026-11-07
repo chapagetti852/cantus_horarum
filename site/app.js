@@ -666,7 +666,6 @@ async function appendHymnOnly(main, hymn, textNode, alternatives = []) {
   main.append(el('<h2 class="section">Hymn</h2>'));
   const src = hymn?.gabc ? await loadGabc(hymn.gabc) : null;
   if (hymn) main.append(await chantNode(hymn.gabc, { fallbackText: src ? null : hymn.title, fallbackLabel: '' }));
-  if (alternatives.length) main.append(el(`<p class="rubric">Or: ${alternatives.map((x) => esc(x.title)).join('; ')}</p>`));
   if (!textNode) return;
   const body = src ? splitGabc(src).body : '';
   const complete = /\s2\.?\s*[(A-ZÆŒ]/.test(body) || (body.match(/\(::\)/g) || []).length > 1;
@@ -763,11 +762,12 @@ async function composeLectio(main, day, date) {
 
   // two hymns: one for the night or early morning, one for the day (a proper hymn serves both)
   const hymns = propers.H ? entries.filter((e) => e.kind === 'hymn').slice(0, 1) : entries.filter((e) => e.kind === 'hymn').map(withScore);
-  const night = new Date().getHours() < 7;
-  const [hymn, other] = night || hymns.length < 2 ? hymns : [hymns[1], hymns[0]];
+  // which: the setting "Office of Readings hymn" (by the hour unless chosen: before 7 the night's)
+  const pref = state.settings.ofHymn;
+  const night = pref === 'night' || (pref !== 'day' && new Date().getHours() < 7);
+  const [hymn] = night || hymns.length < 2 ? hymns : [hymns[1], hymns[0]];
   const part = hymnBlocksNode(hymnPart(texts, night ? /^I\./ : /^II\./)) || hymnTextNode(texts);
   await appendHymn(main, hymn, part);
-  if (other) main.append(el(`<p class="rubric">${night ? 'By day' : 'At night or early in the morning'}: ${esc(other.title)}</p>`));
 
   await appendPsalmody(main, entries, section(texts, 'PSALMODIA'));
 
@@ -1516,6 +1516,7 @@ function applySettings() {
   $('#opt-sing-reading').value = singReading() ? '1' : '';
   $('#opt-sing-collect').value = singCollect() ? '1' : '';
   $('#opt-invitatory').value = state.settings.invitatory || '';
+  $('#opt-of-hymn').value = state.settings.ofHymn || '';
   if ($('#opt-translation')) $('#opt-translation').value = TRANSLATION_LANGS.has(state.settings.translation) ? state.settings.translation : '';
 }
 // The two psalm modes, shown in their cards as they will look: Ps 116 on tone 8 g, its
@@ -1578,6 +1579,7 @@ async function boot() {
   $('#opt-sing-reading').onchange = (e) => { state.settings.singReading = e.target.value ? true : undefined; saveSettings(); render(); };
   $('#opt-sing-collect').onchange = (e) => { state.settings.singCollect = e.target.value ? true : undefined; saveSettings(); render(); };
   $('#opt-invitatory').onchange = (e) => { state.settings.invitatory = e.target.value || undefined; saveSettings(); render(); };
+  $('#opt-of-hymn').onchange = (e) => { state.settings.ofHymn = e.target.value || undefined; saveSettings(); render(); };
   // "Mutual enrichment": the older customs, ticked in their own small window
   const box = $('#bonus-list');
   box.replaceChildren(...Object.entries(BONUS).map(([k, label]) => {

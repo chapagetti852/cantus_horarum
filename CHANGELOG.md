@@ -4,6 +4,12 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.10.0 — 2026-11-07
+
+- Setting "Office of Readings hymn": by the hour (the night's before 7 in the morning), by
+  day, or at night or early in the morning. The other hymn is no longer named in a rubric,
+  nor are alternative hymns ("Or: …") elsewhere.
+
 ## 1.9.0 — 2026-11-07
 
 - Versicles on Sundays, solemnities, feasts and memorials (before the readings of the Office
