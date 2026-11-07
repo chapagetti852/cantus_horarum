@@ -22,89 +22,148 @@
 <header class="top">
   <div class="bar">
     <a class="logo" href="./" aria-label="Cantus Horarum"><svg viewBox="0 0 512 512" aria-hidden="true"><rect class="bg" width="512" height="512" rx="112"/><g class="staff"><rect y="144" width="512" height="16"/><rect y="208" width="512" height="16"/><rect y="272" width="512" height="16"/><rect y="336" width="512" height="16"/></g><g class="notes"><path d="M112 144Q152 152 192 144V224Q152 216 112 224Z"/><path d="M192 208Q232 216 272 208V288Q232 280 192 288Z"/><rect x="112" y="144" width="16" height="144"/><path d="M304 272Q344 280 384 272V352Q344 344 304 352Z"/></g></svg></a>
-    <select id="hour" aria-label="Hour">
-      <option value="lectio">Office of Readings</option>
-      <option value="laudes">Lauds</option>
-      <option value="tertia">Terce</option>
-      <option value="sexta">Sext</option>
-      <option value="nona">None</option>
-      <option value="vesperae">Vespers</option>
-      <option value="completorium">Compline</option>
+    <select id="hour" aria-label="Hour" data-i18n-aria="aria.hour">
+      <option value="lectio" data-i18n="hour.lectio">Office of Readings</option>
+      <option value="laudes" data-i18n="hour.laudes">Lauds</option>
+      <option value="tertia" data-i18n="hour.tertia">Terce</option>
+      <option value="sexta" data-i18n="hour.sexta">Sext</option>
+      <option value="nona" data-i18n="hour.nona">None</option>
+      <option value="vesperae" data-i18n="hour.vesperae">Vespers</option>
+      <option value="completorium" data-i18n="hour.completorium">Compline</option>
     </select>
-    <input type="date" id="date" aria-label="Date">
-    <button class="gear" id="settings-toggle" aria-label="Settings" aria-expanded="false" aria-controls="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.4 13a7.6 7.6 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.4 7.4 0 0 0-1.7-1L15 3.3h-4l-.4 2.6a7.4 7.4 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.6 7.6 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a7.4 7.4 0 0 0 1.7 1l.4 2.6h4l.4-2.6a7.4 7.4 0 0 0 1.7-1l2.5 1 2-3.5zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" transform="translate(-1 0)"/></svg></button>
+    <input type="date" id="date" aria-label="Date" data-i18n-aria="aria.date">
+    <button class="gear" id="settings-toggle" aria-label="Settings" data-i18n-aria="aria.settings" aria-expanded="false" aria-controls="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.4 13a7.6 7.6 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.4 7.4 0 0 0-1.7-1L15 3.3h-4l-.4 2.6a7.4 7.4 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.6 7.6 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a7.4 7.4 0 0 0 1.7 1l.4 2.6h4l.4-2.6a7.4 7.4 0 0 0 1.7-1l2.5 1 2-3.5zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" transform="translate(-1 0)"/></svg></button>
   </div>
   <div id="settings" class="settings" hidden>
-    <p class="settings-title">Psalm display mode</p>
+    <p class="settings-title" data-i18n="set.psalms">Psalm display mode</p>
     <div class="modes" role="radiogroup" aria-label="Psalm display mode">
       <button class="mode" data-psalms="text" role="radio">
         <span class="preview mini" aria-hidden="true"></span>
-        <span class="mode-name">Compact</span>
+        <span class="mode-name" data-i18n="set.compact">Compact</span>
       </button>
       <button class="mode" data-psalms="" role="radio">
         <span class="preview mini" aria-hidden="true"></span>
-        <span class="mode-name">Detailed</span>
+        <span class="mode-name" data-i18n="set.detailed">Detailed</span>
       </button>
     </div>
-    <label class="row"><span>Translation <span class="beta">beta</span></span> <select id="opt-translation"><option value="">Latin only</option><option value="en">English</option><option value="zh">中文（香港）</option></select></label>
-    <label class="row">Pange lingua <select id="opt-pange"><option value="">Liber Hymnarius</option><option value="vaticana">Vatican edition</option></select></label>
-    <label class="row">Office of Readings hymn <select id="opt-of-hymn"><option value="">By the hour</option><option value="day">By day</option><option value="night">At night or early morning</option></select></label>
-    <label class="row">Invitatory before <select id="opt-invitatory"><option value="">—</option><option value="lectio">Office of Readings</option><option value="laudes">Lauds</option></select></label>
-    <label class="row">Memorials, from the short reading <select id="opt-memoria"><option value="">of the weekday</option><option value="commune">of the common</option></select></label>
-    <div class="row"><span>Mutual enrichment <span class="pixel-spark" aria-hidden="true"></span></span> <button type="button" class="link" id="bonus-open">Bonus content</button></div>
-    <label class="row">Short reading <select id="opt-sing-reading"><option value="ar">Sung (Antiphonale Romanum)</option><option value="lu">Sung (Liber Usualis)</option><option value="text">Text</option></select></label>
-    <label class="row">Intercessions <select id="opt-preces"><option value="ar">Sung (Antiphonale Romanum)</option><option value="text">Text</option></select></label>
-    <label class="row">Collect <select id="opt-sing-collect"><option value="ar">Sung (Antiphonale Romanum)</option><option value="lu">Sung (Liber Usualis)</option><option value="text">Text</option></select></label>
-    <label class="row">Priest or deacon present <select id="opt-presider"><option value="">No</option><option value="1">Yes</option></select></label>
-    <label class="row">Singing voice <select id="opt-voice"><option value="gravis">Low</option><option value="">Medium</option><option value="acuta">High</option></select></label>
-    <label class="row">Dark mode <select id="opt-theme"><option value="">System</option><option value="light">Off</option><option value="dark">On</option></select></label>
-    <div class="row">PDF <span class="pdf"><select id="pdf-size" aria-label="Print size"><option value="70">70 %</option><option value="80">80 %</option><option value="90">90 %</option><option value="100">100 %</option><option value="110">110 %</option><option value="120">120 %</option><option value="130">130 %</option><option value="140">140 %</option><option value="150">150 %</option></select><select id="pdf-format" aria-label="Page format"><option value="a4">A4</option><option value="a5">A5</option><option value="letter">Letter</option><option value="booklet-a4">Booklet A4</option><option value="booklet-letter">Booklet Letter</option></select><button id="pdf-make" type="button">Make</button><a id="pdf-link" class="pdf-get" hidden>Download</a><button id="pdf-share" class="pdf-get" type="button" hidden>Share</button></span></div>
-    <div class="row">Help and sources <button type="button" class="link help-open">Open</button></div>
-    <label class="row">Text size <input type="range" id="text-size" min="85" max="140" step="5" value="100"></label>
+    <label class="row"><span data-i18n="set.ui">Interface</span> <select id="opt-ui"><option value="en">English</option><option value="zh">中文（香港）</option><option value="la">Latina</option></select></label>
+    <label class="row"><span><span data-i18n="set.translation">Translation</span> <span class="beta" data-i18n="set.beta">beta</span></span> <select id="opt-translation"><option value="" data-i18n="tr.none">Latin only</option><option value="zh" data-i18n="tr.zh">Chinese (Hong Kong)</option><option value="en" data-i18n="tr.en">English</option><option value="zh+en" data-i18n="tr.zh+en">Chinese and English</option><option value="zh>en" data-i18n="tr.zh>en">Chinese, else English</option></select></label>
+    <label class="row"><span data-i18n="set.pange">Pange lingua</span> <select id="opt-pange"><option value="">Liber Hymnarius</option><option value="vaticana" data-i18n="pange.vaticana">Vatican edition</option></select></label>
+    <label class="row"><span data-i18n="set.ofHymn">Office of Readings hymn</span> <select id="opt-of-hymn"><option value="" data-i18n="ofHymn.auto">By the hour</option><option value="day" data-i18n="ofHymn.day">By day</option><option value="night" data-i18n="ofHymn.night">At night or early morning</option></select></label>
+    <label class="row"><span data-i18n="set.invitatory">Invitatory before</span> <select id="opt-invitatory"><option value="">—</option><option value="lectio" data-i18n="hour.lectio">Office of Readings</option><option value="laudes" data-i18n="hour.laudes">Lauds</option></select></label>
+    <label class="row"><span data-i18n="set.memoria">Memorials, from the short reading</span> <select id="opt-memoria"><option value="" data-i18n="memoria.feria">of the weekday</option><option value="commune" data-i18n="memoria.commune">of the common</option></select></label>
+    <div class="row"><span><span data-i18n="set.bonus">Mutual enrichment</span> <span class="pixel-spark" aria-hidden="true"></span></span> <button type="button" class="link" id="bonus-open" data-i18n="set.bonusOpen">Bonus content</button></div>
+    <label class="row"><span data-i18n="set.reading">Short reading</span> <select id="opt-sing-reading"><option value="ar" data-i18n="sung.ar">Sung (Antiphonale Romanum)</option><option value="lu" data-i18n="sung.lu">Sung (Liber Usualis)</option><option value="text" data-i18n="sung.text">Text</option></select></label>
+    <label class="row"><span data-i18n="set.preces">Intercessions</span> <select id="opt-preces"><option value="ar" data-i18n="sung.ar">Sung (Antiphonale Romanum)</option><option value="text" data-i18n="sung.text">Text</option></select></label>
+    <label class="row"><span data-i18n="set.collect">Collect</span> <select id="opt-sing-collect"><option value="ar" data-i18n="sung.ar">Sung (Antiphonale Romanum)</option><option value="lu" data-i18n="sung.lu">Sung (Liber Usualis)</option><option value="text" data-i18n="sung.text">Text</option></select></label>
+    <label class="row"><span data-i18n="set.presider">Priest or deacon present</span> <select id="opt-presider"><option value="" data-i18n="no">No</option><option value="1" data-i18n="yes">Yes</option></select></label>
+    <label class="row"><span data-i18n="set.voice">Singing voice</span> <select id="opt-voice"><option value="gravis" data-i18n="voice.low">Low</option><option value="" data-i18n="voice.mid">Medium</option><option value="acuta" data-i18n="voice.high">High</option></select></label>
+    <label class="row"><span data-i18n="set.theme">Dark mode</span> <select id="opt-theme"><option value="" data-i18n="theme.system">System</option><option value="light" data-i18n="off">Off</option><option value="dark" data-i18n="on">On</option></select></label>
+    <div class="row">PDF <span class="pdf"><select id="pdf-size" aria-label="Print size" data-i18n-aria="pdf.size"><option value="70">70 %</option><option value="80">80 %</option><option value="90">90 %</option><option value="100">100 %</option><option value="110">110 %</option><option value="120">120 %</option><option value="130">130 %</option><option value="140">140 %</option><option value="150">150 %</option></select><select id="pdf-format" aria-label="Page format" data-i18n-aria="pdf.format"><option value="a4">A4</option><option value="a5">A5</option><option value="letter">Letter</option><option value="booklet-a4" data-i18n="pdf.bookletA4">Booklet A4</option><option value="booklet-letter" data-i18n="pdf.bookletLetter">Booklet Letter</option></select><button id="pdf-make" type="button" data-i18n="pdf.make">Make</button><a id="pdf-link" class="pdf-get" hidden data-i18n="pdf.download">Download</a><button id="pdf-share" class="pdf-get" type="button" hidden data-i18n="pdf.share">Share</button></span></div>
+    <div class="row"><span data-i18n="set.help">Help and sources</span> <button type="button" class="link help-open" data-i18n="open">Open</button></div>
+    <label class="row"><span data-i18n="set.textSize">Text size</span> <input type="range" id="text-size" min="85" max="140" step="5" value="100"></label>
   </div>
 </header>
 
 <main id="office" class="office" lang="la">
-  <p class="loading">Loading…</p>
+  <p class="loading" data-i18n="msg.loading">Loading…</p>
 </main>
 <footer class="colophon">
-  <p>For private use only.</p>
-  <p><button type="button" class="link help-open">Help and sources</button></p>
+  <p data-i18n="foot.private">For private use only.</p>
+  <p><button type="button" class="link help-open" data-i18n="set.help">Help and sources</button></p>
   <p><a href="mailto:fr.joe@missionsetrangeres.com">fr.joe@missionsetrangeres.com</a></p>
   <p class="version" id="version">dev</p>
 </footer>
 
 <dialog id="bonus" class="help bonus" aria-labelledby="bonus-title">
-  <form method="dialog"><button class="close" aria-label="Close">×</button></form>
-  <h2 id="bonus-title">Mutual enrichment <span class="pixel-spark" aria-hidden="true"></span></h2>
-  <p class="bonus-intro">Bonus content from the older Roman Office, in the spirit of Benedict XVI’s “mutual enrichment”. All off unless you tick them.</p>
+  <form method="dialog"><button class="close" aria-label="Close" data-i18n-aria="aria.close">×</button></form>
+  <h2 id="bonus-title"><span data-i18n="set.bonus">Mutual enrichment</span> <span class="pixel-spark" aria-hidden="true"></span></h2>
+  <p class="bonus-intro" data-i18n="bonus.intro">Bonus content from the older Roman Office, in the spirit of Benedict XVI’s “mutual enrichment”. All off unless you tick them.</p>
   <div id="bonus-list"></div>
 </dialog>
 <dialog id="help" class="help" aria-labelledby="help-title">
-  <form method="dialog"><button class="close" aria-label="Close">×</button></form>
-  <h2 id="help-title">Help and sources</h2>
+  <form method="dialog"><button class="close" aria-label="Close" data-i18n-aria="aria.close">×</button></form>
+  <h2 id="help-title" class="sr-only">Help</h2>
+  <div data-help="en">
+  <h2>Help and sources</h2>
   <p>Cantus Horarum sets the Liturgy of the Hours to Gregorian chant as the <i>Ordo Cantus Officii</i> (2015) assigns it. It is for private use only.</p>
   <h3>Using it</h3>
   <ul>
-    <li>Choose the hour and the date in the bar; the gear opens the settings: how the psalms are shown, the invitatory, the singing voice, dark mode, the PDF and its print size.</li>
+    <li>Choose the hour and the date in the bar; the gear opens the settings: how the psalms are shown, the invitatory, the interface language, the translation, the singing voice, dark mode, the PDF and its print size.</li>
     <li>▶ above a score sings it; ■ stops.</li>
     <li>The small label beside ▶ says where the score comes from: the book and its page, as listed below. Where the score is on GregoBase, tapping the label opens it there.</li>
     <li>PDF: choose the size and the format, press Make, then Share (on an iPhone: Print, Save to Files) or Download. A booklet prints on both sides, flipped on the short edge, then folded.</li>
   </ul>
-  <h3>Where the scores come from</h3>
+  </div>
+  <div data-help="zh" hidden lang="zh-Hant-HK">
+  <h2>說明及資料來源</h2>
+  <p>Cantus Horarum 按照《日課詠唱程序》（<i>Ordo Cantus Officii</i>，2015年）的安排，以額我略聖歌詠唱《時辰頌禱》（拉丁文《日課經》）。只供私人使用。</p>
+  <h3>使用方法</h3>
+  <ul>
+    <li>在上方選擇時辰和日期；齒輪按鈕開啟設定：聖詠的顯示方式、序經、介面語言、翻譯、詠唱音域、深色模式、PDF 及其列印大小。</li>
+    <li>樂譜上方的 ▶ 會唱出樂譜；■ 停止。</li>
+    <li>▶ 旁邊的小標籤註明樂譜的出處：書名及頁數，見下表。樂譜收錄於 GregoBase 的，點擊標籤即可在該網站開啟。</li>
+    <li>翻譯：中文取自天主教香港教區禮儀委員會的《每日日課》，只顯示其原文：所唱的拉丁經文與香港日課不同時（例如另一首對經或聖人的讚美詩），不附中文。</li>
+    <li>PDF：選擇大小和格式，按「製作」，然後「分享」（iPhone：列印、儲存到「檔案」）或「下載」。小冊子雙面列印，沿短邊翻頁，再對摺。</li>
+  </ul>
+  </div>
+  <div data-help="la" hidden lang="la">
+  <h2>Auxilium et fontes</h2>
+  <p>Cantus Horarum Liturgiam Horarum cantu gregoriano exhibet, prout <i>Ordo Cantus Officii</i> (2015) eum disponit. Ad usum privatum tantum.</p>
+  <h3>Usus</h3>
+  <ul>
+    <li>Horam et diem in summa pagina elige; rota optiones aperit: modum psalmos exhibendi, invitatorium, linguam paginæ, versionem, vocem, modum obscurum, documentum PDF eiusque magnitudinem.</li>
+    <li>▶ supra cantum eum canit; ■ sistit.</li>
+    <li>Titulus parvus iuxta ▶ indicat unde cantus sumatur: librum eiusque paginam, ut infra. Si cantus in GregoBase invenitur, titulo tacto ibi aperitur.</li>
+    <li>Versiones: Sinica ex Officio cotidiano Commissionis liturgicæ diœcesis Hongcongensis, Anglica ex iBreviary; textus Sinicus tantum ponitur ubi idem est ac Latinus qui canitur.</li>
+    <li>PDF: magnitudinem et formam elige, «Fac» preme, deinde «Communica» vel «Deprome». Libellus in utraque parte imprimitur, in latere breviore versatus, deinde plicatur.</li>
+  </ul>
+  </div>
+  <h3 data-i18n="help.books">Where the scores come from</h3>
   <dl id="help-books" class="help-books"></dl>
+  <div data-help="en">
   <h3>Other sources</h3>
   <ul>
     <li><i>Ordo Cantus Officii</i>, editio typica altera (Libreria Editrice Vaticana, 2015), in the <i>editio cum cantu</i> of <a href="https://antiphonale.net/" target="_blank" rel="noopener">antiphonale.net</a> (v.6, 2026): which chant is sung where, and in which mode.</li>
     <li><a href="https://gregobase.selapa.net/" target="_blank" rel="noopener">GregoBase</a>, the database of Gregorian scores, whose transcriptions are in the public domain (CC0), with antiphonale.net's transcriptions of the Ordo's chants.</li>
     <li><a href="https://www.ibreviary.com/" target="_blank" rel="noopener">iBreviary</a>: the Latin texts of the <i>Liturgia Horarum</i> (© Libreria Editrice Vaticana).</li>
+    <li>The <a href="http://catholic-dlc.org.hk/" target="_blank" rel="noopener">Hong Kong Diocesan Liturgy Commission</a>: the Chinese translation (每日日課), and the Chinese interface's terms and names of celebrations.</li>
     <li>The <i>Nova Vulgata</i> (vatican.va): the division of the psalms into verses.</li>
     <li><a href="https://github.com/romcal/romcal" target="_blank" rel="noopener">romcal</a>: the General Roman Calendar.</li>
     <li>Exsurge (Fr Matthew Spencer, MIT) draws the scores; <a href="https://github.com/bbloomf/jgabc" target="_blank" rel="noopener">jgabc</a> (Benjamin Bloomfield, public domain) points the psalms to their tones; jsPDF and svg2pdf.js (MIT) make the PDF.</li>
-    <li>EB Garamond (Georg Duffner and Octavio Pardo, SIL Open Font License).</li>
+    <li>EB Garamond (Georg Duffner and Octavio Pardo) and Noto Serif TC (Adobe, Google), SIL Open Font License.</li>
     <li>Visits are counted by <a href="https://www.goatcounter.com/" target="_blank" rel="noopener">GoatCounter</a> (open source): no cookies and nothing personal, only the page, the country, the browser and the screen size.</li>
   </ul>
-  <h3>Contact</h3>
+  </div>
+  <div data-help="zh" hidden lang="zh-Hant-HK">
+  <h3>其他資料來源</h3>
+  <ul>
+    <li>《日課詠唱程序》（<i>Ordo Cantus Officii</i>），第二標準版（梵蒂岡出版社，2015年），採用 <a href="https://antiphonale.net/" target="_blank" rel="noopener">antiphonale.net</a> 的附譜版（第6版，2026年）：何處唱何曲，以及其調式。</li>
+    <li><a href="https://gregobase.selapa.net/" target="_blank" rel="noopener">GregoBase</a>：額我略聖歌樂譜資料庫，其抄譜屬公有領域（CC0）。</li>
+    <li><a href="https://www.ibreviary.com/" target="_blank" rel="noopener">iBreviary</a>：《時辰頌禱》拉丁文經文（© 梵蒂岡出版社）及英文翻譯。</li>
+    <li><a href="http://catholic-dlc.org.hk/" target="_blank" rel="noopener">天主教香港教區禮儀委員會</a>：《每日日課》中文經文，以及本介面的禮儀用語和節日名稱。</li>
+    <li>《新拉丁通行本》（<i>Nova Vulgata</i>，vatican.va）：聖詠的節數劃分。</li>
+    <li><a href="https://github.com/romcal/romcal" target="_blank" rel="noopener">romcal</a>：羅馬通用日曆。</li>
+    <li>Exsurge（Fr Matthew Spencer，MIT）繪製樂譜；<a href="https://github.com/bbloomf/jgabc" target="_blank" rel="noopener">jgabc</a>（Benjamin Bloomfield，公有領域）把聖詠配上曲調；jsPDF 與 svg2pdf.js（MIT）製作 PDF。</li>
+    <li>字型：EB Garamond（Georg Duffner、Octavio Pardo）及思源宋體 Noto Serif TC（Adobe、Google），皆採用 SIL 開放字型授權。</li>
+    <li>瀏覽人次由 <a href="https://www.goatcounter.com/" target="_blank" rel="noopener">GoatCounter</a>（開放原始碼）統計：不用 cookies，不收集個人資料，只記錄頁面、國家、瀏覽器及螢幕大小。</li>
+  </ul>
+  </div>
+  <div data-help="la" hidden lang="la">
+  <h3>Alii fontes</h3>
+  <ul>
+    <li><i>Ordo Cantus Officii</i>, editio typica altera (Libreria Editrice Vaticana, 2015), in editione cum cantu <a href="https://antiphonale.net/" target="_blank" rel="noopener">antiphonale.net</a> (v.6, 2026): quis cantus ubi et quo modo canatur.</li>
+    <li><a href="https://gregobase.selapa.net/" target="_blank" rel="noopener">GregoBase</a>, thesaurus cantuum gregorianorum (CC0).</li>
+    <li><a href="https://www.ibreviary.com/" target="_blank" rel="noopener">iBreviary</a>: textus Latini <i>Liturgiæ Horarum</i> (© Libreria Editrice Vaticana) et versio Anglica.</li>
+    <li><a href="http://catholic-dlc.org.hk/" target="_blank" rel="noopener">Commissio liturgica diœcesis Hongcongensis</a>: versio Sinica et nomina celebrationum.</li>
+    <li><i>Nova Vulgata</i> (vatican.va): psalmorum in versus divisio.</li>
+    <li><a href="https://github.com/romcal/romcal" target="_blank" rel="noopener">romcal</a>: Calendarium Romanum generale.</li>
+    <li>Exsurge (Fr Matthew Spencer, MIT) cantus delineat; <a href="https://github.com/bbloomf/jgabc" target="_blank" rel="noopener">jgabc</a> (Benjamin Bloomfield) psalmos tonis aptat; jsPDF et svg2pdf.js (MIT) documentum PDF conficiunt.</li>
+    <li>Litteræ: EB Garamond et Noto Serif TC (SIL Open Font License).</li>
+    <li>Visitationes numerat <a href="https://www.goatcounter.com/" target="_blank" rel="noopener">GoatCounter</a>: sine cookies, nihil personale.</li>
+  </ul>
+  </div>
+  <h3 data-i18n="help.contact">Contact</h3>
   <p><a href="mailto:fr.joe@missionsetrangeres.com">fr.joe@missionsetrangeres.com</a></p>
 </dialog>
 

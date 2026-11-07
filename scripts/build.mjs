@@ -194,6 +194,20 @@ for (const lang of ['en', 'zh']) {
   for (const f of readdirSync(dir).filter((f) => f.endsWith('.json'))) cpSync(join(dir, f), join(dist, 'data/tr', lang, f));
   trFiles[lang] = readdirSync(dir).filter((f) => f.endsWith('.json')).length;
 }
+// the celebrations' names in Hong Kong's calendar, for the Chinese interface (scripts/calendar/zh_names.mjs)
+mkdirSync(join(dist, 'data'), { recursive: true });
+cpSync(join(root, 'data/calendar-zh.json'), join(dist, 'data/calendar-zh.json'));
+// the translated four-week psalter (scripts/texts/psalter_translations.mjs, committed), keyed
+// "week-dow" as data/psalterium.json: the weekday's parts on memorials
+for (const lang of ['en', 'zh']) {
+  const dir = join(root, 'data/texts/tr-psalter', lang);
+  if (!existsSync(dir)) continue;
+  const all = {};
+  for (const f of readdirSync(dir).filter((f) => f.endsWith('.json'))) all[f.slice(0, -5)] = JSON.parse(readFileSync(join(dir, f), 'utf8'));
+  mkdirSync(join(dist, 'data/tr', lang), { recursive: true });
+  writeFileSync(join(dist, 'data/tr', lang, 'psalter.json'), JSON.stringify(all));
+  trFiles[`${lang}-psalter`] = Object.keys(all).length;
+}
 // the app's own translations of the OCO's texts that are not the Liturgia Horarum's (data/translations)
 mkdirSync(join(dist, 'data/tr'), { recursive: true });
 for (const lang of ['en']) {

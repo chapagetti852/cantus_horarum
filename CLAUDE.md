@@ -109,6 +109,9 @@ To do:
    setting (README "Translations"). The Chinese must be Hong Kong's text only: no own
    translations, hymns only where `data/hymns/match.json` judges HK's hymn a translation
    (check new pairs in the window: set `translation: 'zh'`, read `window.__trHymns`).
+   Interface languages: `site/i18n.js` (en / zh / la), Hong Kong's terms; celebrations'
+   Chinese names `data/calendar-zh.json` (`scripts/calendar/zh_names.mjs` over cached DLC
+   pages; never invent a name: take it from Hong Kong's pages or Ordo PDFs, c-ordo.htm).
    As new days enter the window: judge new hymns in `data/hymns/match.json`, English and
    Chinese (the build lists the Latin ones not yet judged), and run `node scripts/texts/missing_translations.cjs` after a build with
    the window's days in `dist/data` (download them from the live site if the local fetch

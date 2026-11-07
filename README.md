@@ -210,8 +210,34 @@ psalter days are the fallback.
 
 ### Translations
 
-The settings' "Translation (beta)" row offers English and Chinese (Hong Kong)
-(`TRANSLATION_LANGS` in `site/app.js`). The interface itself (settings,
+The settings' "Translation (beta)" row offers Latin only, Chinese (Hong Kong), English,
+Chinese and English (each under the Latin, Chinese first), and Chinese, else English (English
+only where the Hong Kong office gives nothing for that piece) (`TRANSLATION_MODES` in
+`site/app.js`; `eachTr` lays out each translation chosen in turn).
+
+On memorials the setting "Memorials" chooses whether the short reading, responsory and
+intercessions are the weekday's or the common's. Both are translated: the translated office
+of the day when its short reading is the one the Latin sings, else the translated psalter's
+weekday (`scripts/texts/psalter_translations.mjs`: the Hong Kong office and iBreviary in
+English for the 28 quiet dates of `data/texts/psalter-days.json`, committed in
+`data/texts/tr-psalter/`, served as `data/tr/<lang>/psalter.json`).
+
+### Interface
+
+The setting "Interface" sets the app's own words in English, Chinese (Hong Kong) or Latin
+(`site/i18n.js`; the office's texts stay Latin). The Chinese takes the Hong Kong Diocesan
+Liturgy Commission's terms wherever its daily office uses one: the hours (誦讀日課, 晨禱,
+日間祈禱 午前／午時／午後, 晚禱, 第一晚禱, 夜禱), their parts (序經, 讚美詩, 聖詠吟唱, 簡短讀經,
+短對答詠, 匝加利亞讚主曲, 聖母謝主曲, 西默盎聖歌, 禱詞, 天主經, 結束禱詞, 結束詞, 對答詠, 聖母
+對經), the ranks (節日, 慶日, 紀念, 自由紀念), the psalter's weeks (聖詠集第一周). The
+celebration's name is Hong Kong's, the Latin under it: `data/calendar-zh.json`, made by
+`scripts/calendar/zh_names.mjs` from the titles of its daily office's pages (its archive,
+May 2025 to November 2026, read page by page and matched to romcal's celebration of the
+same date: optional memorials by the words of their titles, the solemnities Hong Kong moves to
+Sunday by name, its diocesan feasts left out), filled from its Ordo (天主教羅馬禮禮儀日曆,
+2022-2026) for the celebrations that fell on Sundays or in Lent; the seasons' weekdays and
+Sundays follow its pattern (常年期第三十二周星期五). The Latin interface uses the Liturgia
+Horarum's rubrics (Ad Laudes matutinas, Psalmodia, Lectio brevis, Preces…). The interface itself (settings,
 headings, rank, messages) is in English; the celebration's name, the season's day and every
 text of the office stay Latin.
 

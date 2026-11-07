@@ -4,6 +4,17 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.16.0 — 2026-11-07
+
+- Translation: five choices: Latin only, Chinese (Hong Kong), English, Chinese and English,
+  or Chinese with English only where Hong Kong's office has nothing.
+- Memorials: whichever the setting takes for the short reading, responsory and intercessions
+  (the weekday's or the common's), its translation is shown, from the translated psalter for
+  the weekday.
+- Interface in English, Chinese (Hong Kong) or Latin: the hours, parts, ranks and messages,
+  the settings and the help; in Chinese the celebrations are named as the Hong Kong
+  diocese names them, with the Latin under the name.
+
 ## 1.15.0 — 2026-11-07
 
 - Translation: Chinese (Hong Kong), from the Hong Kong Diocesan Liturgy Commission's daily
