@@ -63,6 +63,8 @@ export function renderChant(el, body, { annotation = null, dropCap = true, scale
     .replace(/<v>\\greheightstar<\/v>/g, '*')
     .replace(/<alt>[\s\S]*?<\/alt>/g, '')
     .replace(/\(z0?\)|\(Z\)/g, '')
+    // Exsurge prints ℟ and ℣ with their own full stop: the books' "<sp>R/</sp>." would give two
+    .replace(/(<sp>[RVA]\/<\/sp>)(<\/c>)?\./g, '$1$2')
     // the books set the rest of the first word in capitals beside the initial (NOctem): here
     // the initial is the drop cap, and the rest reads as ordinary text
     .replace(/^(\s*(?:\([^)]*\)\s*)?)(\p{Lu})(\p{Lu}+)/u, (m, pre, ini, rest) => (dropCap ? pre + ini + rest.toLowerCase() : m));

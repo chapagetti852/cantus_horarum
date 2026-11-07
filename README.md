@@ -275,6 +275,13 @@ that blessing, as the books give no score); then Benedicamus Domino of the day's
 (AR II pp. 764–765). Deus in adiutorium ends with Alleluia, or in Lent with the Lenten
 ending its score carries.
 
+At Sunday II Vespers in Ordinary Time the canticle Salus et gloria (Ap 19) is sung, as the
+OCO says, "more responsoriali vetustissimo cum Alleluia": no antiphon, one score with its
+Alleluias (`SALUS_ET_GLORIA` in `site/app.js`). The Antiphonale Romanum II sets it anew each
+psalter week; GregoBase has week II (p. 469, id 4317) and week III (p. 480, id 4145), so
+weeks I and IV sing week II's until theirs are transcribed. Its translation follows it,
+the verses without their Alleluias.
+
 ### Notation read from the OCO itself
 
 The OCO was typeset with Gregorio, so its music is not pictures but glyphs of Gregorio's

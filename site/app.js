@@ -18,6 +18,11 @@ const DOMINE_LABIA = { ferial: 18107, festive: 18108 };
 const PATER_NOSTER = { ferial: 4321, festive: 15303 }; // Antiphonale Monasticum 2005, pp. 533-534
 // Conclusions: Antiphonale Monasticum 2005 p. 546 (little hours), Antiphonale Romanum II pp. 761-765
 const BENEDICAMUS_HORAE = { ferial: 17847, festive: 17848 };
+// Sunday II Vespers in Ordinary Time: the canticle of Ap 19 "Salus et gloria" is sung "more
+// responsoriali vetustissimo cum Alleluia" (OCO), without antiphon. Antiphonale Romanum II
+// sets it anew each psalter week; GregoBase has week II (p. 469) and week III (p. 480):
+// weeks I and IV, not transcribed, sing week II's (weeks II and IV share hymn and responsory).
+const SALUS_ET_GLORIA = { 1: 4317, 2: 4317, 3: 4145, 4: 4317 };
 // Dominus vobiscum … Benedicat vos: AR II p. 761; at solemnities the solemn tone (GR 1974 p. 817 B)
 const DOMINUS_VOBISCUM = { simple: 4322, solemn: 7463 };
 // Benedicamus Domino at Lauds and Vespers, by rank and hour: Antiphonale Monasticum 2005
@@ -590,7 +595,7 @@ const words = (t) => t.normalize('NFD').toLowerCase().replace(/[^a-z\s]/g, '').r
 const sameWords = (sung, printed) => { const w = words(sung), p = new Set(words(printed)); return w.filter((x) => p.has(x)).length >= w.length * 0.6; };
 
 /** Antiphons 1-3 from the OCO, each with its psalms pointed to its tone; returns what followed the last psalm. */
-async function appendPsalmody(main, entries, psalmodySection, { single = null } = {}) {
+async function appendPsalmody(main, entries, psalmodySection, { single = null, salus = null } = {}) {
   main.append(el('<h2 class="section">Psalmody</h2>'));
   state.trAt = 0; state.trPrev = null;
   let groups = psalmGroups(psalmodySection);
@@ -607,6 +612,11 @@ async function appendPsalmody(main, entries, psalmodySection, { single = null } 
     const ant = byPosition(entries, String(n));
     const g = groups.find((x) => x.n === n);
     if (!ant && !g) continue;
+    if (salus && g && ant?.kind === 'reference' && /Salus et gloria/.test(ant.title || '')) {
+      await appendSalusEtGloria(main, g, salus);
+      if (g === last) after.length = 0; // iBreviary's closing "Allelúia" refrain, sung in the score
+      continue;
+    }
     const before = await antiphonNode(ant, g?.antiphon);
     main.append(before);
     const used = [];
@@ -625,6 +635,22 @@ async function appendPsalmody(main, entries, psalmodySection, { single = null } 
   // the versicle before the readings (Office of Readings), sung
   for (const v of after) main.append(versicleNode(v));
   if (after.length) appendTr(main, state.tr?.t.versicle, { proper: false });
+}
+
+/**
+ * The canticle Salus et gloria sung responsorially with its Alleluias (Sunday II Vespers per
+ * annum): its heading from iBreviary, then the one score; its translation after it.
+ */
+async function appendSalusEtGloria(main, g, id) {
+  const head = g.items.find((b) => b.kind === 'psalm');
+  if (head) {
+    main.append(el(`<div class="psalm-head"><span class="ref">${esc(head.ref || 'Canticum Ap 19, 1-7')}</span>${head.title ? `<span class="title">${esc(head.title)}</span>` : ''}</div>`));
+  }
+  main.append(await chantNode(id, { annotation: '' }));
+  // the translation's verses without its Alleluias (the score sings them) and marks
+  const t = state.tr ? nextTrPsalm(head) : null;
+  const lines = (t?.lines || []).filter((l) => l.trim() && !/^(alleluia[\s.,!]*)+$/i.test(l.trim())).map((l) => l.replace(/\s*[*†]\s*$/, ''));
+  if (lines.length) { const node = trNode(state.tr.lang, lines); if (node) main.append(node); }
 }
 
 /** iBreviary prints the repetendum of a responsory after two spaces; mark it with a star. */
@@ -753,7 +779,8 @@ async function composeLaudesVesperae(main, day, date, hour) {
   await appendOpening(main, day, hour, propers);
   const hymns = entries.filter((e) => e.kind === 'hymn');
   await appendHymn(main, hymns[0], hymns.length ? hymnTextNode(texts) : null, hymns.slice(1));
-  await appendPsalmody(main, entries, section(texts, 'PSALMODIA'));
+  const salus = hour === 'vesperae' && slot.label === 'II Vesp.' && day.seasons?.includes('ORDINARY_TIME') ? SALUS_ET_GLORIA[slot.week] : null;
+  await appendPsalmody(main, entries, section(texts, 'PSALMODIA'), { salus });
 
   // on memorials the weekday's short reading, responsory and intercessions, unless the common is chosen
   const feria = memoriaDeFeria(propers._cel) ? state.psalterium[`${day.psalter}-${day.dow}`]?.hours[TEXT_HOUR[hour]] : null;

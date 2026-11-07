@@ -4,6 +4,14 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.2.0 — 2026-11-07
+
+- Sunday Vespers in Ordinary Time: the canticle Salus et gloria (Ap 19) is sung with its
+  Alleluias as one score from the Antiphonale Romanum II, as the OCO prescribes, instead of
+  the text with an antiphon. Weeks II and III have their own setting; weeks I and IV,
+  not yet on GregoBase, sing week II's.
+- Scores no longer print "℟.." and "℣.." with a doubled full stop.
+
 ## 1.1.0 — 2026-11-06
 
 - Sound: the ▶ now plays with the iPhone's ringer switch on silent (the page plays as

@@ -70,6 +70,8 @@ writeFileSync(join(dist, 'data/slots.json'), JSON.stringify(slots));
 const COMMON_TONES = [4121, 18178, 7864, 18107, 18108, 4321, 15303, 15301, 15302, 17847, 17848, 18352, 18353, 18354, 18355, 18356, 18357, 18358, 18359, 18360, 18361, 18362, 18363, 18364, 18365, 18366,
   // invitatory psalm 94 in the Liber Hymnarius tones (see INVITATORY_TONES in site/app.js)
   8218, 10397, 15508, 7669, 16356, 10248, 9664, 10035, 15059, 9834, 9707, 9642,
+  // Salus et gloria with its Alleluias, Sunday II Vespers per annum (SALUS_ET_GLORIA in site/app.js)
+  4317, 4145,
   // conclusions of Lauds and Vespers, Antiphonale Romanum II pp. 761-765
   4322, 7463, 16665, 20680, 20681, 20682, 20683, 19868, 19187, 19188, 19189, 20715, 20685, 4694, 18754, 18753, 18655,
   // responsories of the Office of Readings (RESPONSORIA in site/app.js)
