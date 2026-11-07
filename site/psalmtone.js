@@ -15,9 +15,12 @@
 // of the 2005 books. Formulas follow the Antiphonale Romanum II (2009), pp. 738-740
 // (GregoBase 18352-18366), with the termination names of the Antiphonale Monasticum
 // 2005 that the Ordo Cantus Officii uses; each termination is checked against the
-// "E u o u a e" of the OCO antiphons (test/psalmtone.test.mjs). `solemn` is the solemn
-// mediant of the Gospel canticles (jgabc's, after the Liber Usualis), sung on the first verse
-// of the Benedictus and the Magnificat; 4* and D take tone 4 alt's a step lower.
+// "E u o u a e" of the OCO antiphons (test/psalmtone.test.mjs). `solemn` is the ornate
+// mediant of the Gospel canticles (jgabc's, the same as the "mediatio ornata ad canticum
+// evangelicum" of the Antiphonale Romanum II pp. 745-750), sung on every verse of the
+// Benedictus and the Magnificat, the second half in the psalm tone, as the AR II lays it out
+// (read from the book: tone III's first accent si-mi, tone IV's intonation from mi, tone V's
+// mediant falling to la after its accent, where jgabc follows the Liber Usualis); 4* and D take tone 4 alt's a step lower.
 
 export const TONES = {
   '1': { clef: 'c4', flex: 'g', mediant: "f gh hr 'ixi hr 'g hr h.", solemn: "f gh hr hg ixgi h hr 'hg gh..",
@@ -28,14 +31,14 @@ export const TONES = {
     endings: { d: "hr g er 'ef f." } },
   '2*': { clef: 'c3', flex: 'h', mediant: "i hi ir h i 'j ir i.", solemn: "i hi ir ih hj j 'ij ir i.",
     endings: { a: "ir h i j 'h fr f.", c: "ir 'i hr h.", d: "ir h i j 'h ir i." } },
-  '3': { clef: 'c4', flex: 'h', mediant: "g hi ir 'k jr jr 'ih j.", solemn: "g hi ir 'jk jr jr 'ih hj..",
+  '3': { clef: 'c4', flex: 'h', mediant: "g hi ir 'k jr jr 'ih j.", solemn: "g hi ir 'ik jr jr 'ih hj..",
     endings: { a: "ir 'j hr 'j jr ih..", a2: "ir 'j hr hi 'h gr goh.", b: "ir 'j hr 'j jr i.",
       g: "ir 'j hr hi 'h gr g.", g2: "ir 'j hr hi 'h gr goh." } },
-  '4': { clef: 'c4', flex: 'g', mediant: "h gh hr g h 'i hr h.", solemn: "h gh hr hg gi i 'hi hr h.",
+  '4': { clef: 'c4', flex: 'g', mediant: "h gh hr g h 'i hr h.", solemn: "e gh hr hg gi i 'hi hr h.",
     endings: { a: "hr g h i 'g hr h.", e: "hr g h ih gr 'gf e.", g: "hr 'h gr g." } },
-  '4*': { clef: 'c4', flex: 'f', mediant: "g fg gr f g 'h gr g.", solemn: "g fg gr gf fh h 'gh gr g.",
+  '4*': { clef: 'c4', flex: 'f', mediant: "g fg gr f g 'h gr g.", solemn: "d fg gr gf fh h 'gh gr g.",
     endings: { e: "gr 'h fr 'g er e." } },
-  '5': { clef: 'c3', flex: 'f', mediant: "d f hr 'i hr h.", solemn: "d f hr i 'i hr h.",
+  '5': { clef: 'c3', flex: 'f', mediant: "d f hr 'i hr h.", solemn: "d f hr i 'i fr f.",
     endings: { a: "hr 'i gr 'h fr f." } },
   '6': { clef: 'c4', flex: 'g', mediant: "f gh hr g 'h fr f.", solemn: "f gh hr hg ixgi h hr 'hg gh..",
     endings: { f: "hr f gh 'g fr f." } },
@@ -46,7 +49,7 @@ export const TONES = {
     endings: { a: "jr i j 'h gr gh..", c: "jr h j 'k jr j.", g: "jr i j 'h gr g.", g2: "jr i j 'h gr ghg." } },
   'C': { clef: 'c3', flex: 'f', mediant: "hr g f 'h hr h.",
     endings: { c: "hr h.", c2: "hr f h 'i hr h." } },
-  'D': { clef: 'c4', flex: 'f', mediant: "g fg gr f g 'h gr g.", solemn: "g fg gr gf fh h 'gh gr g.",
+  'D': { clef: 'c4', flex: 'f', mediant: "g fg gr f g 'h gr g.", solemn: "d fg gr gf fh h 'gh gr g.",
     endings: { g: "gr f g h 'f gr g.", f: "gr 'g fr f.", d: "gr f g h 'f dr d." } },
   'E': { clef: 'c4', flex: 'g', mediant: "hr 'g fr f.",
     endings: { e: "hr 'ixi gr 'ixi hr h." } },
@@ -205,21 +208,22 @@ export function verseGabc(verse, ctx, { intone = false, first = false, solemn = 
 /**
  * A whole psalm (verses "… † … * …") as one GABC score: the intonation on the first verse
  * (kept for the next one when the first is too short to take it), on every verse of a
- * Gospel canticle; `solemn`: the first verse on the solemn mediant (Benedictus, Magnificat).
+ * Gospel canticle; `solemn`: every verse of a canticle on the ornate mediant (Benedictus,
+ * Magnificat: AR II p. 745, "the first part of the verses", the second in the psalm tone).
  */
 export function psalmGabc(verses, ctx, { canticle = false, firstIntoned = false, solemn = false } = {}) {
   let intone = !firstIntoned; // a later run of the same psalm: the intonation was sung
   const out = verses.map((v, i) => {
     const result = { shortened: false };
-    const g = verseGabc(v, ctx, { intone: intone || canticle, first: intone, solemn: solemn && i === 0 && !firstIntoned, result });
+    const g = verseGabc(v, ctx, { intone: intone || canticle, first: intone, solemn: solemn && (canticle || (i === 0 && !firstIntoned)), result });
     if (!result.shortened) intone = false;
     return g;
   });
   return `(${cadences(ctx).clef}) ${out.join(' ')}`;
 }
 
-/** A verse as text, the cadences' accented syllables bold and the preparatory ones italic. */
-export function verseHtml(verse, ctx, i = 0) {
+/** A verse as text, the cadences' accented syllables bold and the preparatory ones italic; `solemn`: on the ornate mediant. */
+export function verseHtml(verse, ctx, i = 0, { solemn = false } = {}) {
   const E = jg();
   const c = cadences(ctx);
   const alone = /^\s*\*\s*/.exec(verse); // a second half alone (startAtCross)
@@ -227,7 +231,7 @@ export function verseHtml(verse, ctx, i = 0) {
   const half = (t, tones, mediant) => E.addBoldItalic(t, tones.accents, tones.preparatory, tones.afterLastAccent, 'html', false, '', mediant, !mediant, i)
     .replace(/<span style='float:left[^>]*>.*?<\/span>/, '').replace(/<br\/?>\s*$/, '');
   const h = alone ? half(line[0], c.ter, false)
-    : half(line[0], c.med, true) + (line.length > 1 ? ' <span class="star">*</span> ' + half(line[1], c.ter, false) : '');
+    : half(line[0], solemn ? c.sol : c.med, true) + (line.length > 1 ? ' <span class="star">*</span> ' + half(line[1], c.ter, false) : '');
   return h.replace(/†/g, '<span class="flex">†</span>');
 }
 

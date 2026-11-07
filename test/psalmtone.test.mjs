@@ -48,13 +48,25 @@ test('an antiphon ending in †: the psalm begins at the verse marked †', () =
   assert.equal(startAtCross([{ strophes: [['Quóniam ad te orábo, Dómine, † mane exáudies vocem meam; * mane astábo tibi.']] }]), null);
 });
 
-test('Gospel canticles: the solemn mediant on the first verse only', () => {
+test('Gospel canticles: the ornate mediant on every verse (AR II pp. 745-746)', () => {
+  const plain = (g) => g.replace(/<[^>]+>/g, '');
   const ctx = toneContext('8g', null, { identify: false });
-  const g = psalmGabc(['Magníficat * ánima mea Dóminum,', 'et exsultávit spíritus meus * in Deo salvatóre meo,'], ctx, { canticle: true, solemn: true });
+  const g = plain(psalmGabc(['Magníficat * ánima mea Dóminum,', 'et exsultávit spíritus meus * in Deo salvatóre meo,'], ctx, { canticle: true, solemn: true }));
   assert.match(g, /Ma\(g\)gní\(hg\)fi\(gj\)cat\(j\.\)/);
-  // the second verse: the simple mediant, its intonation repeated
-  assert.match(g, /et\(g\)/);
-  assert.doesNotMatch(g.split('(::)')[1], /\(hg\)|\(gj\)/);
+  // the second verse: intonation and ornate mediant again ("Et ex-sultávit spí-ri-tus mé-us"),
+  // the termination in the psalm tone
+  const v2 = g.split('(::)')[1];
+  assert.match(v2, /et\(g\) ex\(hg\)sul\(gj\)/);
+  assert.match(v2, /spí\(ji\)ri\(jk\)tus\(k\) me\(jk\)us\(j\.\)/);
+  // tone I: "spí(hg) ri(ixgi) tus(h) me(hg) us(gh)" (AR II p. 745)
+  const g1 = plain(psalmGabc(['Magníficat * ánima mea Dóminum,', 'et exsultávit spíritus meus * in Deo salvatóre meo,'], toneContext('1g', null, { identify: false }), { canticle: true, solemn: true }));
+  assert.match(g1.split('(::)')[1], /spí\(hg\)ri\(ixgi\)tus\(h\) me\(hg\)us\(gh\.*\)/);
+  // the AR II's own: tone III (p. 747) "spí(ik) ri(j) tus(j) me(ih) us(hj)", tone IV (p. 748)
+  // "Ma(e) gní(gh)", tone V (p. 749) "tus(i) me(i) us(f)"
+  const v = (mode) => plain(psalmGabc(['Magníficat * ánima mea Dóminum,', 'et exsultávit spíritus meus * in Deo salvatóre meo,'], toneContext(mode, null, { identify: false }), { canticle: true, solemn: true })).split('(::)');
+  assert.match(v('3a')[1], /spí\(ik\)ri\(j\)tus\(j\) me\(ih\)us\(hj\.*\)/);
+  assert.match(v('4e')[0], /Ma\(e\)gní\(gh\)fi\(h/);
+  assert.match(v('5a')[1], /tus\(i\) me\(i\)us\(f\.*\)/);
 });
 
 test('every tone sings every syllable (jgabc needs "jr jr" between two accents on one pitch)', () => {

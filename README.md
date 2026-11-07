@@ -61,9 +61,12 @@ The pointing is jgabc's own engine, the one behind its psalm-tone tool
 `util.js`, `psalmtone.js` and the Hypher Latin hyphenation patterns, vendored in
 `site/vendor/jgabc/` (a small shim stands in for jQuery) and called as that page calls
 them: intonation on the first verse (every verse of a Gospel canticle), flex, mediant,
-termination, accented syllables bold and preparatory ones italic. The first verse of the
-Benedictus and the Magnificat takes the solemn mediant (jgabc's "Solemn Tone"), the others
-the simple one with the intonation repeated.
+termination, accented syllables bold and preparatory ones italic. Every verse of the
+Benedictus and the Magnificat takes the ornate mediant, with its intonation, the second half
+in the psalm tone, as the Antiphonale Romanum II lays them out ("Mediatio ornata ad canticum
+evangelicum", pp. 745-750): jgabc's "Solemn Tone", read against the book, which differs in
+three tones (III: the first accent si-mi; IV: the intonation from mi; V: the mediant falling
+to la after its accent).
 
 The verses are given to it as the tool gives them with "Nova Vulgata" ticked: one verse
 per line, "first half † flex * second half". `scripts/texts/verses.mjs` (run by the
@@ -315,12 +318,12 @@ ending its score carries.
 
 At Sunday II Vespers in Ordinary Time the canticle Salus et gloria (Ap 19) is sung, as the
 OCO says, "more responsoriali vetustissimo cum Alleluia": no antiphon, one score with its
-Alleluias (`SALUS_ET_GLORIA` in `site/app.js`). The Antiphonale Romanum II sets it anew each
-psalter week; GregoBase has week II (p. 469, id 4317) and week III (p. 480, id 4145, a
-melody the book also prints in Advent and Eastertide). Weeks I and IV, not transcribed,
-take the p. 480 melody, as the Klein Graduale's booklets do on every Sunday per annum
-(kleingraduale.nl/LiturgiaHorarum: Sunday Lauds, Vespers and Compline for each Sunday
-of the three years, after the OCO 1983; useful to check Sunday chants GregoBase lacks).
+Alleluias (`SALUS_ET_GLORIA` in `site/app.js`). The Antiphonale Romanum II prints it in each
+psalter week with one of two melodies: weeks I and III (pp. 457, 480, a melody it also
+prints in Advent and Eastertide; GregoBase 4145) and weeks II and IV (pp. 469, 491;
+GregoBase 4317). (The Klein Graduale's booklets, kleingraduale.nl/LiturgiaHorarum, sing the
+first on every Sunday per annum; they give Sunday Lauds, Vespers and Compline for each
+Sunday of the three years, after the OCO 1983, useful to check Sunday chants GregoBase lacks.)
 Its translation follows it, the verses without their Alleluias.
 
 Hymns: the Liber Hymnarius's score where GregoBase has it; where it has none, the

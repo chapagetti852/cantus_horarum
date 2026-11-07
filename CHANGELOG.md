@@ -4,6 +4,13 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.12.0 — 2026-11-07
+
+- Benedictus and Magnificat: the ornate mediant on every verse, as the Antiphonale Romanum II
+  sets them out (it was on the first verse only); tones III, IV and V corrected to the book.
+- Salus et gloria (Sunday II Vespers per annum): week IV takes the AR II's own melody, week
+  II's (it took week III's).
+
 ## 1.11.0 — 2026-11-07
 
 - Short reading and collect: sung on the Antiphonale Romanum II's tones by default, or on the

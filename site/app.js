@@ -24,12 +24,10 @@ const PATER_NOSTER = 4321; // AR II pp. 758-759, its one tone for the Lord's Pra
 // Conclusions: Antiphonale Monasticum 2005 p. 546 (little hours), Antiphonale Romanum II pp. 761-765
 const BENEDICAMUS_HORAE = { ferial: 17847, festive: 17848 };
 // Sunday II Vespers in Ordinary Time: the canticle of Ap 19 "Salus et gloria" is sung "more
-// responsoriali vetustissimo cum Alleluia" (OCO), without antiphon. Antiphonale Romanum II
-// sets it each psalter week; GregoBase has week II (p. 469) and week III (p. 480, the
-// melody the book also gives in Advent and Eastertide). Weeks I and IV, not transcribed,
-// take that p. 480 melody, which the Klein Graduale's Sunday booklets (kleingraduale.nl)
-// sing on every Sunday per annum.
-const SALUS_ET_GLORIA = { 1: 4145, 2: 4317, 3: 4145, 4: 4145 };
+// responsoriali vetustissimo cum Alleluia" (OCO), without antiphon. The Antiphonale Romanum
+// II sets it each psalter week with one of two melodies: weeks I and III (pp. 457, 480; also
+// in Advent and Eastertide) as GregoBase 4145, weeks II and IV (pp. 469, 491) as 4317.
+const SALUS_ET_GLORIA = { 1: 4145, 2: 4317, 3: 4145, 4: 4317 };
 // Dominus vobiscum … Benedicat vos: AR II p. 761, its one tone
 const DOMINUS_VOBISCUM = 4322;
 // Benedicamus Domino at Lauds and Vespers: the Antiphonale Romanum II's (pp. 763-765) by the
@@ -339,7 +337,7 @@ function pointedPsalmNode(b, ctx, { canticle = false, solemn = false, segments =
       seg.strophes.forEach((st) => st.forEach((v, j) => {
         if (i++ < k) return;
         const li = el(`<li${j === 0 ? ' class="strophe-start"' : ''}></li>`);
-        li.innerHTML = canticle ? verseHtml(v, ctx, 0) : verseHtml(v, ctx, n);
+        li.innerHTML = canticle ? verseHtml(v, ctx, 0, { solemn }) : verseHtml(v, ctx, n);
         ol.append(li);
         n++;
         if (under(n)) li.append(trP(lang, under(n)));
