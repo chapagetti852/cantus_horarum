@@ -23,6 +23,10 @@ const FONT_FILES = [
 // EB Garamond's ascender and descender (hhea = typo, units per em 1000): a word's box is
 // their sum high, and its baseline their difference below its middle
 const ASCENT = 1.007, DESCENT = 0.298;
+// Chinese (the Hong Kong translation): Noto Serif TC (OFL), its layout tables left out,
+// downloaded only for an hour that has Chinese in it; jsPDF embeds only the glyphs used
+const CJK_FONT = ['NotoSerifTC-Regular.ttf', 'Noto Serif TC', 'normal'];
+const CJK = /[\u2e80-\u9fff\uf900-\ufaff\uff00-\uffef\u3000-\u303f]/;
 const SMALL_CAPS = 0.7; // jsPDF has no small caps: smaller capitals
 
 let libs = null;
@@ -35,23 +39,31 @@ function loadScript(src) {
     document.head.append(s);
   });
 }
+/** A font file of fonts/pdf/ as base64. */
+async function fontBase64(file) {
+  const r = await fetch(`fonts/pdf/${file}`);
+  if (!r.ok) throw new Error(`Could not load ${file}`);
+  const bytes = new Uint8Array(await r.arrayBuffer());
+  let bin = '';
+  for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(bin);
+}
 /** jsPDF, svg2pdf and the fonts (as base64), downloaded the first time a PDF is made. */
 function loadLibs() {
   libs ??= (async () => {
     await loadScript('vendor/pdf/jspdf.umd.min.js');
     await loadScript('vendor/pdf/svg2pdf.umd.min.js');
-    const fonts = await Promise.all(FONT_FILES.map(async ([file]) => {
-      const r = await fetch(`fonts/pdf/${file}`);
-      if (!r.ok) throw new Error(`Could not load ${file}`);
-      const bytes = new Uint8Array(await r.arrayBuffer());
-      let bin = '';
-      for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
-      return btoa(bin);
-    }));
+    const fonts = await Promise.all(FONT_FILES.map(([file]) => fontBase64(file)));
     return { jsPDF: window.jspdf.jsPDF, fonts };
   })();
   libs.catch(() => { libs = null; }); // try again next time
   return libs;
+}
+let cjkFont = null;
+function loadCjkFont() {
+  cjkFont ??= fontBase64(CJK_FONT[0]);
+  cjkFont.catch(() => { cjkFont = null; });
+  return cjkFont;
 }
 
 // ------------------------------------------------------------------ text
@@ -99,7 +111,7 @@ function textRuns(root, origin) {
       let t = style.upper ? s.toUpperCase() : s;
       t = pdfText(t);
       if (!t.trim() || !rect.width) return;
-      runs.push({ ...style, text: t, x: rect.left - origin.left, y: rect.top - origin.top + rect.height / 2 + ((ASCENT - DESCENT) / 2) * size });
+      runs.push({ ...style, ...(CJK.test(t) ? { font: [CJK_FONT[1], CJK_FONT[2]], smallCaps: false } : {}), text: t, x: rect.left - origin.left, y: rect.top - origin.top + rect.height / 2 + ((ASCENT - DESCENT) / 2) * size });
     };
     // each word where the browser put it (which keeps justified lines and spacing exact)
     for (const m of text.matchAll(/\S+/g)) {
@@ -339,6 +351,7 @@ function drawText(doc, run, k, ox, oy) {
 export async function makePdfFile(col, fmt, { title = '', scale = 1, onProgress = () => {} } = {}) {
   const f = FORMATS[fmt];
   const { jsPDF, fonts } = await loadLibs();
+  const cjk = CJK.test(col.textContent) ? await loadCjkFont() : null;
   const colWidth = col.style.width;
   const pages = paginate(col, fmt, scale);
   const stage = col.parentNode;
@@ -347,6 +360,7 @@ export async function makePdfFile(col, fmt, { title = '', scale = 1, onProgress 
   const sheet = f.sheet || f.page;
   const doc = new jsPDF({ unit: 'pt', format: [sheet[0] * PT, sheet[1] * PT], orientation: sheet[0] > sheet[1] ? 'landscape' : 'portrait', compress: true });
   FONT_FILES.forEach(([file, family, style], i) => { doc.addFileToVFS(file, fonts[i]); doc.addFont(file, family, style); });
+  if (cjk) { doc.addFileToVFS(CJK_FONT[0], cjk); doc.addFont(...CJK_FONT); }
   doc.setProperties({ title, creator: 'Cantus Horarum' });
 
   // CSS px of the column -> PDF points: the print layout's zoom (and size), then 96 px to 72 pt

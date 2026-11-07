@@ -244,13 +244,15 @@ const plainWords = (s) => String(s || '').normalize('NFD').replace(/\p{M}/gu, ''
 export const hymnKey = (incipit) => plainWords(incipit).slice(0, 3).join(' ');
 const cjk = (s) => String(s || '').replace(/[^\p{Script=Han}]/gu, '');
 
-/** Is `firstLine` (of the translated hymn in `lang`) the translation of the Latin hymn `key`? */
+/** Is `firstLine` (of the translated hymn in `lang`; in Chinese its first lines joined) the translation of the Latin hymn `key`? */
 export function hymnCorresponds(table, key, lang, firstLine) {
   const known = table?.[key]?.[lang];
   if (!known?.length || !firstLine) return false;
   if (lang === 'zh') {
+    // the Chinese: its opening characters (the first lines joined: "基督，" alone begins many)
+    // must begin as the known translation's, all of it
     const b = cjk(firstLine);
-    return known.some((k) => { const a = cjk(k); const n = Math.min(6, a.length, b.length); return n > 1 && a.slice(0, n) === b.slice(0, n); });
+    return known.some((k) => { const a = cjk(k); return a.length >= 4 && b.startsWith(a); });
   }
   const b = plainWords(firstLine).join(' ');
   return known.some((k) => b.startsWith(plainWords(k).join(' ')));

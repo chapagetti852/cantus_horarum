@@ -210,8 +210,8 @@ psalter days are the fallback.
 
 ### Translations
 
-The settings' "Translation (beta)" row offers English (`TRANSLATION_LANGS` in `site/app.js`;
-the Chinese is fetched and laid out but not offered yet). The interface itself (settings,
+The settings' "Translation (beta)" row offers English and Chinese (Hong Kong)
+(`TRANSLATION_LANGS` in `site/app.js`). The interface itself (settings,
 headings, rank, messages) is in English; the celebration's name, the season's day and every
 text of the office stay Latin.
 
@@ -223,6 +223,16 @@ window as the Latin into `cache/texts/tr/<lang>/` (the Pages workflow runs it af
 reading, responsory, Gospel canticle antiphon, intercessions, collect, the readings of the
 Office of Readings, the parts of each little hour. It is laid out as Breviarium Gregorianum lays its translations: a
 smaller italic paragraph under the Latin (Chinese upright).
+
+The Chinese is the Hong Kong office's text alone, never the app's: where the OCO sings
+another antiphon or responsory than the Liturgia Horarum, where a memorial takes the
+weekday's reading, responsory and intercessions and Hong Kong the common's (or the other
+way round), and where Hong Kong's hymn is a hymn of its own rather than the Latin hymn's
+translation, nothing is shown. It is set in Noto Serif TC (OFL), self-hosted in Google
+Fonts' unicode-range slices (`site/fonts-zh.css`, `site/fonts/zh/`: a page fetches only
+the slices its characters fall in). The PDF embeds the same face
+(`site/fonts/pdf/NotoSerifTC-Regular.ttf`, its layout tables left out), downloaded only
+for an hour with Chinese in it; jsPDF keeps only the glyphs used.
 
 - Psalms and canticles (the Gospel canticles too) verse by verse. `site/translate.js`
   reads the translated psalm into verses by its own marks (`*` or `※`, `†` `＋`, a blank
@@ -237,8 +247,11 @@ smaller italic paragraph under the Latin (Chinese upright).
   the collect under the collect, before the blessing; each reading of the Office of
   Readings under it, its responsory's after the responsory.
 - Hymns: the translated office's hymn only when it is the Latin hymn's translation
-  (`data/hymns/match.json`, judged by meaning: the English office keeps some hymns of its
-  own calendar, the Chinese paraphrases freely), as one paragraph with numbered strophes;
+  (`data/hymns/match.json`, judged by meaning, strophe by strophe: the English office keeps
+  some hymns of its own calendar; Hong Kong translates freely, and has hymns of its own for
+  many saints and for some hours; its entries are the hymn's opening, Han characters only,
+  long enough to tell it from the others, "旭日初升我們懇切求主" and "旭日初升萬象歡騰"
+  being two hymns), as one paragraph with numbered strophes;
   in English, where iBreviary has none, the app's own (`data/hymns/en.json`, keyed by the
   first three words; the OCO's two-word titles find their key there). Where the OCO's hymn
   has no score the text printed, and translated, is iBreviary's. The build names the hymns

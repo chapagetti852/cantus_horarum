@@ -105,10 +105,12 @@ window (`scripts/texts/window.mjs`, run daily by the Pages workflow into the git
 To do:
 1. Compline on solemnities (Sunday forms); optional memorials as a choice; Saturday
    memorial of Our Lady; feminine/plural variants of the commons.
-2. Hong Kong diocesan calendar. English translation is on as a beta setting (README
-   "Translations"; Chinese fetched but not offered, `TRANSLATION_LANGS` in `site/app.js`).
-   As new days enter the window: judge new hymns in `data/hymns/match.json` (the build
-   lists them), and run `node scripts/texts/missing_translations.cjs` after a build with
+2. Hong Kong diocesan calendar. English and Chinese (Hong Kong DLC) translations are a beta
+   setting (README "Translations"). The Chinese must be Hong Kong's text only: no own
+   translations, hymns only where `data/hymns/match.json` judges HK's hymn a translation
+   (check new pairs in the window: set `translation: 'zh'`, read `window.__trHymns`).
+   As new days enter the window: judge new hymns in `data/hymns/match.json`, English and
+   Chinese (the build lists the Latin ones not yet judged), and run `node scripts/texts/missing_translations.cjs` after a build with
    the window's days in `dist/data` (download them from the live site if the local fetch
    is slow); translate what it lists into `data/translations/en.json` (antiphons,
    responsories: the OCO's text where it differs from the LH) or `data/hymns/en.json`

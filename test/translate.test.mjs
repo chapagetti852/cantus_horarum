@@ -54,4 +54,8 @@ test('intercessions and hymns', () => {
   assert.equal(hymnCorresponds(table, hymnKey('Cæli Deus sanctíssime,'), 'en', 'Most Holy God in heav’n above,'), true);
   assert.equal(hymnCorresponds(table, hymnKey('Cæli Deus sanctíssime,'), 'zh', '至聖的造物真主，'), true);
   assert.equal(hymnCorresponds(table, hymnKey('Cæli Deus sanctíssime,'), 'en', 'Come, friends, praise noble deeds'), false);
+  // Chinese: the whole known opening; two hymns beginning 旭日初升 are told apart
+  const zh = { 'iam lucis orto': { zh: ['旭日初升我們懇切求主'] } };
+  assert.equal(hymnCorresponds(zh, 'iam lucis orto', 'zh', '旭日初升，我們懇切求主，恩賜今天的生活，'), true);
+  assert.equal(hymnCorresponds(zh, 'iam lucis orto', 'zh', '旭日初升，萬象歡騰，歌頌上主的榮耀，'), false);
 });

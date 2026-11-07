@@ -6,7 +6,7 @@ import { BOOKS } from './sources.js';
 import { toneContext, versesOf, psalmGabc, verseGabc, verseHtml, startAtCross } from './psalmtone.js';
 import { resolveHour, indexOco, celebrationFor, isSanctoral } from './resolve.js';
 import { versicleGabc, chapterGabc, luCollectGabc, collectGabc, readingGabc, precesIntroGabc, intentionGabc } from './recitation.js';
-import { loadTranslation, loadOwn, ownKey, hourTranslation, trNode, psalmNumber, chapterVerse, alignPsalm, verseTrHtml, trP, precesParts, hymnKey, hymnCorresponds } from './translate.js';
+import { loadTranslation, loadOwn, ownKey, hourTranslation, sameReading, trNode, psalmNumber, chapterVerse, alignPsalm, verseTrHtml, trP, precesParts, hymnKey, hymnCorresponds } from './translate.js';
 
 const HOURS = ['lectio', 'laudes', 'tertia', 'sexta', 'nona', 'vesperae', 'completorium'];
 const HOUR_NAMES = { lectio: 'Office of Readings', laudes: 'Lauds', tertia: 'Terce', sexta: 'Sext', nona: 'None', vesperae: 'Vespers', completorium: 'Compline' };
@@ -663,9 +663,11 @@ function hymnTrNode(key, latinStrophes) {
   // iBreviary heads its Advent hymns "Alternate Hymns"
   while (lines?.length && (lines[0] === '' || /^alternate hymns?$/i.test(lines[0]))) lines = lines.slice(1);
   let strophes = null;
-  if (lines?.length && hymnCorresponds(state.hymns?.match, key, T.lang, lines[0])) {
+  const opening = T.lang === 'zh' ? (lines || []).filter(Boolean).slice(0, 4).join('') : lines?.[0];
+  if (lines?.length && hymnCorresponds(state.hymns?.match, key, T.lang, opening)) {
     strophes = lines.reduce((a, l) => { if (l === '') a.push([]); else a[a.length - 1].push(l); return a; }, [[]]).filter((x) => x.length);
   } else if (T.lang === 'en' && state.hymns?.en?.[key]) strophes = state.hymns.en[key];
+  (window.__trHymns ||= []).push([key, lines?.find((l) => l) || '', !!strophes]); // for audits
   if (!strophes) { if (key) (window.__trMissingHymns ||= new Set()).add(key); return null; }
   const join = (ls) => ls.map(esc).join(T.lang === 'zh' ? '' : ' ');
   const numbered = strophes.length > 1 && strophes.length === latinStrophes;
@@ -770,7 +772,7 @@ async function appendSalusEtGloria(main, g, id) {
   main.append(await chantNode(id, { annotation: '' }));
   // the translation's verses without its Alleluias (the score sings them) and marks
   const t = state.tr ? nextTrPsalm(head) : null;
-  const lines = (t?.lines || []).filter((l) => l.trim() && !/^(alleluia[\s.,!]*)+$/i.test(l.trim())).map((l) => l.replace(/\s*[*†]\s*$/, ''));
+  const lines = (t?.lines || []).filter((l) => l.trim() && !/^((alleluia|亞肋路亞)[\s.,!，。！]*)+$/i.test(l.trim())).map((l) => l.replace(/\s*[*†※＋]\s*$/, ''));
   if (lines.length) { const node = trNode(state.tr.lang, lines); if (node) main.append(node); }
 }
 
@@ -907,9 +909,15 @@ async function composeLaudesVesperae(main, day, date, hour) {
   // on memorials the weekday's short reading, responsory and intercessions, unless the common is chosen
   const feria = memoriaDeFeria(propers._cel) ? state.psalterium[`${day.psalter}-${day.dow}`]?.hours[TEXT_HOUR[hour]] : null;
   const part = (title) => (feria && section(feria, title)) || section(texts, title);
+  // the translation of those parts: the translated office's when it has the same short reading
+  // as the Latin sung (the weekday's or the memorial's), else none
+  const partsSame = state.tr && (feria ? sameReading(latinReadingRef(feria, hour), state.tr.own.reading?.ref) : state.tr.same);
+  const sameTr = state.tr && partsSame !== state.tr.same ? { ...state.tr, same: partsSame } : state.tr;
 
   // Short reading, responsory
   const lb = part('LECTIO BREVIS');
+  const trWas = state.tr;
+  state.tr = sameTr;
   if (lb) { main.append(el('<h2 class="section">Short Reading</h2>')); main.append(readingNode(lb.blocks)); appendTr(main, state.tr?.own.reading?.lines); }
   // the short responsory is one piece of music: its score, or else the text
   const rb = entries.find((e) => e.kind !== 'reference' && (e.kind === 'resp_brevis' || /br\./.test(e.position || '')));
@@ -921,6 +929,7 @@ async function composeLaudesVesperae(main, day, date, hour) {
     else if (rbText) main.append(el(`<div class="block">${renderBlocks(rbText.blocks)}</div>`));
     appendResponsoryTr(main, node?.dataset.notated ? rb : null, rbText);
   }
+  state.tr = trWas;
 
   // Gospel canticle
   const cant = byPosition(entries, hour === 'laudes' ? 'B' : 'M');
@@ -931,7 +940,7 @@ async function composeLaudesVesperae(main, day, date, hour) {
   // Intercessions, Pater noster (sung), collect, conclusion
   const cel = propers._cel || day;
   const preces = part('PRECES');
-  if (preces) { main.append(el('<h2 class="section">Intercessions</h2>')); main.append(precesNode(preces.blocks, state.tr?.same ? state.tr.own.preces : null)); }
+  if (preces) { main.append(el('<h2 class="section">Intercessions</h2>')); main.append(precesNode(preces.blocks, sameTr?.same ? state.tr.own.preces : null)); }
   if (section(texts, 'PATER NOSTER')) {
     main.append(el('<h2 class="section">Lord’s Prayer</h2>'));
     main.append(await chantNode(PATER_NOSTER, { annotation: '' }));
@@ -1096,7 +1105,7 @@ function collectTone(cel, hour) {
 // English under the Latin (setting "Translation", beta), as Breviarium Gregorianum lays it
 // out. Chinese is built too but not offered yet.
 const TRANSLATIONS = true;
-const TRANSLATION_LANGS = new Set(['en']);
+const TRANSLATION_LANGS = new Set(['en', 'zh']);
 /** The words of an antiphon as sung: without the OCO's notes after it ("E u o u a e", ⟨T.P.⟩ additions, sources). */
 const cleanSung = (t) => String(t || '').replace(/\s*E u o u a e\.?[\s\S]*$/, '').replace(/\s*⟨[^⟩]*⟩[\s\S]*$/, '').replace(/\s*†\s*$/, '').trim();
 /**
@@ -1400,7 +1409,8 @@ function pixelBurst(x, y, power = 1) {
 function appendFidelium(node) {
   if (!bonus('fidelium')) return;
   node.append(chantFromGabc(FIDELIUM, { dropCap: false, source: { label: 'recto tono' } }));
-  appendTr(node, ['May the souls of the faithful departed, through the mercy of God, rest in peace.', '— Amen.'], { proper: false });
+  // the app's own English: no Chinese is shown that is not the Hong Kong office's
+  if (state.tr?.lang === 'en') appendTr(node, ['May the souls of the faithful departed, through the mercy of God, rest in peace.', '— Amen.'], { proper: false });
 }
 /** The versicle and collect of each antiphon of Our Lady (Breviarium Romanum), Divinum auxilium after. */
 const MARIAN_PRAYER = {
@@ -1442,7 +1452,7 @@ function appendMarianPrayer(main, marian, date) {
     ? chantFromGabc(luCollectGabc(p.oratio, { tone: 'ferialB', oremus: true, amen: true }), { dropCap: false, source: RECITATION_SOURCE.ferialB })
     : chantFromGabc(collectGabc(p.oratio, { oremus: true, amen: true }), { dropCap: false, source: RECITATION_SOURCE.oratio }));
   main.append(chantFromGabc(DIVINUM_AUXILIUM, { dropCap: false, source: { label: 'LU 277' } }));
-  appendTr(main, [...p.en, 'May the divine assistance remain with us always. — Amen.'], { proper: false });
+  if (state.tr?.lang === 'en') appendTr(main, [...p.en, 'May the divine assistance remain with us always. — Amen.'], { proper: false });
 }
 
 async function render() {
@@ -1470,7 +1480,8 @@ async function composeHour(day) {
   state.rank = day.rank; // the day's rank, for the versicle's tone
   if (TRANSLATIONS && TRANSLATION_LANGS.has(state.settings.translation)) {
     const [t, own] = await Promise.all([loadTranslation(state.settings.translation, state.date), loadOwn(state.settings.translation)]);
-    state.own = own;
+    // the app's own translations are English only: Chinese is the Hong Kong office's alone
+    state.own = state.settings.translation === 'en' ? own : null;
     state.tr = hourTranslation(t, state.hour, latinReadingRef(await textsFor(day, state.date, state.hour), state.hour));
   }
   try {

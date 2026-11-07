@@ -4,6 +4,17 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.15.0 — 2026-11-07
+
+- Translation: Chinese (Hong Kong), from the Hong Kong Diocesan Liturgy Commission's daily
+  office, set in Noto Serif TC, in the PDF too. Only Hong Kong's own text is shown: no
+  Chinese where the office sung differs from Hong Kong's, and no hymn that is not a
+  translation of the Latin one.
+- Hymn translations: eleven more recognised as translations (Conditor alme siderum, Deus
+  creator omnium, Verbum supernum…); two hymns opening alike are no longer confused.
+- On memorials that take the weekday's reading and intercessions, their translation is
+  shown only when the translated office takes the same.
+
 ## 1.14.0 — 2026-11-07
 
 - The canticle of Ap 19 at Sunday II Vespers outside Ordinary Time (Advent, Eastertide,

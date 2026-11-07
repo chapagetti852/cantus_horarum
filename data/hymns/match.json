@@ -1,16 +1,19 @@
 {
- "_": "Which translated hymn is the Latin hymn's own translation (judged by meaning, not shape). Keys: the first three words of the Latin incipit, without accents or punctuation; values: the first line of the corresponding English (iBreviary) and Chinese (Hong Kong DLC) hymn, in the same form (the Chinese: its first six characters). A Latin hymn not listed here, or a translated first line not listed under it, is not shown as its translation.",
+ "_": "Which translated hymn is the Latin hymn's own translation (judged by meaning, not shape). Keys: the first three words of the Latin incipit, without accents or punctuation; values: the first line of the corresponding English (iBreviary) and Chinese (Hong Kong DLC) hymn, in the same form (the Chinese: its first characters, Han only, enough to tell it from the office's other hymns). A Latin hymn not listed here, or a translated first line not listed under it, is not shown as its translation.",
  "ales diei nuntius": {
   "en": [
    "the winged herald of"
   ],
   "zh": [
-   "雞鳴報曉"
+   "雞鳴報曉黎明在望基督"
   ]
  },
  "angularis fundamentum": {
   "en": [
    "christ was sent"
+  ],
+  "zh": [
+   "基督天主之子萬民的救主"
   ]
  },
  "aurora iam spargit": {
@@ -18,7 +21,7 @@
    "now dawn unfolds"
   ],
   "zh": [
-   "黎明初現"
+   "黎明初現白晝開始誘惑"
   ]
  },
  "beate martyr prospera": {
@@ -56,17 +59,23 @@
    "most holy god"
   ],
   "zh": [
-   "至聖的造物真主"
+   "至聖的造物真主你的光"
   ]
  },
  "deus creator omnium": {
   "en": [
    "o god creator"
+  ],
+  "zh": [
+   "上主你創造萬有統治宇"
   ]
  },
  "deus qui claro": {
   "en": [
    "o gracious god"
+  ],
+  "zh": [
+   "全能的天主你的光明照耀大地"
   ]
  },
  "deus qui caeli": {
@@ -74,7 +83,7 @@
    "o god the light"
   ],
   "zh": [
-   "天主光明的創造"
+   "天主光明的創造者你是"
   ]
  },
  "deus tuorum militum": {
@@ -82,7 +91,7 @@
    "o god your"
   ],
   "zh": [
-   "上主你是殉道"
+   "上主你是殉道聖人的產"
   ]
  },
  "diei luce reddita": {
@@ -90,12 +99,12 @@
    "as daylight fills"
   ],
   "zh": [
-   "旭日初升"
+   "旭日初升萬象歡騰歌頌"
   ]
  },
  "doctor aeternus coleris": {
   "zh": [
-   "基督永恆的導師"
+   "基督永恆的導師智慧的"
   ]
  },
  "ecce iam noctis": {
@@ -103,7 +112,7 @@
    "lo night is"
   ],
   "zh": [
-   "夜的陰影已經"
+   "夜的陰影已經消逝曙光"
   ]
  },
  "exsultet caelum laudibus": {
@@ -114,7 +123,7 @@
  },
  "fortem virili pectore": {
   "zh": [
-   "請大家讚頌巾"
+   "請大家讚頌巾幗英雄聖"
   ]
  },
  "galli cantu mediante": {
@@ -123,7 +132,7 @@
    "as the cockrel"
   ],
   "zh": [
-   "雞鳴報平安"
+   "雞鳴報平安驅散黑夜的"
   ]
  },
  "horis peractis undecim": {
@@ -131,12 +140,12 @@
    "eleven hours have"
   ],
   "zh": [
-   "夕陽西下"
+   "夕陽西下日近黃昏讓我"
   ]
  },
  "haec femina laudabilis": {
   "zh": [
-   "今天紀念女中"
+   "今天紀念女中模範教會"
   ]
  },
  "iam lucis orto": {
@@ -144,7 +153,7 @@
    "now sunrise fills"
   ],
   "zh": [
-   "旭日初升"
+   "旭日初升我們懇切求主"
   ]
  },
  "iesu rex admirabilis": {
@@ -158,7 +167,7 @@
    "o wondrous maker"
   ],
   "zh": [
-   "無限的上主"
+   "無限的上主你創造了宇"
   ]
  },
  "immensae rex potentiae": {
@@ -182,7 +191,7 @@
    "sublime creator of"
   ],
   "zh": [
-   "創造光的天主"
+   "創造光的天主你使白晝"
   ]
  },
  "lucis largitor splendide": {
@@ -190,7 +199,7 @@
    "o god of splendor"
   ],
   "zh": [
-   "上主光明的主"
+   "上主光明的主宰你是光"
   ]
  },
  "lux aeterna lumen": {
@@ -198,13 +207,16 @@
    "light eternal light"
   ],
   "zh": [
-   "不夜的白晝"
+   "不夜的白晝永恆的光明"
   ]
  },
  "luminis fons lux": {
   "en": [
    "light ever-radiant source",
    "light everradiant source"
+  ],
+  "zh": [
+   "上主永恆的救主一切光明"
   ]
  },
  "magnae deus potentiae": {
@@ -212,7 +224,7 @@
    "o god of awesome"
   ],
   "zh": [
-   "大能的天主"
+   "大能的天主你造生萬物"
   ]
  },
  "martyr dei qui": {
@@ -235,7 +247,7 @@
    "at this the midnight"
   ],
   "zh": [
-   "夜深人靜"
+   "夜深人靜耳旁響起先知"
   ]
  },
  "nocte surgentes vigilemus": {
@@ -251,7 +263,7 @@
    "while dark and"
   ],
   "zh": [
-   "夜幕將大地籠"
+   "夜幕將大地籠罩遮蓋了"
   ]
  },
  "nox et tenebrae": {
@@ -259,7 +271,7 @@
    "o night and"
   ],
   "zh": [
-   "離去吧"
+   "離去吧黑夜沉沉昏暗及"
   ]
  },
  "nobilem christi famulam": {},
@@ -268,7 +280,7 @@
    "o light o blessed"
   ],
   "zh": [
-   "太陽下山"
+   "太陽下山黃昏已近三位"
   ]
  },
  "o sempiternae curiae": {
@@ -289,7 +301,7 @@
    "o god who shaped"
   ],
   "zh": [
-   "創造人類的天"
+   "創造人類的天主只有你"
   ]
  },
  "primo dierum omnium": {
@@ -297,7 +309,7 @@
    "on this the first"
   ],
   "zh": [
-   "太初第一天"
+   "太初第一天天主創造宇"
   ]
  },
  "qui vivis ante": {
@@ -310,12 +322,15 @@
    "sublime creator of"
   ],
   "zh": [
-   "最美善的造物"
+   "最美善的造物真主你管"
   ]
  },
  "rerum deus fons": {
   "en": [
    "o god the source"
+  ],
+  "zh": [
+   "上主全能的天主萬有的根源"
   ]
  },
  "salve mater misericordiae": {
@@ -345,7 +360,7 @@
    "with weary limbs"
   ],
   "zh": [
-   "睡眠消除了疲"
+   "睡眠消除了疲勞迅速起"
   ]
  },
  "spes christe nostrae": {
@@ -358,7 +373,7 @@
    "o splendor of"
   ],
   "zh": [
-   "基督聖父的榮"
+   "基督聖父的榮耀出自光"
   ]
  },
  "summae deus clementiae": {
@@ -366,7 +381,7 @@
    "o god supreme"
   ],
   "zh": [
-   "至仁至慈的天"
+   "至仁至慈的天主創造宇"
   ]
  },
  "te lucis ante": {
@@ -374,7 +389,7 @@
    "to you before"
   ],
   "zh": [
-   "日落西山"
+   "日落西山夜幕低垂仁慈"
   ]
  },
  "te saeculorum principem": {
@@ -382,7 +397,7 @@
    "o christ the prince"
   ],
   "zh": [
-   "基督你是天地"
+   "基督你是天地的主宰萬"
   ]
  },
  "telluris ingens conditor": {
@@ -398,12 +413,12 @@
    "o god most holy"
   ],
   "zh": [
-   "三位一體的天"
+   "三位一體的天主你統治"
   ]
  },
  "urbs ierusalem beata": {
   "zh": [
-   "嶄新的耶路撒"
+   "嶄新的耶路撒冷和平的"
   ]
  },
  "vir celse forma": {
@@ -414,6 +429,9 @@
  "aeterna caeli gloria": {
   "en": [
    "eternal glory of"
+  ],
+  "zh": [
+   "基督你是聖父的獨子聖"
   ]
  },
  "aeterna imago altissimi": {
@@ -421,7 +439,7 @@
    "eternal god from"
   ],
   "zh": [
-   "基督至高天主"
+   "基督至高天主的形像我"
   ]
  },
  "aeterne lucis conditor": {
@@ -437,7 +455,7 @@
    "eternal author of"
   ],
   "zh": [
-   "永恆的造物主"
+   "永恆的造物主你使晝夜"
   ]
  },
  "aeterne sol qui": {
@@ -450,7 +468,7 @@
    "now holy spirit"
   ],
   "zh": [
-   "至聖聖神"
+   "至聖聖神敬請翩然光臨"
   ]
  },
  "rector potens verax": {
@@ -458,7 +476,7 @@
    "o mighty ruler"
   ],
   "zh": [
-   "上主施大能"
+   "上主施大能萬物化生宇"
   ]
  },
  "rerum deus tenax": {
@@ -475,11 +493,17 @@
  "fulgentis auctor aetheris": {
   "en": [
    "creator of the radiant"
+  ],
+  "zh": [
+   "上主你創造壯麗的穹蒼"
   ]
  },
  "sol ecce lentus": {
   "en": [
    "behold the slowly setting"
+  ],
+  "zh": [
+   "夕陽西沉夜幕低垂黑暗"
   ]
  },
  "rex gloriose martyrum": {
@@ -525,16 +549,25 @@
  "conditor alme siderum": {
   "en": [
    "o loving maker of"
+  ],
+  "zh": [
+   "基督你創造了群星你是"
   ]
  },
  "verbum supernum prodiens": {
   "en": [
    "o word proceeding from"
+  ],
+  "zh": [
+   "皇皇聖父遣發至高的聖言"
   ]
  },
  "vox clara ecce": {
   "en": [
    "behold a voice resounding"
+  ],
+  "zh": [
+   "報曉的晨鐘清澈響亮衝"
   ]
  },
  "iesu corona celsior": {}
