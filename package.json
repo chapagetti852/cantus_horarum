@@ -1,6 +1,6 @@
 {
   "name": "cantus-horarum",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "private": true,
   "type": "module",
   "description": "Liturgia Horarum in cantu gregoriano secundum Ordinem Cantus Officii (2015), for phone and desktop",

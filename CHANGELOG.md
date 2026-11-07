@@ -4,6 +4,12 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.4.1 — 2026-11-07
+
+- Compline in the Triduum and the octave of Easter: the antiphon the OCO puts in place of
+  the responsory (Christus factus est, longer each day; then Hæc dies), not In manus tuas.
+- "obœ́diens", "prœ́lia" and the like no longer print as "obǼdiens" in scores read from the OCO.
+
 ## 1.4.0 — 2026-11-07
 
 - "Mutual enrichment" in the settings: bonus content from the older Roman Office, each

@@ -1129,11 +1129,21 @@ async function composeCompline(main, day, date, hour) {
   const lb = section(texts, 'LECTIO BREVIS');
   if (lb) { main.append(el('<h2 class="section">Short Reading</h2>')); main.append(readingNode(lb.blocks)); appendTr(main, state.tr?.own.reading?.lines); }
 
+  // In the Triduum and the octave of Easter an antiphon takes the responsory's place (OCO pp.
+  // 242, 250, 257, 264): Christus factus est, longer each day, then Hæc dies
+  const inPlace = complineAntiphon(day);
+  if (inPlace) {
+    main.append(el('<h2 class="section">Antiphon</h2>'));
+    main.append(el('<p class="rubric">Loco responsorii dicitur:</p>'));
+    const node = await chantNode(inPlace.gabc, { annotation: inPlace.mode, fallbackText: inPlace.text });
+    main.append(node);
+    if (state.tr) { const t = sungTr(inPlace.text, null, null, { shared: false }); if (t) main.append(trP(state.tr.lang, esc(t))); }
+  }
   // In manus tuas: the OCO's score (with its alleluias in Eastertide), else the text
   const rbs = entries.filter((e) => e.kind !== 'reference' && e.gabc && /^In manus tuas/.test(e.text || ''));
   const rb = rbs.find((e) => /allel[uú]ia/i.test(e.text) === paschal) || rbs[0];
   const rbText = section(texts, 'RESPONSORIUM BREVE');
-  if (rb || rbText) {
+  if (!inPlace && (rb || rbText)) {
     main.append(el('<h2 class="section">Short Responsory</h2>'));
     const node = rb ? await chantNode(rb.gabc, { annotation: '' }) : null;
     if (node?.dataset.notated) main.append(node);
@@ -1167,6 +1177,13 @@ async function composeCompline(main, day, date, hour) {
   if (bonus('marianPrayer')) appendMarianPrayer(main, marian, date);
 }
 const NOCTEM_QUIETAM = 20685;
+// the antiphon in place of the responsory at Compline (OCO entries, read from its notation)
+const COMPLINE_IN_PLACE = { holy_thursday: 620, thursday_of_the_lords_supper: 620, friday_of_the_passion_of_the_lord: 645, holy_saturday: 667 };
+const EASTER_OCTAVE = /^(easter_(sunday|monday|tuesday|wednesday|thursday|friday|saturday)|divine_mercy_sunday)$/;
+function complineAntiphon(day) {
+  const oco = COMPLINE_IN_PLACE[day.id] || (EASTER_OCTAVE.test(day.id) ? 689 : null);
+  return oco ? state.oco.find((e) => e.id === oco) : null;
+}
 // Antiphonale Monasticum 2005: Alma (p. 472), Ave Regina (p. 474), Regina cæli (p. 475), Salve Regina, simple tone (p. 477)
 const MARIAN = { alma: 4694, ave: 18754, regina: 18753, salve: 18655 };
 /**

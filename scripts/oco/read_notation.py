@@ -215,7 +215,7 @@ def read_page(doc, pno, names):
                 if c["size"] > 20 and top - 10 < c["y"] < bottom + 30 and c["x"] < st["x0"] + 2:
                     initial = c["c"]
                 elif lyric_lo < c["y"] < lyric_hi and st["x0"] - 60 < c["x"] < st["x1"] + 5 and c["size"] < 14:
-                    lyrics.append({"c": c["c"], "x": c["x"], "x1": c["bbox"][2], "size": c["size"], "span": c["span"], "y": c["y"]})
+                    lyrics.append({"c": FONT_FIX.get(c["c"], c["c"]), "x": c["x"], "x1": c["bbox"][2], "size": c["size"], "span": c["span"], "y": c["y"]})
                 elif c["font"] == "Aster-Med" and top - 22 < c["y"] < top and c["x"] < st["x0"] + 30:
                     annotation = (annotation or "") + c["c"]
         glyphs.sort(key=lambda g: g["x"])
@@ -232,6 +232,8 @@ def read_page(doc, pno, names):
     return systems
 
 
+# the OCO's text font puts œ́ (obœ́diens, prœ́lia) at the code point of Ǽ
+FONT_FIX = {"Ǽ": "œ́"}
 SIGNS = {"Ƒ": "<sp>V/</sp>", "Ʀ": "<sp>R/</sp>", "Ɍ": "<sp>R/</sp>", "*": "*"}
 
 
