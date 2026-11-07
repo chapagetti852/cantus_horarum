@@ -5,7 +5,7 @@ import { makePdfFile } from './pdf.js';
 import { BOOKS } from './sources.js';
 import { toneContext, versesOf, psalmGabc, verseGabc, verseHtml, startAtCross } from './psalmtone.js';
 import { resolveHour, indexOco, celebrationFor, isSanctoral } from './resolve.js';
-import { collectGabc, readingGabc, versicleGabc } from './recitation.js';
+import { collectGabc, readingGabc, versicleGabc, chapterGabc } from './recitation.js';
 import { loadTranslation, loadOwn, ownKey, hourTranslation, trNode, psalmNumber, chapterVerse, alignPsalm, verseTrHtml, trP, precesParts, hymnKey, hymnCorresponds } from './translate.js';
 
 const HOURS = ['lectio', 'laudes', 'tertia', 'sexta', 'nona', 'vesperae', 'completorium'];
@@ -392,7 +392,7 @@ function sourceOf(header) {
 }
 // the books the generated scores follow (site/sources.js)
 const PSALM_TONE_SOURCE = { label: 'AR II 738–740' };
-const RECITATION_SOURCE = { reading: { label: 'AR II 756' }, collect: { label: 'AR II 759' }, versicle: { label: 'AM I 532' } };
+const RECITATION_SOURCE = { reading: { label: 'AR II 756' }, chapter: { label: 'LU 123' }, collect: { label: 'AR II 759' }, versicle: { label: 'AM I 532' } };
 
 /**
  * A score, without label (the annotation above the initial gives the mode). Without a
@@ -963,19 +963,22 @@ function chantFromGabc(body, { dropCap = true, source = null } = {}) {
 }
 
 // The versicles are sung on the common tones of the AM 2005 / AR II (site/recitation.js).
-// Short readings and collects can be sung the same way (SING_READINGS); for now they stand
-// as text.
-const SING_READINGS = false;
+// Short readings and collects are sung the same way when the settings ask for it ("Short
+// reading", "Collect": text or sung); the readings of the Office of Readings stay text.
+// "capitulum": the Liber Usualis' tone for the Chapter instead of the Antiphonale Romanum II's
+const singReading = () => state.settings.singReading === true || state.settings.singReading === 'capitulum';
+const singCollect = () => state.settings.singCollect === true;
 const blockText = (b) => (b?.kind === 'text' ? b.lines.map((l) => (typeof l === 'string' ? l : l.text)).join(' ') : '');
 const recited = () => state.settings.recite !== 'text';
 /** A short reading: its reference, then the reading on the lesson tone. */
 function readingNode(blocks) {
   const node = el('<div class="block"></div>');
   const text = blocks.filter((b) => b.kind === 'text').map(blockText).join(' ').trim();
-  const gabc = SING_READINGS && recited() && text ? readingGabc(text) : null;
+  const chapter = state.settings.singReading === 'capitulum';
+  const gabc = singReading() && text ? (chapter ? chapterGabc(text) : readingGabc(text)) : null;
   if (!gabc) { node.insertAdjacentHTML('beforeend', renderBlocks(blocks)); return node; }
   node.insertAdjacentHTML('beforeend', renderBlocks(blocks.filter((b) => b.kind !== 'text')));
-  node.append(chantFromGabc(gabc, { dropCap: false, source: RECITATION_SOURCE.reading }));
+  node.append(chantFromGabc(gabc, { dropCap: false, source: chapter ? RECITATION_SOURCE.chapter : RECITATION_SOURCE.reading }));
   return node;
 }
 /** A collect, with Orémus before it and Amen after when iBreviary gives them, on the collect tone. */
@@ -984,7 +987,7 @@ function collectNode(blocks) {
   const texts = blocks.filter((b) => b.kind === 'text');
   const oremus = /^Orémus\.?$/.test(blockText(texts[0]).trim());
   const text = texts.slice(oremus ? 1 : 0).map(blockText).join(' ').trim();
-  if (!SING_READINGS || !recited() || !text) { node.insertAdjacentHTML('beforeend', renderBlocks(blocks)); return node; }
+  if (!singCollect() || !text) { node.insertAdjacentHTML('beforeend', renderBlocks(blocks)); return node; }
   const amen = blocks.some((b) => b.kind === 'versicle' && /^Amen/.test(b.text));
   node.insertAdjacentHTML('beforeend', renderBlocks(blocks.filter((b) => b.kind === 'rubric')));
   node.append(chantFromGabc(collectGabc(text, { oremus, amen }), { dropCap: false, source: RECITATION_SOURCE.collect }));
@@ -1393,6 +1396,8 @@ function applySettings() {
   for (const b of document.querySelectorAll('.mode')) b.setAttribute('aria-checked', String(b.dataset.psalms === (state.settings.psalms || '')));
   $('#opt-memoria').value = state.settings.memoria || '';
   $('#opt-presider').value = state.settings.presider ? '1' : '';
+  $('#opt-sing-reading').value = state.settings.singReading === 'capitulum' ? 'capitulum' : singReading() ? '1' : '';
+  $('#opt-sing-collect').value = singCollect() ? '1' : '';
   $('#opt-invitatory').value = state.settings.invitatory || '';
   if ($('#opt-translation')) $('#opt-translation').value = TRANSLATION_LANGS.has(state.settings.translation) ? state.settings.translation : '';
 }
@@ -1452,6 +1457,8 @@ async function boot() {
   for (const b of document.querySelectorAll('.mode')) b.onclick = () => { state.settings.psalms = b.dataset.psalms || undefined; saveSettings(); applySettings(); render(); };
   $('#opt-memoria').onchange = (e) => { state.settings.memoria = e.target.value || undefined; saveSettings(); render(); };
   $('#opt-presider').onchange = (e) => { state.settings.presider = e.target.value ? true : undefined; saveSettings(); render(); };
+  $('#opt-sing-reading').onchange = (e) => { const v = e.target.value; state.settings.singReading = v === 'capitulum' ? v : v ? true : undefined; saveSettings(); render(); };
+  $('#opt-sing-collect').onchange = (e) => { state.settings.singCollect = e.target.value ? true : undefined; saveSettings(); render(); };
   $('#opt-invitatory').onchange = (e) => { state.settings.invitatory = e.target.value || undefined; saveSettings(); render(); };
   // "Mutual enrichment": the older customs, ticked in their own small window
   const box = $('#bonus-list');

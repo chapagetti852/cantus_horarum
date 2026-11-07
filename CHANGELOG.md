@@ -4,6 +4,13 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.5.0 — 2026-11-07
+
+- Settings "Short reading" and "Collect": text, or sung. The short reading on the tone of
+  the Antiphonale Romanum II (tonus lectionis) or on the Liber Usualis' tone for the
+  Chapter; the collect on the Antiphonale Romanum II's tonus orationis. The readings of the
+  Office of Readings stay text.
+
 ## 1.4.1 — 2026-11-07
 
 - Compline in the Triduum and the octave of Easter: the antiphon the OCO puts in place of

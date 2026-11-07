@@ -100,10 +100,27 @@ punctum to fa; the conclusion likewise ("Fílium tuum" flexa, "Spíritus Sancti,
 metrum). Readings (AM p. 529, AR II p. 756): flexa at a colon or semicolon, punctum at a
 full stop, the question (si, la, si) and the conclusion rising to re with mi on the last
 accent but one. Versicles at the little hours (AM p. 532): on do, falling to la after the
-last accent. For now only the versicles are sung; readings and collects stand as text
-(`SING_READINGS` in `site/app.js` turns them on). `test/recitation.test.mjs` checks the
-books' examples. Only the ferial forms are on GregoBase; the festive or solemn forms and
-the melismatic versicle before the readings of the Office of Readings are still to come.
+last accent. The versicles are always sung; the short reading and the collect are text
+unless the settings ask for them sung ("Short reading", "Collect"; the readings of the
+Office of Readings stay text). The short reading can also take the older tone for the
+Chapter (Liber Usualis 1961, p. 123; jgabc's "Chapter"): on do, the flex falling a minor
+third after the last accent ("confi-dén-ter"), the metrum with si and la on the two
+syllables before it ("vo-cá-bunt é-um"), the full stop with la on the last accent, sol
+after it and sol-la at the end ("nós-ter"); the metrum at the colon, the flex before it,
+and in a long sentence flex and metrum alternating at its semicolons, the metrum last (pp.
+121-123). `test/recitation.test.mjs` checks the books' examples. Only the ferial forms of
+the Antiphonale Romanum II are on GregoBase; its festive or solemn forms and the melismatic
+versicle before the readings of the Office of Readings are still to come.
+
+The collect tone is the Office's (Antiphonale Romanum II p. 759: flexa, then metrum, then
+the fall to fa). The Liber Usualis' festal tone for the Mass prayers (pp. 98-99) orders them
+the other way (metrum at the colon, then the flex, the body ending recto tono); the
+chant sheets of the St. Benedict Tridentine Community, Windsor (Michel Ozorak, "St.
+Athanasius Chants", windsorlatinmass.org/latin/chant.htm, reachable only over plain http)
+set the 1962 Missal's collects so, many of them the same texts as the Liturgia Horarum's
+(the collect of the 32nd Sunday per annum is that of the 19th after Pentecost). Their
+settings are copyright Biretta Books and may not be reproduced without its permission:
+they serve here to compare, not as data.
 
 ### Singing the scores
 

@@ -3,11 +3,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import engine from './jgabc.mjs';
-import { setRecitationEngine, collectGabc, readingGabc, versicleGabc } from '../site/recitation.js';
+import { setRecitationEngine, collectGabc, readingGabc, versicleGabc, chapterGabc } from '../site/recitation.js';
 
 setRecitationEngine(engine);
 // syllable(notes) pairs, bars and markup left out
-const notes = (g) => [...g.replace(/<[^>]+>/g, '').matchAll(/([^\s()]+)\(([a-m]+)\.?\)/g)].map((m) => `${m[1].replace(/[,;:.?]/g, '')}:${m[2]}`).join(' ');
+const notes = (g) => [...g.replace(/<[^>]+>/g, '').matchAll(/([^\s()]+)\(([a-m]+)\.*\)/g)].map((m) => `${m[1].replace(/[,;:.?]/g, '')}:${m[2]}`).join(' ');
 
 test('collect: flexa, metrum, punctum (AR II p. 759)', () => {
   const g = collectGabc('Da, quǽsumus, omnípotens Deus, hanc tuis fidélibus voluntátem, ut, Christo tuo veniénti iustis opéribus occurréntes, eius déxteræ sociáti, regnum mereántur possidére cæléste.', { amen: false });
@@ -34,4 +34,19 @@ test('reading: flexa, punctum, conclusion, question (AR II p. 756)', () => {
 
 test('versicle at the little hours (AM p. 532)', () => {
   assert.match(notes(versicleGabc('Veni, Dómine, et noli tardáre.')), /tar:h dá:h re:f$/);
+});
+
+test('chapter tone: flex, metrum, full stop (Liber Usualis p. 123)', () => {
+  const n = notes(chapterGabc('In diébus illis salvábitur Iuda, et Israël habitábit confidénter, et hoc est nomen quod vocábunt eum: Dóminus iustus noster.'));
+  assert.match(n, /con:h fi:h dén:h ter:f/, 'flex: la after the last accent');
+  assert.match(n, /vo:h cá:g bunt:f e:h um:h/, 'metrum: si, la before the accent');
+  assert.match(n, /ius:h tus:h nos:f ter:ef$/, 'full stop: la on the accent, sol-la at the end');
+});
+
+test('chapter tone: flex and metrum alternate in a long sentence', () => {
+  const g = chapterGabc('Fidélis sermo: Nam si commórtui sumus, et convivémus; si sustinémus, et conregnábimus; si negábimus, et ille negábit nos; si non crédimus, ille fidélis manet, negáre enim seípsum non potest.');
+  const n = notes(g);
+  assert.match(n, /il:h le:g ne:f gá:h bit:h nos:h/, 'the last division: metrum');
+  assert.match(n, /con:h re:h gná:h bi:f mus:f/, 'before it: flex');
+  assert.match(n, /et:h con:g vi:f vé:h mus:h/, 'and before that the metrum again');
 });

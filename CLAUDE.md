@@ -108,4 +108,8 @@ To do:
    (hymns), plainly, in iBreviary's manner. Visitor counts: GoatCounter, site code
    `cantushorarum`. The
    festive/solemn common tones and the melismatic versicle (AM 2005 pp. 527-539) are not
-   on GregoBase yet (`site/recitation.js` has the ferial ones).
+   on GregoBase yet (`site/recitation.js` has the ferial ones, and the Liber Usualis' tone
+   for the Chapter; sung reading and collect are settings). The Liber Usualis 1961 PDF is at
+   ccwatershed.org (pdfs/7058-…/download, 120 MB): its common tones are PDF pp. 210-235.
+   windsorlatinmass.org answers only over plain http (`curl -p -x $HTTPS_PROXY http://…`);
+   its chant sheets are Biretta Books' copyright: compare with them, do not copy them.

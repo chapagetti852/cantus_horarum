@@ -27,9 +27,12 @@ const F = {
   punctum: "hr 'h dr d.",
   interrogatio: "hr g g 'f gr gh.",
   conclusio: "ir 'j ir 'h hr h.",
+  // the full stop of the tone for the Chapter (Liber Usualis p. 123; jgabc's "Chapter"):
+  // the last accent on la, sol after it, the end on sol-la ("Dóminus iustus nós-ter.")
+  capitulum: "hr 'f er ef..",
 };
 // the bar after each kind of member
-const BAR = { plain: ',', flexa: ';', metrum: ';', punctum: ':', interrogatio: ':', conclusio: '::' };
+const BAR = { plain: ',', flexa: ';', metrum: ';', punctum: ':', interrogatio: ':', conclusio: '::', capitulum: ':' };
 
 const jg = () => {
   if (typeof globalThis.applyPsalmTone !== 'function') throw new Error('jgabc engine not loaded');
@@ -169,6 +172,71 @@ export function readingGabc(text) {
     } else last.kind = 'conclusio';
   }
   return `(${CLEF}) ${render(list.map((m) => (m.join ? { ...m, syl: 0 } : m)))}`;
+}
+
+/**
+ * A short reading on the tone for the Chapter of the Liber Usualis (p. 123), sentence by
+ * sentence: the metrum at the colon (else at the principal division), the flex before it
+ * in a long sentence, the full stop at its end ("The flex is omitted if the sentence is very
+ * short"); with several semicolons or colons, flex and metrum alternate, the metrum last;
+ * a question takes the ordinary modulation.
+ */
+export function chapterGabc(text) {
+  const all = merge(members(text), 3);
+  if (!all.length) return null;
+  const sentences = [];
+  let cur = [];
+  for (const m of all) { cur.push(m); if (/[.!?]/.test(m.punct)) { sentences.push(cur); cur = []; } }
+  if (cur.length) sentences.push(cur);
+  const out = [];
+  for (const list of sentences) {
+    const last = list[list.length - 1];
+    last.kind = last.punct === '?' ? 'interrogatio' : 'capitulum';
+    if (list.length > 1) {
+      const cums = []; let c = 0;
+      for (const m of list) cums.push(c += m.syl);
+      const total = c;
+      // a long sentence with several strong divisions (; :) has flex and metrum alternately,
+      // the metrum last ("In long sentences, the flex and the metrum may be repeated,
+      // alternately", Liber Usualis p. 121)
+      const strong = [];
+      for (let i = 0; i < list.length - 1; i++) if (/[;:]/.test(list[i].punct)) strong.push(i);
+      if (strong.length >= 2) {
+        let kind = 'metrum', next = total;
+        for (let k = strong.length - 1; k >= 0; k--) {
+          const i = strong[k];
+          if (next - cums[i] < 6 || cums[i] < 6) continue; // too close to the next division
+          list[i].kind = kind;
+          kind = kind === 'metrum' ? 'flexa' : 'metrum';
+          next = cums[i];
+        }
+        out.push(...list);
+        continue;
+      }
+      // the metrum: the last colon before the end, else the division nearest the middle
+      let best = -1;
+      for (let i = list.length - 2; i >= 0 && best < 0; i--) if (list[i].punct === ':') best = i;
+      if (best < 0) {
+        let score = Infinity;
+        for (let i = 0; i < list.length - 1; i++) {
+          const sc = Math.abs(cums[i] / total - 0.55) - (/[;:]/.test(list[i].punct) ? 0.12 : 0);
+          if (sc < score) { score = sc; best = i; }
+        }
+      }
+      if (total - cums[best] >= 4 || list[best].punct === ':') {
+        list[best].kind = 'metrum';
+        // the flex: the division nearest before the metrum that leaves a member on each side
+        // ("confidénter, † et hoc est nomen quod vocábunt eum:")
+        if (cums[best] >= 16) {
+          for (let j = best - 1; j >= 0; j--) {
+            if (cums[j] >= 6 && cums[best] - cums[j] >= 6) { list[j].kind = 'flexa'; break; }
+          }
+        }
+      }
+    }
+    out.push(...list);
+  }
+  return `(${CLEF}) ${render(out)}`;
 }
 
 /** A versicle and its response (little hours) as GABC with clef. */
