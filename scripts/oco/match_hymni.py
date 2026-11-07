@@ -3,7 +3,7 @@
 The OCO cites each hymn by its Liber Hymnarius page ("Martyr Dei (LHym 283)"): the
 GregoBase score of that book on that page is taken, the incipit deciding between hymns
 on the same page; without one there, the same incipit elsewhere in the book (nearest
-page). The incipit is the OCO index's for that page where it has one, which is longer
+page), and without any, the Antiphonale Romanum II's hymn of that incipit. The incipit is the OCO index's for that page where it has one, which is longer
 than the body's ("O lux beata Trinitas", not "O lux beata", which is also Caelitum). The
 general matcher could take a hymn from another book with the same incipit.
 Updates data/oco/gregobase-match.json; prints the ids not yet in data/gabc.
@@ -17,6 +17,7 @@ import unicodedata
 from pathlib import Path
 
 LH = 15
+ARII = 6  # Antiphonale Romanum II (2009): the hymn when the Liber Hymnarius has none on GregoBase
 
 
 def norm(t):
@@ -55,6 +56,7 @@ def main():
     matches = json.load(open(path, encoding="utf8"))
     by_oco = {m["oco_id"]: m for m in matches}
     lh = [(c, page_no(p)) for c in chants if c.get("has_gabc") for s, p in c["sources"] if s == LH]
+    arii = [c for c in chants if c.get("has_gabc") and c.get("part") == "hy" and any(s == ARII for s, _ in c["sources"])]
     by_page = {}
     for row in json.load(open(Path(sys.argv[1]).with_name("indices.json"), encoding="utf8"))["hymni"]:
         by_page.setdefault(page_no(row.get("lhym")), []).append(row["incipit"])
@@ -74,10 +76,15 @@ def main():
         if not cands:
             near = sorted(((abs((p or 0) - (page or 0)), c) for c, p in lh if same(c)), key=lambda x: (x[0], x[1]["id"]))
             cands = [c for _, c in near[:1]]
+        conf = "lhym-page" if page is not None else "lhym-incipit"
+        if not cands and len(inc) >= 3:
+            # the Liber Hymnarius's score is not on GregoBase: the Antiphonale Romanum II's, same incipit
+            cands = [c for c in arii if same(c)]
+            conf = "arii-incipit"
         if not cands:
             # a match this script made on looser rules goes: better the text than another hymn
             m = by_oco.get(e["id"])
-            if m and m.get("confidence") in ("lhym-page", "lhym-incipit"):
+            if m and m.get("confidence") in ("lhym-page", "lhym-incipit", "arii-incipit"):
                 print(f"dropped: {e['id']} {e.get('title')} (was {m.get('gregobase')})", file=sys.stderr)
                 m.update(gregobase=None, confidence="none")
                 changed += 1
@@ -91,7 +98,7 @@ def main():
             by_oco[e["id"]] = m
         if m.get("gregobase") != best["id"]:
             changed += 1
-        m.update(gregobase=best["id"], confidence="lhym-page" if page is not None else "lhym-incipit")
+        m.update(gregobase=best["id"], confidence=conf)
         if best["id"] not in have:
             missing.add(best["id"])
     json.dump(matches, open(path, "w", encoding="utf8"), ensure_ascii=False, indent=0)

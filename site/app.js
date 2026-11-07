@@ -20,9 +20,11 @@ const PATER_NOSTER = { ferial: 4321, festive: 15303 }; // Antiphonale Monasticum
 const BENEDICAMUS_HORAE = { ferial: 17847, festive: 17848 };
 // Sunday II Vespers in Ordinary Time: the canticle of Ap 19 "Salus et gloria" is sung "more
 // responsoriali vetustissimo cum Alleluia" (OCO), without antiphon. Antiphonale Romanum II
-// sets it anew each psalter week; GregoBase has week II (p. 469) and week III (p. 480):
-// weeks I and IV, not transcribed, sing week II's (weeks II and IV share hymn and responsory).
-const SALUS_ET_GLORIA = { 1: 4317, 2: 4317, 3: 4145, 4: 4317 };
+// sets it each psalter week; GregoBase has week II (p. 469) and week III (p. 480, the
+// melody the book also gives in Advent and Eastertide). Weeks I and IV, not transcribed,
+// take that p. 480 melody, which the Klein Graduale's Sunday booklets (kleingraduale.nl)
+// sing on every Sunday per annum.
+const SALUS_ET_GLORIA = { 1: 4145, 2: 4317, 3: 4145, 4: 4145 };
 // Dominus vobiscum … Benedicat vos: AR II p. 761; at solemnities the solemn tone (GR 1974 p. 817 B)
 const DOMINUS_VOBISCUM = { simple: 4322, solemn: 7463 };
 // Benedicamus Domino at Lauds and Vespers, by rank and hour: Antiphonale Monasticum 2005

@@ -278,9 +278,16 @@ ending its score carries.
 At Sunday II Vespers in Ordinary Time the canticle Salus et gloria (Ap 19) is sung, as the
 OCO says, "more responsoriali vetustissimo cum Alleluia": no antiphon, one score with its
 Alleluias (`SALUS_ET_GLORIA` in `site/app.js`). The Antiphonale Romanum II sets it anew each
-psalter week; GregoBase has week II (p. 469, id 4317) and week III (p. 480, id 4145), so
-weeks I and IV sing week II's until theirs are transcribed. Its translation follows it,
-the verses without their Alleluias.
+psalter week; GregoBase has week II (p. 469, id 4317) and week III (p. 480, id 4145, a
+melody the book also prints in Advent and Eastertide). Weeks I and IV, not transcribed,
+take the p. 480 melody, as the Klein Graduale's booklets do on every Sunday per annum
+(kleingraduale.nl/LiturgiaHorarum: Sunday Lauds, Vespers and Compline for each Sunday
+of the three years, after the OCO 1983; useful to check Sunday chants GregoBase lacks).
+Its translation follows it, the verses without their Alleluias.
+
+Hymns: the Liber Hymnarius's score where GregoBase has it; where it has none, the
+Antiphonale Romanum II's of the same incipit (`match_hymni.py`; "O lux beata Trinitas",
+AR II p. 466).
 
 ### Notation read from the OCO itself
 

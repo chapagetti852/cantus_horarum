@@ -7457,7 +7457,7 @@
 "incipit": "Ad cenam Agni",
 "mode": null,
 "gregobase": 4502,
-"confidence": "hymn-incipit",
+"confidence": "arii-incipit",
 "candidates": [
 4502,
 7827,
@@ -7552,7 +7552,7 @@
 "incipit": "Ad cenam Agni",
 "mode": null,
 "gregobase": 4502,
-"confidence": "hymn-incipit",
+"confidence": "arii-incipit",
 "candidates": [
 4502,
 7827,
@@ -7932,7 +7932,7 @@
 "incipit": "Ad cenam Agni",
 "mode": null,
 "gregobase": 4502,
-"confidence": "hymn-incipit",
+"confidence": "arii-incipit",
 "candidates": [
 4502,
 7827,
@@ -16671,8 +16671,8 @@
 "page": 594,
 "incipit": "O lux beata",
 "mode": null,
-"gregobase": null,
-"confidence": "none",
+"gregobase": 4267,
+"confidence": "arii-incipit",
 "candidates": []
 },
 {

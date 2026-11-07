@@ -4,6 +4,13 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.2.1 — 2026-11-07
+
+- Salus et gloria in psalter weeks I and IV: the Antiphonale Romanum II melody of p. 480,
+  as the Klein Graduale's Sunday booklets sing it, instead of week II's.
+- "O lux beata Trinitas" (Sunday Vespers, weeks II and IV) is sung from the Antiphonale
+  Romanum II (p. 466), the Liber Hymnarius's score not being on GregoBase.
+
 ## 1.2.0 — 2026-11-07
 
 - Sunday Vespers in Ordinary Time: the canticle Salus et gloria (Ap 19) is sung with its
