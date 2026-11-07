@@ -39,9 +39,12 @@ const F = {
   luFull: "hr 'h hr f.",
   // the Antiphonale Romanum II's conclusion of the collect: "Spíritus Sánc-ti," si-la
   sancti: "hr 'g fr f.",
+  // the AR II's intercessions (p. 758): the response and the end of each intention, one
+  // syllable on sol before the accent on la, fa after it ("et nó-li tar-dá-re.")
+  preces: "hr e 'f dr d.",
 };
 // the bar after each kind of member
-const BAR = { plain: ',', flexa: ';', metrum: ';', punctum: ':', interrogatio: ':', conclusio: '::', capitulum: ':', luFlex: ';', luFull: ':', sancti: '' };
+const BAR = { plain: ',', flexa: ';', metrum: ';', punctum: ':', interrogatio: ':', conclusio: '::', capitulum: ':', luFlex: ';', luFull: ':', sancti: '', preces: ':' };
 
 const jg = () => {
   if (typeof globalThis.applyPsalmTone !== 'function') throw new Error('jgabc engine not loaded');
@@ -311,6 +314,59 @@ export function chapterGabc(text, { lesson = false } = {}) {
     out.push(...list);
   }
   return `(${CLEF}) ${render(out)}`;
+}
+
+/**
+ * The intercessions on the Antiphonale Romanum II's tone (p. 758, "De cantu intercessionum"),
+ * on do: the introduction with the flexa of the collects in its first part when it is long
+ * ("et ví-ta, †") and the metrum at its end ("ro-gé-mus, di-cén-tes:"), then the response,
+ * which falls sol-la-fa at its end ("et noli tar-dá-re."); each intention with the metrum at
+ * the end of its first part ("ad-vén-tum tú-um,"), the second part ending as the response
+ * ("Dó-mi-ne Ié-su."), and the response after it.
+ */
+function precesFirst(text, { bar = '(,)' } = {}) {
+  const list = merge(members(text));
+  if (!list.length) return [];
+  // the cadence needs its syllables: a short last member goes with the one before it
+  while (list.length > 1 && list[list.length - 1].syl < 8) {
+    const z = list.pop(), y = list[list.length - 1];
+    y.text += ' ' + z.text; y.syl += z.syl; y.punct = z.punct;
+  }
+  // the flexa in a long first part, at a division leaving eight syllables at least on each
+  // side, nearest to three fifths of the way, a stronger stop preferred
+  const total = list.reduce((x, m) => x + m.syl, 0);
+  if (total >= 24 && list.length > 1) {
+    let cum = 0, best = -1, score = Infinity;
+    for (let i = 0; i < list.length - 1; i++) {
+      cum += list[i].syl;
+      if (cum < 8 || total - cum < 8) continue;
+      const sc = Math.abs(cum / total - 0.6) - (/[;:]/.test(list[i].punct) ? 0.12 : 0);
+      if (sc < score) { score = sc; best = i; }
+    }
+    if (best >= 0) list[best].kind = 'flexa';
+  }
+  const last = list[list.length - 1];
+  last.kind = last.punct === '?' ? 'interrogatio' : 'metrum';
+  last.bar = bar;
+  return list;
+}
+function precesEnd(text) {
+  const list = merge(members(text));
+  if (!list.length) return [];
+  const last = list[list.length - 1];
+  last.kind = last.punct === '?' ? 'interrogatio' : 'preces';
+  return list;
+}
+const precesResponse = (r) => (r ? ` <sp>R/</sp> ${render(precesEnd(r))}` : '');
+/** The introduction of the intercessions and its response, as GABC with clef. */
+export function precesIntroGabc(intro, response) {
+  const list = precesFirst(intro, { bar: '(::)' });
+  return `(${CLEF}) ${render(list.map((m, i) => (i === list.length - 1 ? { ...m, stop: true, bar: undefined } : m)))}${precesResponse(response)}`.replace(/\(:\)\s*<sp>/, '(::) <sp>');
+}
+/** An intention (its two parts; the second may be missing) and the response, as GABC with clef. */
+export function intentionGabc(first, second, response) {
+  const list = second ? [...precesFirst(first), ...precesEnd(second)] : precesEnd(first);
+  return `(${CLEF}) ${render(list)}${precesResponse(response)}`;
 }
 
 /** A versicle and its response (little hours) as GABC with clef. */

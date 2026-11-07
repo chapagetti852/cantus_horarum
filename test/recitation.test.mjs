@@ -3,7 +3,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import engine from './jgabc.mjs';
-import { setRecitationEngine, collectGabc, readingGabc, versicleGabc, chapterGabc, luCollectGabc } from '../site/recitation.js';
+import { setRecitationEngine, collectGabc, readingGabc, versicleGabc, chapterGabc, luCollectGabc, precesIntroGabc, intentionGabc } from '../site/recitation.js';
 
 setRecitationEngine(engine);
 // syllable(notes) pairs, bars and markup left out
@@ -77,4 +77,13 @@ test('versicle on Sundays and feasts: the Liber Usualis first tone (p. 118)', ()
   const g = versicleGabc('Dirigátur, Dómine, orátio mea.', 'Sicut incénsum in conspéctu tuo.', { festive: true });
   assert.match(g, /me\(h\)a\.\(g'_\/hvGF'Efgf\.\)/, 'the neume on the last syllable');
   assert.match(g, /tu\(h\)o\.\(g'_\/hvGF'Efgf\.\)/, 'and on the response');
+});
+
+test('intercessions (AR II p. 758)', () => {
+  const n = notes(precesIntroGabc('Redemptórem nostrum Iesum Christum, qui est via, véritas et vita, supplíciter rogémus, dicéntes:', 'Veni, Dómine, et noli tardáre.'));
+  assert.match(n, /et:h vi:h ta:f sup:h/, 'flexa: "et ví-ta, †"');
+  assert.match(n, /ro:h gé:h mus:g di:f cén:h tes:h/, 'metrum: "ro-gé-mus, di-cén-tes"');
+  assert.match(n, /no:h li:h tar:e dá:f re:d$/, 'the response: sol, la, fa');
+  const i = notes(intentionGabc('Læti exspectámus advéntum tuum,', 'veni, Dómine Iesu.', 'Veni, Dómine, et noli tardáre.'));
+  assert.match(i, /ad:h vén:g tum:f tu:h um:h ve:h ni:h Dó:h mi:h ne:e Ie:f su:d Ve:h/);
 });

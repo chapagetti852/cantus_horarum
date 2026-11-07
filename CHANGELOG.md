@@ -4,6 +4,11 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.13.0 — 2026-11-07
+
+- Intercessions sung on the Antiphonale Romanum II's tone (p. 758), the introduction and
+  each intention followed by the response; setting "Intercessions" (sung or text).
+
 ## 1.12.0 — 2026-11-07
 
 - Benedictus and Magnificat: the ornate mediant on every verse, as the Antiphonale Romanum II

@@ -110,6 +110,13 @@ The Antiphonale Romanum II (2009, "Toni communes" pp. 756-761) has one tone for 
   Sánc-ti," si-la, "Deus," on do with a bar, and the end ("sæculó-rum.", "Dóminum nós-trum.")
   to la on its last syllable only; Amen on do.
 
+The intercessions are sung too (setting "Intercessions", sung or text) on the AR II's tone
+(p. 758, "De cantu intercessionum"), on do: the introduction with the collects' flexa in its
+first part when it is long and their metrum at its end ("ro-gé-mus, di-cén-tes:"); the
+response falling sol-la-fa at its end ("et noli tar-dá-re."); each intention with the
+metrum at the end of its first part and its second part ending as the response, then the
+response.
+
 The Liber Usualis (1961) has its tones as it assigns them in the Office (p. 124):
 
 - The short reading on the tone for the Chapter (p. 123; jgabc's "Chapter"), on do: the flex

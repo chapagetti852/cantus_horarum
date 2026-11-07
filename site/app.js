@@ -5,7 +5,7 @@ import { makePdfFile } from './pdf.js';
 import { BOOKS } from './sources.js';
 import { toneContext, versesOf, psalmGabc, verseGabc, verseHtml, startAtCross } from './psalmtone.js';
 import { resolveHour, indexOco, celebrationFor, isSanctoral } from './resolve.js';
-import { versicleGabc, chapterGabc, luCollectGabc, collectGabc, readingGabc } from './recitation.js';
+import { versicleGabc, chapterGabc, luCollectGabc, collectGabc, readingGabc, precesIntroGabc, intentionGabc } from './recitation.js';
 import { loadTranslation, loadOwn, ownKey, hourTranslation, trNode, psalmNumber, chapterVerse, alignPsalm, verseTrHtml, trP, precesParts, hymnKey, hymnCorresponds } from './translate.js';
 
 const HOURS = ['lectio', 'laudes', 'tertia', 'sexta', 'nona', 'vesperae', 'completorium'];
@@ -428,7 +428,7 @@ function sourceOf(header) {
 }
 // the books the generated scores follow (site/sources.js)
 const PSALM_TONE_SOURCE = { label: 'AR II 738–740' };
-const RECITATION_SOURCE = { chapter: { label: 'LU 123' }, festal: { label: 'LU 98' }, simple: { label: 'LU 101' }, ferialB: { label: 'LU 99' }, versicle: { label: 'AM I 532' }, versicleFestive: { label: 'LU 118' }, lectio: { label: 'AR II 756' }, oratio: { label: 'AR II 759' } };
+const RECITATION_SOURCE = { chapter: { label: 'LU 123' }, festal: { label: 'LU 98' }, simple: { label: 'LU 101' }, ferialB: { label: 'LU 99' }, versicle: { label: 'AM I 532' }, versicleFestive: { label: 'LU 118' }, lectio: { label: 'AR II 756' }, oratio: { label: 'AR II 759' }, preces: { label: 'AR II 758' } };
 
 /**
  * A score, without label (the annotation above the initial gives the mode). Without a
@@ -954,15 +954,25 @@ function precesNode(blocks, trLines = null) {
   const each = T && T.pairs.length === latinPairs;
   const lang = state.tr?.lang;
   let i = 0, intro = false;
+  // sung on the Antiphonale Romanum II's tone (setting "Intercessions"): the introduction with
+  // its response, then each intention followed by the response
+  const sung = (state.settings.precesTone || 'ar') !== 'text';
+  let sungIntro = false;
+  const plain = (b) => b.lines.filter((l) => typeof l === 'string').join(' ').trim();
+  const response = (blocks.find((b) => b.kind === 'text')?.lines.find((l) => typeof l !== 'string')?.text || '').trim();
+  const score = (gabc) => chantFromGabc(gabc, { dropCap: false, source: RECITATION_SOURCE.preces });
   for (let k = 0; k < blocks.length; k++) {
     const b = blocks[k];
     if (b.kind === 'text' && blocks[k + 1]?.kind === 'rubric' && blocks[k + 1].text === '—' && blocks[k + 2]?.kind === 'text') {
-      node.insertAdjacentHTML('beforeend', `<p class="intention">${html(b)}<br><span class="r">—</span> ${html(blocks[k + 2])}</p>`);
+      if (sung) node.append(score(intentionGabc(plain(b), plain(blocks[k + 2]), response)));
+      else node.insertAdjacentHTML('beforeend', `<p class="intention">${html(b)}<br><span class="r">—</span> ${html(blocks[k + 2])}</p>`);
       if (each) { const [a, z] = T.pairs[i]; node.append(trP(lang, `${esc(a)}<br><span class="r">—</span> ${esc(z)}`, 'intention-tr')); }
       i++;
       k += 2;
     } else if (b.kind === 'text') {
-      node.insertAdjacentHTML('beforeend', `<p class="intro">${html(b)}</p>`);
+      if (sung && !sungIntro && plain(b)) { node.append(score(precesIntroGabc(plain(b), response))); sungIntro = true; }
+      else if (sung && plain(b)) node.append(score(intentionGabc(plain(b), '', '')));
+      else node.insertAdjacentHTML('beforeend', `<p class="intro">${html(b)}</p>`);
       if (each && !intro && T.intro.length) { node.append(trP(lang, T.intro.map((l) => esc(l).replace(/^(領|眾)[：:]\s*/, '')).join('<br>'))); intro = true; }
     } else node.insertAdjacentHTML('beforeend', renderTextBlock(b));
   }
@@ -1530,6 +1540,7 @@ function applySettings() {
   $('#opt-presider').value = state.settings.presider ? '1' : '';
   $('#opt-sing-reading').value = readingStyle();
   $('#opt-sing-collect').value = collectStyle();
+  $('#opt-preces').value = state.settings.precesTone || 'ar';
   $('#opt-invitatory').value = state.settings.invitatory || '';
   $('#opt-of-hymn').value = state.settings.ofHymn || '';
   if ($('#opt-translation')) $('#opt-translation').value = TRANSLATION_LANGS.has(state.settings.translation) ? state.settings.translation : '';
@@ -1592,6 +1603,7 @@ async function boot() {
   $('#opt-memoria').onchange = (e) => { state.settings.memoria = e.target.value || undefined; saveSettings(); render(); };
   $('#opt-presider').onchange = (e) => { state.settings.presider = e.target.value ? true : undefined; saveSettings(); render(); };
   $('#opt-sing-reading').onchange = (e) => { state.settings.readingTone = e.target.value === 'ar' ? undefined : e.target.value; saveSettings(); render(); };
+  $('#opt-preces').onchange = (e) => { state.settings.precesTone = e.target.value === 'ar' ? undefined : e.target.value; saveSettings(); render(); };
   $('#opt-sing-collect').onchange = (e) => { state.settings.collectTone = e.target.value === 'ar' ? undefined : e.target.value; saveSettings(); render(); };
   $('#opt-invitatory').onchange = (e) => { state.settings.invitatory = e.target.value || undefined; saveSettings(); render(); };
   $('#opt-of-hymn').onchange = (e) => { state.settings.ofHymn = e.target.value || undefined; saveSettings(); render(); };
