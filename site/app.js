@@ -414,7 +414,7 @@ function sourceOf(header) {
 }
 // the books the generated scores follow (site/sources.js)
 const PSALM_TONE_SOURCE = { label: 'AR II 738–740' };
-const RECITATION_SOURCE = { chapter: { label: 'LU 123' }, festal: { label: 'LU 98' }, simple: { label: 'LU 101' }, ferialB: { label: 'LU 99' }, versicle: { label: 'AM I 532' } };
+const RECITATION_SOURCE = { chapter: { label: 'LU 123' }, festal: { label: 'LU 98' }, simple: { label: 'LU 101' }, ferialB: { label: 'LU 99' }, versicle: { label: 'AM I 532' }, versicleFestive: { label: 'LU 118' } };
 
 /**
  * A score, without label (the annotation above the initial gives the mode). Without a
@@ -1152,9 +1152,14 @@ function latinReadingRef(texts, hour) {
 }
 
 /** The versicle and response after the short reading of a little hour. */
+/**
+ * A versicle sung: on Sundays, solemnities, feasts and memorials (the old feasts) the Liber
+ * Usualis' ornate first tone, otherwise the simple one (AM 2005 p. 532, the LU's second tone).
+ */
 function versicleNode(b) {
   if (!recited() || !b.text) return el(`<div class="block">${renderTextBlock(b)}</div>`);
-  return chantFromGabc(versicleGabc(b.text, b.r), { dropCap: false, source: RECITATION_SOURCE.versicle });
+  const festive = ['SUNDAY', 'SOLEMNITY', 'FEAST', 'MEMORIAL'].includes(state.rank);
+  return chantFromGabc(versicleGabc(b.text, b.r, { festive }), { dropCap: false, source: festive ? RECITATION_SOURCE.versicleFestive : RECITATION_SOURCE.versicle });
 }
 /** The rank that chooses the conclusion's tones; All Souls is sung as a weekday. */
 function rankOf(cel) {
@@ -1419,6 +1424,7 @@ async function render() {
 async function composeHour(day) {
   const frag = document.createElement('div');
   state.tr = null;
+  state.rank = day.rank; // the day's rank, for the versicle's tone
   if (TRANSLATIONS && TRANSLATION_LANGS.has(state.settings.translation)) {
     const [t, own] = await Promise.all([loadTranslation(state.settings.translation, state.date), loadOwn(state.settings.translation)]);
     state.own = own;

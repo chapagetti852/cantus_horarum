@@ -67,3 +67,9 @@ test('Liber Usualis ancient simple tone (pp. 101-102)', () => {
   assert.match(n, /fac:h tis:f/, 'full stop a third down');
   assert.match(n, /nos:h trum:f A:f men:h$/, 'the short conclusion likewise, Amen la-do');
 });
+
+test('versicle on Sundays and feasts: the Liber Usualis first tone (p. 118)', () => {
+  const g = versicleGabc('Dirigátur, Dómine, orátio mea.', 'Sicut incénsum in conspéctu tuo.', { festive: true });
+  assert.match(g, /me\(h\)a\.\(g'_\/hvGF'Efgf\.\)/, 'the neume on the last syllable');
+  assert.match(g, /tu\(h\)o\.\(g'_\/hvGF'Efgf\.\)/, 'and on the response');
+});

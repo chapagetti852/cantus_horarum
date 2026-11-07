@@ -291,7 +291,12 @@ export function chapterGabc(text, { lesson = false } = {}) {
 }
 
 /** A versicle and its response (little hours) as GABC with clef. */
-export function versicleGabc(v, r) {
-  const one = (sign, t) => `<sp>${sign}/</sp> ${point(clean(t), 'flexa', true)} (::)`;
+export function versicleGabc(v, r, { festive = false } = {}) {
+  // on Sundays and feasts the Liber Usualis' first tone for versicles (p. 118): recto tono,
+  // the last syllable with its neume si-do-si-la-sol, la-si-la, whatever its accent ("Dirigátur
+  // Dómine orátio mé-a"), as Albert Bloomfield's gabc-chants (Vespers, after the LU) has it
+  const one = (sign, t) => `<sp>${sign}/</sp> ${festive
+    ? point(clean(t), 'plain', true).replace(/\([a-m]\.*\)\s*$/, "(g'_/hvGF'Efgf.)")
+    : point(clean(t), 'flexa', true)} (::)`;
   return `(${CLEF}) ${one('V', v)}${r ? ' ' + one('R', r) : ''}`;
 }

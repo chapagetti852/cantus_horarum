@@ -110,9 +110,12 @@ the Office (p. 124), the readings of the Office of Readings staying text:
   the book allows in place of the recto tono of the first ferial tone: flex, metrum, the full
   stop a third down, Amen la-do. After the antiphons of Our Lady, the second ferial tone
   (p. 99): recto tono with that full stop.
-- The versicles of the little hours on the Antiphonale Monasticum's tone (p. 532; GregoBase
-  20918), which is the Liber Usualis' second tone for versicles; its ornate first tone (p.
-  118: Sundays and feasts) is not transcribed yet.
+- The versicles (before the readings of the Office of Readings, at the little hours): on
+  Sundays, solemnities, feasts and memorials the Liber Usualis' first tone (p. 118), recto
+  tono with the neume si-do-si-la-sol, la-si-la on the last syllable whatever its accent, as
+  Albert Bloomfield's gabc-chants (github.com/asbloomf/gabc-chants, Vespers after the LU)
+  writes it, `(g'_/hvGF'Efgf.)`; on other days the second, simple tone (the Antiphonale
+  Monasticum's, p. 532; GregoBase 20918), falling a third after the last accent.
 
 `site/recitation.js` points each member with jgabc's engine (the cadence written as a
 psalm-tone formula); `test/recitation.test.mjs` reproduces the books' examples. Checked

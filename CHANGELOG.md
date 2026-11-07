@@ -4,6 +4,12 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.9.0 — 2026-11-07
+
+- Versicles on Sundays, solemnities, feasts and memorials (before the readings of the Office
+  of Readings, at the little hours) in the Liber Usualis' ornate first tone, with its neume on
+  the last syllable; other days keep the simple tone.
+
 ## 1.8.0 — 2026-11-07
 
 - Sung readings and collects follow the Liber Usualis throughout, as it assigns its tones in
