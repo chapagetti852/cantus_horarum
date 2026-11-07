@@ -374,12 +374,14 @@ export async function makePdfFile(col, fmt, { title = '', scale = 1, onProgress 
     for (let s = 0; s < n / 4; s++) slots.push([n - 1 - 2 * s, 2 * s], [2 * s + 1, n - 2 - 2 * s]);
   } else slots = pages.map((_, i) => [i]);
 
+  // progress counts the pages as they are drawn, 1 to n, whatever their order on the sheets
+  let drawn = 0;
   for (let s = 0; s < slots.length; s++) {
     if (s > 0) doc.addPage([sheet[0] * PT, sheet[1] * PT], sheet[0] > sheet[1] ? 'landscape' : 'portrait');
     for (let half = 0; half < slots[s].length; half++) {
       const i = slots[s][half];
       if (!pages[i]) continue;
-      onProgress(i + 1, pages.length);
+      onProgress(++drawn, pages.filter(Boolean).length);
       await new Promise((r) => setTimeout(r)); // let the page breathe
       const ox = (half * f.page[0] + f.margin[0]) * PT;
       const oy = f.margin[1] * PT;

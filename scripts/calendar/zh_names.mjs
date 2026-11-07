@@ -69,6 +69,15 @@ const ORDO = {
   monday_after_epiphany: '主顯節後星期一',
   tuesday_after_epiphany: '主顯節後星期二',
   advent_december_21: '將臨期：十二月二十一日',
+  // the Diocese of Hong Kong's own days (the setting "Ordo"), from its daily office's titles
+  joseph_freinademetz_priest: '聖福若瑟司鐸',
+  gabriele_maria_allegra_priest: '真福雷永明司鐸',
+  aloysius_versiglia_bishop_and_callistus_caravario_priest_martyrs: '聖雷鳴道主教及聖高惠黎司鐸（殉道）',
+  our_lady_of_china: '中華聖母',
+  our_lady_help_of_christians: '聖母進教之佑',
+  holy_martyrs_and_blesseds_of_china: '中華諸聖及真福',
+  dedication_of_the_cathedral_of_the_immaculate_conception_hong_kong: '紀念聖母無原罪主教座堂祝聖',
+  christmas_time_january_6: '聖誕期平日：一月六日',
   // the days before the Epiphany (on 6 January in the general calendar): Hong Kong's
   // "聖誕期平日" with the date, as its Advent days "將臨期：十二月十七日"
   christmas_time_january_2: '聖誕期平日：一月二日',

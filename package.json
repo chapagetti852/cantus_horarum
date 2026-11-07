@@ -1,6 +1,6 @@
 {
   "name": "cantus-horarum",
-  "version": "1.16.0",
+  "version": "1.17.0",
   "private": true,
   "type": "module",
   "description": "Liturgia Horarum in cantu gregoriano secundum Ordinem Cantus Officii (2015), for phone and desktop",
@@ -14,7 +14,10 @@
     "node": ">=22"
   },
   "dependencies": {
-    "romcal": "3.0.0-dev.140",
-    "@romcal/calendar.general-roman": "3.0.0-dev.140"
+    "@romcal/calendar.general-roman": "3.0.0-dev.140",
+    "romcal": "3.0.0-dev.140"
+  },
+  "devDependencies": {
+    "@romcal/calendar.hong-kong": "3.0.0-dev.140"
   }
 }

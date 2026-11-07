@@ -312,7 +312,7 @@ async function firstVespersFromEve(ib, date) {
   return ok ? eve : null;
 }
 
-async function firstVespers(ib, donor, sources) {
+export async function firstVespers(ib, donor, sources) {
   const eve = await firstVespersFromEve(ib, donor.date);
   if (eve) { sources.vesperae = `${addDays(donor.date, -1)} vesperae`; return eve; }
   const secs = parseHour(await ib.page(donor.date, 'vesperae'));

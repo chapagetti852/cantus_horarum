@@ -8,6 +8,7 @@
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, unlinkSync } from 'node:fs';
 import { join } from 'node:path';
 import { IBreviary, buildDay, properKey } from './ibreviary.mjs';
+import { buildHkDay } from './hk.mjs';
 
 const back = Number(process.argv[2] ?? 3);
 const ahead = Number(process.argv[3] ?? 35);
@@ -48,3 +49,12 @@ for (const d of want) {
   }
 }
 console.log(`window ${want[0]} .. ${want[want.length - 1]}: ${fetched} fetched, ${failed} failed`);
+
+// the Diocese of Hong Kong's days that take other pages (scripts/texts/hk.mjs), beside them
+const hkDir = join(outDir, '..', 'days-hk');
+if (existsSync(hkDir)) for (const f of readdirSync(hkDir)) if (f.endsWith('.json') && !want.includes(f.slice(0, 10))) unlinkSync(join(hkDir, f));
+let hk = 0;
+for (const d of want) {
+  try { if (await buildHkDay(d, { ib, outDir: hkDir })) hk++; } catch (e) { console.error(`hk ${d}: ${e.message}`); }
+}
+console.log(`Hong Kong: ${hk} days with their own pages`);

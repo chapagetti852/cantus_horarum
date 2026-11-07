@@ -110,7 +110,10 @@ The Antiphonale Romanum II (2009, "Toni communes" pp. 756-761) has one tone for 
   Sánc-ti," si-la, "Deus," on do with a bar, and the end ("sæculó-rum.", "Dóminum nós-trum.")
   to la on its last syllable only; Amen on do.
 
-The intercessions are sung too (setting "Intercessions", sung or text) on the AR II's tone
+The intercessions are sung too (setting "Intercessions": full notation, abbreviated
+notation, or text; abbreviated as the book writes its tones, p. 758: each member's first word
+on the reciting note, hollow notes over the rest of the recitation's words, the cadence in
+full, and ℟. for the response sung after the introduction) on the AR II's tone
 (p. 758, "De cantu intercessionum"), on do: the introduction with the collects' flexa in its
 first part when it is long and their metrum at its end ("ro-gé-mus, di-cén-tes:"); the
 response falling sol-la-fa at its end ("et noli tar-dá-re."); each intention with the
@@ -221,6 +224,21 @@ of the day when its short reading is the one the Latin sings, else the translate
 weekday (`scripts/texts/psalter_translations.mjs`: the Hong Kong office and iBreviary in
 English for the 28 quiet dates of `data/texts/psalter-days.json`, committed in
 `data/texts/tr-psalter/`, served as `data/tr/<lang>/psalter.json`).
+
+### Ordo: the Diocese of Hong Kong
+
+The setting "Ordo" chooses the General Roman Calendar or the Diocese of Hong Kong's
+(`site/data/calendar-hk/`, from `@romcal/calendar.hong-kong` by `scripts/calendar/build.mjs`,
+with the diocese's own keeping where its Ordo and daily office differ from romcal: the Holy
+Martyrs and Blesseds of China a feast, the cathedral's dedication a feast, the Lunar New Year
+Masses left out, Latin names where romcal has English). iBreviary follows the Italian
+calendar, which keeps the Ascension and Corpus Christi on Sunday as Hong Kong does; the
+Epiphany differs, so `scripts/texts/hk.mjs` (run by `window.mjs`) writes
+`cache/texts/days-hk/<date>.json` for the days that take other pages: the Epiphany on its
+Sunday from 6 January (I Vespers from 5 January), the days after it from another year, the
+cathedral's dedication from the Lateran's (9 November). The diocese's own memorials take the
+date's pages, their antiphons and hymns from the OCO's commons. A first visit from Hong Kong
+(its time zone, or a browser in Hong Kong Chinese) opens in Chinese with this calendar.
 
 ### Interface
 

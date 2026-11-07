@@ -4,6 +4,18 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.17.0 — 2026-11-07
+
+- Setting "Ordo": the General Roman Calendar or the Diocese of Hong Kong's 🇭🇰 (the Epiphany,
+  the Ascension and Corpus Christi on Sunday; St Francis Xavier and St Thérèse as feasts; Our
+  Lady of China, Our Lady Help of Christians, the Holy Martyrs and Blesseds of China, Sts
+  Joseph Freinademetz and Gabriele Allegra, the dedication of the cathedral). A first visit
+  from Hong Kong opens in Chinese with the diocese's calendar.
+- Intercessions: sung in full notation, in abbreviated notation as the Antiphonale Romanum II
+  writes its tones (the start and cadences notated, hollow notes for the recitation), or text.
+- PDF: the number of pages (and of sheets for a booklet) shows before the PDF is made, and
+  follows the format and print size; while it is made the pages count up in order.
+
 ## 1.16.0 — 2026-11-07
 
 - Translation: five choices: Latin only, Chinese (Hong Kong), English, Chinese and English,

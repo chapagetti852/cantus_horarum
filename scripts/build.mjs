@@ -194,6 +194,16 @@ for (const lang of ['en', 'zh']) {
   for (const f of readdirSync(dir).filter((f) => f.endsWith('.json'))) cpSync(join(dir, f), join(dist, 'data/tr', lang, f));
   trFiles[lang] = readdirSync(dir).filter((f) => f.endsWith('.json')).length;
 }
+// the Diocese of Hong Kong's days that take other pages (scripts/texts/hk.mjs, cache/texts/days-hk)
+const hkDays = join(root, 'cache/texts/days-hk');
+if (existsSync(hkDays)) {
+  mkdirSync(join(dist, 'data/days-hk'), { recursive: true });
+  for (const f of readdirSync(hkDays).filter((f) => f.endsWith('.json'))) {
+    const day = JSON.parse(readFileSync(join(hkDays, f), 'utf8'));
+    attachVerses(day.hours, root, verseStats);
+    writeFileSync(join(dist, 'data/days-hk', f), JSON.stringify(day));
+  }
+}
 // the celebrations' names in Hong Kong's calendar, for the Chinese interface (scripts/calendar/zh_names.mjs)
 mkdirSync(join(dist, 'data'), { recursive: true });
 cpSync(join(root, 'data/calendar-zh.json'), join(dist, 'data/calendar-zh.json'));

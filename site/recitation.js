@@ -363,10 +363,69 @@ export function precesIntroGabc(intro, response) {
   const list = precesFirst(intro, { bar: '(::)' });
   return `(${CLEF}) ${render(list.map((m, i) => (i === list.length - 1 ? { ...m, stop: true, bar: undefined } : m)))}${precesResponse(response)}`.replace(/\(:\)\s*<sp>/, '(::) <sp>');
 }
+/**
+ * A member in abbreviated notation, as the Antiphonale Romanum II writes the tones (p. 758):
+ * its first syllable on the reciting note, then hollow notes with the rest of the recitation's
+ * words under them, unnotated, then the cadence (from the syllable before its first note off
+ * the reciting note) in full.
+ */
+function abbreviate(gabc) {
+  const syl = [...gabc.matchAll(/([^()\s]*)\(([^)]*)\)(\s*)/g)].map((m) => ({ text: m[1], notes: m[2], sp: m[3] }));
+  const bar = (x) => /^[,;:]+$/.test(x.notes);
+  const tenor = (x) => /^h\.?$/.test(x.notes);
+  // syllables into words (a word ends where a space follows)
+  const words = [];
+  let cur = [];
+  for (const x of syl) { if (bar(x)) continue; cur.push(x); if (x.sp) { words.push(cur); cur = []; } }
+  if (cur.length) words.push(cur);
+  if (words.length < 4) return gabc;
+  // the cadence: from the word holding the syllable before the last run off the reciting note
+  const flat = words.flat();
+  let k = flat.length - 1;
+  while (k >= 0 && tenor(flat[k])) k--;
+  while (k > 0 && !tenor(flat[k - 1])) k--;
+  let cw = words.length;
+  if (k >= 0) { const at = flat[Math.max(0, k - 1)]; cw = words.findIndex((w) => w.includes(at)); }
+  if (cw <= 2) return gabc;
+  const word = (w) => w.map((x) => `${x.text}(${x.notes})`).join('');
+  const text = words.slice(1, cw).map((w) => w.map((x) => x.text).join('')).join(' ');
+  const tail = words.slice(cw).map(word).join(' ');
+  return `${word(words[0])} ${text}(hr/hr/hr)${tail ? ` ${tail}` : ''}`;
+}
+/** Intercessions in abbreviated notation: each intention so, and ℟. for the response sung above. */
+export function intentionAbbrGabc(first, second) {
+  const list = second ? [...precesFirst(first), ...precesEnd(second)] : precesEnd(first);
+  const body = list.map((m, i) => {
+    const final = i === list.length - 1;
+    const kind = m.kind || 'plain';
+    const bar = final ? '(::)' : m.bar !== undefined ? m.bar : kind === 'plain' ? '(,)' : BAR[kind] ? `(${BAR[kind]})` : '';
+    return `${abbreviate(point(m.text, kind, final))} ${bar}`.trim();
+  }).join(' ');
+  return `(${CLEF}) ${body} <sp>R/</sp>()`;
+}
 /** An intention (its two parts; the second may be missing) and the response, as GABC with clef. */
 export function intentionGabc(first, second, response) {
   const list = second ? [...precesFirst(first), ...precesEnd(second)] : precesEnd(first);
   return `(${CLEF}) ${render(list)}${precesResponse(response)}`;
+}
+
+/**
+ * An intention as text, its cadences marked as the Antiphonale Romanum II prints the
+ * intercessions (Sunday Vespers, p. 454): the accent of each cadence in bold, its preparatory
+ * syllables in italic, the tone given once (p. 758). `first`: the part before the dash
+ * (metrum), `second` the part after it (the response's cadence); either may be empty.
+ */
+function boldItalic(text, kind) {
+  const e = E();
+  if (!tones.has(kind)) tones.set(kind, e.getGabcTones(F[kind], undefined, false, CLEF));
+  const t = tones.get(kind);
+  return e.addBoldItalic(clean(text), t.accents, t.preparatory, t.afterLastAccent, 'html', false, '', false, true, 0)
+    .replace(/<span style='float:left[^>]*>.*?<\/span>/, '').replace(/<br\/?>\s*$/, '').trim();
+}
+export function intentionHtml(first, second) {
+  const a = first ? precesFirst(first).map((m) => (m.kind && m.kind !== 'plain' ? boldItalic(m.text, m.kind) : clean(m.text))).join(' ') : '';
+  const b = second ? precesEnd(second).map((m) => (m.kind && m.kind !== 'plain' ? boldItalic(m.text, m.kind) : clean(m.text))).join(' ') : '';
+  return { first: a, second: b };
 }
 
 /** A versicle and its response (little hours) as GABC with clef. */

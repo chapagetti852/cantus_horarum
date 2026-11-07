@@ -1,12 +1,12 @@
 // Cantus Horarum — compose and display one hour of the Liturgia Horarum in chant.
 import { loadGabc, renderChant, splitGabc, watchResize, setPerLine, setGabcAliases } from './chant.js';
-import { FORMATS, printColumn } from './print.js';
+import { FORMATS, printColumn, paginate } from './print.js';
 import { makePdfFile } from './pdf.js';
 import { BOOKS } from './sources.js';
 import { toneContext, versesOf, psalmGabc, verseGabc, verseHtml, startAtCross } from './psalmtone.js';
 import { resolveHour, indexOco, celebrationFor, isSanctoral } from './resolve.js';
 import { t, setUiLang, applyPage, uiLang, zhNumber } from './i18n.js';
-import { versicleGabc, chapterGabc, luCollectGabc, collectGabc, readingGabc, precesIntroGabc, intentionGabc } from './recitation.js';
+import { versicleGabc, chapterGabc, luCollectGabc, collectGabc, readingGabc, precesIntroGabc, intentionGabc, intentionAbbrGabc } from './recitation.js';
 import { loadTranslation, loadOwn, ownKey, hourTranslation, sameReading, trNode, psalmNumber, chapterVerse, alignPsalm, verseTrHtml, trP, precesParts, hymnKey, hymnCorresponds } from './translate.js';
 
 const HOURS = ['lectio', 'laudes', 'tertia', 'sexta', 'nona', 'vesperae', 'completorium'];
@@ -103,7 +103,7 @@ const INVITATORY_TONES = { '2': 8218, '3': 10397, '4': 15508, '4*': 7669, '4**':
 
 const state = {
   date: null, hour: null,
-  calendar: {}, oco: null, ocoIndex: null, slots: [], psalterium: null, days: {},
+  calendar: {}, oco: null, ocoIndex: null, slots: [], psalterium: null, days: {}, daysHk: {},
   settings: JSON.parse(localStorage.getItem('settings') || '{}'),
 };
 const layouts = [];
@@ -118,7 +118,10 @@ async function json(url) { const r = await fetch(url); if (!r.ok) throw new Erro
 /** The texts of a date's hour: its own iBreviary texts when fetched, else the psalter's. */
 async function textsFor(day, date, hour) {
   if (!(date in state.days)) state.days[date] = await json(`data/days/${date}.json`).catch(() => null);
-  const own = state.days[date];
+  // the Diocese of Hong Kong's days that take other pages (its Epiphany, the days after it,
+  // its cathedral's dedication: scripts/texts/hk.mjs)
+  if (hkOrdo() && !(date in state.daysHk)) state.daysHk[date] = await json(`data/days-hk/${date}.json`).catch(() => null);
+  const own = (hkOrdo() && state.daysHk[date]) || state.days[date];
   return withoutInvitatoryRubrics(own?.hours[TEXT_HOUR[hour]] || state.psalterium[`${day.psalter}-${day.dow}`]?.hours[TEXT_HOUR[hour]]);
 }
 /**
@@ -131,12 +134,16 @@ function withoutInvitatoryRubrics(sections) {
   if (!sections) return sections;
   return sections.map((sec) => ({ ...sec, blocks: (sec.blocks || []).filter((b) => !((b.kind === 'rubric' || b.kind === 'text') && INVITATORY_RUBRIC.test(b.kind === 'rubric' ? b.text : (b.lines || []).map((l) => (typeof l === 'string' ? l : l.text)).join(' ')))) }));
 }
-const hasOwnTexts = (date) => !!state.days[date];
+const hasOwnTexts = (date) => !!state.days[date] || !!(hkOrdo() && state.daysHk[date]);
+/** The setting "Ordo": the General Roman Calendar, or the Diocese of Hong Kong's. */
+const hkOrdo = () => state.settings.ordo === 'hk';
 
 async function calendarFor(date) {
   const y = date.slice(0, 4);
-  if (!state.calendar[y]) state.calendar[y] = await json(`data/calendar/${y}.json`).catch(() => ({}));
-  return state.calendar[y][date] || [];
+  const dir = hkOrdo() ? 'calendar-hk' : 'calendar';
+  const k = `${dir}/${y}`;
+  if (!state.calendar[k]) state.calendar[k] = await json(`data/${dir}/${y}.json`).catch(() => ({}));
+  return state.calendar[k][date] || [];
 }
 
 // ------------------------------------------------------------------ resolution
@@ -1015,8 +1022,11 @@ function precesNode(blocks, trList = []) {
   });
   let i = 0;
   // sung on the Antiphonale Romanum II's tone (setting "Intercessions"): the introduction with
-  // its response, then each intention followed by the response
+  // its response, then each intention followed by the response; or, abbreviated as the book
+  // writes its tones, the introduction and response in full, each intention with only its
+  // start and cadences notated and ℟. for the response
   const sung = (state.settings.precesTone || 'ar') !== 'text';
+  const intention = state.settings.precesTone === 'abbr' ? intentionAbbrGabc : intentionGabc;
   let sungIntro = false;
   const plain = (b) => b.lines.filter((l) => typeof l === 'string').join(' ').trim();
   const response = (blocks.find((b) => b.kind === 'text')?.lines.find((l) => typeof l !== 'string')?.text || '').trim();
@@ -1024,14 +1034,14 @@ function precesNode(blocks, trList = []) {
   for (let k = 0; k < blocks.length; k++) {
     const b = blocks[k];
     if (b.kind === 'text' && blocks[k + 1]?.kind === 'rubric' && blocks[k + 1].text === '—' && blocks[k + 2]?.kind === 'text') {
-      if (sung) node.append(score(intentionGabc(plain(b), plain(blocks[k + 2]), response)));
+      if (sung) node.append(score(intention(plain(b), plain(blocks[k + 2]), response)));
       else node.insertAdjacentHTML('beforeend', `<p class="intention">${html(b)}<br><span class="r">—</span> ${html(blocks[k + 2])}</p>`);
       for (const t of trs) if (t.each) { const [a, z] = t.P.pairs[i]; node.append(trP(t.lang, `${esc(a)}<br><span class="r">—</span> ${esc(z)}`, 'intention-tr')); }
       i++;
       k += 2;
     } else if (b.kind === 'text') {
       if (sung && !sungIntro && plain(b)) { node.append(score(precesIntroGabc(plain(b), response))); sungIntro = true; }
-      else if (sung && plain(b)) node.append(score(intentionGabc(plain(b), '', '')));
+      else if (sung && plain(b)) node.append(score(intention(plain(b), '', '')));
       else node.insertAdjacentHTML('beforeend', `<p class="intro">${html(b)}</p>`);
       for (const t of trs) if (t.each && !t.intro && t.P.intro.length) { node.append(trP(t.lang, t.P.intro.map((l) => esc(l).replace(/^(領|眾)[：:]\s*/, '')).join('<br>'))); t.intro = true; }
     } else node.insertAdjacentHTML('beforeend', renderTextBlock(b));
@@ -1450,6 +1460,13 @@ const BONUS = {
   deoGratias: '℟. Deo gratias after the short reading',
 };
 const bonus = (k) => !!state.settings.bonus?.[k];
+// the Hong Kong flag's red and white, with a little gold
+const HK_COLOURS = ['#de2910', '#ffffff', '#de2910', '#ffffff', '#f4d03f', '#ff6b5b'];
+/** A visit from Hong Kong: its time zone, or a browser set to Hong Kong Chinese. */
+function inHongKong() {
+  try { if (Intl.DateTimeFormat().resolvedOptions().timeZone === 'Asia/Hong_Kong') return true; } catch {}
+  return (navigator.languages || [navigator.language]).some((l) => /^zh-(HK|Hant-HK)$/i.test(l || ''));
+}
 /** "Mutual enrichment": the older customs, ticked in their own small window (in the interface's language). */
 function fillBonus() {
   $('#bonus-list').replaceChildren(...Object.keys(BONUS).map((k) => {
@@ -1473,9 +1490,8 @@ const DIVINUM_AUXILIUM = "(c3) <sp>V/</sp> Di(e)ví(e)num(e) au(e)xí(e)li(e)um(
  * A little explosion of pixels from (x, y), the bigger the more bonus options are ticked:
  * one a puff, all of them a fireworks. Nothing when the reader prefers less motion.
  */
-function pixelBurst(x, y, power = 1) {
+function pixelBurst(x, y, power = 1, colours = ['var(--rubric)', '#e8b923', '#f4e3a1', '#c0392b', '#ffffff', '#7a4fd0']) {
   if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
-  const colours = ['var(--rubric)', '#e8b923', '#f4e3a1', '#c0392b', '#ffffff', '#7a4fd0'];
   const n = 8 + power * power * 6, reach = 30 + power * 28;
   const host = document.querySelector('dialog[open]') || document.body;
   const box = el('<div class="pixel-burst" aria-hidden="true"></div>');
@@ -1556,6 +1572,7 @@ async function render() {
   main.replaceChildren(...frag.childNodes);
   layouts.forEach((f) => f());
   location.hash = `${state.date}/${state.hour}`;
+  showPageCount(); // the settings open: their page count follows the hour and the settings
 }
 
 /** The chosen hour of the chosen date, composed into a detached container (its scores laid out once placed). */
@@ -1607,18 +1624,11 @@ async function makePdf(fmt) {
   if (pdfUrl) { URL.revokeObjectURL(pdfUrl); pdfUrl = null; }
   const label = btn.textContent;
   btn.textContent = t('pdf.making');
-  const theme = document.documentElement.dataset.theme;
-  document.documentElement.dataset.theme = 'light';
-  const screenLayouts = layouts.splice(0);
-  setPerLine(true);
   const name = `${hourName(state.hour)} ${state.date}${FORMATS[fmt].sheet ? ` ${t('pdf.booklet')}` : ''}.pdf`;
+  const scale = (Number(state.settings.pdfSize) || 100) / 100;
+  const restore = await preparePrint(day, fmt, scale);
   try {
-    const scale = (Number(state.settings.pdfSize) || 100) / 100;
-    const col = printColumn(fmt, scale);
-    const frag = await composeHour(day);
-    col.append(...frag.childNodes);
-    await document.fonts?.ready;
-    await Promise.all(layouts.map((f) => f()));
+    const col = restore.col;
     const { blob } = await makePdfFile(col, fmt, {
       scale,
       title: `${hourName(state.hour)} · ${day.name} · ${state.date}`,
@@ -1637,13 +1647,68 @@ async function makePdf(fmt) {
     console.error(e);
     alert(`The PDF could not be made: ${e.message}`);
   } finally {
+    restore();
+    btn.textContent = label;
+    btn.disabled = false;
+    pdfPages = {}; // the hour as it now is
+  }
+}
+/**
+ * The hour composed for print in format `fmt` at `scale`, in the day's light colours, every
+ * score one SVG per system: returns a function that puts the screen back (with .col, the column).
+ */
+async function preparePrint(day, fmt, scale) {
+  const theme = document.documentElement.dataset.theme;
+  document.documentElement.dataset.theme = 'light';
+  const screenLayouts = layouts.splice(0);
+  setPerLine(true);
+  const restore = () => {
     document.getElementById('print-root')?.remove();
     if (theme) document.documentElement.dataset.theme = theme; else delete document.documentElement.dataset.theme;
     setPerLine(false);
     layouts.splice(0, layouts.length, ...screenLayouts);
-    btn.textContent = label;
-    btn.disabled = false;
+  };
+  try {
+    const col = printColumn(fmt, scale);
+    const frag = await composeHour(day);
+    col.append(...frag.childNodes);
+    await document.fonts?.ready;
+    await Promise.all(layouts.map((f) => f()));
+    restore.col = col;
+  } catch (e) { restore(); throw e; }
+  return restore;
+}
+/**
+ * How many pages the PDF will have, shown beside the PDF settings before it is made (so the
+ * print size can be chosen for a number of pages): the hour laid out for print and cut into
+ * pages as for the PDF, without drawing them. Remembered per hour, format and size.
+ */
+let pdfPages = {};
+let pagesRun = 0;
+async function showPageCount() {
+  const out = $('#pdf-pages');
+  if (!out || $('#settings').hidden) return;
+  const fmt = $('#pdf-format').value;
+  const scale = (Number(state.settings.pdfSize) || 100) / 100;
+  const key = [state.date, state.hour, fmt, scale, JSON.stringify(state.settings)].join('|');
+  const run = ++pagesRun;
+  if (!(key in pdfPages)) {
+    out.textContent = '…';
+    await new Promise((r) => setTimeout(r, 350)); // a quick succession of changes: count once
+    if (run !== pagesRun) return;
+    const day = (await calendarFor(state.date))[0];
+    if (!day || !FORMATS[fmt]) { out.textContent = ''; return; }
+    let restore = null;
+    try {
+      restore = await preparePrint(day, fmt, scale);
+      if (run !== pagesRun) return;
+      pdfPages[key] = paginate(restore.col, fmt, scale).length;
+    } catch (e) { console.error(e); out.textContent = ''; return; } finally { restore?.(); }
   }
+  if (run !== pagesRun) return;
+  const n = pdfPages[key];
+  const sheets = FORMATS[fmt].sheet ? Math.ceil(n / 4) : 0;
+  out.textContent = sheets ? t('pdf.countBooklet', { n: Math.ceil(n / 4) * 4, s: sheets }) : t('pdf.count', { n });
 }
 
 // ------------------------------------------------------------------ boot
@@ -1652,7 +1717,9 @@ function defaultHour() {
   if (h < 9) return 'laudes'; if (h < 11) return 'tertia'; if (h < 14) return 'sexta'; if (h < 16) return 'nona'; if (h < 20) return 'vesperae'; return 'completorium';
 }
 function applySettings() {
-  // the interface's language (site/i18n.js): first visit, the browser's (Chinese or English)
+  // first visit from Hong Kong (its time zone, or Hong Kong Chinese in the browser): the
+  // Chinese interface and the diocese's calendar; elsewhere the interface follows the browser
+  if (!state.settings.ui && !state.settings.ordo && inHongKong()) { state.settings.ui = 'zh'; state.settings.ordo = 'hk'; }
   setUiLang(state.settings.ui || (/^zh/i.test(navigator.language || '') ? 'zh' : 'en'));
   applyPage();
   $('#opt-ui').value = uiLang();
@@ -1670,6 +1737,7 @@ function applySettings() {
   $('#opt-invitatory').value = state.settings.invitatory || '';
   $('#opt-of-hymn').value = state.settings.ofHymn || '';
   $('#opt-pange').value = state.settings.pangeLingua || '';
+  $('#opt-ordo').value = state.settings.ordo || '';
   if ($('#opt-translation')) $('#opt-translation').value = TRANSLATION_MODES[state.settings.translation] ? state.settings.translation : '';
 }
 // The two psalm modes, shown in their cards as they will look: Ps 116 on tone 8 g, its
@@ -1723,7 +1791,7 @@ async function boot() {
     const s = $('#settings');
     s.hidden = !s.hidden;
     $('#settings-toggle').setAttribute('aria-expanded', String(!s.hidden));
-    if (!s.hidden) drawModePreviews();
+    if (!s.hidden) { drawModePreviews(); showPageCount(); }
   };
   $('#text-size').oninput = (e) => { state.settings.size = Number(e.target.value); saveSettings(); applySettings(); render(); };
   $('#opt-voice').onchange = (e) => { state.settings.voice = e.target.value || undefined; saveSettings(); };
@@ -1735,6 +1803,12 @@ async function boot() {
   $('#opt-preces').onchange = (e) => { state.settings.precesTone = e.target.value === 'ar' ? undefined : e.target.value; saveSettings(); render(); };
   $('#opt-sing-collect').onchange = (e) => { state.settings.collectTone = e.target.value === 'ar' ? undefined : e.target.value; saveSettings(); render(); };
   $('#opt-invitatory').onchange = (e) => { state.settings.invitatory = e.target.value || undefined; saveSettings(); render(); };
+  $('#opt-ordo').onchange = (e) => {
+    state.settings.ordo = e.target.value || undefined;
+    saveSettings(); render();
+    // Hong Kong: a joyful little explosion of pixels from the menu
+    if (e.target.value === 'hk') { const r = e.target.getBoundingClientRect(); pixelBurst(r.left + r.width / 2, r.top + r.height / 2, 4, HK_COLOURS); }
+  };
   $('#opt-ui').onchange = (e) => { state.settings.ui = e.target.value; saveSettings(); applySettings(); fillBonus(); render(); };
   $('#opt-pange').onchange = (e) => { state.settings.pangeLingua = e.target.value || undefined; saveSettings(); render(); };
   $('#opt-of-hymn').onchange = (e) => { state.settings.ofHymn = e.target.value || undefined; saveSettings(); render(); };
@@ -1742,9 +1816,9 @@ async function boot() {
   $('#bonus-open').onclick = () => $('#bonus').showModal();
   if ($('#opt-translation')) $('#opt-translation').onchange = (e) => { state.settings.translation = e.target.value || undefined; saveSettings(); render(); };
   $('#pdf-format').value = state.settings.pdf || 'a5';
-  $('#pdf-format').onchange = (e) => { state.settings.pdf = e.target.value; saveSettings(); };
+  $('#pdf-format').onchange = (e) => { state.settings.pdf = e.target.value; saveSettings(); showPageCount(); };
   $('#pdf-size').value = String(state.settings.pdfSize || 100);
-  $('#pdf-size').onchange = (e) => { state.settings.pdfSize = Number(e.target.value); saveSettings(); };
+  $('#pdf-size').onchange = (e) => { state.settings.pdfSize = Number(e.target.value); saveSettings(); showPageCount(); };
   $('#pdf-make').onclick = () => makePdf($('#pdf-format').value);
   watchResize(layouts);
   render();

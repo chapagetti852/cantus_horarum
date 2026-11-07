@@ -19,6 +19,8 @@ const NAMED = {
   nativity_of_the_blessed_virgin_mary: 'NatND', exaltation_of_the_holy_cross: 'Crux',
   michael_gabriel_and_raphael_archangels: 'Mich', all_saints: 'Oss', presentation_of_the_lord: 'Pres',
   dedication_of_the_lateran_basilica: 'Ded', commemoration_of_all_the_faithful_departed: 'Def',
+  // the Diocese of Hong Kong's cathedral: the dedication of a church, as the Lateran
+  dedication_of_the_cathedral_of_the_immaculate_conception_hong_kong: 'Ded',
   second_sunday_after_christmas: '2N1', nativity_of_the_lord: 'Nat',
 };
 // romcal commons -> OCO common codes
