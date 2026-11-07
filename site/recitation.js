@@ -30,9 +30,14 @@ const F = {
   // the full stop of the tone for the Chapter (Liber Usualis p. 123; jgabc's "Chapter"):
   // the last accent on la, sol after it, the end on sol-la ("Dóminus iustus nós-ter.")
   capitulum: "hr 'f er ef..",
+  // the Liber Usualis' tones for the prayers (pp. 98-102): the flex drops the last syllable
+  // a semitone ("per-cé-pi-mus", "Fí-li-um tú-um"); the full stop of the ancient simple tone
+  // and of the second ferial tone a minor third ("et fác-tis")
+  luFlex: "hr 'h hr g.",
+  luFull: "hr 'h hr f.",
 };
 // the bar after each kind of member
-const BAR = { plain: ',', flexa: ';', metrum: ';', punctum: ':', interrogatio: ':', conclusio: '::', capitulum: ':' };
+const BAR = { plain: ',', flexa: ';', metrum: ';', punctum: ':', interrogatio: ':', conclusio: '::', capitulum: ':', luFlex: ';', luFull: ':' };
 
 const jg = () => {
   if (typeof globalThis.applyPsalmTone !== 'function') throw new Error('jgabc engine not loaded');
@@ -96,8 +101,9 @@ function render(list) {
   return list.map((m, i) => {
     const final = i === list.length - 1;
     const kind = m.kind || 'plain';
-    const bar = final ? '(::)' : kind === 'plain' ? (m.syl >= 6 ? '(,)' : '') : `(${BAR[kind]})`;
-    return `${point(m.text, kind, final)} ${bar}`.trim();
+    // `stop`: the end of a prayer's body on the reciting note, before its conclusion
+    const bar = final ? '(::)' : m.stop ? '(:)' : kind === 'plain' ? (m.syl >= 6 ? '(,)' : '') : `(${BAR[kind]})`;
+    return `${point(m.text, kind, final || m.stop)} ${bar}`.trim();
   }).join(' ');
 }
 
@@ -175,13 +181,57 @@ export function readingGabc(text) {
 }
 
 /**
+ * A collect on the Liber Usualis' tones for the prayers, as it assigns them in the Office
+ * (p. 124): `festal` (p. 98: Sundays and feasts at Matins, Lauds and Vespers) has the metrum
+ * first, at the colon, then the flex at the semicolon or the first comma after it, the body
+ * ending on the reciting note, the conclusion with its flex at "Fílium tuum" and metrum at
+ * "Spíritus Sancti, Deus"; `simple` (the ancient simple tone, p. 101, ad libitum for the
+ * first ferial tone at the little hours, Compline and on ferias) has the flex in the first
+ * part, the metrum at the principal division and the full stop a third down, Amen la-do;
+ * `ferialB` (p. 99: after the antiphons of Our Lady) is recto tono with the full stop.
+ */
+export function luCollectGabc(text, { tone = 'festal', oremus = false, amen = true } = {}) {
+  const t = clean(text);
+  const m = CONCLUSION.exec(t);
+  const body = m ? t.slice(0, m.index + m[0].length - m[1].length) : t;
+  let list = collectBody(body);
+  if (tone === 'festal' && list.length > 1) {
+    // the metrum at the colon, else where collectBody put it; the flex after it
+    for (const x of list) x.kind = undefined;
+    let mi = list.findIndex((x, i) => x.punct === ':' && i < list.length - 1);
+    if (mi < 0) mi = collectBody(body).findIndex((x) => x.kind === 'metrum');
+    if (mi >= 0) {
+      list[mi].kind = 'metrum';
+      const after = list.slice(mi + 1, -1);
+      const rest = (j) => list.slice(j + 1).reduce((a, x) => a + x.syl, 0);
+      let fi = list.findIndex((x, i) => i > mi && i < list.length - 1 && x.punct === ';');
+      if (fi < 0) fi = list.findIndex((x, i) => i > mi && i < list.length - 1 && x.syl >= 6 && rest(i) >= 6);
+      if (fi >= 0 && after.length) list[fi].kind = 'luFlex';
+    }
+  } else if (tone === 'simple') {
+    for (const x of list) if (x.kind === 'flexa') x.kind = 'luFlex';
+  } else if (tone === 'ferialB') {
+    for (const x of list) x.kind = undefined;
+  }
+  const end = tone === 'festal' ? 'plain' : 'luFull';
+  if (list.length) list[list.length - 1].kind = list[list.length - 1].punct === '?' ? 'interrogatio' : end;
+  if (m) {
+    const conc = collectConclusion(m[1]).map((x) => ({ ...x, kind: x.kind === 'flexa' ? (tone === 'ferialB' ? undefined : 'luFlex') : x.kind === 'metrum' ? (tone === 'ferialB' ? undefined : 'metrum') : end }));
+    list = [...list.map((x, i) => (i === list.length - 1 && x.kind === 'plain' ? { ...x, kind: 'plain', stop: true } : x)), ...conc];
+  }
+  const head = oremus ? `${point('Orémus.', 'plain', true)} (::) ` : '';
+  const amenG = tone === 'festal' ? 'A(h.)men.(h.)' : 'A(f.)men.(h.)';
+  return `(${CLEF}) ${head}${render(list)}${amen ? ` <sp>R/</sp> ${amenG} (::)` : ''}`;
+}
+
+/**
  * A short reading on the tone for the Chapter of the Liber Usualis (p. 123), sentence by
  * sentence: the metrum at the colon (else at the principal division), the flex before it
  * in a long sentence, the full stop at its end ("The flex is omitted if the sentence is very
  * short"); with several semicolons or colons, flex and metrum alternate, the metrum last;
  * a question takes the ordinary modulation.
  */
-export function chapterGabc(text) {
+export function chapterGabc(text, { lesson = false } = {}) {
   const all = merge(members(text), 3);
   if (!all.length) return null;
   const sentences = [];
@@ -191,7 +241,8 @@ export function chapterGabc(text) {
   const out = [];
   for (const list of sentences) {
     const last = list[list.length - 1];
-    last.kind = last.punct === '?' ? 'interrogatio' : 'capitulum';
+    // the short lesson (Compline) ends its sentences as the lessons do (p. 123): a fifth down
+    last.kind = last.punct === '?' ? 'interrogatio' : lesson ? 'punctum' : 'capitulum';
     if (list.length > 1) {
       const cums = []; let c = 0;
       for (const m of list) cums.push(c += m.syl);

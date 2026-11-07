@@ -90,37 +90,35 @@ others a numbered list pointed in bold and italic).
 
 ### Readings, collects, versicles
 
-Short readings, collects and the versicles of the little hours are sung on the common
-tones of the Antiphonale Monasticum 2005 (vol. I) and the Antiphonale Romanum II (2009),
-as GregoBase transcribes them (20918-20920): `site/recitation.js` splits the text at its
-punctuation and points each member with jgabc's engine, the cadence written as a
-psalm-tone formula. Collects (AM p. 536, AR II p. 759, *tonus ferialis*): on do, flexa
-to la after the last accent, metrum (si, la before the accent) at the principal division,
-punctum to fa; the conclusion likewise ("Fílium tuum" flexa, "Spíritus Sancti, Deus"
-metrum). Readings (AM p. 529, AR II p. 756): flexa at a colon or semicolon, punctum at a
-full stop, the question (si, la, si) and the conclusion rising to re with mi on the last
-accent but one. Versicles at the little hours (AM p. 532): on do, falling to la after the
-last accent. The versicles are always sung; the short reading and the collect are text
-unless the settings ask for them sung ("Short reading", "Collect"; the readings of the
-Office of Readings stay text). The short reading can also take the older tone for the
-Chapter (Liber Usualis 1961, p. 123; jgabc's "Chapter"): on do, the flex falling a minor
-third after the last accent ("confi-dén-ter"), the metrum with si and la on the two
-syllables before it ("vo-cá-bunt é-um"), the full stop with la on the last accent, sol
-after it and sol-la at the end ("nós-ter"); the metrum at the colon, the flex before it,
-and in a long sentence flex and metrum alternating at its semicolons, the metrum last (pp.
-121-123). `test/recitation.test.mjs` checks the books' examples. Only the ferial forms of
-the Antiphonale Romanum II are on GregoBase; its festive or solemn forms and the melismatic
-versicle before the readings of the Office of Readings are still to come.
+Short readings and collects are text unless the settings ask for them sung ("Short reading",
+"Collect"); then they follow the Liber Usualis (1961), whose common tones are complete
+(GregoBase has only the ferial tones of the Antiphonale Romanum II), as it assigns them in
+the Office (p. 124), the readings of the Office of Readings staying text:
 
-The collect tone is the Office's (Antiphonale Romanum II p. 759: flexa, then metrum, then
-the fall to fa). The Liber Usualis' festal tone for the Mass prayers (pp. 98-99) orders them
-the other way (metrum at the colon, then the flex, the body ending recto tono); the
-chant sheets of the St. Benedict Tridentine Community, Windsor (Michel Ozorak, "St.
-Athanasius Chants", windsorlatinmass.org/latin/chant.htm, reachable only over plain http)
-set the 1962 Missal's collects so, many of them the same texts as the Liturgia Horarum's
-(the collect of the 32nd Sunday per annum is that of the 19th after Pentecost). Their
-settings are copyright Biretta Books and may not be reproduced without its permission:
-they serve here to compare, not as data.
+- The short reading on the tone for the Chapter (p. 123; jgabc's "Chapter"), on do: the flex
+  a minor third after the last accent ("confi-dén-ter"), the metrum with si and la before it
+  ("vo-cá-bunt é-um"), the full stop with la on the accent, sol after it and sol-la at the end
+  ("nós-ter"); the metrum at the colon with the flex before it, and in long sentences flex
+  and metrum alternating, the metrum last (pp. 121-123). At Compline, the tone for the short
+  lesson: the same flex and metrum, the full stop of the lessons, a fifth down.
+- The collect at the Office of Readings, Lauds and Vespers of Sundays, solemnities, feasts and
+  memorials: the festal tone (p. 98), on do: the metrum first, at the colon (si, la before
+  the last accent: "cle-mén-ter ex-áu-di :"), then the flex at the semicolon or the next
+  comma (the last syllable a semitone down: "ab-so-lú-tos,"), the body ending on the
+  reciting note; the conclusion with its flex at "Fílium tuum" and metrum at "Spíritus Sancti,
+  Deus". At the little hours, at Compline and on ferias the ancient simple tone (p. 101), which
+  the book allows in place of the recto tono of the first ferial tone: flex, metrum, the full
+  stop a third down, Amen la-do. After the antiphons of Our Lady, the second ferial tone
+  (p. 99): recto tono with that full stop.
+- The versicles of the little hours on the Antiphonale Monasticum's tone (p. 532; GregoBase
+  20918), which is the Liber Usualis' second tone for versicles; its ornate first tone (p.
+  118: Sundays and feasts) is not transcribed yet.
+
+`site/recitation.js` points each member with jgabc's engine (the cadence written as a
+psalm-tone formula); `test/recitation.test.mjs` reproduces the books' examples. Checked
+against the chant sheets of the St. Benedict Tridentine Community, Windsor (festal tone,
+1962 Missal; copyright Biretta Books, compared, not copied): the collect of the 32nd Sunday
+per annum, the 19th after Pentecost's, comes out with the same metrum and flex.
 
 ### Singing the scores
 

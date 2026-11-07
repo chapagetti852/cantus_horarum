@@ -3,7 +3,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import engine from './jgabc.mjs';
-import { setRecitationEngine, collectGabc, readingGabc, versicleGabc, chapterGabc } from '../site/recitation.js';
+import { setRecitationEngine, collectGabc, readingGabc, versicleGabc, chapterGabc, luCollectGabc } from '../site/recitation.js';
 
 setRecitationEngine(engine);
 // syllable(notes) pairs, bars and markup left out
@@ -49,4 +49,21 @@ test('chapter tone: flex and metrum alternate in a long sentence', () => {
   assert.match(n, /il:h le:g ne:f gá:h bit:h nos:h/, 'the last division: metrum');
   assert.match(n, /con:h re:h gná:h bi:f mus:f/, 'before it: flex');
   assert.match(n, /et:h con:g vi:f vé:h mus:h/, 'and before that the metrum again');
+});
+
+test('Liber Usualis festal tone for the prayers (p. 98)', () => {
+  const n = notes(luCollectGabc('Preces nostras, quǽsumus, Dómine, cleménter exáudi: atque a peccatórum vínculis absolútos, ab omni nos adversitáte custódi. Per Dóminum nostrum Iesum Christum, Fílium tuum, qui tecum vivit et regnat in unitáte Spíritus Sancti, Deus, per ómnia sǽcula sæculórum.'));
+  assert.match(n, /cle:h mén:h ter:g ex:f áu:h di:h/, 'metrum at the colon: si, la before the accent');
+  assert.match(n, /ab:h so:h lú:h tos:g/, 'flex after it: the last syllable a semitone down');
+  assert.match(n, /cus:h tó:h di:h Per/, 'the body ends on the reciting note');
+  assert.match(n, /tu:h um:g/, 'conclusion: flex at Fílium tuum');
+  assert.match(n, /Sanc:g ti:f De:h us:h/, 'conclusion: metrum at Spíritus Sancti, Deus');
+});
+
+test('Liber Usualis ancient simple tone (pp. 101-102)', () => {
+  const n = notes(luCollectGabc('Præsta, quǽsumus, omnípotens Deus: ut semper rationabília meditántes, quæ tibi sunt plácita, et dictis exsequámur et factis. Per Christum Dóminum nostrum.', { tone: 'simple' }));
+  assert.match(n, /De:h us:g/, 'flex: the last syllable a semitone down');
+  assert.match(n, /me:g di:f tán:h tes:h/, 'metrum: si, la before the accent of meditántes');
+  assert.match(n, /fac:h tis:f/, 'full stop a third down');
+  assert.match(n, /nos:h trum:f A:f men:h$/, 'the short conclusion likewise, Amen la-do');
 });

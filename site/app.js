@@ -5,7 +5,7 @@ import { makePdfFile } from './pdf.js';
 import { BOOKS } from './sources.js';
 import { toneContext, versesOf, psalmGabc, verseGabc, verseHtml, startAtCross } from './psalmtone.js';
 import { resolveHour, indexOco, celebrationFor, isSanctoral } from './resolve.js';
-import { collectGabc, readingGabc, versicleGabc, chapterGabc } from './recitation.js';
+import { versicleGabc, chapterGabc, luCollectGabc } from './recitation.js';
 import { loadTranslation, loadOwn, ownKey, hourTranslation, trNode, psalmNumber, chapterVerse, alignPsalm, verseTrHtml, trP, precesParts, hymnKey, hymnCorresponds } from './translate.js';
 
 const HOURS = ['lectio', 'laudes', 'tertia', 'sexta', 'nona', 'vesperae', 'completorium'];
@@ -414,7 +414,7 @@ function sourceOf(header) {
 }
 // the books the generated scores follow (site/sources.js)
 const PSALM_TONE_SOURCE = { label: 'AR II 738–740' };
-const RECITATION_SOURCE = { reading: { label: 'AR II 756' }, chapter: { label: 'LU 123' }, collect: { label: 'AR II 759' }, versicle: { label: 'AM I 532' } };
+const RECITATION_SOURCE = { chapter: { label: 'LU 123' }, festal: { label: 'LU 98' }, simple: { label: 'LU 101' }, ferialB: { label: 'LU 99' }, versicle: { label: 'AM I 532' } };
 
 /**
  * A score, without label (the annotation above the initial gives the mode). Without a
@@ -968,7 +968,7 @@ async function conclusionNode(blocks, cel, hour, { first = false, tr = null } = 
   const major = hour === 'laudes' || hour === 'vesperae';
   // the collect and its Amen; iBreviary's rubrics and formulas of the conclusion are replaced
   const end = blocks.findIndex((b, k) => k > 0 && (b.kind === 'rubric' || /^(Dóminus vobíscum|Dóminus nos|Benedicámus Dómino)/.test(textOf(b))));
-  node.append(collectNode(end < 0 ? blocks : blocks.slice(0, end)));
+  node.append(collectNode(end < 0 ? blocks : blocks.slice(0, end), { tone: collectTone(cel, hour) }));
   // the collect's translation under it, before the blessing (Breviarium Gregorianum)
   if (tr?.length && state.tr) { const t = trNode(state.tr.lang, tr); if (t) node.append(t); }
   if (!major) {
@@ -1018,31 +1018,33 @@ function chantFromGabc(body, { dropCap = true, source = null } = {}) {
 // Short readings and collects are sung the same way when the settings ask for it ("Short
 // reading", "Collect": text or sung); the readings of the Office of Readings stay text.
 // "capitulum": the Liber Usualis' tone for the Chapter instead of the Antiphonale Romanum II's
-const singReading = () => state.settings.singReading === true || state.settings.singReading === 'capitulum';
+const singReading = () => !!state.settings.singReading; // true (or 'capitulum', an earlier setting)
 const singCollect = () => state.settings.singCollect === true;
 const blockText = (b) => (b?.kind === 'text' ? b.lines.map((l) => (typeof l === 'string' ? l : l.text)).join(' ') : '');
 const recited = () => state.settings.recite !== 'text';
 /** A short reading: its reference, then the reading on the lesson tone. */
-function readingNode(blocks) {
+function readingNode(blocks, { lesson = false } = {}) {
   const node = el('<div class="block"></div>');
   const text = blocks.filter((b) => b.kind === 'text').map(blockText).join(' ').trim();
-  const chapter = state.settings.singReading === 'capitulum';
   const deo = bonus('deoGratias');
-  let gabc = singReading() && text ? (chapter ? chapterGabc(text) : readingGabc(text)) : null;
+  // the Liber Usualis' tone for the Chapter; at Compline its tone for the short lesson (p. 123)
+  let gabc = singReading() && text ? chapterGabc(text, { lesson }) : null;
   if (!gabc) {
     node.insertAdjacentHTML('beforeend', renderBlocks(blocks));
     if (deo) node.insertAdjacentHTML('beforeend', '<p class="versicle"><span class="r">℟.</span> Deo grátias.</p>');
     return node;
   }
-  // ℟. Deo grátias at the end of the score, as the Liber Usualis has it after the Chapter (p. 123):
-  // on the Chapter's full stop; after the Antiphonale Romanum II's tone, on its reciting note
-  if (deo) gabc = gabc.replace(/\s*$/, ` <sp>R/</sp> ${chapter ? 'De(h)o(h) grá(f)ti(e)as.(ef..)' : 'De(h)o(h) grá(h)ti(h)as.(h.)'} (::)`);
+  // ℟. Deo grátias at the end of the score, on the Chapter's full stop, as the Liber Usualis has it
+  if (deo) gabc = gabc.replace(/\s*$/, ' <sp>R/</sp> De(h)o(h) grá(f)ti(e)as.(ef..) (::)');
   node.insertAdjacentHTML('beforeend', renderBlocks(blocks.filter((b) => b.kind !== 'text')));
-  node.append(chantFromGabc(gabc, { dropCap: false, source: chapter ? RECITATION_SOURCE.chapter : RECITATION_SOURCE.reading }));
+  node.append(chantFromGabc(gabc, { dropCap: false, source: RECITATION_SOURCE.chapter }));
   return node;
 }
-/** A collect, with Orémus before it and Amen after when iBreviary gives them, on the collect tone. */
-function collectNode(blocks) {
+/**
+ * A collect, with Orémus before it and Amen after when iBreviary gives them, on the Liber
+ * Usualis' tone for the prayers that the hour and the day call for (`tone`, see collectTone).
+ */
+function collectNode(blocks, { tone = 'simple' } = {}) {
   const node = el('<div class="block"></div>');
   const texts = blocks.filter((b) => b.kind === 'text');
   const oremus = /^Orémus\.?$/.test(blockText(texts[0]).trim());
@@ -1050,8 +1052,18 @@ function collectNode(blocks) {
   if (!singCollect() || !text) { node.insertAdjacentHTML('beforeend', renderBlocks(blocks)); return node; }
   const amen = blocks.some((b) => b.kind === 'versicle' && /^Amen/.test(b.text));
   node.insertAdjacentHTML('beforeend', renderBlocks(blocks.filter((b) => b.kind === 'rubric')));
-  node.append(chantFromGabc(collectGabc(text, { oremus, amen }), { dropCap: false, source: RECITATION_SOURCE.collect }));
+  node.append(chantFromGabc(luCollectGabc(text, { tone, oremus, amen }), { dropCap: false, source: RECITATION_SOURCE[tone] }));
   return node;
+}
+/**
+ * The tone of the collect (Liber Usualis p. 124): on Sundays and feasts (and memorials, as
+ * the feasts of the third class were) at the Office of Readings, Lauds and Vespers the
+ * festal tone; at the little hours, at Compline and on ferias the ancient simple tone, which
+ * the book allows for the first ferial tone (recto tono).
+ */
+function collectTone(cel, hour) {
+  const major = hour === 'lectio' || hour === 'laudes' || hour === 'vesperae';
+  return major && ['SUNDAY', 'SOLEMNITY', 'FEAST', 'MEMORIAL'].includes(cel?.rank) ? 'festal' : 'simple';
 }
 // ------------------------------------------------------------------ translations
 // English under the Latin (setting "Translation", beta), as Breviarium Gregorianum lays it
@@ -1191,7 +1203,7 @@ async function composeCompline(main, day, date, hour) {
   await appendPsalmody(main, entries.filter((e) => e.kind !== 'reference'), section(texts, 'PSALMODIA'));
 
   const lb = section(texts, 'LECTIO BREVIS');
-  if (lb) { main.append(el('<h2 class="section">Short Reading</h2>')); main.append(readingNode(lb.blocks)); appendTr(main, state.tr?.own.reading?.lines); }
+  if (lb) { main.append(el('<h2 class="section">Short Reading</h2>')); main.append(readingNode(lb.blocks, { lesson: true })); appendTr(main, state.tr?.own.reading?.lines); }
 
   // In the Triduum and the octave of Easter an antiphon takes the responsory's place (OCO pp.
   // 242, 250, 257, 264): Christus factus est, longer each day, then Hæc dies
@@ -1226,7 +1238,7 @@ async function composeCompline(main, day, date, hour) {
     main.append(el('<h2 class="section">Concluding Prayer</h2>'));
     const text = (b) => (b.kind === 'text' ? b.lines.map((l) => (typeof l === 'string' ? l : l.text)).join(' ') : '');
     const end = or.blocks.findIndex((b) => /^Noctem/.test(text(b)) || (b.kind === 'rubric' && /Mariam|antiphon/i.test(b.text)));
-    main.append(collectNode(end < 0 ? or.blocks : or.blocks.slice(0, end)));
+    main.append(collectNode(end < 0 ? or.blocks : or.blocks.slice(0, end), { tone: 'simple' }));
     appendTr(main, state.tr?.own.oratio, { proper: false });
   }
   main.append(el('<h2 class="section">Blessing</h2>'));
@@ -1382,7 +1394,8 @@ function appendMarianPrayer(main, marian, date) {
   const key = marian === 'alma' && (md >= '12-24' || md < '06-01') ? 'almaNat' : marian;
   const p = MARIAN_PRAYER[key];
   main.append(chantFromGabc(versicleGabc(p.v, p.r), { dropCap: false, source: RECITATION_SOURCE.versicle }));
-  main.append(chantFromGabc(collectGabc(p.oratio, { oremus: true, amen: true }), { dropCap: false, source: RECITATION_SOURCE.collect }));
+  // the prayers after the antiphons of Our Lady: the second ferial tone (Liber Usualis p. 124)
+  main.append(chantFromGabc(luCollectGabc(p.oratio, { tone: 'ferialB', oremus: true, amen: true }), { dropCap: false, source: RECITATION_SOURCE.ferialB }));
   main.append(chantFromGabc(DIVINUM_AUXILIUM, { dropCap: false, source: { label: 'LU 277' } }));
   appendTr(main, [...p.en, 'May the divine assistance remain with us always. — Amen.'], { proper: false });
 }
@@ -1494,7 +1507,7 @@ function applySettings() {
   for (const b of document.querySelectorAll('.mode')) b.setAttribute('aria-checked', String(b.dataset.psalms === (state.settings.psalms || '')));
   $('#opt-memoria').value = state.settings.memoria || '';
   $('#opt-presider').value = state.settings.presider ? '1' : '';
-  $('#opt-sing-reading').value = state.settings.singReading === 'capitulum' ? 'capitulum' : singReading() ? '1' : '';
+  $('#opt-sing-reading').value = singReading() ? '1' : '';
   $('#opt-sing-collect').value = singCollect() ? '1' : '';
   $('#opt-invitatory').value = state.settings.invitatory || '';
   if ($('#opt-translation')) $('#opt-translation').value = TRANSLATION_LANGS.has(state.settings.translation) ? state.settings.translation : '';
@@ -1556,7 +1569,7 @@ async function boot() {
   for (const b of document.querySelectorAll('.mode')) b.onclick = () => { state.settings.psalms = b.dataset.psalms || undefined; saveSettings(); applySettings(); render(); };
   $('#opt-memoria').onchange = (e) => { state.settings.memoria = e.target.value || undefined; saveSettings(); render(); };
   $('#opt-presider').onchange = (e) => { state.settings.presider = e.target.value ? true : undefined; saveSettings(); render(); };
-  $('#opt-sing-reading').onchange = (e) => { const v = e.target.value; state.settings.singReading = v === 'capitulum' ? v : v ? true : undefined; saveSettings(); render(); };
+  $('#opt-sing-reading').onchange = (e) => { state.settings.singReading = e.target.value ? true : undefined; saveSettings(); render(); };
   $('#opt-sing-collect').onchange = (e) => { state.settings.singCollect = e.target.value ? true : undefined; saveSettings(); render(); };
   $('#opt-invitatory').onchange = (e) => { state.settings.invitatory = e.target.value || undefined; saveSettings(); render(); };
   // "Mutual enrichment": the older customs, ticked in their own small window

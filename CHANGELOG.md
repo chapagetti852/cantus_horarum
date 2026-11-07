@@ -4,6 +4,14 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.8.0 — 2026-11-07
+
+- Sung readings and collects follow the Liber Usualis throughout, as it assigns its tones in
+  the Office: the short reading on the tone for the Chapter (at Compline the tone for the
+  short lesson); the collect in the festal tone at the Office of Readings, Lauds and Vespers
+  of Sundays, solemnities, feasts and memorials, in the ancient simple tone at the little
+  hours, Compline and on ferias, in the second ferial tone after the antiphons of Our Lady.
+
 ## 1.7.0 — 2026-11-07
 
 - Office of Readings: the responsories GregoBase has, above all from the Nocturnale

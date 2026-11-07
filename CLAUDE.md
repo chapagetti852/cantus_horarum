@@ -43,8 +43,9 @@ Read `README.md` first: it explains every pipeline.
   `cache/texts/days/`; the build copies them to `dist/data/days/`. Sunday solemnities
   take another year's weekday texts (iBreviary gives the Sunday). `translations.mjs`
   fetches English / Chinese for the same window into `cache/texts/tr/`.
-- `site/recitation.js` sings readings, collects, versicles on the AM 2005 / AR II common
-  tones; `site/print.js` cuts the hour into PDF pages and booklet sheets, `site/pdf.js` draws them
+- `site/recitation.js` sings short readings and collects on the Liber Usualis' tones (Chapter,
+  short lesson, festal / ancient simple / ferial B for prayers, by hour and rank, LU p. 124)
+  and the little hours' versicles on the AM 2005 tone; `site/print.js` cuts the hour into PDF pages and booklet sheets, `site/pdf.js` draws them
   into a PDF file with jsPDF + svg2pdf (`site/vendor/pdf/`) and EB Garamond TTF (`site/fonts/pdf/`).
 - `site/sources.js` — abbreviations of the books the scores come from; the build stamps each
   GABC file with `cantus-source:`, shown beside each score's ▶ and spelt out in the help dialog.
@@ -107,9 +108,8 @@ To do:
    responsories: the OCO's text where it differs from the LH) or `data/hymns/en.json`
    (hymns), plainly, in iBreviary's manner. Visitor counts: GoatCounter, site code
    `cantushorarum`. The
-   festive/solemn common tones and the melismatic versicle (AM 2005 pp. 527-539) are not
-   on GregoBase yet (`site/recitation.js` has the ferial ones, and the Liber Usualis' tone
-   for the Chapter; sung reading and collect are settings). The Liber Usualis 1961 PDF is at
+   Liber Usualis' ornate versicle for Sundays and feasts (p. 118) is not transcribed yet
+   (sung reading and collect are settings, on the Liber Usualis' tones). The Liber Usualis 1961 PDF is at
    ccwatershed.org (pdfs/7058-…/download, 120 MB): its common tones are PDF pp. 210-235.
    windsorlatinmass.org answers only over plain http (`curl -p -x $HTTPS_PROXY http://…`);
    its chant sheets are Biretta Books' copyright: compare with them, do not copy them.
