@@ -90,10 +90,24 @@ others a numbered list pointed in bold and italic).
 
 ### Readings, collects, versicles
 
-Short readings and collects are text unless the settings ask for them sung ("Short reading",
-"Collect"); then they follow the Liber Usualis (1961), whose common tones are complete
-(GregoBase has only the ferial tones of the Antiphonale Romanum II), as it assigns them in
-the Office (p. 124), the readings of the Office of Readings staying text:
+Short readings and collects are sung, by the settings "Short reading" and "Collect", on the
+Antiphonale Romanum II's tones (the default), on the Liber Usualis', or left as text; the
+readings of the Office of Readings stay text.
+
+The Antiphonale Romanum II (2009, "Toni communes" pp. 756-761) has one tone for each, on do:
+
+- The lessons (p. 756; GregoBase 20919): the flexa at a colon or semicolon, falling a third
+  after the last accent ("a Dé-o;"), the punctum at a full stop, a fifth down after it
+  ("ré-pro-bes."), the question ("sen-sum Dó-mi-ni?"), and the conclusion of the reading
+  rising to re and mi ("et ma-nus é-ius sa-ná-bunt."), which the book gives ad libitum.
+- The orations (pp. 759-761; GregoBase 20920 has the body only): the flexa in a long first
+  part ("vo-lun-tá-tem,"), the metrum, si and la before the last accent
+  ("oc-cur-rén-tes,"), the punctum a fifth down ("cæ-lés-te."). The conclusion has its own
+  cadences, read from the book: "Fílium tú-um," to la on its last syllable, "Spíritus
+  Sánc-ti," si-la, "Deus," on do with a bar, and the end ("sæculó-rum.", "Dóminum nós-trum.")
+  to la on its last syllable only; Amen on do.
+
+The Liber Usualis (1961) has its tones as it assigns them in the Office (p. 124):
 
 - The short reading on the tone for the Chapter (p. 123; jgabc's "Chapter"), on do: the flex
   a minor third after the last accent ("confi-dén-ter"), the metrum with si and la before it
@@ -282,15 +296,21 @@ with the other sources of the app. The PDF has a print size (70–150 %) beside 
 
 ### Chants of the ordinary
 
-Deus, in adiutorium takes its tone from the day (Antiphonale Monasticum 2005: ferial on
-weekdays and memorials, festive on Sundays and feasts, solemn at Lauds and Vespers of
-solemnities). The Pater noster at Lauds and Vespers is sung (AM 2005 pp. 533–534,
-ferial or festive). The conclusions are sung, Benedicamus
-Domino at the little hours and the Office of Readings (AM 2005 p. 546). At Lauds and
-Vespers an option says whether a priest or deacon presides: then Dominus vobiscum and
-the blessing (AR II p. 761), otherwise Dominus nos benedicat (recited on the formula of
-that blessing, as the books give no score); then Benedicamus Domino of the day's rank
-(AR II pp. 764–765). Deus in adiutorium ends with Alleluia, or in Lent with the Lenten
+The Antiphonale Romanum II, the book of the Liturgia Horarum, is followed wherever it gives
+a piece; the Antiphonale Monasticum 2005 only where it is silent (it is a book of Vespers on
+Sundays and feasts). Deus, in adiutorium: the AR II's tone "in dominicis et festis" (p. 737,
+the AM's ferial tone too) on every day, its tone "in sollemnitatibus" at Lauds and Vespers of
+solemnities. The Pater noster at Lauds and Vespers: the AR II's one tone (pp. 758-759).
+The conclusions are sung, Benedicamus Domino at the little hours and the Office of Readings
+(AM 2005 p. 546). At Lauds and Vespers an option says whether a priest or deacon presides:
+then Dominus vobiscum and the blessing (AR II p. 761), otherwise Dominus nos benedicat (AR
+II p. 763, on the collect's tone); then the dismissal, Benedicamus Domino as the AR II gives
+it ad libitum "secundum traditionem gregorianam" (pp. 763-765): I the sollemnitates maiores
+(Christmas, Epiphany, Ascension; I and II Vespers, the AM's at Lauds), II other solemnities
+(the AM's at Lauds), III feasts and the octave of Christmas, IV solemnities and feasts of
+Our Lady, V Sundays after the octave of Easter (read from the book, not on GregoBase), VI
+Sundays of Advent and Lent, VII Sundays per annum; ferias the AM's. In the octave of Easter
+and on Pentecost, Ite in pace with its two Alleluias (p. 762). Deus in adiutorium ends with Alleluia, or in Lent with the Lenten
 ending its score carries.
 
 At Sunday II Vespers in Ordinary Time the canticle Salus et gloria (Ap 19) is sung, as the
@@ -391,7 +411,8 @@ the older Roman Office, all off unless ticked (`BONUS` in `site/app.js`, saved a
   common tones, and *Divinum auxílium máneat semper nobíscum. ℟. Amen.* (Liber Usualis
   p. 277, recto tono).
 - ℟. *Deo grátias* after the short reading, as after the Chapter in the older Office: in
-  the score when it is sung (on the Chapter's full stop, Liber Usualis p. 123), else as text.
+  the score when it is sung (on the punctum of the AR II's lesson tone, or the Chapter's full
+  stop, Liber Usualis p. 123), else as text.
 - The antiphon of Our Lady by the traditional calendar (rubrics of 1960): Alma Redemptoris
   from Compline of the Saturday before Advent to 1 February, Ave Regina from 2 February to
   Wednesday of Holy Week, none in the Triduum, Regina cæli from Easter to the Friday after

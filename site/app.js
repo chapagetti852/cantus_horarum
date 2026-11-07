@@ -5,7 +5,7 @@ import { makePdfFile } from './pdf.js';
 import { BOOKS } from './sources.js';
 import { toneContext, versesOf, psalmGabc, verseGabc, verseHtml, startAtCross } from './psalmtone.js';
 import { resolveHour, indexOco, celebrationFor, isSanctoral } from './resolve.js';
-import { versicleGabc, chapterGabc, luCollectGabc } from './recitation.js';
+import { versicleGabc, chapterGabc, luCollectGabc, collectGabc, readingGabc } from './recitation.js';
 import { loadTranslation, loadOwn, ownKey, hourTranslation, trNode, psalmNumber, chapterVerse, alignPsalm, verseTrHtml, trP, precesParts, hymnKey, hymnCorresponds } from './translate.js';
 
 const HOURS = ['lectio', 'laudes', 'tertia', 'sexta', 'nona', 'vesperae', 'completorium'];
@@ -13,9 +13,14 @@ const HOUR_NAMES = { lectio: 'Office of Readings', laudes: 'Lauds', tertia: 'Ter
 const DAY_NAMES = ['Dominica', 'Feria II', 'Feria III', 'Feria IV', 'Feria V', 'Feria VI', 'Sabbato'];
 const ROMAN = ['I', 'II', 'III', 'IV'];
 const TEXT_HOUR = { lectio: 'lectio', laudes: 'laudes', tertia: 'media', sexta: 'media', nona: 'media', vesperae: 'vesperae', completorium: 'completorium' };
-const DEUS_IN_ADIUTORIUM = { ferial: 4121, festive: 18178, solemn: 7864 };
+// The Antiphonale Romanum II (2009) is the book of the Liturgia Horarum: where it gives a
+// piece, it is taken; the Antiphonale Monasticum 2005 only where it is silent (the little
+// hours, Lauds, the ferias).
+// Deus in adiutorium: AR II p. 737 "in dominicis et festis" (the AM's ferial tone, also on
+// ferias) and "in sollemnitatibus" (Lauds and Vespers)
+const DEUS_IN_ADIUTORIUM = { ferial: 4121, festive: 4121, solemn: 7864 };
 const DOMINE_LABIA = { ferial: 18107, festive: 18108 };
-const PATER_NOSTER = { ferial: 4321, festive: 15303 }; // Antiphonale Monasticum 2005, pp. 533-534
+const PATER_NOSTER = 4321; // AR II pp. 758-759, its one tone for the Lord's Prayer
 // Conclusions: Antiphonale Monasticum 2005 p. 546 (little hours), Antiphonale Romanum II pp. 761-765
 const BENEDICAMUS_HORAE = { ferial: 17847, festive: 17848 };
 // Sunday II Vespers in Ordinary Time: the canticle of Ap 19 "Salus et gloria" is sung "more
@@ -25,21 +30,32 @@ const BENEDICAMUS_HORAE = { ferial: 17847, festive: 17848 };
 // take that p. 480 melody, which the Klein Graduale's Sunday booklets (kleingraduale.nl)
 // sing on every Sunday per annum.
 const SALUS_ET_GLORIA = { 1: 4145, 2: 4317, 3: 4145, 4: 4145 };
-// Dominus vobiscum … Benedicat vos: AR II p. 761; at solemnities the solemn tone (GR 1974 p. 817 B)
-const DOMINUS_VOBISCUM = { simple: 4322, solemn: 7463 };
-// Benedicamus Domino at Lauds and Vespers, by rank and hour: Antiphonale Monasticum 2005
-// pp. 541-546 (its "in Festis ad Laudes" is not on GregoBase: feasts sing the Vespers one at
-// both hours), and the Antiphonale Romanum II's for the feasts and octave of Christmas (p. 764)
+// Dominus vobiscum … Benedicat vos: AR II p. 761, its one tone
+const DOMINUS_VOBISCUM = 4322;
+// Benedicamus Domino at Lauds and Vespers: the Antiphonale Romanum II's (pp. 763-765) by the
+// day, the same melodies the AM 2005 gives (pp. 541-546); the AM's where the AR II, a book of
+// Vespers on Sundays and feasts, has none (Lauds of solemnities, ferias). I sollemnitates
+// maiores (Christmas, Epiphany, Ascension), II other solemnities, III feasts and the octave of
+// Christmas, IV solemnities and feasts of Our Lady, V Sundays after the octave of Easter
+// (not on GregoBase: BENEDICAMUS_PASCHAE), VI Sundays of Advent and Lent, VII Sundays per
+// annum. The octave of Easter and Pentecost: Ite in pace with its two Alleluias (p. 762).
 const BENEDICAMUS = {
   major: { vesperae1: 20680, laudes: 20681, vesperae: 20682 },
   solemnity: { laudes: 20683, vesperae: 19868 },
   christmas: 16665,
-  feast: 19187,
-  sunday: 19188,
+  feast: 16665,
+  marian: 16129,
+  sunday: 16976,
+  sundayAdventLent: 3972,
   ferial: { laudes: 20715, vesperae: 19189 },
+  paschal: 17802,
 };
+// AR II p. 765, "V. Post octavam Paschæ", read from the book
+const BENEDICAMUS_PASCHAE = '(c3) BE(e)ne(g)di(h)cá(i)mus(i) Dó(hi/ji/ig/iHGFE/fgf)mi(f)no.(e) (::) <sp>R/</sp> De(eghwi)o(hi/ji/ig/iHGFE) grá(fgf)ti(f)as.(e) (::)';
 // the "sollemnitates maiores": the Lord's great days (the octave of Easter sings Easter's)
 const MAIOR = /^(nativity_of_the_lord|epiphany_of_the_lord|easter_(sunday|monday|tuesday|wednesday|thursday|friday|saturday)|ascension_of_the_lord|pentecost_sunday)$/;
+// the solemnities and feasts of Our Lady (AR II's Benedicamus IV)
+const MARIAN_FEAST = /(_of_the_blessed_virgin_mary|^mary_mother_of_god)$/;
 // Responsories of the Office of Readings that GregoBase has from the Liber Hymnarius (1983) and
 // the Antiphonale Monasticum 2005: the first words of the response and of the verse
 // (lower case, unaccented) that iBreviary's text must begin with
@@ -414,7 +430,7 @@ function sourceOf(header) {
 }
 // the books the generated scores follow (site/sources.js)
 const PSALM_TONE_SOURCE = { label: 'AR II 738–740' };
-const RECITATION_SOURCE = { chapter: { label: 'LU 123' }, festal: { label: 'LU 98' }, simple: { label: 'LU 101' }, ferialB: { label: 'LU 99' }, versicle: { label: 'AM I 532' }, versicleFestive: { label: 'LU 118' } };
+const RECITATION_SOURCE = { chapter: { label: 'LU 123' }, festal: { label: 'LU 98' }, simple: { label: 'LU 101' }, ferialB: { label: 'LU 99' }, versicle: { label: 'AM I 532' }, versicleFestive: { label: 'LU 118' }, lectio: { label: 'AR II 756' }, oratio: { label: 'AR II 759' } };
 
 /**
  * A score, without label (the annotation above the initial gives the mode). Without a
@@ -521,7 +537,7 @@ function openingForSeason(body, cel) {
   if (lent && m) main = main.replace(/†\s*sæ[\s\S]*$/, `${m[1].trim()} (::)`);
   return main.replace(/†\s*/, '');
 }
-/** Deus, in adiutorium: solemn tone at Lauds and Vespers of solemnities, festive on Sundays and feasts, else ferial. */
+/** Deus, in adiutorium: the solemn tone at Lauds and Vespers of solemnities, else the simple one. */
 function openingTone(cel, hour) {
   if (cel.rank === 'SOLEMNITY' && (hour === 'laudes' || hour === 'vesperae')) return DEUS_IN_ADIUTORIUM.solemn;
   return isFestive(cel) ? DEUS_IN_ADIUTORIUM.festive : DEUS_IN_ADIUTORIUM.ferial;
@@ -905,7 +921,7 @@ async function composeLaudesVesperae(main, day, date, hour) {
   if (preces) { main.append(el('<h2 class="section">Intercessions</h2>')); main.append(precesNode(preces.blocks, state.tr?.same ? state.tr.own.preces : null)); }
   if (section(texts, 'PATER NOSTER')) {
     main.append(el('<h2 class="section">Lord’s Prayer</h2>'));
-    main.append(await chantNode(isFestive(cel) ? PATER_NOSTER.festive : PATER_NOSTER.ferial, { annotation: '' }));
+    main.append(await chantNode(PATER_NOSTER, { annotation: '' }));
   }
   const or = section(texts, 'ORATIO');
   if (or) { main.append(el('<h2 class="section">Concluding Prayer</h2>')); main.append(await conclusionNode(or.blocks, cel, hour, { first: propers._first, tr: state.tr?.same ? state.tr.own.oratio : null })); }
@@ -976,37 +992,18 @@ async function conclusionNode(blocks, cel, hour, { first = false, tr = null } = 
     appendFidelium(node);
     return node;
   }
-  const solemn = ['major', 'solemnity'].includes(rankOf(cel));
-  if (state.settings.presider) node.append(await chantNode(solemn ? DOMINUS_VOBISCUM.solemn : DOMINUS_VOBISCUM.simple, { annotation: '' }));
-  else node.append(chantFromGabc(dominusNosBenedicat(cel), { source: dominusNosBenedicatSource(cel) }));
-  node.append(await chantNode(benedicamusFor(cel, first && hour === 'vesperae' ? 'vesperae1' : hour), { annotation: '' }));
+  if (state.settings.presider) node.append(await chantNode(DOMINUS_VOBISCUM, { annotation: '' }));
+  else node.append(chantFromGabc(DOMINUS_NOS_BENEDICAT, { source: { label: 'AR II 763' } }));
+  const dismissal = benedicamusFor(cel, first && hour === 'vesperae' ? 'vesperae1' : hour);
+  node.append(typeof dismissal === 'string' ? chantFromGabc(dismissal, { source: { label: 'AR II 765' } }) : await chantNode(dismissal, { annotation: '' }));
   appendFidelium(node);
   return node;
 }
 /**
- * Dominus nos benedicat has no score in the books. It is pointed here on the tones the
- * books give for the blessing and the collect, by rank, each cadence placed by the accents:
- * - solemnities: the solemn blessing tone (Graduale Romanum 1974 p. 817, tone B): the
- *   first member falls on its last syllable, the second rises to the upper note on its
- *   last accent, the third bends after the accent of perdúcat and closes on ætérnam;
- * - Sundays and feasts: the blessing of the Antiphonale Romanum II p. 761 (Benedicat vos):
- *   the two syllables before the last accent of the first members dip a third and a fourth
- *   below the reciting note ("om-ní-po-tens Dé-us"), the last falls after its accent;
- * - other days: the ferial tone of the collect (AR II p. 759): the first member falls after
- *   its accent, the second has the metrum ("oc-cur-rén-tes"), the last falls to d.
+ * Without a priest or deacon: Dominus nos benedicat, AR II p. 763, on the collect's tone: the
+ * metrum at "ma-lo de-fén-dat", the end falling to la ("æ-tér-nam"), Amen on do.
  */
-const DOMINUS_NOS_BENEDICAT = {
-  solemn: "(c4) DO(g)mi(h)nus(h) nos(h) be(h)ne(h)dí(h)cat,(g.) (;) et(g) ab(h) om(h)ni(h) ma(h)lo(h) de(h)fén(i)dat,(h_') (,) et(h) ad(h) vi(h)tam(h) per(h)dú(h)cat(g) æ(h)tér(hg)nam.(g.) (::) <sp>R/</sp> A(g)men.(gh..) (::)",
-  festive: '(c3) DO(h)mi(h)nus(h) nos(h) be(g)ne(f)dí(h)cat,(h) (;) et(h) ab(h) om(h)ni(h) ma(h)lo(g) de(f)fén(h)dat,(h) (,) et(h) ad(h) vi(h)tam(h) per(h)dú(h)cat(h) æ(h)tér(h)nam.(f) (::) <sp>R/</sp> A(h)men.(h) (::)',
-  ferial: '(c3) DO(h)mi(h)nus(h) nos(h) be(h)ne(h)dí(h)cat,(f) (;) et(h) ab(h) om(h)ni(h) ma(h)lo(g) de(f)fén(h)dat,(h) (;) et(h) ad(h) vi(h)tam(h) per(h)dú(h)cat(h) æ(h)tér(h)nam.(d) (::) <sp>R/</sp> A(h)men.(h) (::)',
-};
-const DOMINUS_NOS_BENEDICAT_SOURCE = { solemn: { label: 'GR 817' }, festive: { label: 'AR II 761' }, ferial: { label: 'AR II 759' } };
-function dominusNosBenedicat(cel) {
-  const r = rankOf(cel);
-  if (r === 'major' || r === 'solemnity') return DOMINUS_NOS_BENEDICAT.solemn;
-  return r === 'ferial' ? DOMINUS_NOS_BENEDICAT.ferial : DOMINUS_NOS_BENEDICAT.festive;
-}
-const dominusNosBenedicatSource = (cel) => { const r = rankOf(cel); return DOMINUS_NOS_BENEDICAT_SOURCE[r === 'major' || r === 'solemnity' ? 'solemn' : r === 'ferial' ? 'ferial' : 'festive']; };
+const DOMINUS_NOS_BENEDICAT = '(c3) DO(h)mi(h)nus(h) nos(h) be(h)ne(h)dí(h)cat,(h) (,) et(h) ab(h) om(h)ni(h) ma(h)lo(g) de(f)fén(h)dat,(h) (;) et(h) ad(h) vi(h)tam(h) per(h)dú(h)cat(h) æ(h)tér(h)nam.(f) (::) <sp>R/</sp> A(h)men.(h) (::)';
 function chantFromGabc(body, { dropCap = true, source = null } = {}) {
   const wrap = el('<div class="chant"><div class="score"></div></div>');
   layouts.push(renderChant(wrap.firstChild, body, { annotation: dropCap ? '' : null, dropCap, source }));
@@ -1015,11 +1012,11 @@ function chantFromGabc(body, { dropCap = true, source = null } = {}) {
 }
 
 // The versicles are sung on the common tones of the AM 2005 / AR II (site/recitation.js).
-// Short readings and collects are sung the same way when the settings ask for it ("Short
-// reading", "Collect": text or sung); the readings of the Office of Readings stay text.
-// "capitulum": the Liber Usualis' tone for the Chapter instead of the Antiphonale Romanum II's
-const singReading = () => !!state.settings.singReading; // true (or 'capitulum', an earlier setting)
-const singCollect = () => state.settings.singCollect === true;
+// Short readings and collects are sung by the settings "Short reading" and "Collect": on the
+// Antiphonale Romanum II's tones (the default), on the Liber Usualis', or left as text; the
+// readings of the Office of Readings stay text.
+const readingStyle = () => state.settings.readingTone || 'ar'; // 'ar' | 'lu' | 'text'
+const collectStyle = () => state.settings.collectTone || 'ar';
 const blockText = (b) => (b?.kind === 'text' ? b.lines.map((l) => (typeof l === 'string' ? l : l.text)).join(' ') : '');
 const recited = () => state.settings.recite !== 'text';
 /** A short reading: its reference, then the reading on the lesson tone. */
@@ -1027,32 +1024,39 @@ function readingNode(blocks, { lesson = false } = {}) {
   const node = el('<div class="block"></div>');
   const text = blocks.filter((b) => b.kind === 'text').map(blockText).join(' ').trim();
   const deo = bonus('deoGratias');
-  // the Liber Usualis' tone for the Chapter; at Compline its tone for the short lesson (p. 123)
-  let gabc = singReading() && text ? chapterGabc(text, { lesson }) : null;
+  // the AR II's tone for the lessons; or the Liber Usualis' tone for the Chapter, at Compline
+  // its tone for the short lesson (p. 123)
+  const style = readingStyle();
+  let gabc = !text || style === 'text' ? null : style === 'lu' ? chapterGabc(text, { lesson }) : readingGabc(text);
   if (!gabc) {
     node.insertAdjacentHTML('beforeend', renderBlocks(blocks));
     if (deo) node.insertAdjacentHTML('beforeend', '<p class="versicle"><span class="r">℟.</span> Deo grátias.</p>');
     return node;
   }
-  // ℟. Deo grátias at the end of the score, on the Chapter's full stop, as the Liber Usualis has it
-  if (deo) gabc = gabc.replace(/\s*$/, ' <sp>R/</sp> De(h)o(h) grá(f)ti(e)as.(ef..) (::)');
+  // ℟. Deo grátias at the end of the score: on the Chapter's full stop, as the Liber Usualis
+  // has it, or on the punctum of the AR II's lesson tone
+  if (deo) gabc = gabc.replace(/\s*$/, style === 'lu' ? ' <sp>R/</sp> De(h)o(h) grá(f)ti(e)as.(ef..) (::)' : ' <sp>R/</sp> De(h)o(h) grá(h)ti(d)as.(d.) (::)');
   node.insertAdjacentHTML('beforeend', renderBlocks(blocks.filter((b) => b.kind !== 'text')));
-  node.append(chantFromGabc(gabc, { dropCap: false, source: RECITATION_SOURCE.chapter }));
+  node.append(chantFromGabc(gabc, { dropCap: false, source: style === 'lu' ? RECITATION_SOURCE.chapter : RECITATION_SOURCE.lectio }));
   return node;
 }
 /**
- * A collect, with Orémus before it and Amen after when iBreviary gives them, on the Liber
- * Usualis' tone for the prayers that the hour and the day call for (`tone`, see collectTone).
+ * A collect, with Orémus before it and Amen after when iBreviary gives them: on the AR II's
+ * tone for the orations, or on the Liber Usualis' tone for the prayers that the hour and the
+ * day call for (`tone`, see collectTone).
  */
 function collectNode(blocks, { tone = 'simple' } = {}) {
   const node = el('<div class="block"></div>');
   const texts = blocks.filter((b) => b.kind === 'text');
   const oremus = /^Orémus\.?$/.test(blockText(texts[0]).trim());
   const text = texts.slice(oremus ? 1 : 0).map(blockText).join(' ').trim();
-  if (!singCollect() || !text) { node.insertAdjacentHTML('beforeend', renderBlocks(blocks)); return node; }
+  const style = collectStyle();
+  if (style === 'text' || !text) { node.insertAdjacentHTML('beforeend', renderBlocks(blocks)); return node; }
   const amen = blocks.some((b) => b.kind === 'versicle' && /^Amen/.test(b.text));
   node.insertAdjacentHTML('beforeend', renderBlocks(blocks.filter((b) => b.kind === 'rubric')));
-  node.append(chantFromGabc(luCollectGabc(text, { tone, oremus, amen }), { dropCap: false, source: RECITATION_SOURCE[tone] }));
+  node.append(style === 'lu'
+    ? chantFromGabc(luCollectGabc(text, { tone, oremus, amen }), { dropCap: false, source: RECITATION_SOURCE[tone] })
+    : chantFromGabc(collectGabc(text, { oremus, amen }), { dropCap: false, source: RECITATION_SOURCE.oratio }));
   return node;
 }
 /**
@@ -1170,15 +1174,25 @@ function rankOf(cel) {
   if (cel.rank === 'SUNDAY') return 'sunday';
   return 'ferial';
 }
-/** Benedicamus Domino for Lauds ("laudes"), I Vespers ("vesperae1") or Vespers. */
+/**
+ * The dismissal of Lauds ("laudes"), I Vespers ("vesperae1") or Vespers: a GregoBase id, or
+ * the GABC of the one the AR II has that GregoBase lacks.
+ */
 function benedicamusFor(cel, hour) {
   const r = rankOf(cel);
+  const id = cel.id || '';
   const at = (set) => set[hour] || set.vesperae;
+  if (EASTER_OCTAVE.test(id) || id === 'pentecost_sunday') return BENEDICAMUS.paschal;
   if (r === 'major') return at(BENEDICAMUS.major);
-  if (cel.seasons?.includes('CHRISTMAS_TIME') && (r !== 'ferial' || /^christmas_octave/.test(cel.id || ''))) return BENEDICAMUS.christmas;
+  if ((r === 'solemnity' || r === 'feast') && MARIAN_FEAST.test(id)) return BENEDICAMUS.marian;
+  if (cel.seasons?.includes('CHRISTMAS_TIME') && (r !== 'ferial' || /^christmas_octave/.test(id))) return BENEDICAMUS.christmas;
   if (r === 'solemnity') return at(BENEDICAMUS.solemnity);
   if (r === 'feast') return BENEDICAMUS.feast;
-  if (r === 'sunday') return BENEDICAMUS.sunday;
+  if (r === 'sunday') {
+    if (cel.seasons?.some((x) => x === 'ADVENT' || x === 'LENT' || x === 'HOLY_WEEK')) return BENEDICAMUS.sundayAdventLent;
+    if (cel.seasons?.includes('EASTER_TIME')) return BENEDICAMUS_PASCHAE;
+    return BENEDICAMUS.sunday;
+  }
   return at(BENEDICAMUS.ferial);
 }
 
@@ -1399,8 +1413,11 @@ function appendMarianPrayer(main, marian, date) {
   const key = marian === 'alma' && (md >= '12-24' || md < '06-01') ? 'almaNat' : marian;
   const p = MARIAN_PRAYER[key];
   main.append(chantFromGabc(versicleGabc(p.v, p.r), { dropCap: false, source: RECITATION_SOURCE.versicle }));
-  // the prayers after the antiphons of Our Lady: the second ferial tone (Liber Usualis p. 124)
-  main.append(chantFromGabc(luCollectGabc(p.oratio, { tone: 'ferialB', oremus: true, amen: true }), { dropCap: false, source: RECITATION_SOURCE.ferialB }));
+  // the prayers after the antiphons of Our Lady: the second ferial tone (Liber Usualis p. 124),
+  // or the AR II's tone for the orations
+  main.append(collectStyle() === 'lu'
+    ? chantFromGabc(luCollectGabc(p.oratio, { tone: 'ferialB', oremus: true, amen: true }), { dropCap: false, source: RECITATION_SOURCE.ferialB })
+    : chantFromGabc(collectGabc(p.oratio, { oremus: true, amen: true }), { dropCap: false, source: RECITATION_SOURCE.oratio }));
   main.append(chantFromGabc(DIVINUM_AUXILIUM, { dropCap: false, source: { label: 'LU 277' } }));
   appendTr(main, [...p.en, 'May the divine assistance remain with us always. — Amen.'], { proper: false });
 }
@@ -1513,8 +1530,8 @@ function applySettings() {
   for (const b of document.querySelectorAll('.mode')) b.setAttribute('aria-checked', String(b.dataset.psalms === (state.settings.psalms || '')));
   $('#opt-memoria').value = state.settings.memoria || '';
   $('#opt-presider').value = state.settings.presider ? '1' : '';
-  $('#opt-sing-reading').value = singReading() ? '1' : '';
-  $('#opt-sing-collect').value = singCollect() ? '1' : '';
+  $('#opt-sing-reading').value = readingStyle();
+  $('#opt-sing-collect').value = collectStyle();
   $('#opt-invitatory').value = state.settings.invitatory || '';
   $('#opt-of-hymn').value = state.settings.ofHymn || '';
   if ($('#opt-translation')) $('#opt-translation').value = TRANSLATION_LANGS.has(state.settings.translation) ? state.settings.translation : '';
@@ -1576,8 +1593,8 @@ async function boot() {
   for (const b of document.querySelectorAll('.mode')) b.onclick = () => { state.settings.psalms = b.dataset.psalms || undefined; saveSettings(); applySettings(); render(); };
   $('#opt-memoria').onchange = (e) => { state.settings.memoria = e.target.value || undefined; saveSettings(); render(); };
   $('#opt-presider').onchange = (e) => { state.settings.presider = e.target.value ? true : undefined; saveSettings(); render(); };
-  $('#opt-sing-reading').onchange = (e) => { state.settings.singReading = e.target.value ? true : undefined; saveSettings(); render(); };
-  $('#opt-sing-collect').onchange = (e) => { state.settings.singCollect = e.target.value ? true : undefined; saveSettings(); render(); };
+  $('#opt-sing-reading').onchange = (e) => { state.settings.readingTone = e.target.value === 'ar' ? undefined : e.target.value; saveSettings(); render(); };
+  $('#opt-sing-collect').onchange = (e) => { state.settings.collectTone = e.target.value === 'ar' ? undefined : e.target.value; saveSettings(); render(); };
   $('#opt-invitatory').onchange = (e) => { state.settings.invitatory = e.target.value || undefined; saveSettings(); render(); };
   $('#opt-of-hymn').onchange = (e) => { state.settings.ofHymn = e.target.value || undefined; saveSettings(); render(); };
   // "Mutual enrichment": the older customs, ticked in their own small window

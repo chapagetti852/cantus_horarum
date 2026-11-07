@@ -4,6 +4,17 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.11.0 — 2026-11-07
+
+- Short reading and collect: sung on the Antiphonale Romanum II's tones by default, or on the
+  Liber Usualis', or as text (settings "Short reading", "Collect"). The collect's conclusion
+  follows the AR II's own cadences ("Spíritus Sánc-ti" si-la, the end falling to la).
+- The Antiphonale Romanum II wherever it gives a piece, the Antiphonale Monasticum only where
+  it is silent: Deus in adiutorium, Pater noster, Dominus vobiscum, Dominus nos benedicat (now
+  the book's own), and Benedicamus Domino by the day (Our Lady's feasts, the Sundays of
+  Advent and Lent, of Eastertide, per annum); Ite in pace, alleluia, alleluia in the octave of
+  Easter and on Pentecost.
+
 ## 1.10.0 — 2026-11-07
 
 - Setting "Office of Readings hymn": by the hour (the night's before 7 in the morning), by

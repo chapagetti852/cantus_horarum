@@ -5,8 +5,10 @@
 //   20920), on do: the flexa falls to la after the last accent ("volun-tá-tem"), the
 //   metrum takes the two syllables before the accent on si and la ("oc-cur-rén-tes"),
 //   the punctum falls to fa after the accent ("cæ-lés-te"). It is the Liber Usualis'
-//   "tonus simplex" with the final fall to fa. The conclusion is sung likewise:
-//   "Fílium tuum" flexa, "Spíritus Sancti, Deus" metrum, "sæculórum" punctum.
+//   "tonus simplex" with the final fall to fa. The conclusion has its own cadences (AR II
+//   p. 760-761): "Fílium tú-um" falls to la on its last syllable, "Spíritus Sánc-ti" takes si
+//   and la on its last two, "Deus," stays on do, and "sæculó-rum" ends on la, not fa (so
+//   "Per Christum Dóminum nós-trum", "in sǽcula sæculó-rum"); Amen on do.
 // - readings: "De cantu lectionum, tonus ferialis" (AM p. 529, AR II p. 756; GregoBase
 //   20919), on do: flexa at a colon or semicolon, punctum (to fa) at a full stop, the
 //   question falling to la with si before and after ("sen-sum Dó-mi-ni?"), and the
@@ -35,9 +37,11 @@ const F = {
   // and of the second ferial tone a minor third ("et fác-tis")
   luFlex: "hr 'h hr g.",
   luFull: "hr 'h hr f.",
+  // the Antiphonale Romanum II's conclusion of the collect: "Spíritus Sánc-ti," si-la
+  sancti: "hr 'g fr f.",
 };
 // the bar after each kind of member
-const BAR = { plain: ',', flexa: ';', metrum: ';', punctum: ':', interrogatio: ':', conclusio: '::', capitulum: ':', luFlex: ';', luFull: ':' };
+const BAR = { plain: ',', flexa: ';', metrum: ';', punctum: ':', interrogatio: ':', conclusio: '::', capitulum: ':', luFlex: ';', luFull: ':', sancti: '' };
 
 const jg = () => {
   if (typeof globalThis.applyPsalmTone !== 'function') throw new Error('jgabc engine not loaded');
@@ -102,7 +106,7 @@ function render(list) {
     const final = i === list.length - 1;
     const kind = m.kind || 'plain';
     // `stop`: the end of a prayer's body on the reciting note, before its conclusion
-    const bar = final ? '(::)' : m.stop ? '(:)' : kind === 'plain' ? (m.syl >= 6 ? '(,)' : '') : `(${BAR[kind]})`;
+    const bar = final ? '(::)' : m.stop ? '(:)' : m.bar !== undefined ? m.bar : kind === 'plain' ? (m.syl >= 6 ? '(,)' : '') : BAR[kind] ? `(${BAR[kind]})` : '';
     return `${point(m.text, kind, final || m.stop)} ${bar}`.trim();
   }).join(' ');
 }
@@ -152,11 +156,30 @@ function collectConclusion(text) {
   return parts.map((p) => ({ ...p, syl: syllables(p.text) }));
 }
 
+/**
+ * The conclusion on the Antiphonale Romanum II's cadences (pp. 760-761): "… Fílium tuum,"
+ * to la on its last syllable, "… Spíritus Sancti," si-la without a bar, "Deus," on do with a
+ * bar, and the end ("sæculórum.", "Dóminum nostrum.") to la on its last syllable.
+ */
+function arConclusion(text) {
+  const parts = [];
+  let rest = clean(text);
+  const fil = /^(.*?Fílium tuum,)\s*(.*)$/.exec(rest);
+  if (fil) { parts.push({ text: fil[1], kind: 'flexa' }); rest = fil[2]; }
+  const sancti = /^(.*?Spíritus Sancti,)\s*(Deus,)\s*(.*)$/.exec(rest);
+  if (sancti) {
+    parts.push({ text: sancti[1], kind: 'sancti' }, { text: sancti[2], kind: 'plain', bar: '(,)' });
+    rest = sancti[3];
+  }
+  parts.push({ text: rest, kind: 'flexa' });
+  return parts.map((p) => ({ ...p, syl: syllables(p.text) }));
+}
+
 /** A collect (its conclusion included) as GABC with clef; `oremus` sets Orémus before it. */
 export function collectGabc(text, { oremus = false, amen = true } = {}) {
   const m = CONCLUSION.exec(clean(text));
   const body = m ? clean(text).slice(0, m.index + m[0].length - m[1].length) : clean(text);
-  const list = [...collectBody(body), ...(m ? collectConclusion(m[1]) : [])];
+  const list = [...collectBody(body), ...(m ? arConclusion(m[1]) : [])];
   const head = oremus ? `${point('Orémus.', 'flexa', true)} (::) ` : '';
   return `(${CLEF}) ${head}${render(list)}${amen ? ' <sp>R/</sp> A(h)men.(h.) (::)' : ''}`;
 }

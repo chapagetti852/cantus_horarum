@@ -43,8 +43,9 @@ Read `README.md` first: it explains every pipeline.
   `cache/texts/days/`; the build copies them to `dist/data/days/`. Sunday solemnities
   take another year's weekday texts (iBreviary gives the Sunday). `translations.mjs`
   fetches English / Chinese for the same window into `cache/texts/tr/`.
-- `site/recitation.js` sings short readings and collects on the Liber Usualis' tones (Chapter,
-  short lesson, festal / ancient simple / ferial B for prayers, by hour and rank, LU p. 124)
+- `site/recitation.js` sings short readings and collects on the Antiphonale Romanum II's tones
+  (default; AR II pp. 756-761) or the Liber Usualis' (Chapter, short lesson, festal / ancient
+  simple / ferial B for prayers, by hour and rank, LU p. 124)
   and the versicles on the LU's two tones by rank; `site/print.js` cuts the hour into PDF pages and booklet sheets, `site/pdf.js` draws them
   into a PDF file with jsPDF + svg2pdf (`site/vendor/pdf/`) and EB Garamond TTF (`site/fonts/pdf/`).
 - `site/sources.js` — abbreviations of the books the scores come from; the build stamps each
@@ -63,6 +64,11 @@ Read `README.md` first: it explains every pipeline.
   under `lang="la"` whatever `font-feature-settings` says.
 
 ## Conventions
+
+- The Antiphonale Romanum II (2009) is the book of the Liturgia Horarum: where it gives a
+  piece, take it over the Antiphonale Monasticum's. An extract of it (Sunday Vespers weeks
+  I-IV, Office of the Dead, Toni communes pp. 737-765, Appendix) was supplied by the user;
+  ask for it again if needed (not committed: copyright).
 
 - Keep the app dependency-free and static; data is precomputed by scripts, committed, and
   copied by `scripts/build.mjs`. Scores are fetched per file from `gabc/<id>.gabc`.

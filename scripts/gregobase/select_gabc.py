@@ -10,12 +10,12 @@ import shutil
 import sys
 from pathlib import Path
 
-COMMON_TONES = [4121, 18178, 7864, 18107, 18108, 4321, 15303, 15301, 15302, 17847, 17848,
+COMMON_TONES = [4121, 7864, 18107, 18108, 4321, 15301, 15302, 17847, 17848,
                 18352, 18353, 18354, 18355, 18356, 18357, 18358, 18359, 18360, 18361, 18362, 18363, 18364, 18365, 18366,
                 # invitatory psalm 94 (Liber Hymnarius tones II-VII, IV*, IV**, VI*, VI**, D, E)
                 8218, 10397, 15508, 7669, 16356, 10248, 9664, 10035, 15059, 9834, 9707, 9642,
                 # conclusions of Lauds and Vespers (Antiphonale Romanum II pp. 761-765)
-                4322, 3972, 16976, 16129, 16665]
+                4322, 3972, 16976, 16129, 16665, 17802]
 
 
 def main():

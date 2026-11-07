@@ -17,11 +17,16 @@ test('collect: flexa, metrum, punctum (AR II p. 759)', () => {
   assert.match(n, /cæ:h lés:h te:d$/, 'punctum: fa after the accent');
 });
 
-test('collect conclusion', () => {
-  const n = notes(collectGabc('Deus, qui ... Per Dóminum nostrum Iesum Christum, Fílium tuum, qui tecum vivit et regnat in unitáte Spíritus Sancti, Deus, per ómnia sǽcula sæculórum.'));
+test('collect conclusion (AR II pp. 760-761)', () => {
+  const g = collectGabc('Deus, qui ... Per Dóminum nostrum Iesum Christum, Fílium tuum, qui tecum vivit et regnat in unitáte Spíritus Sancti, Deus, per ómnia sǽcula sæculórum.');
+  const n = notes(g);
   assert.match(n, /Fí:h li:h um:h tu:h um:f/);
-  assert.match(n, /Sanc:g ti:f De:h us:h/);
-  assert.match(n, /sæ:h cu:h ló:h rum:d A:h men:h$/);
+  assert.match(n, /Spí:h ri:h tus:h Sanc:g ti:f De:h us:h per:h/);
+  assert.match(g, /Sanc\(g\)ti,\(f\) De\(h\)us,\(h\) \(,\)/, 'no bar after Sancti, a bar after Deus');
+  assert.match(n, /sæ:h cu:h ló:h rum:f A:h men:h$/, 'the end falls to la only');
+  assert.match(notes(collectGabc('Deus, qui ... Per Christum Dóminum nostrum.')), /Per:h Chris:h tum:h Dó:h mi:h num:h nos:h trum:f A:h men:h$/);
+  assert.match(notes(collectGabc('Deus, qui ... Qui vivis et regnas in sǽcula sæculórum.')), /in:h sǽ:h cu:h la:h sæ:h cu:h ló:h rum:f A:h men:h$/);
+  assert.match(notes(collectGabc('Deus, qui ... Qui vivis et regnas cum Deo Patre in unitáte Spíritus Sancti, Deus, per ómnia sǽcula sæculórum.')), /Pa:h tre:h in:h u:h ni:h tá:h te:h Spí:h ri:h tus:h Sanc:g ti:f De:h us:h/);
 });
 
 test('reading: flexa, punctum, conclusion, question (AR II p. 756)', () => {
