@@ -77,7 +77,17 @@ async function json(url) { const r = await fetch(url); if (!r.ok) throw new Erro
 async function textsFor(day, date, hour) {
   if (!(date in state.days)) state.days[date] = await json(`data/days/${date}.json`).catch(() => null);
   const own = state.days[date];
-  return own?.hours[TEXT_HOUR[hour]] || state.psalterium[`${day.psalter}-${day.dow}`]?.hours[TEXT_HOUR[hour]];
+  return withoutInvitatoryRubrics(own?.hours[TEXT_HOUR[hour]] || state.psalterium[`${day.psalter}-${day.dow}`]?.hours[TEXT_HOUR[hour]]);
+}
+/**
+ * iBreviary's rubrics on where the invitatory goes and on Ps 94 standing in for a psalm of
+ * the hour ("Quando sequens psalmus adhibitus est ad Invitatorium …"): the app places the
+ * invitatory itself, always with Ps 94, so they go.
+ */
+const INVITATORY_RUBRIC = /Invitatori/;
+function withoutInvitatoryRubrics(sections) {
+  if (!sections) return sections;
+  return sections.map((sec) => ({ ...sec, blocks: (sec.blocks || []).filter((b) => !((b.kind === 'rubric' || b.kind === 'text') && INVITATORY_RUBRIC.test(b.kind === 'rubric' ? b.text : (b.lines || []).map((l) => (typeof l === 'string' ? l : l.text)).join(' ')))) }));
 }
 const hasOwnTexts = (date) => !!state.days[date];
 
@@ -107,14 +117,20 @@ function psalterSlot(day, date, hour) {
 
 function ocoPsalter(slot) {
   return state.oco.filter((e) => e.part === 'PSALTERIUM' && e.chapter === slot.chapter && e.day === slot.dayName && e.hour === slot.label)
-    .map((e) => followReference(e) || e);
+    .flatMap((e) => followReference(e) || [e]);
 }
-/** "Ut in hebd. I." points to the same place of the same day in another psalter week. */
+/**
+ * "Ut in hebd. II." points to the same place of the same day in another psalter week. The
+ * hymn's place ("H") takes all the hymns of that hour there, which the OCO lists without a
+ * place (Sunday's Office of Readings: one by night, one by day).
+ */
 function followReference(e) {
-  const m = e.kind === 'reference' && /hebd\.\s*([IV]+)/i.exec(e.title || '');
+  const m = e.kind === 'reference' && /hebd(?:\.|omada)\s*([IV]+)/i.exec(e.title || '');
   if (!m) return null;
-  return state.oco.find((x) => x.part === 'PSALTERIUM' && x.chapter === `HEBDOMADA ${m[1]}` && x.day === e.day
-    && x.hour === e.hour && x.position === e.position && x.kind !== 'reference') || null;
+  const there = (x) => x.part === 'PSALTERIUM' && x.chapter === `HEBDOMADA ${m[1]}` && x.day === e.day && x.hour === e.hour && x.kind !== 'reference';
+  if (e.position === 'H') { const hymns = state.oco.filter((x) => there(x) && x.kind === 'hymn'); if (hymns.length) return hymns; }
+  const one = state.oco.find((x) => there(x) && x.position === e.position);
+  return one ? [one] : null;
 }
 /** On a memorial in Ordinary Time, from the short reading on: the weekday unless the common is chosen. */
 const memoriaDeFeria = (cel) => cel?.rank === 'MEMORIAL' && isSanctoral(cel) && cel.seasons?.includes('ORDINARY_TIME') && state.settings.memoria !== 'commune';
@@ -975,10 +991,19 @@ function readingNode(blocks) {
   const node = el('<div class="block"></div>');
   const text = blocks.filter((b) => b.kind === 'text').map(blockText).join(' ').trim();
   const chapter = state.settings.singReading === 'capitulum';
-  const gabc = singReading() && text ? (chapter ? chapterGabc(text) : readingGabc(text)) : null;
-  if (!gabc) { node.insertAdjacentHTML('beforeend', renderBlocks(blocks)); return node; }
+  const deo = bonus('deoGratias');
+  let gabc = singReading() && text ? (chapter ? chapterGabc(text) : readingGabc(text)) : null;
+  if (!gabc) {
+    node.insertAdjacentHTML('beforeend', renderBlocks(blocks));
+    if (deo) node.insertAdjacentHTML('beforeend', `<p class="versicle"><span class="r">℟.</span> Deo grátias. <span class="bonus-inline">ex more, ad libitum</span></p>`);
+    return node;
+  }
+  // ℟. Deo grátias at the end of the score, as the Liber Usualis has it after the Chapter (p. 123):
+  // on the Chapter's full stop; after the Antiphonale Romanum II's tone, on its reciting note
+  if (deo) gabc = gabc.replace(/\s*$/, ` <sp>R/</sp> ${chapter ? 'De(h)o(h) grá(f)ti(e)as.(ef..)' : 'De(h)o(h) grá(h)ti(h)as.(h.)'} (::)`);
   node.insertAdjacentHTML('beforeend', renderBlocks(blocks.filter((b) => b.kind !== 'text')));
   node.append(chantFromGabc(gabc, { dropCap: false, source: chapter ? RECITATION_SOURCE.chapter : RECITATION_SOURCE.reading }));
+  if (deo) node.insertAdjacentHTML('beforeend', '<p class="bonus-note">℟. Deo grátias: ex more, ad libitum</p>');
   return node;
 }
 /** A collect, with Orémus before it and Amen after when iBreviary gives them, on the collect tone. */
@@ -1126,7 +1151,8 @@ async function composeCompline(main, day, date, hour) {
   const opening = texts?.find((s) => s.title && /^Completorium$/i.test(s.title));
   for (const b of opening?.blocks || []) if (b.kind === 'rubric') main.insertAdjacentHTML('beforeend', renderTextBlock(b));
 
-  await appendHymn(main, withScore(entries.find((e) => e.kind === 'hymn')), hymnTextNode(texts));
+  const otHymn = !propers.H && cel.seasons?.includes('ORDINARY_TIME') ? complineHymnPerAnnum(day, cel) : null;
+  await appendHymn(main, otHymn || withScore(entries.find((e) => e.kind === 'hymn')), otHymn ? null : hymnTextNode(texts));
   await appendPsalmody(main, entries.filter((e) => e.kind !== 'reference'), section(texts, 'PSALMODIA'));
 
   const lb = section(texts, 'LECTIO BREVIS');
@@ -1180,6 +1206,23 @@ async function composeCompline(main, day, date, hour) {
   if (bonus('marianPrayer')) appendMarianPrayer(main, marian, date);
 }
 const NOCTEM_QUIETAM = 20685;
+/**
+ * The hymn of Compline in Ordinary Time (OCO index; Liber Hymnarius pp. 241-244): Te lucis in
+ * psalter weeks I and III, Christe qui splendor in weeks II and IV, each with its melody for
+ * ferias, memorials, feasts, Sundays (after I and II Vespers) and solemnities. Saturday
+ * evening is the Sunday's Compline, of the next week.
+ */
+const COMPLINE_HYMNS = {
+  te: { title: 'Te lucis ante terminum', fer: 4680, mem: 4681, fest: 4682, dom: 4677, soll: 4683 },
+  christe: { title: 'Christe qui splendor et dies', fer: 7519, mem: 7518, fest: 7517, dom: 7515, soll: 16706 },
+};
+function complineHymnPerAnnum(day, cel) {
+  const week = day.dow === 6 ? (day.psalter % 4) + 1 : day.psalter;
+  const form = cel.rank === 'SOLEMNITY' ? 'soll' : day.dow === 6 || day.dow === 0 ? 'dom'
+    : cel.rank === 'FEAST' ? 'fest' : cel.rank === 'MEMORIAL' && isSanctoral(cel) ? 'mem' : 'fer';
+  const h = COMPLINE_HYMNS[week % 2 ? 'te' : 'christe'];
+  return { kind: 'hymn', title: h.title, gabc: h[form] };
+}
 // the antiphon in place of the responsory at Compline (OCO entries, read from its notation)
 const COMPLINE_IN_PLACE = { holy_thursday: 620, thursday_of_the_lords_supper: 620, friday_of_the_passion_of_the_lord: 645, holy_saturday: 667 };
 const EASTER_OCTAVE = /^(easter_(sunday|monday|tuesday|wednesday|thursday|friday|saturday)|divine_mercy_sunday)$/;
@@ -1237,6 +1280,7 @@ const BONUS = {
   fidelium: 'Fidelium animæ at the end of the hours (not Compline)',
   marianPrayer: 'After the antiphon of Our Lady: its versicle, collect and Divinum auxilium',
   marianCalendar: 'The antiphon of Our Lady by the traditional calendar',
+  deoGratias: '℟. Deo gratias after the short reading',
 };
 const bonus = (k) => !!state.settings.bonus?.[k];
 const BONUS_NOTE = '<p class="rubric bonus-note">Ex more, ad libitum</p>';

@@ -56,13 +56,15 @@ writeFileSync(join(dist, 'data/oco.json'), JSON.stringify(compact));
 
 // ---- slot codes of the OCO indices, for resolving propers (site/resolve.js) ------
 const indices = JSON.parse(readFileSync(join(root, 'data/oco/indices.json'), 'utf8'));
+const indexHymns = JSON.parse(readFileSync(join(root, 'data/oco/index-hymns.json'), 'utf8'));
 // the index gives some hymns to I Vespers only where the OCO body sings them at both
 // ("Te sæculorum principem", Christ the King: "I & II Vesp."); 'V' is both
 const bothVespers = new Set(entries.filter((e) => e.kind === 'hymn' && e.lhym && /I & II/.test(e.hour || '')).map((e) => String(e.lhym)));
 for (const e of indices.hymni) if (e.officium === '1V' && bothVespers.has(String(e.lhym))) e.officium = 'V';
 const slots = [
   ...indices.antiphonae.map((e) => ['a', e.tempus, e.officium, e.locus, e.oco_ids, null, e.incipit]),
-  ...indices.hymni.map((e) => ['h', e.tempus, e.officium, '', [], e.lhym, e.incipit]),
+  // the 8th field: the score of a hymn the OCO names only in its index (data/oco/index-hymns.json)
+  ...indices.hymni.map((e) => ['h', e.tempus, e.officium, '', [], e.lhym, e.incipit, indexHymns[`${e.incipit}|${e.lhym}`] ?? null]),
   ...indices.responsoria_brevia.map((e) => ['r', e.tempus, e.officium, '', e.oco_ids, null, e.incipit]),
 ];
 writeFileSync(join(dist, 'data/slots.json'), JSON.stringify(slots));
@@ -76,7 +78,8 @@ const COMMON_TONES = [4121, 18178, 7864, 18107, 18108, 4321, 15303, 15301, 15302
   4322, 7463, 16665, 20680, 20681, 20682, 20683, 19868, 19187, 19188, 19189, 20715, 20685, 4694, 18754, 18753, 18655,
   // responsories of the Office of Readings (RESPONSORIA in site/app.js)
   16139, 16360, 16205, 16108, 16135, 19647, 20401, 20438, 20687];
-const ids = new Set([...compact.map((e) => e.gabc).filter(Boolean), ...COMMON_TONES]);
+const ids = new Set([...compact.map((e) => e.gabc).filter(Boolean), ...COMMON_TONES, 4680, 4681, 4682, 4677, 4683, 7515, 7517, 7518, 7519, 16706,
+  ...Object.values(indexHymns).flatMap((v) => (typeof v === 'object' ? Object.values(v) : [v]))]);
 mkdirSync(join(dist, 'gabc'), { recursive: true });
 let copied = 0, missing = 0;
 // each file headed with where its notation comes from (site/sources.js), shown at the top
@@ -91,12 +94,51 @@ const headerOf = (txt) => {
   }
   return h;
 };
+// Hymns GregoBase has with their first strophe only, completed with the same melody on every
+// strophe of the full text, taken (already in syllables) from another form of the same hymn
+// in the Liber Hymnarius: "Te lucis" ferial (p. 241) and for memorials, from its Sunday form (p. 242)
+const COMPLETE_FROM = { 4680: 4677, 4681: 4677 };
+const AMEN = { 8: 'A(ghg)men.(fg..)' };
+const bodyOf = (txt) => { const parts = txt.split(/^%%\s*$/m); return parts[parts.length - 1]; };
+function completeHymn(shortTxt, fullTxt, mode) {
+  const short = bodyOf(shortTxt);
+  const clef = /^\s*(\([cf]b?\d\))/.exec(short)?.[1] || '';
+  const firstSrc = short.replace(/^\s*\([cf]b?\d\)/, '').split('(::)')[0].trim();
+  const groups = (src) => [...src.matchAll(/\(([^)]*)\)/g)].map((m) => m[1]);
+  const isBar = (g) => /^[,;:]+$/.test(g);
+  const tune = groups(firstSrc + ' (::)');
+  const tuneNotes = tune.filter((g) => !isBar(g)), tuneBars = tune.filter(isBar);
+  const strophes = bodyOf(fullTxt).replace(/^\s*\([cf]b?\d\)/, '').split(/\(::\)/).map((x) => x.trim()).filter((x) => /\(/.test(x));
+  const out = [`${clef} ${firstSrc} (::)`];
+  for (const st0 of strophes.slice(1)) {
+    let st = st0;
+    if (/^A\([^)]*\)\s*men\.?\([^)]*\)$/i.test(st)) { // the Amen on its own
+      if (AMEN[mode]) out[out.length - 1] += ` ${AMEN[mode]} (::)`;
+      continue;
+    }
+    const amen = /\s*A\([^)]*\)\s*men\.?\([^)]*\)\s*$/i.exec(st);
+    if (amen) st = st.slice(0, amen.index);
+    const g = groups(st + ' (::)');
+    if (g.filter((x) => !isBar(x)).length !== tuneNotes.length || g.filter(isBar).length !== tuneBars.length) return null; // they do not scan alike
+    let n = 0, b = 0;
+    const done = (st + ' (::)').replace(/\(([^)]*)\)/g, (m, x) => `(${isBar(x) ? tuneBars[b++] : tuneNotes[n++]})`);
+    out.push(`${done}${amen && AMEN[mode] ? ` ${AMEN[mode]} (::)` : ''}`);
+  }
+  return out.join('\n\n');
+}
 const sourceLabels = {};
 for (const id of ids) {
   const oco = String(id).startsWith('oco-');
   const src = oco ? join(root, 'data/gabc-oco', `${String(id).slice(4)}.gabc`) : join(gabcCache, `${id}.gabc`);
   if (!existsSync(src)) { missing++; continue; }
-  const txt = readFileSync(src, 'utf8');
+  let txt = readFileSync(src, 'utf8');
+  if (COMPLETE_FROM[id]) {
+    const full = join(gabcCache, `${COMPLETE_FROM[id]}.gabc`);
+    const mode = Number(headerOf(txt).mode) || 8;
+    const done = existsSync(full) ? completeHymn(txt, readFileSync(full, 'utf8'), mode) : null;
+    if (done) txt = txt.replace(/(^%%\s*$)(?![\s\S]*^%%\s*$)[\s\S]*/m, `$1\n${done}\n`).replace(/^name:/m, `completed-from: ${COMPLETE_FROM[id]};\nname:`);
+    else console.log(`hymn ${id}: could not be completed from ${COMPLETE_FROM[id]}`);
+  }
   const label = oco ? `OCO ${entriesById.get(Number(String(id).slice(4)))?.page ?? ''}`.trim() : gregobaseLabel(chantsById.get(Number(id)), headerOf(txt));
   sourceLabels[label.split(' ')[0]] = (sourceLabels[label.split(' ')[0]] || 0) + 1;
   writeFileSync(join(dist, 'gabc', `${id}.gabc`), `cantus-source: ${label.replace(/;/g, ',')};\n${oco ? '' : `gregobase-id: ${id};\n`}${txt}`);

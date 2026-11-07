@@ -338,6 +338,27 @@ On memorials in Ordinary Time, Lauds and Vespers take the weekday from the short
 on (reading, responsory, canticle antiphon unless proper, intercessions), or, by the
 option, the common; the collect is always the saint's.
 
+### Hymns the OCO names only in its index
+
+Some hymns have no entry with a score in the OCO's body, only a row in its index (the
+common of pastors, the hymns of Lent, the forms of the small hours and of Compline by
+rank). `scripts/oco/match_index_hymns.py` matches each to GregoBase: the Liber Hymnarius on
+the page the index cites (the row's qualifier choosing among the forms, "(fer.)", "(mem.)",
+"(fest.)", "(dom.)", "(soll.)"), else the same hymn a page or two away, else the
+Antiphonale Romanum II or the Liber Usualis (never a hymn marked for another season). The
+pastors' hymns keep their three forms (pro Papa, pro Episcopo, pro Presbytero) and the app
+takes the saint's. It writes `data/oco/index-hymns.json`; the build puts the score in the
+index row (`data/slots.json`, 8th field) for `site/resolve.js`. Nine rows have no score on
+GregoBase. A psalter reference "Ut in hebd. II" for the hymn takes all the hymns of that
+hour there (Sunday's Office of Readings has one by night, one by day).
+
+Compline in Ordinary Time sings Te lucis in psalter weeks I and III and Christe qui
+splendor in weeks II and IV, each in the melody of the day's rank (ferias, memorials,
+feasts, Sundays, solemnities: Liber Hymnarius pp. 241-244); Saturday evening is the
+Sunday's Compline, of the next week. GregoBase has Te lucis for ferias and memorials with
+its first strophe only: the build completes them with the same melody on every strophe of
+the Sunday form's text (`completeHymn` in `scripts/build.mjs`), if they scan alike.
+
 ### Mutual enrichment
 
 A window in the settings ("Mutual enrichment: Bonus content") adds customs of the older
@@ -350,6 +371,8 @@ Roman Office, each marked in the hour with the rubric *ex more, ad libitum*
   Romanum; the Alma's versicle and collect change at I Vespers of Christmas), sung on the
   common tones, and *Divinum auxílium máneat semper nobíscum. ℟. Amen.* (Liber Usualis
   p. 277, recto tono).
+- ℟. *Deo grátias* after the short reading, as after the Chapter in the older Office: in
+  the score when it is sung (on the Chapter's full stop, Liber Usualis p. 123), else as text.
 - The antiphon of Our Lady by the traditional calendar (rubrics of 1960): Alma Redemptoris
   from Compline of the Saturday before Advent to 1 February, Ave Regina from 2 February to
   Wednesday of Holy Week, none in the Triduum, Regina cæli from Easter to the Friday after

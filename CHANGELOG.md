@@ -4,6 +4,19 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.6.0 — 2026-11-07
+
+- Hymns with a score where they had only text: Sunday's Office of Readings in weeks II and
+  IV (Salve dies), the common of pastors (Christe pastorum caput, Inclitus rector, Vir celse,
+  Dum sacerdotum, Hi sacerdotes, Sacrata nobis, in the form for a pope, a bishop or a
+  priest), and the other hymns the OCO names only in its index (51 in all).
+- Compline in Ordinary Time: Te lucis or Christe qui splendor by the psalter week, in the
+  melody of the day's rank (Sunday, solemnity, feast, memorial, feria), Saturday evening
+  being the Sunday's; fully notated with the Liber Hymnarius text.
+- Mutual enrichment: ℟. Deo gratias after the short reading.
+- iBreviary's rubrics on the invitatory ("Quando sequens psalmus adhibitus est ad
+  Invitatorium…") are left out: the app places the invitatory itself, always with Ps 94.
+
 ## 1.5.0 — 2026-11-07
 
 - Settings "Short reading" and "Collect": text, or sung. The short reading on the tone of

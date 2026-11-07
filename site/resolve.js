@@ -60,6 +60,8 @@ export function context(cel, date, mode = isSanctoral(cel) ? 'sanctoral' : 'temp
     id: cel.id, rank: cel.rank, prec: precNumber(cel), season, week: cel.week, dow: cel.dow, dm, sanctoral,
     named: sanctoral || TEMPORAL_NAMED.has(NAMED[cel.id]) ? NAMED[cel.id] : undefined,
     commons: sanctoral ? commons : new Set(), plural, year: (cel.sunday || 'A').toLowerCase(),
+    // the pastor's order, for the hymns of the common of pastors that come in three forms
+    order: (cel.titles || []).includes('POPE') ? 'papa' : (cel.titles || []).includes('BISHOP') || (cel.commons || []).includes('Bishops') ? 'episcopus' : 'presbyter',
     before17: season === 'A' && !(m === 12 && d >= 17),
     afterEp: season === 'N' && m === 1 && d >= 6,
     // Easter: before or after the Ascension (romcal weeks 1-7; Ascension is Thursday of week 6)
@@ -201,7 +203,10 @@ function entryFor(oco, ids, lhym, kind, row, c) {
     let list = onPage.filter(byInc);
     if (!list.length) list = oco.hymns.filter(byInc);
     if (!list.length) list = onPage;
-    return list.find((e) => e.gabc) || list[0] || (row[6] ? { kind: 'hymn', title: row[6], lhym } : null);
+    // a hymn the OCO names only in its index: the score matched to it (scripts/oco/match_index_hymns.py),
+    // the pastors' in the form for a pope, a bishop or a priest
+    const own = row[7] && (typeof row[7] === 'object' ? row[7][c?.order || 'presbyter'] : row[7]);
+    return list.find((e) => e.gabc) || (own ? { kind: 'hymn', title: row[6], lhym, gabc: own } : null) || list[0] || (row[6] ? { kind: 'hymn', title: row[6], lhym } : null);
   }
   const list = (ids || []).map((i) => oco.byId.get(i)).filter(Boolean);
   // the index's links reach every piece with that incipit: keep the right genre
