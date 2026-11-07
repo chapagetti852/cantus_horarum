@@ -78,7 +78,7 @@ const COMMON_TONES = [4121, 7864, 18107, 18108, 4321, 15301, 15302, 17847, 17848
   // Salus et gloria with its Alleluias, Sunday II Vespers per annum (SALUS_ET_GLORIA in site/app.js)
   4317, 4145,
   // conclusions of Lauds and Vespers, Antiphonale Romanum II pp. 761-765
-  4322, 16665, 16129, 16976, 3972, 17802, 20680, 20681, 20682, 20683, 19868, 19189, 20715, 20685, 4694, 18754, 18753, 18655,
+  4322, 16665, 16129, 16976, 3972, 17802, 1310, 20680, 20681, 20682, 20683, 19868, 19189, 20715, 20685, 4694, 18754, 18753, 18655,
   // responsories of the Office of Readings (RESPONSORIA in site/app.js)
   16139, 16360, 16205, 16108, 16135, 19647, 20401, 20438, 20687];
 const ids = new Set([...compact.map((e) => e.gabc).filter(Boolean), ...COMMON_TONES, 4680, 4681, 4682, 4677, 4683, 7515, 7517, 7518, 7519, 16706,

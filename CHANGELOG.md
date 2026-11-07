@@ -4,6 +4,14 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.14.0 — 2026-11-07
+
+- The canticle of Ap 19 at Sunday II Vespers outside Ordinary Time (Advent, Eastertide,
+  feasts) is sung with its Alleluias too, as the Antiphonale Romanum II prints it (pp. 10,
+  40, 238), between the day's antiphon.
+- Setting "Pange lingua": the Liber Hymnarius melody or the old Vatican edition's, which the
+  AR II gives as an alternative (appendix p. 773).
+
 ## 1.13.0 — 2026-11-07
 
 - Intercessions sung on the Antiphonale Romanum II's tone (p. 758), the introduction and

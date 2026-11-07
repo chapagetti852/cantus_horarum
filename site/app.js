@@ -1,5 +1,5 @@
 // Cantus Horarum — compose and display one hour of the Liturgia Horarum in chant.
-import { loadGabc, renderChant, splitGabc, watchResize, setPerLine } from './chant.js';
+import { loadGabc, renderChant, splitGabc, watchResize, setPerLine, setGabcAliases } from './chant.js';
 import { FORMATS, printColumn } from './print.js';
 import { makePdfFile } from './pdf.js';
 import { BOOKS } from './sources.js';
@@ -720,6 +720,21 @@ async function appendPsalmody(main, entries, psalmodySection, { single = null, s
       if (g === last) after.length = 0; // iBreviary's closing "Allelúia" refrain, sung in the score
       continue;
     }
+    // in the other seasons (and on solemnities) the AR II has the canticle Ap 19 "modo tropari,
+    // cum Alleluia et antiphona" (p. 457): its Alleluia melody (pp. 10, 40, 238, GregoBase
+    // 4145) between the day's antiphon
+    if (g && ant && ant.kind !== 'reference' && g.items.some((x) => x.kind === 'psalm' && /Ap 19/.test(x.ref || ''))) {
+      const box = el('<div></div>');
+      await appendSalusEtGloria(box, g, SALUS_ET_GLORIA[3]);
+      const before = await antiphonNode(ant, g.antiphon);
+      main.append(before, ...box.childNodes, await antiphonNode(ant, g.repeat || g.antiphon));
+      if (state.tr) {
+        const t = sungTr(ant?.text, printed[n], null, { shared: state.tr.same || ant?.part === 'PSALTERIUM' });
+        if (t) before.after(trP(state.tr.lang, esc(t)));
+      }
+      if (g === last) after.length = 0;
+      continue;
+    }
     const used = [];
     const trFor = (head) => { const t = nextTrPsalm(head); used.push(t); return t; };
     // iBreviary's antiphon ends in † when it quotes the psalm's opening; the OCO's may put
@@ -1431,6 +1446,9 @@ function appendMarianPrayer(main, marian, date) {
 }
 
 async function render() {
+  // the Antiphonale Romanum II's alternative melody of Pange lingua, the old Vatican edition's
+  // (appendix p. 773; GregoBase 1310, Liber Usualis p. 957), for the Liber Hymnarius' (8671)
+  setGabcAliases(state.settings.pangeLingua === 'vaticana' ? { 8671: 1310 } : {});
   const main = $('#office');
   main.replaceChildren(el('<p class="loading">Loading…</p>'));
   layouts.length = 0;
@@ -1543,6 +1561,7 @@ function applySettings() {
   $('#opt-preces').value = state.settings.precesTone || 'ar';
   $('#opt-invitatory').value = state.settings.invitatory || '';
   $('#opt-of-hymn').value = state.settings.ofHymn || '';
+  $('#opt-pange').value = state.settings.pangeLingua || '';
   if ($('#opt-translation')) $('#opt-translation').value = TRANSLATION_LANGS.has(state.settings.translation) ? state.settings.translation : '';
 }
 // The two psalm modes, shown in their cards as they will look: Ps 116 on tone 8 g, its
@@ -1606,6 +1625,7 @@ async function boot() {
   $('#opt-preces').onchange = (e) => { state.settings.precesTone = e.target.value === 'ar' ? undefined : e.target.value; saveSettings(); render(); };
   $('#opt-sing-collect').onchange = (e) => { state.settings.collectTone = e.target.value === 'ar' ? undefined : e.target.value; saveSettings(); render(); };
   $('#opt-invitatory').onchange = (e) => { state.settings.invitatory = e.target.value || undefined; saveSettings(); render(); };
+  $('#opt-pange').onchange = (e) => { state.settings.pangeLingua = e.target.value || undefined; saveSettings(); render(); };
   $('#opt-of-hymn').onchange = (e) => { state.settings.ofHymn = e.target.value || undefined; saveSettings(); render(); };
   // "Mutual enrichment": the older customs, ticked in their own small window
   const box = $('#bonus-list');

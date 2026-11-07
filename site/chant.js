@@ -8,9 +8,16 @@ const gabcCache = new Map();
 let perLine = false;
 export function setPerLine(v) { perLine = !!v; }
 
-export async function loadGabc(id) {
+// scores sung in place of others by a setting ({ 8671: 1310 }: the Vatican Pange lingua)
+let aliases = {};
+export function setGabcAliases(map) { aliases = map || {}; }
+/** The lyrics of an older edition spelt as the Liber Hymnarius spells them (æ, œ, i for j). */
+const modernSpelling = (src) => src.replace(/^\*\s*(?=\d+\.)/gm, '').split(/(\([^)]*\)|^[\w-]+:.*$)/m).map((t, i) => (i % 2 ? t
+  : t.replace(/ae/g, 'æ').replace(/Ae/g, 'Æ').replace(/oe/g, 'œ').replace(/j/g, 'i').replace(/J/g, 'I'))).join('');
+export async function loadGabc(id0) {
+  const id = aliases[id0] || id0;
   if (!gabcCache.has(id)) {
-    gabcCache.set(id, fetch(`gabc/${id}.gabc`).then((r) => (r.ok ? r.text() : null)).catch(() => null));
+    gabcCache.set(id, fetch(`gabc/${id}.gabc`).then((r) => (r.ok ? r.text() : null)).then((t) => (t && id !== id0 ? modernSpelling(t) : t)).catch(() => null));
   }
   return gabcCache.get(id);
 }

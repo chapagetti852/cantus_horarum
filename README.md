@@ -331,7 +331,13 @@ prints in Advent and Eastertide; GregoBase 4145) and weeks II and IV (pp. 469, 4
 GregoBase 4317). (The Klein Graduale's booklets, kleingraduale.nl/LiturgiaHorarum, sing the
 first on every Sunday per annum; they give Sunday Lauds, Vespers and Compline for each
 Sunday of the three years, after the OCO 1983, useful to check Sunday chants GregoBase lacks.)
-Its translation follows it, the verses without their Alleluias.
+Its translation follows it, the verses without their Alleluias. Outside Ordinary Time (Advent, Eastertide, feasts with that canticle)
+the AR II sings it the same way, with the p. 480 melody, between the day's antiphon.
+
+The AR II's appendix gives the old Vatican edition's melodies of Pange lingua and Vexilla
+regis as alternatives. Pange lingua is a setting (GregoBase 1310, Liber Usualis p. 957, its
+spelling brought to the Liber Hymnarius' in `loadGabc`); the Liber Hymnarius' Vexilla regis
+(p. 58) is already the Vatican melody.
 
 Hymns: the Liber Hymnarius's score where GregoBase has it; where it has none, the
 Antiphonale Romanum II's of the same incipit (`match_hymni.py`; "O lux beata Trinitas",
