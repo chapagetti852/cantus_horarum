@@ -4,6 +4,14 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.18.1 — 2026-11-10
+
+- English under the Latin: the antiphons of the coming weeks the OCO gives where the
+  Liturgia Horarum has others (Advent's little hours, the third Sunday of Advent, Christ the
+  King, the eve of 8 December) and Eastertide's Alleluia have their translation; so do the
+  hymns Iesu redemptor omnium, Iesu corona celsior and Verbum salutis omnium. The Advent
+  hymns from 17 December are paired with iBreviary's English.
+
 ## 1.18.0 — 2026-11-10
 
 - Lauds on Fridays has its psalms again: iBreviary closes the heading of the psalmody after
