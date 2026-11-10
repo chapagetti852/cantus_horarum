@@ -1,5 +1,6 @@
 {
  "date": "2026-06-17",
+ "v": 3,
  "hours": {
   "lectio": [
    {
@@ -580,11 +581,20 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Séquitur in oratióne: Advéniat regnum tuum. Regnum étiam Dei repræsentári nobis pétimus, sícuti et nomen eius ut in nobis sanctificétur postulámus. Nam Deus quando non regnat, aut apud eum quando íncipit quod et semper fuit et esse non désinit? Nostrum regnum pétimus adveníre a Deo nobis repromíssum, Christi sánguine et passióne quæsítum, ut, qui in sǽculo ante servívimus, póstmodum Christo dominánte regnémus, sicut ipse pollicétur et dicit: Veníte, benedícti Patris mei, percípite regnum quod vobis parátum est ab orígine mundi."
-       }
-      ]
+       "Séquitur in oratióne: Advéniat regnum tuum. Regnum étiam Dei repræsentári nobis pétimus, sícuti et nomen eius ut in nobis sanctificétur postulámus. Nam Deus quando non regnat, aut apud eum quando íncipit quod et semper fuit et esse non désinit? Nostrum regnum pétimus adveníre a Deo nobis repromíssum, Christi sánguine et passióne quæsítum, ut, qui in sǽculo ante servívimus, póstmodum Christo dominánte regnémus, sicut ipse pollicétur et dicit: Veníte, benedícti Patris mei, percípite regnum quod vobis parátum est ab orígine mundi."
+      ],
+      "italics": {
+       "0": [
+        [
+         22,
+         43
+        ],
+        [
+         446,
+         533
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -595,11 +605,20 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Addimus quoque et dícimus: Fiat volúntas tua in cælo et in terra, non ut Deus fáciat quod vult, sed ut nos fácere possímus quod Deus vult. Nam Deo quis obsístit quóminus quod velit fáciat? sed quia nobis a diábolo obsístitur quóminus per ómnia noster ánimus atque actus Deo obsequátur, orámus et pétimus ut fiat in nobis volúntas Dei: quæ ut fiat in nobis, opus est Dei voluntáte, id est ope eius et protectióne, quia nemo suis víribus fortis est, sed Dei indulgéntia et misericórdia tutus est. Dénique et Dóminus infirmitátem hóminis quem portábat osténdens ait: Pater, si fíeri potest, tránseat a me calix iste, et exémplum discípulis suis distríbuens, ut non voluntátem suam sed Dei fáciant, áddidit dicens: Verúmtamen non quod ego volo, sed quod tu vis."
-       }
-      ]
+       "Addimus quoque et dícimus: Fiat volúntas tua in cælo et in terra, non ut Deus fáciat quod vult, sed ut nos fácere possímus quod Deus vult. Nam Deo quis obsístit quóminus quod velit fáciat? sed quia nobis a diábolo obsístitur quóminus per ómnia noster ánimus atque actus Deo obsequátur, orámus et pétimus ut fiat in nobis volúntas Dei: quæ ut fiat in nobis, opus est Dei voluntáte, id est ope eius et protectióne, quia nemo suis víribus fortis est, sed Dei indulgéntia et misericórdia tutus est. Dénique et Dóminus infirmitátem hóminis quem portábat osténdens ait: Pater, si fíeri potest, tránseat a me calix iste, et exémplum discípulis suis distríbuens, ut non voluntátem suam sed Dei fáciant, áddidit dicens: Verúmtamen non quod ego volo, sed quod tu vis."
+      ],
+      "italics": {
+       "0": [
+        [
+         27,
+         65
+        ],
+        [
+         711,
+         757
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -856,17 +875,25 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Nox et tenébræ et núbila,"
-       },
-       {
-        "em": true,
-        "text": "confúsa mundi et túrbida,"
-       },
+       "Nox et tenébræ et núbila,",
+       "confúsa mundi et túrbida,",
        "lux intrat, albéscit polus:",
        "Christus venit; discédite."
-      ]
+      ],
+      "italics": {
+       "0": [
+        [
+         13,
+         14
+        ]
+       ],
+       "1": [
+        [
+         12,
+         13
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -890,16 +917,24 @@
       "kind": "text",
       "lines": [
        "Te, Christe, solum nóvimus,",
-       {
-        "em": true,
-        "text": "te mente pura et símplici"
-       },
+       "te mente pura et símplici",
        "rogáre curváto genu",
-       {
-        "em": true,
-        "text": "flendo et canéndo díscimus."
-       }
-      ]
+       "flendo et canéndo díscimus."
+      ],
+      "italics": {
+       "1": [
+        [
+         12,
+         13
+        ]
+       ],
+       "3": [
+        [
+         5,
+         6
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1517,11 +1552,16 @@
        "Hoc gradiénte órdine,",
        "ornávit cuncta spléndide",
        "regni cæléstis cónditor",
-       {
-        "em": true,
-        "text": "ad nostra ætérna prǽmia."
-       }
-      ]
+       "ad nostra ætérna prǽmia."
+      ],
+      "italics": {
+       "3": [
+        [
+         8,
+         9
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1667,12 +1707,17 @@
       "lines": [
        "Ternis horárum términis",
        "volútis, dante Dómino,",
-       {
-        "em": true,
-        "text": "trinum perfécte et únicum"
-       },
+       "trinum perfécte et únicum",
        "ipsum devóti psállimus."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         14,
+         15
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1737,11 +1782,16 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Hoc est præceptum meum, ut diligatis invicem (Io 15, 12)."
-       }
-      ]
+       "Hoc est præceptum meum, ut diligatis invicem (Io 15, 12)."
+      ],
+      "italics": {
+       "0": [
+        [
+         0,
+         44
+        ]
+       ]
+      }
      },
      {
       "kind": "text",

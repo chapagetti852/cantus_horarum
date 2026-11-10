@@ -2684,7 +2684,9 @@
    "officium": "",
    "page": 1224,
    "locus": "419",
-   "oco_ids": []
+   "oco_ids": [
+    2566
+   ]
   },
   {
    "incipit": "Christus apparuit 1",
@@ -2833,7 +2835,9 @@
    "officium": "",
    "page": 1225,
    "locus": "255",
-   "oco_ids": []
+   "oco_ids": [
+    2995
+   ]
   },
   {
    "incipit": "Fontem sapientiæ",
@@ -4366,7 +4370,9 @@
    "officium": "L",
    "page": 1230,
    "locus": "B",
-   "oco_ids": []
+   "oco_ids": [
+    761
+   ]
   },
   {
    "incipit": "Amen a. d. vobis Non Moyses",
@@ -4374,7 +4380,13 @@
    "officium": "L",
    "page": 1230,
    "locus": "B",
-   "oco_ids": []
+   "oco_ids": [
+    463,
+    791,
+    1165,
+    1196,
+    1290
+   ]
   },
   {
    "incipit": "Amen a. d. vobis Non Moyses",
@@ -4382,7 +4394,13 @@
    "officium": "L",
    "page": 1230,
    "locus": "Bb",
-   "oco_ids": []
+   "oco_ids": [
+    463,
+    791,
+    1165,
+    1196,
+    1290
+   ]
   },
   {
    "incipit": "Amen a. d. vobis Non Moyses",
@@ -4390,7 +4408,13 @@
    "officium": "1V",
    "page": 1230,
    "locus": "3",
-   "oco_ids": []
+   "oco_ids": [
+    463,
+    791,
+    1165,
+    1196,
+    1290
+   ]
   },
   {
    "incipit": "Amen a. d. vobis Qui credit",
@@ -4398,7 +4422,9 @@
    "officium": "V",
    "page": 1230,
    "locus": "M",
-   "oco_ids": []
+   "oco_ids": [
+    768
+   ]
   },
   {
    "incipit": "Amen a. d. vobis Qui non",
@@ -4406,7 +4432,9 @@
    "officium": "L",
    "page": 1230,
    "locus": "Ba",
-   "oco_ids": []
+   "oco_ids": [
+    807
+   ]
   },
   {
    "incipit": "Amen a. d. vobis Qui non",
@@ -4414,7 +4442,9 @@
    "officium": "L",
    "page": 1230,
    "locus": "Bbc",
-   "oco_ids": []
+   "oco_ids": [
+    807
+   ]
   },
   {
    "incipit": "Amen a. d. vobis quia",
@@ -4422,7 +4452,9 @@
    "officium": "V",
    "page": 1230,
    "locus": "M ante Asc",
-   "oco_ids": []
+   "oco_ids": [
+    883
+   ]
   },
   {
    "incipit": "Amen a. d. vobis Si quid",
@@ -4430,7 +4462,9 @@
    "officium": "L",
    "page": 1230,
    "locus": "B ante Asc",
-   "oco_ids": []
+   "oco_ids": [
+    923
+   ]
   },
   {
    "incipit": "Amen a. d. vobis Si quid",
@@ -4438,7 +4472,9 @@
    "officium": "L",
    "page": 1230,
    "locus": "B post Asc",
-   "oco_ids": []
+   "oco_ids": [
+    923
+   ]
   },
   {
    "incipit": "Amen a. d. vobis Si quis",
@@ -4446,7 +4482,9 @@
    "officium": "",
    "page": 1230,
    "locus": "ad lib 2",
-   "oco_ids": []
+   "oco_ids": [
+    3361
+   ]
   },
   {
    "incipit": "Amen dico vobis Nisi",
@@ -4753,7 +4791,9 @@
    "officium": "Ol",
    "page": 1231,
    "locus": "3",
-   "oco_ids": []
+   "oco_ids": [
+    3058
+   ]
   },
   {
    "incipit": "Annuntiaverunt opera",
@@ -6191,7 +6231,9 @@
    "officium": "",
    "page": 1235,
    "locus": "ad lib 3",
-   "oco_ids": []
+   "oco_ids": [
+    3362
+   ]
   },
   {
    "incipit": "Beatus vir qui metuit",
@@ -7405,7 +7447,10 @@
    "officium": "V",
    "page": 1238,
    "locus": "M",
-   "oco_ids": []
+   "oco_ids": [
+    665,
+    908
+   ]
   },
   {
    "incipit": "Clarificatus est",
@@ -7413,7 +7458,10 @@
    "officium": "2V",
    "page": 1238,
    "locus": "3",
-   "oco_ids": []
+   "oco_ids": [
+    665,
+    908
+   ]
   },
   {
    "incipit": "Cogitaverunt impii",
@@ -7471,7 +7519,10 @@
    "officium": "T",
    "page": 1239,
    "locus": "",
-   "oco_ids": []
+   "oco_ids": [
+    2276,
+    2580
+   ]
   },
   {
    "incipit": "Cognovit eum Dominus",
@@ -7479,7 +7530,10 @@
    "officium": "",
    "page": 1239,
    "locus": "ad lib 1",
-   "oco_ids": []
+   "oco_ids": [
+    2276,
+    2580
+   ]
   },
   {
    "incipit": "Cognovit eum Dominus",
@@ -7487,7 +7541,10 @@
    "officium": "L",
    "page": 1239,
    "locus": "B",
-   "oco_ids": []
+   "oco_ids": [
+    2276,
+    2580
+   ]
   },
   {
    "incipit": "Cognovit eum Dominus",
@@ -7495,7 +7552,10 @@
    "officium": "M2",
    "page": 1239,
    "locus": "",
-   "oco_ids": []
+   "oco_ids": [
+    2276,
+    2580
+   ]
   },
   {
    "incipit": "Collaudabunt multi",
@@ -7603,7 +7663,9 @@
    "officium": "Hm",
    "page": 1239,
    "locus": "3",
-   "oco_ids": []
+   "oco_ids": [
+    1726
+   ]
   },
   {
    "incipit": "Confitebor tibi Domine et",
@@ -13530,7 +13592,9 @@
    "officium": "V",
    "page": 1256,
    "locus": "M",
-   "oco_ids": []
+   "oco_ids": [
+    2582
+   ]
   },
   {
    "incipit": "Excelsus super omnes",
@@ -15142,7 +15206,10 @@
    "officium": "V",
    "page": 1261,
    "locus": "M",
-   "oco_ids": []
+   "oco_ids": [
+    2409,
+    2470
+   ]
   },
   {
    "incipit": "Hic accipiet",
@@ -15150,7 +15217,10 @@
    "officium": "V",
    "page": 1261,
    "locus": "M2",
-   "oco_ids": []
+   "oco_ids": [
+    2409,
+    2470
+   ]
   },
   {
    "incipit": "Hic accipiet",
@@ -15158,7 +15228,10 @@
    "officium": "1V",
    "page": 1261,
    "locus": "1 ad lib",
-   "oco_ids": []
+   "oco_ids": [
+    2409,
+    2470
+   ]
   },
   {
    "incipit": "Hic est discipulus ille",
@@ -16944,7 +17017,9 @@
    "officium": "L",
    "page": 1266,
    "locus": "B",
-   "oco_ids": []
+   "oco_ids": [
+    273
+   ]
   },
   {
    "incipit": "In principio",
@@ -19140,7 +19215,11 @@
    "officium": "1V",
    "page": 1272,
    "locus": "MTP",
-   "oco_ids": []
+   "oco_ids": [
+    2780,
+    3082,
+    3149
+   ]
   },
   {
    "incipit": "Lux perpetua… tuis et æternitas",
@@ -19148,7 +19227,11 @@
    "officium": "L",
    "page": 1272,
    "locus": "BTP",
-   "oco_ids": []
+   "oco_ids": [
+    2780,
+    3082,
+    3149
+   ]
   },
   {
    "incipit": "Lætabitur deserta",
@@ -22622,7 +22705,10 @@
    "officium": "1V",
    "page": 1282,
    "locus": "1",
-   "oco_ids": []
+   "oco_ids": [
+    2849,
+    3112
+   ]
   },
   {
    "incipit": "Omnes sancti",
@@ -22630,7 +22716,10 @@
    "officium": "",
    "page": 1282,
    "locus": "ad lib 2",
-   "oco_ids": []
+   "oco_ids": [
+    2849,
+    3112
+   ]
   },
   {
    "incipit": "Omnes sancti",
@@ -22638,7 +22727,10 @@
    "officium": "L",
    "page": 1282,
    "locus": "B",
-   "oco_ids": []
+   "oco_ids": [
+    2849,
+    3112
+   ]
   },
   {
    "incipit": "Omnes sitientes",
@@ -23381,7 +23473,9 @@
    "officium": "N",
    "page": 1284,
    "locus": "",
-   "oco_ids": []
+   "oco_ids": [
+    368
+   ]
   },
   {
    "incipit": "Per singulos dies",
@@ -26113,7 +26207,9 @@
    "officium": "Ol",
    "page": 1292,
    "locus": "3",
-   "oco_ids": []
+   "oco_ids": [
+    1447
+   ]
   },
   {
    "incipit": "Revela Domino",
@@ -28025,7 +28121,14 @@
    "officium": "L",
    "page": 1297,
    "locus": "Ba",
-   "oco_ids": []
+   "oco_ids": [
+    1100,
+    2055,
+    2098,
+    2525,
+    2834,
+    3394
+   ]
   },
   {
    "incipit": "Simile est enim… patrifamilias",
@@ -28160,7 +28263,9 @@
    "officium": "Ol",
    "page": 1298,
    "locus": "1",
-   "oco_ids": []
+   "oco_ids": [
+    2370
+   ]
   },
   {
    "incipit": "Sinite parvulos 1",
@@ -28285,7 +28390,9 @@
    "officium": "L",
    "page": 1298,
    "locus": "1",
-   "oco_ids": []
+   "oco_ids": [
+    1565
+   ]
   },
   {
    "incipit": "Solve iubente",

@@ -80,7 +80,9 @@ const COMMON_TONES = [4121, 7864, 18107, 18108, 4321, 15301, 15302, 17847, 17848
   // conclusions of Lauds and Vespers, Antiphonale Romanum II pp. 761-765
   4322, 16665, 16129, 16976, 3972, 17802, 1310, 20680, 20681, 20682, 20683, 19868, 19189, 20715, 20685, 4694, 18754, 18753, 18655,
   // responsories of the Office of Readings (RESPONSORIA in site/app.js)
-  16139, 16360, 16205, 16108, 16135, 19647, 20401, 20438, 20687];
+  16139, 16360, 16205, 16108, 16135, 19647, 20401, 20438, 20687,
+  // the antiphon Alleluia of Eastertide, mode by mode (ALLELUIA in site/app.js)
+  2822, 2383, 15201, 2197, 2090, 3000, 15186, 15188, 3004, 2622, 10195, 2293, 2025];
 const ids = new Set([...compact.map((e) => e.gabc).filter(Boolean), ...COMMON_TONES, 4680, 4681, 4682, 4677, 4683, 7515, 7517, 7518, 7519, 16706,
   ...Object.values(indexHymns).flatMap((v) => (typeof v === 'object' ? Object.values(v) : [v])), ...responsoria.map((r) => r[0])]);
 mkdirSync(join(dist, 'gabc'), { recursive: true });

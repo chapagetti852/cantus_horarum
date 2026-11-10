@@ -1,5 +1,6 @@
 {
  "date": "2026-06-21",
+ "v": 3,
  "hours": {
   "lectio": [
    {
@@ -614,11 +615,24 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Salvátor noster vere christus secúndum cárnem factus est, exsístens verus rex, verus et sacérdos: utrúmque idem ipse, ne quid in Salvatóre minus haberétur. Audi ítaque ipsum regem factum, cum dicit: Ego autem constitútus sum rex ab eo super Sion, montem sanctum eius. Audi quod étiam sacérdos sit de Patris testimónio dicéntis: Tu es sacérdos in ætérnum secúndum órdinem Melchísedech. Aaron primus in lege ex unctióne chrísmatis factus est sacérdos; et non dixit: «secúndum órdinem Aaron», ne et Salvatóris sacerdótium successióne habéri posse crederétur. Illud enim sacerdótium, quod fuit in Aaron, successióne constábat; sacerdótium vero Salvatóris non in álterum successióne transfértur, eo quod ipse sacérdos iúgiter persevéret, secúndum quod scríptum est: Tu es sacérdos in ætérnum secúndum órdinem Melchísedech."
-       }
-      ]
+       "Salvátor noster vere christus secúndum cárnem factus est, exsístens verus rex, verus et sacérdos: utrúmque idem ipse, ne quid in Salvatóre minus haberétur. Audi ítaque ipsum regem factum, cum dicit: Ego autem constitútus sum rex ab eo super Sion, montem sanctum eius. Audi quod étiam sacérdos sit de Patris testimónio dicéntis: Tu es sacérdos in ætérnum secúndum órdinem Melchísedech. Aaron primus in lege ex unctióne chrísmatis factus est sacérdos; et non dixit: «secúndum órdinem Aaron», ne et Salvatóris sacerdótium successióne habéri posse crederétur. Illud enim sacerdótium, quod fuit in Aaron, successióne constábat; sacerdótium vero Salvatóris non in álterum successióne transfértur, eo quod ipse sacérdos iúgiter persevéret, secúndum quod scríptum est: Tu es sacérdos in ætérnum secúndum órdinem Melchísedech."
+      ],
+      "italics": {
+       "0": [
+        [
+         199,
+         267
+        ],
+        [
+         328,
+         384
+        ],
+        [
+         761,
+         817
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -629,29 +643,52 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Sed licet non utrúmque sínguli eórum essent, tamen regáli aut sacerdotáli óleo uncti corporáliter, christi vocabántur. Salvátor autem, qui vere Christus est, Spíritu Sancto unctus est, ut adimplerétur quod de eo scriptum est: Proptérea unxit te Deus, Deus tuus, óleo lætítiæ præ consórtibus tuis. In hoc enim plus quam consórtes ipsíus nóminis unctus est, cum est unctus óleo lætítiæ, quo non áliud significátur quam Spíritus Sanctus."
-       }
-      ]
+       "Sed licet non utrúmque sínguli eórum essent, tamen regáli aut sacerdotáli óleo uncti corporáliter, christi vocabántur. Salvátor autem, qui vere Christus est, Spíritu Sancto unctus est, ut adimplerétur quod de eo scriptum est: Proptérea unxit te Deus, Deus tuus, óleo lætítiæ præ consórtibus tuis. In hoc enim plus quam consórtes ipsíus nóminis unctus est, cum est unctus óleo lætítiæ, quo non áliud significátur quam Spíritus Sanctus."
+      ],
+      "italics": {
+       "0": [
+        [
+         99,
+         106
+        ],
+        [
+         226,
+         296
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Hoc verum esse ab ipso Salvatóre cognóscimus. Nam cum accepísset et aperuísset librum Isaíæ et legísset: Spíritus Dómini super me, propter quod unxit me, adimplétam tunc dixit prophetíam in áuribus auditórum. Sed et Petrus princeps Apostolórum illud chrisma unde Salvátor christus osténditur, dócuit esse Spíritum Sanctum, id ipsum et virtútem Dei, quando in Actibus Apostolórum ad fidelíssimum et misericórdem, qui erat tunc centúrio, loquebátur. Nam inter cétera ait: Incípiens a Galilǽa post baptismum quod prædicávit Ioánnes, Iesum Nazarǽum, quem unxit Deus Spíritu Sancto et virtúte, hic circuívit fáciens virtútes et magnália, atque omnes líberans obséssos a diábolo."
-       }
-      ]
+       "Hoc verum esse ab ipso Salvatóre cognóscimus. Nam cum accepísset et aperuísset librum Isaíæ et legísset: Spíritus Dómini super me, propter quod unxit me, adimplétam tunc dixit prophetíam in áuribus auditórum. Sed et Petrus princeps Apostolórum illud chrisma unde Salvátor christus osténditur, dócuit esse Spíritum Sanctum, id ipsum et virtútem Dei, quando in Actibus Apostolórum ad fidelíssimum et misericórdem, qui erat tunc centúrio, loquebátur. Nam inter cétera ait: Incípiens a Galilǽa post baptismum quod prædicávit Ioánnes, Iesum Nazarǽum, quem unxit Deus Spíritu Sancto et virtúte, hic circuívit fáciens virtútes et magnália, atque omnes líberans obséssos a diábolo."
+      ],
+      "italics": {
+       "0": [
+        [
+         105,
+         152
+        ],
+        [
+         470,
+         673
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Vides quia et Petrus dixit hunc Iesum secúndum carnem unctum esse Spíritu Sancto et virtúte. Unde et vere ipse Iesus secúndum carnem factus est Christus, qui unctióne Sancti Spíritus et rex factus est et sacérdos in ætérnum."
-       }
-      ]
+       "Vides quia et Petrus dixit hunc Iesum secúndum carnem unctum esse Spíritu Sancto et virtúte. Unde et vere ipse Iesus secúndum carnem factus est Christus, qui unctióne Sancti Spíritus et rex factus est et sacérdos in ætérnum."
+      ],
+      "italics": {
+       "0": [
+        [
+         66,
+         91
+        ]
+       ]
+      }
      },
      {
       "kind": "rubric",
@@ -1627,11 +1664,16 @@
        "Hoc gradiénte órdine,",
        "ornávit cuncta spléndide",
        "regni cæléstis cónditor",
-       {
-        "em": true,
-        "text": "ad nostra ætérna prǽmia."
-       }
-      ]
+       "ad nostra ætérna prǽmia."
+      ],
+      "italics": {
+       "3": [
+        [
+         8,
+         9
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1777,12 +1819,17 @@
       "lines": [
        "Ternis horárum términis",
        "volútis, dante Dómino,",
-       {
-        "em": true,
-        "text": "trinum perfécte et únicum"
-       },
+       "trinum perfécte et únicum",
        "ipsum devóti psállimus."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         14,
+         15
+        ]
+       ]
+      }
      },
      {
       "kind": "text",

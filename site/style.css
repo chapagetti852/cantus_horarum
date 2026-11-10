@@ -105,6 +105,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* ---------- the office ---------- */
 .office { max-width: 44rem; margin: 0 auto; padding: 0 16px 4rem; }
 .loading, .empty { color: var(--fg-soft); font-style: italic; text-align: center; margin: 3rem 0; }
+.borrowed { color: var(--fg-soft); font-style: italic; font-size: .9em; text-align: center; margin: .2rem auto 1rem; max-width: 30em; }
 .title-block { text-align: center; margin: 48px 0 8px; }
 .title-block .rank { color: var(--rubric); margin: 0 0 -4px; }
 .title-block h1 { font-size: 2em; line-height: 1.1; font-weight: 700; margin: 0; padding: 0 12px; }
@@ -232,3 +233,17 @@ html:lang(zh) .settings, html:lang(zh) .help, html:lang(zh) h2.section, html:lan
 /* Noto Serif TC is served in its regular weight only: no synthesized bold */
 html:lang(zh) h2.section, html:lang(zh) h2.hour, html:lang(zh) .help h2, html:lang(zh) .help h3 { font-weight: 400; letter-spacing: 0.12em; }
 .pdf-pages { color: var(--rubric); font-variant-numeric: oldstyle-nums; white-space: nowrap; }
+/* the hour before and the hour after, at the foot of the hour */
+.hours-nav { max-width: 40rem; margin: 1.5rem auto 0; padding: 0 16px 1.25rem; display: flex; justify-content: space-between; gap: 12px; }
+.hours-nav:empty { display: none; }
+.hours-nav a { color: var(--rubric); text-decoration: none; padding: 0.55em 0.9em; border-radius: 8px; background: var(--bg-raised); font-size: 0.95em; }
+.hours-nav a.next { margin-left: auto; text-align: right; }
+html:lang(zh) .hours-nav { font-family: "EB Garamond", "Noto Serif TC", serif; }
+@media print { .hours-nav { display: none; } }
+/* the settings in groups */
+.settings-group { margin: 1.1em 0 0.1em; font-size: 0.78em; letter-spacing: 0.14em; text-transform: uppercase; color: var(--rubric); }
+.settings-group + .row { border-top: 0; }
+.pdf { gap: 8px; flex-wrap: wrap; }
+.pdf button, .pdf a, .pdf select { white-space: nowrap; flex: none; }
+.pdf-pages { font-size: 0.9em; }
+html:lang(zh) .settings-group { letter-spacing: 0.3em; }

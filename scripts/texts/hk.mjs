@@ -7,13 +7,15 @@
 // - Hong Kong's days after the Epiphany ("Feria II post Epiphaniam"...) where the general
 //   calendar has other days: the same day's pages in another year, where it has them;
 // - the dedication of Hong Kong's cathedral (9 December): the dedication of a church as the
-//   Lateran's feast has it (9 November), outside the cathedral itself.
+//   Lateran's feast has it (9 November), outside the cathedral itself;
+// - around the Thursdays of the Ascension and of Corpus Christi, where the general calendar's
+//   days take other pages (scripts/texts/ibreviary.mjs, donorFor): the date's own.
 // Days Hong Kong keeps otherwise as the general calendar (its patrons and proper memorials
 // included) take the date's pages; the app resolves their antiphons and hymns from the OCO's
 // commons.
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { parseHour, firstVespers, HOURS } from './ibreviary.mjs';
+import { parseHour, firstVespers, thursdayFeast, HOURS, DAY_FORMAT } from './ibreviary.mjs';
 
 const cals = {};
 const cal = (dir, iso) => {
@@ -27,6 +29,9 @@ const weekday = (iso) => new Date(`${iso}T12:00:00Z`).getUTCDay();
 /** Where Hong Kong's day `iso` takes its texts from: { date, id } (null: the date's own pages). */
 export function hkDonor(iso) {
   const hk = cal('calendar-hk', iso), gen = cal('calendar', iso);
+  // the Ascension and Corpus Christi, which Hong Kong keeps on the Sunday as iBreviary does:
+  // around their Thursdays the general calendar's days take other pages, Hong Kong's the date's own
+  if (hk && thursdayFeast(iso)) return { id: hk.id, date: iso };
   if (!hk || !gen || hk.id === gen.id) return null;
   const y = Number(iso.slice(0, 4));
   if (hk.id === 'epiphany_of_the_lord') return { id: hk.id, date: `${y}-01-06` };
@@ -55,8 +60,8 @@ export async function buildHkDay(iso, { ib, outDir = 'cache/texts/days-hk' }) {
   const donor = hkDonor(iso), eve = hkEve(iso);
   if (!donor && !eve) return false;
   const file = join(outDir, `${iso}.json`);
-  if (existsSync(file)) { try { if (JSON.parse(readFileSync(file, 'utf8')).proper?.key === hkKey(iso)) return true; } catch {} }
-  const day = { date: iso, hours: {} };
+  if (existsSync(file)) { try { const old = JSON.parse(readFileSync(file, 'utf8')); if (old.proper?.key === hkKey(iso) && old.v === DAY_FORMAT) return true; } catch {} }
+  const day = { date: iso, v: DAY_FORMAT, hours: {} };
   const sources = {};
   for (const hour of Object.keys(HOURS)) {
     if (donor && hour !== 'completorium') { day.hours[hour] = parseHour(await ib.page(donor.date, hour)); sources[hour] = `${donor.date} ${hour}`; }

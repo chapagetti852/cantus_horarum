@@ -1,5 +1,6 @@
 {
  "date": "2026-07-27",
+ "v": 3,
  "hours": {
   "lectio": [
    {
@@ -527,20 +528,46 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Sed sicut in ómnibus abundátis, fide et sermóne et sciéntia et omni sollicitúdine et caritáte ex nobis in vobis, ut et in hac grátia abundétis. Non quasi ímperans dico, sed per aliórum sollicitúdinem étiam vestræ caritátis ingénitum bonum cómprobans; scitis enim grátiam Dómini nostri Iesu Christi, quóniam propter vos egénus factus est, cum esset dives, ut illíus inópia vos dívites essétis. Et consílium in hoc do. Hoc enim vobis útile est, qui non solum fácere sed et velle cœpístis ab anno prióre; nunc vero et facto perfícite, ut, quemádmodum promptus est ánimus velle, ita sit et perfícere ex eo, quod habétis. Si enim volúntas prompta est, secúndum id, quod habet, accépta est, non secúndum quod non habet. Non enim, ut áliis sit remíssio, vobis autem tribulátio; sed ex æqualitáte in præsénti témpore vestra abundántia illórum inópiam súppleat, ut et illórum abundántia vestram inópiam súppleat, ut fiat æquálitas, sicut scriptum est: «Qui multum non abundávit, et qui módicum non minorávit»."
-       }
-      ]
+       "Sed sicut in ómnibus abundátis, fide et sermóne et sciéntia et omni sollicitúdine et caritáte ex nobis in vobis, ut et in hac grátia abundétis. Non quasi ímperans dico, sed per aliórum sollicitúdinem étiam vestræ caritátis ingénitum bonum cómprobans; scitis enim grátiam Dómini nostri Iesu Christi, quóniam propter vos egénus factus est, cum esset dives, ut illíus inópia vos dívites essétis. Et consílium in hoc do. Hoc enim vobis útile est, qui non solum fácere sed et velle cœpístis ab anno prióre; nunc vero et facto perfícite, ut, quemádmodum promptus est ánimus velle, ita sit et perfícere ex eo, quod habétis. Si enim volúntas prompta est, secúndum id, quod habet, accépta est, non secúndum quod non habet. Non enim, ut áliis sit remíssio, vobis autem tribulátio; sed ex æqualitáte in præsénti témpore vestra abundántia illórum inópiam súppleat, ut et illórum abundántia vestram inópiam súppleat, ut fiat æquálitas, sicut scriptum est: «Qui multum non abundávit, et qui módicum non minorávit»."
+      ],
+      "italics": {
+       "0": [
+        [
+         943,
+         1000
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Grátias autem Deo, qui dedit eándem sollicitúdinem pro vobis in corde Titi, quóniam exhortatiónem quidem suscépit, sed, cum sollicítior esset, sua voluntáte proféctus est ad vos. Mísimus étiam cum illo fratrem, cuius laus est in evangélio per omnes ecclésias — non solum autem sed et ordinátus ab ecclésiis comes noster cum hac grátia, quæ ministrátur a nobis ad Dómini glóriam et destinátam voluntátem nostram — devitántes hoc, ne quis nos vitúperet in hac plenitúdine, quæ ministrátur a nobis; providémus enim bona non solum coram Dómino sed étiam coram homínibus. Mísimus autem cum illis et fratrem nostrum, quem probávimus in multis sæpe sollícitum esse, nunc autem multo sollicitiórem, confidéntia multa in vos."
-       }
-      ]
+       "Grátias autem Deo, qui dedit eándem sollicitúdinem pro vobis in corde Titi, quóniam exhortatiónem quidem suscépit, sed, cum sollicítior esset, sua voluntáte proféctus est ad vos. Mísimus étiam cum illo fratrem, cuius laus est in evangélio per omnes ecclésias — non solum autem sed et ordinátus ab ecclésiis comes noster cum hac grátia, quæ ministrátur a nobis ad Dómini glóriam et destinátam voluntátem nostram — devitántes hoc, ne quis nos vitúperet in hac plenitúdine, quæ ministrátur a nobis; providémus enim bona non solum coram Dómino sed étiam coram homínibus. Mísimus autem cum illis et fratrem nostrum, quem probávimus in multis sæpe sollícitum esse, nunc autem multo sollicitiórem, confidéntia multa in vos."
+      ],
+      "italics": {
+       "0": [
+        [
+         496,
+         506
+        ],
+        [
+         512,
+         516
+        ],
+        [
+         527,
+         539
+        ],
+        [
+         544,
+         549
+        ],
+        [
+         556,
+         566
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -588,47 +615,72 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Beáti misericórdes, quóniam ipsi misericórdiam consequéntur. Dulce est nomen misericórdiæ, fratres caríssimi; et si nomen, quanto magis res ipsa? Et cum eam omnes hómines habére velint, quod peius est, non toti sic agunt ut eam accípere mereántur; cum omnes misericórdiam velint accípere, pauci sunt qui velint misericórdiam dare."
-       }
-      ]
+       "Beáti misericórdes, quóniam ipsi misericórdiam consequéntur. Dulce est nomen misericórdiæ, fratres caríssimi; et si nomen, quanto magis res ipsa? Et cum eam omnes hómines habére velint, quod peius est, non toti sic agunt ut eam accípere mereántur; cum omnes misericórdiam velint accípere, pauci sunt qui velint misericórdiam dare."
+      ],
+      "italics": {
+       "0": [
+        [
+         0,
+         60
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "O homo, qua fronte vis pétere, quod dissímulas dare? Debet ergo in hoc mundo misericórdiam dare, qui illam optat in cælo recípere. Et ídeo, fratres caríssimi, quia omnes misericórdiam vólumus, faciámus nobis illam patrónam in hoc sǽculo, ut nos ipsa líberet in futúro. Est enim in cælo misericórdia, ad quam per terrénas misericórdias pervenítur. Sic enim Scriptúra dicit: Dómine, in cælo misericórdia tua."
-       }
-      ]
+       "O homo, qua fronte vis pétere, quod dissímulas dare? Debet ergo in hoc mundo misericórdiam dare, qui illam optat in cælo recípere. Et ídeo, fratres caríssimi, quia omnes misericórdiam vólumus, faciámus nobis illam patrónam in hoc sǽculo, ut nos ipsa líberet in futúro. Est enim in cælo misericórdia, ad quam per terrénas misericórdias pervenítur. Sic enim Scriptúra dicit: Dómine, in cælo misericórdia tua."
+      ],
+      "italics": {
+       "0": [
+        [
+         373,
+         406
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Est ergo et terréna et cæléstis misericórdia, humána scílicet et divína. Qualis est misericórdia humána? Ipsa útique, ut respícias misérias páuperum. Qualis vero est misericórdia divína? Illa sine dúbio, quæ tríbuit indulgéntiam peccatórum. Quicquid enim misericórdia humána largítur in via, misericórdia divína reddit in pátria. Deus enim in hoc mundo in ómnibus paupéribus et alget et ésurit, sicut ipse dixit: Quámdiu fecístis uni ex mínimis istis, mihi fecístis. Deus ergo qui de cælo dignátur dare, vult in terra recípere."
-       }
-      ]
+       "Est ergo et terréna et cæléstis misericórdia, humána scílicet et divína. Qualis est misericórdia humána? Ipsa útique, ut respícias misérias páuperum. Qualis vero est misericórdia divína? Illa sine dúbio, quæ tríbuit indulgéntiam peccatórum. Quicquid enim misericórdia humána largítur in via, misericórdia divína reddit in pátria. Deus enim in hoc mundo in ómnibus paupéribus et alget et ésurit, sicut ipse dixit: Quámdiu fecístis uni ex mínimis istis, mihi fecístis. Deus ergo qui de cælo dignátur dare, vult in terra recípere."
+      ],
+      "italics": {
+       "0": [
+        [
+         413,
+         466
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Quales sumus nos, qui, quando donat Deus, vólumus accípere; quando petit, nólumus dare? Quando enim pauper ésurit, Christus índiget, sicut ipse dixit: Esurívi, et non dedístis mihi manducáre. Noli ergo despícere misériam páuperum, si vis secúrus speráre indulgéntiam peccatórum. Esurit modo Christus, fratres, in ómnibus paupéribus ipse et esuríre et sitíre dignátur; et quod in terra áccipit, in cælo reddit."
-       }
-      ]
+       "Quales sumus nos, qui, quando donat Deus, vólumus accípere; quando petit, nólumus dare? Quando enim pauper ésurit, Christus índiget, sicut ipse dixit: Esurívi, et non dedístis mihi manducáre. Noli ergo despícere misériam páuperum, si vis secúrus speráre indulgéntiam peccatórum. Esurit modo Christus, fratres, in ómnibus paupéribus ipse et esuríre et sitíre dignátur; et quod in terra áccipit, in cælo reddit."
+      ],
+      "italics": {
+       "0": [
+        [
+         151,
+         191
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Rogo vos, fratres, quid vultis aut quid quǽritis, quando ad ecclésiam venítis? quid útique nisi misericórdiam? Date ergo terrénam, et accipiétis cæléstem. Petit a te pauper, et tu petis a Deo: ille buccéllam, tu vitam ætérnam. Da mendíco, quod accípere mereáris a Christo; audi ipsum dicéntem: Date, et dábitur vobis. Néscio qua fronte velis accípere, quod non vis dare. Et ídeo quando ad ecclésiam venítis, secúndum vires vestras qualescúmque eleemósynas paupéribus exhibéte."
-       }
-      ]
+       "Rogo vos, fratres, quid vultis aut quid quǽritis, quando ad ecclésiam venítis? quid útique nisi misericórdiam? Date ergo terrénam, et accipiétis cæléstem. Petit a te pauper, et tu petis a Deo: ille buccéllam, tu vitam ætérnam. Da mendíco, quod accípere mereáris a Christo; audi ipsum dicéntem: Date, et dábitur vobis. Néscio qua fronte velis accípere, quod non vis dare. Et ídeo quando ad ecclésiam venítis, secúndum vires vestras qualescúmque eleemósynas paupéribus exhibéte."
+      ],
+      "italics": {
+       "0": [
+        [
+         294,
+         317
+        ]
+       ]
+      }
      },
      {
       "kind": "rubric",
@@ -1522,11 +1574,16 @@
        "Hoc gradiénte órdine,",
        "ornávit cuncta spléndide",
        "regni cæléstis cónditor",
-       {
-        "em": true,
-        "text": "ad nostra ætérna prǽmia."
-       }
-      ]
+       "ad nostra ætérna prǽmia."
+      ],
+      "italics": {
+       "3": [
+        [
+         8,
+         9
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1672,12 +1729,17 @@
       "lines": [
        "Ternis horárum términis",
        "volútis, dante Dómino,",
-       {
-        "em": true,
-        "text": "trinum perfécte et únicum"
-       },
+       "trinum perfécte et únicum",
        "ipsum devóti psállimus."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         14,
+         15
+        ]
+       ]
+      }
      },
      {
       "kind": "text",

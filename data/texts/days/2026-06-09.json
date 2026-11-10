@@ -1,5 +1,6 @@
 {
  "date": "2026-06-09",
+ "v": 3,
  "hours": {
   "lectio": [
    {
@@ -1502,11 +1503,16 @@
        "Hoc gradiénte órdine,",
        "ornávit cuncta spléndide",
        "regni cæléstis cónditor",
-       {
-        "em": true,
-        "text": "ad nostra ætérna prǽmia."
-       }
-      ]
+       "ad nostra ætérna prǽmia."
+      ],
+      "italics": {
+       "3": [
+        [
+         8,
+         9
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1652,12 +1658,17 @@
       "lines": [
        "Ternis horárum términis",
        "volútis, dante Dómino,",
-       {
-        "em": true,
-        "text": "trinum perfécte et únicum"
-       },
+       "trinum perfécte et únicum",
        "ipsum devóti psállimus."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         14,
+         15
+        ]
+       ]
+      }
      },
      {
       "kind": "text",

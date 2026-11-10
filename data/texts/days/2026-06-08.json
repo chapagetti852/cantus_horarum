@@ -1,5 +1,6 @@
 {
  "date": "2026-06-08",
+ "v": 3,
  "hours": {
   "lectio": [
    {
@@ -566,11 +567,16 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "A Sýria Romam usque cum béstiis pugno, terra maríque, noctu et intérdiu, alligátus ad decem leopárdos, qui est manípulus mílitum; qui étiam benefício accépto peióres sunt. Illórum autem iniúriis magis erúdior, sed propter hoc non iustificátus sum. Utinam fruar béstiis mihi præparátis, quas et opto mihi velóces inveníri; quibus et blándiar, ut cito me dévorent, non ut quosdam véritæ non tetigérunt. Sin autem illæ repugnántes nolúerint, ego eas vi appéllam. Véniam mihi date; quid mihi prosit, ego novi. Nunc incípio discípulus esse. Nulla res tam eárum, quæ visíbiles sunt, quam eárum, quæ sub óculos non cadunt, ánimum meum cápiat, ut Iesu Christo possim potíri. Ignis et crux et ferárum catérvæ, laceratiónes, distractiónes, disiunctiónes óssium, concísio membrórum, totíus córporis contusiónes, dira diáboli torménta in me véniant; solúmmodo ut Iesum Christum cónsequar."
-       }
-      ]
+       "A Sýria Romam usque cum béstiis pugno, terra maríque, noctu et intérdiu, alligátus ad decem leopárdos, qui est manípulus mílitum; qui étiam benefício accépto peióres sunt. Illórum autem iniúriis magis erúdior, sed propter hoc non iustificátus sum. Utinam fruar béstiis mihi præparátis, quas et opto mihi velóces inveníri; quibus et blándiar, ut cito me dévorent, non ut quosdam véritæ non tetigérunt. Sin autem illæ repugnántes nolúerint, ego eas vi appéllam. Véniam mihi date; quid mihi prosit, ego novi. Nunc incípio discípulus esse. Nulla res tam eárum, quæ visíbiles sunt, quam eárum, quæ sub óculos non cadunt, ánimum meum cápiat, ut Iesu Christo possim potíri. Ignis et crux et ferárum catérvæ, laceratiónes, distractiónes, disiunctiónes óssium, concísio membrórum, totíus córporis contusiónes, dira diáboli torménta in me véniant; solúmmodo ut Iesum Christum cónsequar."
+      ],
+      "italics": {
+       "0": [
+        [
+         210,
+         247
+        ]
+       ]
+      }
      },
      {
       "kind": "rubric",
@@ -1450,11 +1456,16 @@
        "Hoc gradiénte órdine,",
        "ornávit cuncta spléndide",
        "regni cæléstis cónditor",
-       {
-        "em": true,
-        "text": "ad nostra ætérna prǽmia."
-       }
-      ]
+       "ad nostra ætérna prǽmia."
+      ],
+      "italics": {
+       "3": [
+        [
+         8,
+         9
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1600,12 +1611,17 @@
       "lines": [
        "Ternis horárum términis",
        "volútis, dante Dómino,",
-       {
-        "em": true,
-        "text": "trinum perfécte et únicum"
-       },
+       "trinum perfécte et únicum",
        "ipsum devóti psállimus."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         14,
+         15
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -2040,11 +2056,16 @@
        "Lúminis fons, lux et orígo lucis,",
        "tu pius nostris précibus favéto,",
        "luxque, peccáti ténebris fugátis,",
-       {
-        "em": true,
-        "text": "nos tua adórnet."
-       }
-      ]
+       "nos tua adórnet."
+      ],
+      "italics": {
+       "3": [
+        [
+         6,
+         7
+        ]
+       ]
+      }
      },
      {
       "kind": "text",

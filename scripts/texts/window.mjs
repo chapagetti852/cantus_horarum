@@ -7,7 +7,7 @@
 // The build reads cache/texts/days as well as data/texts/days (the committed psalter days).
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, unlinkSync } from 'node:fs';
 import { join } from 'node:path';
-import { IBreviary, buildDay, properKey } from './ibreviary.mjs';
+import { IBreviary, buildDay, properKey, DAY_FORMAT } from './ibreviary.mjs';
 import { buildHkDay } from './hk.mjs';
 
 const back = Number(process.argv[2] ?? 3);
@@ -35,9 +35,11 @@ for (const d of want) {
   // taking another year's texts, its I Vespers on the Saturday)
   const file = join(outDir, `${d}.json`);
   if (existsSync(file)) {
-    let key = null;
-    try { key = JSON.parse(readFileSync(file, 'utf8')).proper?.key ?? null; } catch { key = undefined; }
-    if (key === properKey(d)) continue;
+    // ... or the parser reads the pages otherwise (DAY_FORMAT): made again from the cached pages
+    // ... or iBreviary gave a page without its office, which it may have filled since (retry)
+    let key = null, v = null, retry = false;
+    try { const old = JSON.parse(readFileSync(file, 'utf8')); key = old.proper?.key ?? null; v = old.v ?? 1; retry = !!old.retry; } catch { key = undefined; }
+    if (key === properKey(d) && v === DAY_FORMAT && !retry) continue;
   }
   try {
     await buildDay(d, { ib, outDir });

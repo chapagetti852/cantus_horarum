@@ -46,29 +46,35 @@
         <span class="mode-name" data-i18n="set.detailed">Detailed</span>
       </button>
     </div>
-    <label class="row"><span data-i18n="set.ordo">Ordo</span> <select id="opt-ordo"><option value="" data-i18n="ordo.general">General Roman Calendar</option><option value="hk" data-i18n="ordo.hk">🇭🇰 Diocese of Hong Kong</option></select></label>
+    <p class="settings-group" data-i18n="set.groupLanguage">Language</p>
     <label class="row"><span data-i18n="set.ui">Interface</span> <select id="opt-ui"><option value="en">English</option><option value="zh">中文（香港）</option><option value="la">Latina</option></select></label>
     <label class="row"><span><span data-i18n="set.translation">Translation</span> <span class="beta" data-i18n="set.beta">beta</span></span> <select id="opt-translation"><option value="" data-i18n="tr.none">Latin only</option><option value="zh" data-i18n="tr.zh">Chinese (Hong Kong)</option><option value="en" data-i18n="tr.en">English</option><option value="zh+en" data-i18n="tr.zh+en">Chinese and English</option><option value="zh>en" data-i18n="tr.zh>en">Chinese, else English</option></select></label>
-    <label class="row"><span data-i18n="set.pange">Pange lingua</span> <select id="opt-pange"><option value="">Liber Hymnarius</option><option value="vaticana" data-i18n="pange.vaticana">Vatican edition</option></select></label>
-    <label class="row"><span data-i18n="set.ofHymn">Office of Readings hymn</span> <select id="opt-of-hymn"><option value="" data-i18n="ofHymn.auto">By the hour</option><option value="day" data-i18n="ofHymn.day">By day</option><option value="night" data-i18n="ofHymn.night">At night or early morning</option></select></label>
+    <p class="settings-group" data-i18n="set.groupOffice">Office</p>
+    <label class="row"><span data-i18n="set.ordo">Calendar</span> <select id="opt-ordo"><option value="" data-i18n="ordo.general">General Roman</option><option value="hk" data-i18n="ordo.hk">🇭🇰 Hong Kong</option></select></label>
     <label class="row"><span data-i18n="set.invitatory">Invitatory before</span> <select id="opt-invitatory"><option value="">—</option><option value="lectio" data-i18n="hour.lectio">Office of Readings</option><option value="laudes" data-i18n="hour.laudes">Lauds</option></select></label>
+    <label class="row"><span data-i18n="set.ofHymn">Office of Readings hymn</span> <select id="opt-of-hymn"><option value="" data-i18n="ofHymn.auto">By the hour</option><option value="day" data-i18n="ofHymn.day">By day</option><option value="night" data-i18n="ofHymn.night">At night or early morning</option></select></label>
     <label class="row"><span data-i18n="set.memoria">Memorials, from the short reading</span> <select id="opt-memoria"><option value="" data-i18n="memoria.feria">of the weekday</option><option value="commune" data-i18n="memoria.commune">of the common</option></select></label>
+    <label class="row"><span data-i18n="set.presider">Priest or deacon present</span> <select id="opt-presider"><option value="" data-i18n="no">No</option><option value="1" data-i18n="yes">Yes</option></select></label>
+    <label class="row"><span data-i18n="set.pange">Pange lingua</span> <select id="opt-pange"><option value="">Liber Hymnarius</option><option value="vaticana" data-i18n="pange.vaticana">Vatican edition</option></select></label>
     <div class="row"><span><span data-i18n="set.bonus">Mutual enrichment</span> <span class="pixel-spark" aria-hidden="true"></span></span> <button type="button" class="link" id="bonus-open" data-i18n="set.bonusOpen">Bonus content</button></div>
+    <p class="settings-group" data-i18n="set.groupChant">Chant</p>
     <label class="row"><span data-i18n="set.reading">Short reading</span> <select id="opt-sing-reading"><option value="ar" data-i18n="sung.ar">Sung (AR II)</option><option value="lu" data-i18n="sung.lu">Sung (Liber Usualis)</option><option value="text" data-i18n="sung.text">Text</option></select></label>
     <label class="row"><span data-i18n="set.preces">Intercessions</span> <select id="opt-preces"><option value="ar" data-i18n="preces.full">Sung, full notation</option><option value="abbr" data-i18n="preces.abbr">Sung, abbreviated</option><option value="text" data-i18n="sung.text">Text</option></select></label>
     <label class="row"><span data-i18n="set.collect">Collect</span> <select id="opt-sing-collect"><option value="ar" data-i18n="sung.ar">Sung (AR II)</option><option value="lu" data-i18n="sung.lu">Sung (Liber Usualis)</option><option value="text" data-i18n="sung.text">Text</option></select></label>
-    <label class="row"><span data-i18n="set.presider">Priest or deacon present</span> <select id="opt-presider"><option value="" data-i18n="no">No</option><option value="1" data-i18n="yes">Yes</option></select></label>
     <label class="row"><span data-i18n="set.voice">Singing voice</span> <select id="opt-voice"><option value="gravis" data-i18n="voice.low">Low</option><option value="" data-i18n="voice.mid">Medium</option><option value="acuta" data-i18n="voice.high">High</option></select></label>
+    <p class="settings-group" data-i18n="set.groupDisplay">Display</p>
     <label class="row"><span data-i18n="set.theme">Dark mode</span> <select id="opt-theme"><option value="" data-i18n="theme.system">System</option><option value="light" data-i18n="off">Off</option><option value="dark" data-i18n="on">On</option></select></label>
+    <label class="row"><span data-i18n="set.textSize">Text size</span> <input type="range" id="text-size" min="85" max="140" step="5" value="100"></label>
+    <p class="settings-group" data-i18n="set.groupPrint">Print and help</p>
     <div class="row">PDF <span class="pdf"><select id="pdf-size" aria-label="Print size" data-i18n-aria="pdf.size"><option value="70">70 %</option><option value="80">80 %</option><option value="90">90 %</option><option value="100">100 %</option><option value="110">110 %</option><option value="120">120 %</option><option value="130">130 %</option><option value="140">140 %</option><option value="150">150 %</option></select><select id="pdf-format" aria-label="Page format" data-i18n-aria="pdf.format"><option value="a4">A4</option><option value="a5">A5</option><option value="letter">Letter</option><option value="booklet-a4" data-i18n="pdf.bookletA4">Booklet A4</option><option value="booklet-letter" data-i18n="pdf.bookletLetter">Booklet Letter</option></select><output id="pdf-pages" class="pdf-pages" aria-live="polite"></output><button id="pdf-make" type="button" data-i18n="pdf.make">Make</button><a id="pdf-link" class="pdf-get" hidden data-i18n="pdf.download">Download</a><button id="pdf-share" class="pdf-get" type="button" hidden data-i18n="pdf.share">Share</button></span></div>
     <div class="row"><span data-i18n="set.help">Help and sources</span> <button type="button" class="link help-open" data-i18n="open">Open</button></div>
-    <label class="row"><span data-i18n="set.textSize">Text size</span> <input type="range" id="text-size" min="85" max="140" step="5" value="100"></label>
   </div>
 </header>
 
 <main id="office" class="office" lang="la">
   <p class="loading" data-i18n="msg.loading">Loading…</p>
 </main>
+<nav id="hours-nav" class="hours-nav" aria-label="Hours"></nav>
 <footer class="colophon">
   <p data-i18n="foot.private">For private use only.</p>
   <p><button type="button" class="link help-open" data-i18n="set.help">Help and sources</button></p>

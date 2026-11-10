@@ -1,5 +1,6 @@
 {
  "date": "2026-06-16",
+ "v": 3,
  "hours": {
   "lectio": [
    {
@@ -560,29 +561,52 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Conversémur quasi Dei templa, ut Dóminum in nobis constet habitáre. Nec sit dégener actus noster a spíritu, ut qui spiritáles et cæléstes esse cœ́pimus, non nisi spiritália et cæléstia cogitémus et agámus, quia et ipse Dóminus Deus dixit: Eos qui claríficant me clarificábo, et qui me spernent spernéntur. Beátus quoque Apóstolus in epístola sua pósuit: Non estis vestri, empti enim estis prétio magno. Clarificáte et portáte Deum in córpore vestro."
-       }
-      ]
+       "Conversémur quasi Dei templa, ut Dóminum in nobis constet habitáre. Nec sit dégener actus noster a spíritu, ut qui spiritáles et cæléstes esse cœ́pimus, non nisi spiritália et cæléstia cogitémus et agámus, quia et ipse Dóminus Deus dixit: Eos qui claríficant me clarificábo, et qui me spernent spernéntur. Beátus quoque Apóstolus in epístola sua pósuit: Non estis vestri, empti enim estis prétio magno. Clarificáte et portáte Deum in córpore vestro."
+      ],
+      "italics": {
+       "0": [
+        [
+         239,
+         305
+        ],
+        [
+         354,
+         449
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Post hoc dícimus: Sanctificétur nomen tuum, non quod optémus Deo ut sanctificétur oratiónibus nostris, sed quod petámus a Dómino ut nomen eius sanctificétur in nobis. Céterum a quo Deus sanctificátur qui ipse sanctíficat? sed quia ipse dixit: Sancti estóte, quóniam et ego sanctus sum, id pétimus et rogámus, ut qui in baptísmo sanctificáti sumus, in eo quod esse cœpimus perseverémus. Et hoc cotídie deprecámur. Opus est enim nobis cotidiána sanctificátio, ut qui cotídie delínquimus, delícta nostra sanctificatióne assídua repurgémus."
-       }
-      ]
+       "Post hoc dícimus: Sanctificétur nomen tuum, non quod optémus Deo ut sanctificétur oratiónibus nostris, sed quod petámus a Dómino ut nomen eius sanctificétur in nobis. Céterum a quo Deus sanctificátur qui ipse sanctíficat? sed quia ipse dixit: Sancti estóte, quóniam et ego sanctus sum, id pétimus et rogámus, ut qui in baptísmo sanctificáti sumus, in eo quod esse cœpimus perseverémus. Et hoc cotídie deprecámur. Opus est enim nobis cotidiána sanctificátio, ut qui cotídie delínquimus, delícta nostra sanctificatióne assídua repurgémus."
+      ],
+      "italics": {
+       "0": [
+        [
+         18,
+         43
+        ],
+        [
+         243,
+         285
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Quæ autem sit sanctificátio quæ nobis de Dei dignatióne confértur, Apóstolus prǽdicat dicens: Neque fornicárii neque idólis serviéntes neque adúlteri neque molles neque masculórum appetitóres neque fures neque fraudulénti neque ebriósi neque malédici neque raptóres regnum Dei consequéntur. Et hæc quidem fuístis, sed ablúti estis, sed iustificáti estis, sed sanctificáti estis in nómine Dómini Iesu Christi et in Spíritu Dei nostri. Sanctificátos nos dicit in nómine Dómini Iesu Christi et in Spíritu Dei nostri. Hæc sanctificátio ut in nobis permáneat orámus, et quia Dóminus et iudex noster sanáto a se et vivificáto comminátur iam non delínquere, ne quid ei detérius fiat, hanc contínuis oratiónibus precem fácimus, hoc diébus ac nóctibus postulámus, ut sanctificátio et vivificátio, quæ de Dei grátia súmitur, ipsíus protectióne servétur."
-       }
-      ]
+       "Quæ autem sit sanctificátio quæ nobis de Dei dignatióne confértur, Apóstolus prǽdicat dicens: Neque fornicárii neque idólis serviéntes neque adúlteri neque molles neque masculórum appetitóres neque fures neque fraudulénti neque ebriósi neque malédici neque raptóres regnum Dei consequéntur. Et hæc quidem fuístis, sed ablúti estis, sed iustificáti estis, sed sanctificáti estis in nómine Dómini Iesu Christi et in Spíritu Dei nostri. Sanctificátos nos dicit in nómine Dómini Iesu Christi et in Spíritu Dei nostri. Hæc sanctificátio ut in nobis permáneat orámus, et quia Dóminus et iudex noster sanáto a se et vivificáto comminátur iam non delínquere, ne quid ei detérius fiat, hanc contínuis oratiónibus precem fácimus, hoc diébus ac nóctibus postulámus, ut sanctificátio et vivificátio, quæ de Dei grátia súmitur, ipsíus protectióne servétur."
+      ],
+      "italics": {
+       "0": [
+        [
+         94,
+         513
+        ]
+       ]
+      }
      },
      {
       "kind": "rubric",
@@ -869,14 +893,19 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Sincéra præsta ut prófluant"
-       },
+       "Sincéra præsta ut prófluant",
        "ex ore nostro iúgiter,",
        "et veritátis dúlcibus",
        "ut excitémur gáudiis."
-      ]
+      ],
+      "italics": {
+       "0": [
+        [
+         13,
+         14
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1463,11 +1492,16 @@
        "Hoc gradiénte órdine,",
        "ornávit cuncta spléndide",
        "regni cæléstis cónditor",
-       {
-        "em": true,
-        "text": "ad nostra ætérna prǽmia."
-       }
-      ]
+       "ad nostra ætérna prǽmia."
+      ],
+      "italics": {
+       "3": [
+        [
+         8,
+         9
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1613,12 +1647,17 @@
       "lines": [
        "Ternis horárum términis",
        "volútis, dante Dómino,",
-       {
-        "em": true,
-        "text": "trinum perfécte et únicum"
-       },
+       "trinum perfécte et únicum",
        "ipsum devóti psállimus."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         14,
+         15
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -2057,11 +2096,16 @@
        "Tellúris ingens cónditor,",
        "mundi solum qui éruens,",
        "pulsis aquæ moléstiis,",
-       {
-        "em": true,
-        "text": "terram dedísti immóbilem."
-       }
-      ]
+       "terram dedísti immóbilem."
+      ],
+      "italics": {
+       "3": [
+        [
+         13,
+         14
+        ]
+       ]
+      }
      },
      {
       "kind": "text",

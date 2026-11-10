@@ -2799,7 +2799,7 @@
 "incipit": "Radix Iesse",
 "mode": null,
 "gregobase": 16731,
-"confidence": "hymn-incipit",
+"confidence": "lhym-2019",
 "candidates": [
 16731,
 16731,
@@ -6135,8 +6135,8 @@
 "page": 221,
 "incipit": "Pange lingua . . . certaminis",
 "mode": null,
-"gregobase": null,
-"confidence": "none",
+"gregobase": 17737,
+"confidence": "lhym-2019",
 "candidates": []
 },
 {
@@ -6339,7 +6339,7 @@
 "incipit": "Celsæ salutis gaudia",
 "mode": null,
 "gregobase": 17766,
-"confidence": "hymn-incipit",
+"confidence": "lhym-2019",
 "candidates": [
 17766,
 17766
@@ -6795,8 +6795,8 @@
 "page": 243,
 "incipit": "Pange lingua . . . certaminis",
 "mode": null,
-"gregobase": null,
-"confidence": "none",
+"gregobase": 17737,
+"confidence": "lhym-2019",
 "candidates": []
 },
 {
@@ -6908,7 +6908,7 @@
 "incipit": "Salva Redemptor",
 "mode": null,
 "gregobase": 17788,
-"confidence": "hymn-incipit",
+"confidence": "lhym-2019",
 "candidates": [
 17788,
 17788,
@@ -6932,7 +6932,7 @@
 "incipit": "Crux mundi benedictio",
 "mode": null,
 "gregobase": 17789,
-"confidence": "hymn-incipit",
+"confidence": "lhym-2019",
 "candidates": [
 17789,
 17789
@@ -7076,8 +7076,8 @@
 "page": 251,
 "incipit": "Christe cælorum Domine",
 "mode": null,
-"gregobase": null,
-"confidence": "none",
+"gregobase": 17854,
+"confidence": "lhym-2019",
 "candidates": [
 17854,
 17854
@@ -10356,8 +10356,8 @@
 "page": 365,
 "incipit": "Beata nobis gaudia",
 "mode": null,
-"gregobase": 2926,
-"confidence": "hymn-incipit",
+"gregobase": 17804,
+"confidence": "lhym-2019",
 "candidates": [
 2926,
 9146,
@@ -13898,8 +13898,8 @@
 "page": 524,
 "incipit": "Sacris sollemniis",
 "mode": null,
-"gregobase": null,
-"confidence": null,
+"gregobase": 16201,
+"confidence": "lhym-page",
 "candidates": []
 },
 {
@@ -20629,8 +20629,8 @@
 "page": 719,
 "incipit": "Legis sacrata",
 "mode": null,
-"gregobase": null,
-"confidence": null,
+"gregobase": 16967,
+"confidence": "lhym-2019",
 "candidates": []
 },
 {
@@ -21389,8 +21389,8 @@
 "page": 744,
 "incipit": "Cælitum Ioseph",
 "mode": null,
-"gregobase": 5532,
-"confidence": "hymn-incipit",
+"gregobase": 17643,
+"confidence": "lhym-2019",
 "candidates": [
 5532,
 17310,
@@ -21729,8 +21729,8 @@
 "page": 756,
 "incipit": "O lux salutis nuntia",
 "mode": null,
-"gregobase": null,
-"confidence": "none",
+"gregobase": 17707,
+"confidence": "lhym-2019",
 "candidates": [
 17707
 ]

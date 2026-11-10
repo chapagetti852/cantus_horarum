@@ -3,7 +3,8 @@
 The OCO cites each hymn by its Liber Hymnarius page ("Martyr Dei (LHym 283)"): the
 GregoBase score of that book on that page is taken, the incipit deciding between hymns
 on the same page; without one there, the same incipit elsewhere in the book (nearest
-page), and without any, the Antiphonale Romanum II's hymn of that incipit. The incipit is the OCO index's for that page where it has one, which is longer
+page), and without any, the Antiphonale Romanum II's hymn of that incipit, then the
+book's second edition (2019), which GregoBase gives without page numbers. The incipit is the OCO index's for that page where it has one, which is longer
 than the body's ("O lux beata Trinitas", not "O lux beata", which is also Caelitum). The
 general matcher could take a hymn from another book with the same incipit.
 Updates data/oco/gregobase-match.json; prints the ids not yet in data/gabc.
@@ -44,6 +45,11 @@ def plain_incipit(c):
     return norm(re.sub(r"\(.*?\)|\[.*?\]", "", c["incipit"]))
 
 
+def loose(words):
+    """Words as spelt alike: "Sacris Solemnis" is the OCO's "Sacris sollemniis"."""
+    return [re.sub(r"(.)\1", r"\1", w)[:6] for w in words]
+
+
 def page_no(p):
     m = re.match(r"\d+", str(p))
     return int(m.group(0)) if m else None
@@ -57,6 +63,7 @@ def main():
     by_oco = {m["oco_id"]: m for m in matches}
     lh = [(c, page_no(p)) for c in chants if c.get("has_gabc") for s, p in c["sources"] if s == LH]
     arii = [c for c in chants if c.get("has_gabc") and c.get("part") == "hy" and any(s == ARII for s, _ in c["sources"])]
+    ed2019 = [c for c in chants if c.get("has_gabc") and c.get("part") == "hy" and (c.get("version") or "").startswith("Solesmes 2019") and not c["sources"]]
     by_page = {}
     for row in json.load(open(Path(sys.argv[1]).with_name("indices.json"), encoding="utf8"))["hymni"]:
         by_page.setdefault(page_no(row.get("lhym")), []).append(row["incipit"])
@@ -72,7 +79,7 @@ def main():
             continue
         agree = lambda w: w and w[:len(inc)] == inc[:len(w)]
         same = lambda c: agree(plain_incipit(c)[:len(inc)])
-        cands = [c for c, p in lh if page is not None and p == page and norm(c["incipit"])[:2] == inc[:2]]
+        cands = [c for c, p in lh if page is not None and p == page and loose(norm(c["incipit"])[:2]) == loose(inc[:2])]
         if not cands:
             near = sorted(((abs((p or 0) - (page or 0)), c) for c, p in lh if same(c)), key=lambda x: (x[0], x[1]["id"]))
             cands = [c for _, c in near[:1]]
@@ -82,9 +89,13 @@ def main():
             cands = [c for c in arii if same(c)]
             conf = "arii-incipit"
         if not cands:
+            # nor that one: the book's second edition (Solesmes 2019), which GregoBase gives without pages
+            cands = [c for c in ed2019 if loose(plain_incipit(c)[:len(inc)]) == loose(inc)]
+            conf = "lhym-2019"
+        if not cands:
             # a match this script made on looser rules goes: better the text than another hymn
             m = by_oco.get(e["id"])
-            if m and m.get("confidence") in ("lhym-page", "lhym-incipit", "arii-incipit"):
+            if m and m.get("confidence") in ("lhym-page", "lhym-incipit", "arii-incipit", "lhym-2019"):
                 print(f"dropped: {e['id']} {e.get('title')} (was {m.get('gregobase')})", file=sys.stderr)
                 m.update(gregobase=None, confidence="none")
                 changed += 1

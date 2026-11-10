@@ -1,5 +1,6 @@
 {
  "date": "2026-07-05",
+ "v": 3,
  "hours": {
   "lectio": [
    {
@@ -626,29 +627,76 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Fácinus, inquit David, meum ego agnósco. Si ego agnósco, ergo tu ignósce. Bene vivéntes sine peccáto nos esse mínime præsumámus. Sic vita laudétur ut vénia postulétur. Desperáti autem hómines, quanto minus inténti sunt in peccáta sua, tanto curiosióres sunt in aliéna. Quærunt enim non quid córrigant, sed quid mórdeant. Et cum se non possint excusáre, paráti sunt álios accusáre. Non sic iste nobis orándi et satis Deo faciéndi demonstrávit exémplum, dicens: Quóniam fácinus meum ego agnósco, et peccátum meum ante me est semper. Non erat iste inténtus in aliéna peccáta. Advocábat se ad se, nec se palpábat sed penetrábat, et in se ipsum áltius descendébat. Sibi non parcébat, et ídeo ut sibi parcerétur non impudénter rogábat."
-       }
-      ]
+       "Fácinus, inquit David, meum ego agnósco. Si ego agnósco, ergo tu ignósce. Bene vivéntes sine peccáto nos esse mínime præsumámus. Sic vita laudétur ut vénia postulétur. Desperáti autem hómines, quanto minus inténti sunt in peccáta sua, tanto curiosióres sunt in aliéna. Quærunt enim non quid córrigant, sed quid mórdeant. Et cum se non possint excusáre, paráti sunt álios accusáre. Non sic iste nobis orándi et satis Deo faciéndi demonstrávit exémplum, dicens: Quóniam fácinus meum ego agnósco, et peccátum meum ante me est semper. Non erat iste inténtus in aliéna peccáta. Advocábat se ad se, nec se palpábat sed penetrábat, et in se ipsum áltius descendébat. Sibi non parcébat, et ídeo ut sibi parcerétur non impudénter rogábat."
+      ],
+      "italics": {
+       "0": [
+        [
+         0,
+         8
+        ],
+        [
+         23,
+         40
+        ],
+        [
+         460,
+         530
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Placári Deo vis? Nosce quid agas tecum, ut Deus placétur tibi. In eódem psalmo advérte; ibi enim légitur: Quóniam si voluísses sacrifícium, dedíssem útique; holocáustis non delectáberis. Ergo sine sacrifício eris? nihil oblatúrus, de nulla oblatióne Deum placatúrus? Quid dixísti? Si voluísses sacrifícium, dedíssem útique; holocáustis non delectáberis. Séquere, et audi, et dic: Sacrifícium Deo spíritus contrítus, cor contrítum et humiliátum Deus non spernit. Abiéctis quæ offerébas, invenísti quod ófferas. Offerébas enim apud patres víctimas pécorum, et sacrifícia vocabántur. Si voluísses sacrifícium, dedíssem útique. Illa ergo non quæris, et tamen sacrifícium quæris."
-       }
-      ]
+       "Placári Deo vis? Nosce quid agas tecum, ut Deus placétur tibi. In eódem psalmo advérte; ibi enim légitur: Quóniam si voluísses sacrifícium, dedíssem útique; holocáustis non delectáberis. Ergo sine sacrifício eris? nihil oblatúrus, de nulla oblatióne Deum placatúrus? Quid dixísti? Si voluísses sacrifícium, dedíssem útique; holocáustis non delectáberis. Séquere, et audi, et dic: Sacrifícium Deo spíritus contrítus, cor contrítum et humiliátum Deus non spernit. Abiéctis quæ offerébas, invenísti quod ófferas. Offerébas enim apud patres víctimas pécorum, et sacrifícia vocabántur. Si voluísses sacrifícium, dedíssem útique. Illa ergo non quæris, et tamen sacrifícium quæris."
+      ],
+      "italics": {
+       "0": [
+        [
+         106,
+         186
+        ],
+        [
+         281,
+         353
+        ],
+        [
+         380,
+         461
+        ],
+        [
+         581,
+         623
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Holocáustis, inquit, non delectáberis. Quando ergo holocáustis non delectáberis, sine sacrifício remanébis? Absit. Sacrifícium Deo spíritus contrítus; cor contrítum et humiliátum Deus non spernit. Habes quod ófferas. Non gregem circuminspícias, non navígia prǽpares et pérmees ad extrémas províncias unde arómata déferas. Quære in corde tuo quod gratum sit Deo. Cor conteréndum est. Quid times ne contrítum péreat? Ibi habes: Cor mundum crea in me, Deus. Ut ergo creétur mundum cor, conterátur immúndum."
-       }
-      ]
+       "Holocáustis, inquit, non delectáberis. Quando ergo holocáustis non delectáberis, sine sacrifício remanébis? Absit. Sacrifícium Deo spíritus contrítus; cor contrítum et humiliátum Deus non spernit. Habes quod ófferas. Non gregem circuminspícias, non navígia prǽpares et pérmees ad extrémas províncias unde arómata déferas. Quære in corde tuo quod gratum sit Deo. Cor conteréndum est. Quid times ne contrítum péreat? Ibi habes: Cor mundum crea in me, Deus. Ut ergo creétur mundum cor, conterátur immúndum."
+      ],
+      "italics": {
+       "0": [
+        [
+         0,
+         12
+        ],
+        [
+         21,
+         38
+        ],
+        [
+         115,
+         196
+        ],
+        [
+         426,
+         448
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1636,11 +1684,16 @@
        "Hoc gradiénte órdine,",
        "ornávit cuncta spléndide",
        "regni cæléstis cónditor",
-       {
-        "em": true,
-        "text": "ad nostra ætérna prǽmia."
-       }
-      ]
+       "ad nostra ætérna prǽmia."
+      ],
+      "italics": {
+       "3": [
+        [
+         8,
+         9
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1786,12 +1839,17 @@
       "lines": [
        "Ternis horárum términis",
        "volútis, dante Dómino,",
-       {
-        "em": true,
-        "text": "trinum perfécte et únicum"
-       },
+       "trinum perfécte et únicum",
        "ipsum devóti psállimus."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         14,
+         15
+        ]
+       ]
+      }
      },
      {
       "kind": "text",

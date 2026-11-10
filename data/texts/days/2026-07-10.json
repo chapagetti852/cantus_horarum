@@ -1,5 +1,6 @@
 {
  "date": "2026-07-10",
+ "v": 3,
  "hours": {
   "lectio": [
    {
@@ -546,20 +547,30 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Vidétis, dilécti, quam magna et admiránda sit cáritas, et quod perféctio eius néqueat enarrári. Quis est idóneus, ut in ipsa inveniátur, præter eos, quos Deus dignos esse volúerit? Orémus ígitur et petámus ab illíus misericórdia, ut in caritáte inveniámur sine propensióne áliqua humána inculpáti. Generatiónes omnes ab Adam usque in hodiérnum diem præteriérunt; qui vero per Dei grátiam in caritáte sunt consummáti, locum piórum óbtinent et in visitatióne regni Christi manifestabúntur. Scriptum enim est: Ingredímini in cubícula páululum quantulumcúmque, donec ira mea et furor pertránseat; et recordábor diéi boni, et suscitábo vos e sepúlcris vestris."
-       }
-      ]
+       "Vidétis, dilécti, quam magna et admiránda sit cáritas, et quod perféctio eius néqueat enarrári. Quis est idóneus, ut in ipsa inveniátur, præter eos, quos Deus dignos esse volúerit? Orémus ígitur et petámus ab illíus misericórdia, ut in caritáte inveniámur sine propensióne áliqua humána inculpáti. Generatiónes omnes ab Adam usque in hodiérnum diem præteriérunt; qui vero per Dei grátiam in caritáte sunt consummáti, locum piórum óbtinent et in visitatióne regni Christi manifestabúntur. Scriptum enim est: Ingredímini in cubícula páululum quantulumcúmque, donec ira mea et furor pertránseat; et recordábor diéi boni, et suscitábo vos e sepúlcris vestris."
+      ],
+      "italics": {
+       "0": [
+        [
+         507,
+         655
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Beáti sumus, dilécti, si præcépta Dómini in caritátis concórdia implevérimus, ut per caritátem peccáta nostra nobis remittántur. Scriptum enim est: Beáti, quorum remíssæ sunt iniquitátes et quorum tecta sunt peccáta. Beátus vir, cui Dóminus peccátum non imputábit, neque est in ore eius dolus. Hæc beatitúdinis prædicátio ad eos pértinet, qui per Iesum Christum Dóminum nostrum a Deo sunt elécti; cui sit glória in sǽcula sæculórum. Amen."
-       }
-      ]
+       "Beáti sumus, dilécti, si præcépta Dómini in caritátis concórdia implevérimus, ut per caritátem peccáta nostra nobis remittántur. Scriptum enim est: Beáti, quorum remíssæ sunt iniquitátes et quorum tecta sunt peccáta. Beátus vir, cui Dóminus peccátum non imputábit, neque est in ore eius dolus. Hæc beatitúdinis prædicátio ad eos pértinet, qui per Iesum Christum Dóminum nostrum a Deo sunt elécti; cui sit glória in sǽcula sæculórum. Amen."
+      ],
+      "italics": {
+       "0": [
+        [
+         148,
+         293
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -570,11 +581,16 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Quis ígitur inter vos generósus, quis miséricors, quis caritáte plenus? Dicat: «Si propter me sedítio et discórdia et schísmata orta sunt, discédo, ábeo quocúmque voluéritis, et quæ multitúdo iússerit, fácio; dúmmodo Christi grex in pace degat cum constitútis presbýteris». Qui hoc fécerit, magnam sibi glóriam in Christo conciliábit, et omnis locus eum excípiet. Dómini enim est terra et plenitúdo eius. Hæc fáciunt et fácient, qui divínam, cuius numquam pænitet, vitam vivunt."
-       }
-      ]
+       "Quis ígitur inter vos generósus, quis miséricors, quis caritáte plenus? Dicat: «Si propter me sedítio et discórdia et schísmata orta sunt, discédo, ábeo quocúmque voluéritis, et quæ multitúdo iússerit, fácio; dúmmodo Christi grex in pace degat cum constitútis presbýteris». Qui hoc fécerit, magnam sibi glóriam in Christo conciliábit, et omnis locus eum excípiet. Dómini enim est terra et plenitúdo eius. Hæc fáciunt et fácient, qui divínam, cuius numquam pænitet, vitam vivunt."
+      ],
+      "italics": {
+       "0": [
+        [
+         364,
+         404
+        ]
+       ]
+      }
      },
      {
       "kind": "rubric",
@@ -875,16 +891,11 @@
    },
    {
     "title": "PSALMODIA",
-    "blocks": []
-   },
-   {
-    "title": "Ant. 1",
     "blocks": [
      {
-      "kind": "text",
-      "lines": [
-       "Cor contrítum et humiliátum, Deus, non despícies."
-      ]
+      "kind": "antiphon",
+      "n": 1,
+      "text": "Cor contrítum et humiliátum, Deus, non despícies."
      },
      {
       "kind": "psalm",
@@ -1491,11 +1502,16 @@
        "Hoc gradiénte órdine,",
        "ornávit cuncta spléndide",
        "regni cæléstis cónditor",
-       {
-        "em": true,
-        "text": "ad nostra ætérna prǽmia."
-       }
-      ]
+       "ad nostra ætérna prǽmia."
+      ],
+      "italics": {
+       "3": [
+        [
+         8,
+         9
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1641,12 +1657,17 @@
       "lines": [
        "Ternis horárum términis",
        "volútis, dante Dómino,",
-       {
-        "em": true,
-        "text": "trinum perfécte et únicum"
-       },
+       "trinum perfécte et únicum",
        "ipsum devóti psállimus."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         14,
+         15
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -2265,11 +2286,16 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Lóquimur Dei sapiéntiam in mystério, quæ abscóndita est, quam prædestinávit Deus ante sǽcula in glóriam nostram, quam nemo príncipum huius sæculi cognóvit; si enim cognovíssent, numquam Dóminum glóriæ crucifixíssent. Sed sicut scriptum est: «Quod óculus non vidit, nec auris audívit, nec in cor hóminis ascéndit, quæ præparávit Deus his, qui díligunt illum.» Nobis autem revelávit Deus per Spíritum."
-       }
-      ]
+       "Lóquimur Dei sapiéntiam in mystério, quæ abscóndita est, quam prædestinávit Deus ante sǽcula in glóriam nostram, quam nemo príncipum huius sæculi cognóvit; si enim cognovíssent, numquam Dóminum glóriæ crucifixíssent. Sed sicut scriptum est: «Quod óculus non vidit, nec auris audívit, nec in cor hóminis ascéndit, quæ præparávit Deus his, qui díligunt illum.» Nobis autem revelávit Deus per Spíritum."
+      ],
+      "italics": {
+       "0": [
+        [
+         242,
+         283
+        ]
+       ]
+      }
      }
     ]
    },

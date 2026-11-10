@@ -96,7 +96,8 @@ export function shiftGabc(notes, n) {
 }
 const lastPitch = (notes) => (notes.match(/[a-mA-M]/g) || []).pop()?.toLowerCase();
 
-const EUOUAE = /E\(([^)]*)\)\s*u\(([^)]*)\)\s*o\(([^)]*)\)\s*u\(([^)]*)\)\s*a\(([^)]*)\)\s*e\.?\(([^)]*)\)/;
+// (GregoBase's older transcriptions wrap the vowels in <eu>…</eu>, closed before the last notes)
+const EUOUAE = /E\(([^)]*)\)\s*u\(([^)]*)\)\s*o\(([^)]*)\)\s*u\(([^)]*)\)\s*a\(([^)]*)\)\s*e\.?(?:<\/eu>)?\(([^)]*)\)/;
 /** Pitches of note groups relative to the last one: the shape of a termination. */
 function shape(groups) {
   const ps = groups.map((g) => (g.replace(/([a-m])x\1/gi, '$1').match(/[a-m]/gi) || []).map((c) => PITCH.indexOf(c.toLowerCase())));

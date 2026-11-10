@@ -1,5 +1,6 @@
 {
  "date": "2026-06-10",
+ "v": 3,
  "hours": {
   "lectio": [
    {
@@ -558,20 +559,34 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Audi étenim Paulum dicéntem de iustis: Rapiémur, inquit, in núbibus óbviam Christo in áera, et ita semper cum Dómino érimus. Nihil omníno est quod métuat iustus, omnis ei creatúra famulátur."
-       }
-      ]
+       "Audi étenim Paulum dicéntem de iustis: Rapiémur, inquit, in núbibus óbviam Christo in áera, et ita semper cum Dómino érimus. Nihil omníno est quod métuat iustus, omnis ei creatúra famulátur."
+      ],
+      "italics": {
+       "0": [
+        [
+         39,
+         48
+        ],
+        [
+         57,
+         124
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Audi dénique quómodo étiam per prophétam promíttit ei Deus dicens: Si tránseas per ignem, flamma non adúret te, quóniam ego Dóminus Deus tuus. Omnis ígitur locus súscipit iustum, et omnis creatúra éxhibet débitum famulátum. Et ne exístimes quod hæc in prióribus quidem gesta sunt, in te vero qui nunc audítor horum es nihil tale gerátur: ómnia compléntur in te secúndum mýsticam ratiónem. Etenim tu, qui nuper idololatríæ ténebris derelíctis, cupis ad audiéntiam divínæ legis accédere, nunc primum Ægýptum derelínquis."
-       }
-      ]
+       "Audi dénique quómodo étiam per prophétam promíttit ei Deus dicens: Si tránseas per ignem, flamma non adúret te, quóniam ego Dóminus Deus tuus. Omnis ígitur locus súscipit iustum, et omnis creatúra éxhibet débitum famulátum. Et ne exístimes quod hæc in prióribus quidem gesta sunt, in te vero qui nunc audítor horum es nihil tale gerátur: ómnia compléntur in te secúndum mýsticam ratiónem. Etenim tu, qui nuper idololatríæ ténebris derelíctis, cupis ad audiéntiam divínæ legis accédere, nunc primum Ægýptum derelínquis."
+      ],
+      "italics": {
+       "0": [
+        [
+         67,
+         142
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -582,11 +597,20 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Tu vero tantárum ac tálium virtútum Dei memor, quod tibi mare divísum est, et quod aqua flúminis stetit, convérsus ad ea dices: Quid tibi est, mare, quod fugísti? et tu Iordánis, quia convérsus es retrórsum? Montes, quid exsultástis sicut aríetes, et colles sicut agni óvium? Sed respondébit sermo divínus et dicet: A fácie Dómini commóta est terra, a fácie Dei Iacob, qui convértit petram in stagnum aquæ et rupem in fontes aquárum."
-       }
-      ]
+       "Tu vero tantárum ac tálium virtútum Dei memor, quod tibi mare divísum est, et quod aqua flúminis stetit, convérsus ad ea dices: Quid tibi est, mare, quod fugísti? et tu Iordánis, quia convérsus es retrórsum? Montes, quid exsultástis sicut aríetes, et colles sicut agni óvium? Sed respondébit sermo divínus et dicet: A fácie Dómini commóta est terra, a fácie Dei Iacob, qui convértit petram in stagnum aquæ et rupem in fontes aquárum."
+      ],
+      "italics": {
+       "0": [
+        [
+         128,
+         275
+        ],
+        [
+         316,
+         433
+        ]
+       ]
+      }
      },
      {
       "kind": "rubric",
@@ -1509,11 +1533,16 @@
        "Hoc gradiénte órdine,",
        "ornávit cuncta spléndide",
        "regni cæléstis cónditor",
-       {
-        "em": true,
-        "text": "ad nostra ætérna prǽmia."
-       }
-      ]
+       "ad nostra ætérna prǽmia."
+      ],
+      "italics": {
+       "3": [
+        [
+         8,
+         9
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1659,12 +1688,17 @@
       "lines": [
        "Ternis horárum términis",
        "volútis, dante Dómino,",
-       {
-        "em": true,
-        "text": "trinum perfécte et únicum"
-       },
+       "trinum perfécte et únicum",
        "ipsum devóti psállimus."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         14,
+         15
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -2110,13 +2144,18 @@
       "kind": "text",
       "lines": [
        "Sol, ecce, lentus óccidens",
-       {
-        "em": true,
-        "text": "montes et arva et ǽquora"
-       },
+       "montes et arva et ǽquora",
        "mæstus relínquit, ínnovat",
        "sed lucis omen crástinæ,"
-      ]
+      ],
+      "italics": {
+       "1": [
+        [
+         13,
+         14
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -2124,11 +2163,16 @@
        "Mirántibus mortálibus",
        "sic te, Creátor próvide,",
        "leges vicésque témporum",
-       {
-        "em": true,
-        "text": "umbris dedísse et lúmini."
-       }
-      ]
+       "umbris dedísse et lúmini."
+      ],
+      "italics": {
+       "3": [
+        [
+         13,
+         14
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -2154,23 +2198,33 @@
        "Est ille sol qui nésciat",
        "ortum vel umquam vésperum;",
        "quo terra gestit cóntegi,",
-       {
-        "em": true,
-        "text": "quo cæli in ævum iúbilant."
-       }
-      ]
+       "quo cæli in ævum iúbilant."
+      ],
+      "italics": {
+       "3": [
+        [
+         7,
+         8
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
        "Hac nos seréna pérpetim",
        "da luce tandem pérfrui,",
-       {
-        "em": true,
-        "text": "cum Nato et almo Spíritu"
-       },
+       "cum Nato et almo Spíritu",
        "tibi novántes cántica. Amen."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         7,
+         8
+        ]
+       ]
+      }
      }
     ]
    },

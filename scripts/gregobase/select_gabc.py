@@ -15,7 +15,9 @@ COMMON_TONES = [4121, 7864, 18107, 18108, 4321, 15301, 15302, 17847, 17848,
                 # invitatory psalm 94 (Liber Hymnarius tones II-VII, IV*, IV**, VI*, VI**, D, E)
                 8218, 10397, 15508, 7669, 16356, 10248, 9664, 10035, 15059, 9834, 9707, 9642,
                 # conclusions of Lauds and Vespers (Antiphonale Romanum II pp. 761-765)
-                4322, 3972, 16976, 16129, 16665, 17802, 1310]
+                4322, 3972, 16976, 16129, 16665, 17802, 1310,
+                # the antiphon Alleluia of Eastertide, mode by mode
+                2822, 2383, 15201, 2197, 2090, 3000, 15186, 15188, 3004, 2622, 10195, 2293, 2025]
 
 
 def main():

@@ -65,8 +65,8 @@ export class IBreviary {
     await this.setDate(iso);
     const html = await this.request(`breviario.php?s=${HOURS[hour]}`);
     if (!/id="contenuto"/.test(html)) throw new Error(`${iso} ${hour}: unexpected page`);
-    mkdirSync(dir, { recursive: true });
-    writeFileSync(file, html);
+    // a page without its office (a date iBreviary has not filled yet) is asked for again next time
+    if (html.length > 4000) { mkdirSync(dir, { recursive: true }); writeFileSync(file, html); }
     this.log.log(`fetched ${this.lang === 'la' ? '' : this.lang + ' '}${iso} ${hour}`);
     return html;
   }
@@ -123,7 +123,10 @@ export function linesOf(html) {
       if (piece.startsWith('anchor:')) { cur.push({ anchor: piece.slice(7) }); continue; }
       const text = decode(piece).replace(/\s+/g, ' ');
       if (!text.trim() && !cur.length) continue;
-      cur.push({ text, rubric: !!state.rubric || undefined, em: !!state.em || undefined, section: !!state.section || undefined });
+      // iBreviary sometimes closes the PSALMODIA heading only after "Ant. 1" (Friday Lauds):
+      // that is the antiphon's rubric, not a section
+      const ant = state.section && /^\s*Ant\.?\s*\d*\.?\s*$/.test(text);
+      cur.push({ text, rubric: !!state.rubric || ant || undefined, em: !!state.em || undefined, section: (!!state.section && !ant) || undefined });
     }
   }
   if (cur.length) flush();
@@ -178,14 +181,37 @@ export function parseHour(html) {
       line = lines[i] = line.filter((r) => r.anchor === undefined);
       if (!plain(line)) { i++; continue; }
     }
-    const st = sectionTitle(line);
-    if (st) { sec = { title: st, blocks: [] }; sections.push(sec); const rest = afterRubric(line.filter((r) => !r.section)); if (rest) push({ kind: 'text', lines: [rest] }); i++; continue; }
+    // headings iBreviary leaves unmarked: an hour of the middle hour in plain text ("AD SEXTAM"
+    // on solemnities), the psalmody of a feast's Office of Readings as a rubric after the hymn
+    const bare = plain(line);
+    const st = sectionTitle(line)
+      || (/^AD (TERTIAM|SEXTAM|NONAM)$/.test(bare) && (firstRubric(line) === null || /^AD /.test(sec?.title || '')) ? bare : null)
+      || (bare === 'PSALMODIA' && sec?.title === 'HYMNUS' ? bare : null);
+    if (st) { sec = { title: st === 'PRALMODIA' ? 'PSALMODIA' : st, blocks: [] }; sections.push(sec); const rest = afterRubric(line.filter((r) => !r.section)); if (rest && rest !== st) push({ kind: 'text', lines: [rest] }); i++; continue; }
     if (isBlank(line)) { i++; continue; }
+    // "Psalmodia Complementaris" run into "Ant. 1 …" on one line: the antiphon is a line of its own
+    const antAt = line.findIndex((r, k) => k > 0 && r.rubric && /^\s*Ant\.?\s*\d*\.?\s*$/.test(r.text || ''));
+    if (antAt > 0 && firstRubric(line) === null) {
+      const before = plain(line.slice(0, antAt));
+      if (before) push({ kind: 'text', lines: [before] });
+      line = lines[i] = line.slice(antAt);
+    }
     const rub = firstRubric(line);
     if (rub !== null) {
       const rest = afterRubric(line);
       let m;
-      if ((m = /^Ant\.?\s*(\d*)\.?$/.exec(rub)) && rest) { push({ kind: 'antiphon', n: m[1] ? Number(m[1]) : null, text: rest }); i++; continue; }
+      // the middle hour with the three hours' readings straight after the psalms, their
+      // headings left out (1 January): each "LECTIO BREVIS" opens the next hour
+      if (rub === 'LECTIO BREVIS' && !rest) {
+        const order = ['PSALMODIA', 'AD TERTIAM', 'AD SEXTAM', 'AD NONAM'];
+        const k = order.indexOf(sec?.title);
+        if (k === 0 || (k > 0 && k < 3 && sec.blocks.some((b) => b.kind === 'rubric' && b.text === 'LECTIO BREVIS'))) { sec = { title: order[k + 1], blocks: [] }; sections.push(sec); }
+      }
+      if ((m = /^Ant\.?\s*(\d*)\.?$/.exec(rub)) && rest) {
+        // the first antiphon straight after the hymn, the heading left out (2 November)
+        if (m[1] === '1' && sec?.title === 'HYMNUS') { sec = { title: 'PSALMODIA', blocks: [] }; sections.push(sec); }
+        push({ kind: 'antiphon', n: m[1] ? Number(m[1]) : null, text: rest }); i++; continue;
+      }
       if (/^℣\.?$/.test(rub) || /^℟\.?$/.test(rub) || /^\*$/.test(rub)) {
         // versicle / response pairs and responsory lines
         const last = sec?.blocks[sec.blocks.length - 1];
@@ -232,15 +258,36 @@ export function parseHour(html) {
       if (rest) push({ kind: 'text', lines: [rest] });
       i++; continue;
     }
-    // plain text lines: group until blank
+    // plain text lines: group until blank. A line all in italics (the response of the
+    // intercessions, a refrain) is { em, text }; italics within a line (the words of Scripture
+    // a reading quotes) are noted beside the lines: italics[line index] = [[start, end], ...]
     const group = [];
+    const italics = {};
     while (i < lines.length && !isBlank(lines[i]) && firstRubric(lines[i]) === null && !sectionTitle(lines[i]) && !lines[i].some((r) => r.anchor !== undefined)) {
       tick('group', i, lines);
       const l = lines[i];
-      group.push(l.some((r) => r.em) ? { em: true, text: plain(l) } : plain(l));
+      const runs = l.filter((r) => r.text);
+      const worded = runs.filter((r) => r.text.trim());
+      if (worded.length && worded.every((r) => r.em)) group.push({ em: true, text: plain(l) });
+      else {
+        const text = plain(l);
+        if (worded.some((r) => r.em)) {
+          const joined = runs.map((r) => r.text).join('');
+          const lead = joined.length - joined.trimStart().length;
+          const ranges = [];
+          let at = 0;
+          for (const r of runs) {
+            const from = Math.max(0, at - lead), to = Math.min(text.length, at + r.text.length - lead);
+            if (r.em && to > from) { const last = ranges[ranges.length - 1]; if (last && last[1] === from) last[1] = to; else ranges.push([from, to]); }
+            at += r.text.length;
+          }
+          if (ranges.length) italics[group.length] = ranges;
+        }
+        group.push(text);
+      }
       i++;
     }
-    if (group.length) push({ kind: 'text', lines: group });
+    if (group.length) push(Object.keys(italics).length ? { kind: 'text', lines: group, italics } : { kind: 'text', lines: group });
   }
   return sections;
 }
@@ -270,7 +317,9 @@ const addDays = (iso, n) => new Date(Date.parse(`${iso}T12:00:00Z`) + n * 864000
 
 // iBreviary has no I Vespers of All Saints in any year: their psalms (Ps 112, Ps 147,
 // Eph 1) are those of the I Vespers of the Assumption, which it does give.
-const I_VESPERS_PSALMODY = { all_saints: { id: 'assumption_of_the_blessed_virgin_mary', md: '-08-15' } };
+// Nor of the Immaculate Conception or of the Mother of God (1 January), with the same psalms.
+const ASSUMPTION = { id: 'assumption_of_the_blessed_virgin_mary', md: '-08-15' };
+const I_VESPERS_PSALMODY = { all_saints: ASSUMPTION, immaculate_conception_of_the_blessed_virgin_mary: ASSUMPTION, mary_mother_of_god: ASSUMPTION };
 
 /** Dates (other years) where celebration `id` falls on `md` on a weekday; Tuesday–Friday first, so the eve is a weekday too. */
 function weekdayDates(md, id, year) {
@@ -284,10 +333,39 @@ function weekdayDates(md, id, year) {
   return out.sort((a, b) => (weekday(a) === 1) - (weekday(b) === 1));
 }
 
-/** For a Sunday kept as a fixed-date solemnity or feast: { id, date } of the same celebration on a weekday. */
+// iBreviary follows the Italian calendar, with the Ascension and Corpus Christi on a Sunday.
+// In the General Roman Calendar they are Thursdays: the Thursday takes the pages of the
+// Sunday after it (its I Vespers from that Saturday, on the Wednesday), and that Sunday,
+// where iBreviary has the feast, the same Sunday's in another year. The seventh Sunday of
+// Easter iBreviary never has: no pages (date null), and the app says the psalter's.
+const ON_SUNDAY = ['ascension_of_the_lord', 'most_holy_body_and_blood_of_christ'];
+/** The date of a celebration in a year of the general calendar. */
+function dateOf(id, year) {
+  celebration(`${year}-01-01`);
+  for (const [d, list] of Object.entries(calendars[String(year)] || {})) if (list[0]?.id === id) return d;
+  return null;
+}
+/** Whether the general calendar's day takes other pages than its own on account of those Thursdays. */
+export function thursdayFeast(iso) {
+  const is = (d) => ON_SUNDAY.includes(celebration(d)?.id) && weekday(d) === 4;
+  return is(iso) || is(addDays(iso, 1)) || is(addDays(iso, -3)) || is(addDays(iso, -2));
+}
+
+/** For a day whose office is not on its own pages: { id, date } of the pages that hold it (a
+ *  Sunday kept as a fixed-date solemnity or feast: the same celebration on a weekday). */
 export function donorFor(iso) {
   const cel = celebration(iso);
-  if (!cel || weekday(iso) !== 0 || /sunday/.test(cel.id) || !['SOLEMNITY', 'FEAST'].includes(cel.rank)) return null;
+  if (!cel) return null;
+  if (ON_SUNDAY.includes(cel.id) && weekday(iso) === 4) return { id: cel.id, date: addDays(iso, 3) };
+  if (weekday(iso) === 0 && weekday(addDays(iso, -3)) === 4 && ON_SUNDAY.includes(celebration(addDays(iso, -3))?.id)) {
+    const y = Number(iso.slice(0, 4));
+    for (let k = 1; k <= 7; k++) for (const yy of [y - k, y + k]) {
+      const d = dateOf(cel.id, yy);
+      if (d && !ON_SUNDAY.includes(celebration(addDays(d, -3))?.id)) return { id: cel.id, date: d };
+    }
+    return { id: cel.id, date: null };
+  }
+  if (weekday(iso) !== 0 || /sunday/.test(cel.id) || !['SOLEMNITY', 'FEAST'].includes(cel.rank)) return null;
   if (cel.id === 'commemoration_of_all_the_faithful_departed') return null; // on a Sunday the office is the Sunday's
   const date = weekdayDates(iso.slice(4), cel.id, Number(iso.slice(0, 4)))[0];
   return date ? { id: cel.id, date } : null;
@@ -297,8 +375,13 @@ export function donorFor(iso) {
 export function properKey(iso) {
   const own = donorFor(iso);
   if (own) return `${own.id}@${own.date}`;
-  const morrow = weekday(iso) === 6 && donorFor(addDays(iso, 1));
+  const morrow = eveOf(iso);
   return morrow ? `I Vesp. ${morrow.id}@${morrow.date}` : null;
+}
+/** The donor of the morrow whose I Vespers a day's Vespers are: on a Saturday, or the Wednesday before such a Thursday. */
+function eveOf(iso) {
+  const next = donorFor(addDays(iso, 1));
+  return next && (weekday(iso) === 6 || ON_SUNDAY.includes(next.id)) ? next : null;
 }
 
 const firstText = (secs, title) => JSON.stringify(secs.find((s) => s.title === title)?.blocks.find((b) => b.kind === 'text')?.lines[0] ?? null);
@@ -332,22 +415,63 @@ export async function firstVespers(ib, donor, sources) {
   return secs;
 }
 
+/** The shape of a day's file: raised when the parser reads the pages otherwise, so the window makes its days again. */
+export const DAY_FORMAT = 3;
+
+/** An hour given as its psalmody alone, or as nothing (the middle hour is whole when None is there). */
+const cut = (secs, hour) => !secs.some((s) => s.title === (hour === 'media' ? 'AD NONAM' : 'ORATIO'));
+
+/** The date whose pages hold a day's office: its own, or, for a solemnity or feast of a fixed
+ *  date that iBreviary leaves empty (1 January 2027), the same celebration's in another year. */
+async function wholeDate(ib, iso) {
+  if (!cut(parseHour(await ib.page(iso, 'laudes')), 'laudes')) return iso;
+  const cel = celebration(iso);
+  if (!cel || !['SOLEMNITY', 'FEAST'].includes(cel.rank)) return iso;
+  for (const d of weekdayDates(iso.slice(4), cel.id, Number(iso.slice(0, 4)))) {
+    if (!cut(parseHour(await ib.page(d, 'laudes')), 'laudes')) return d;
+  }
+  return iso;
+}
+
 export async function buildDay(iso, { ib = new IBreviary(), outDir = 'data/texts/days' } = {}) {
-  const day = { date: iso, hours: {} };
-  const own = donorFor(iso);
-  const morrow = !own && weekday(iso) === 6 ? donorFor(addDays(iso, 1)) : null;
+  const day = { date: iso, v: DAY_FORMAT, hours: {} };
+  let own = donorFor(iso);
+  if (!own) {
+    const d = await wholeDate(ib, iso);
+    // (made again on later runs, in case iBreviary has filled the date since)
+    if (d !== iso) { own = { id: celebration(iso).id, date: d }; day.retry = true; }
+  }
+  const morrow = !own ? eveOf(iso) : null;
   const sources = {};
   for (const hour of Object.keys(HOURS)) {
     if (own && hour !== 'completorium') {
+      if (!own.date) continue; // no pages hold it: the psalter's
       day.hours[hour] = parseHour(await ib.page(own.date, hour));
       sources[hour] = `${own.date} ${hour}`;
     } else if (morrow && hour === 'vesperae') {
+      if (!morrow.date) continue;
       day.hours[hour] = await firstVespers(ib, morrow, sources);
     } else {
       day.hours[hour] = parseHour(await ib.page(iso, hour));
     }
   }
-  if (own || morrow) day.proper = { key: properKey(iso), celebration: (own || morrow).id, sources };
+  // iBreviary gives some hours as their psalmody alone, or as nothing: the Vespers of
+  // 7 and 31 December in every year (it has no I Vespers of the Immaculate Conception or of
+  // the Mother of God), now and then another eve. On the eve of a solemnity the Vespers are
+  // then made as a Sunday solemnity's are (firstVespers: the II Vespers with the psalmody of
+  // I Vespers where another feast lends it); any other such hour is left out, and the app
+  // takes the psalter's.
+  let eve = null;
+  for (const hour of Object.keys(day.hours)) {
+    if (!cut(day.hours[hour], hour)) continue;
+    const next = celebration(addDays(iso, 1));
+    if (hour === 'vesperae' && next?.rank === 'SOLEMNITY' && !own && !morrow) {
+      eve = { id: next.id, date: await wholeDate(ib, addDays(iso, 1)) };
+      day.hours[hour] = await firstVespers(ib, eve, sources);
+    }
+    if (cut(day.hours[hour], hour)) { delete day.hours[hour]; (day.cut ||= []).push(hour); day.retry = true; }
+  }
+  if (own || morrow || eve) day.proper = { key: properKey(iso), celebration: (own || morrow || eve).id, sources };
   mkdirSync(outDir, { recursive: true });
   writeFileSync(join(outDir, `${iso}.json`), JSON.stringify(day, null, 1));
   return day;

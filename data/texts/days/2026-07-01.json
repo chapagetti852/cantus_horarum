@@ -1,5 +1,6 @@
 {
  "date": "2026-07-01",
+ "v": 3,
  "hours": {
   "lectio": [
    {
@@ -580,11 +581,16 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Docet ergo nos bonus Iesus ut hæc verba dicámus, quibus tale nobis regnum adveníre pétimus: Sanctificétur nomen tuum, advéniat regnum tuum. Iam, quæso, exímiam Præceptóris nostri sapiéntiam consideráte. Equidem hic mecum perpéndo, et bonum sane nos est intellégere, quid per hoc regnum petámus. Ut ergo maiéstas eius vidébat non posse nos sanctum hoc Patris ætérni nomen sanctificáre aut glorificáre, iuxta parvum et exíguum illud quod ipsi póssumus (ita quidem ut hoc, ut par est, faciámus), nisi maiéstas ipsíus aliúnde quoad hoc nobis prospíceret, suum scílicet nobis regnum hic dando, hinc bonus noster Iesus unum álteri coniúnxit et coadunávit. Quocírca, ut id quod pétimus intellegámus, quantóque réferat importúne et fervénter id pétere, necnon præstáre quodcúmque póssumus ad placéndum et satisfaciéndum ei a quo hoc nobis dandum est, hoc loco vobis expónere et dícere volo quid hanc circa rem ipsa intéllegam."
-       }
-      ]
+       "Docet ergo nos bonus Iesus ut hæc verba dicámus, quibus tale nobis regnum adveníre pétimus: Sanctificétur nomen tuum, advéniat regnum tuum. Iam, quæso, exímiam Præceptóris nostri sapiéntiam consideráte. Equidem hic mecum perpéndo, et bonum sane nos est intellégere, quid per hoc regnum petámus. Ut ergo maiéstas eius vidébat non posse nos sanctum hoc Patris ætérni nomen sanctificáre aut glorificáre, iuxta parvum et exíguum illud quod ipsi póssumus (ita quidem ut hoc, ut par est, faciámus), nisi maiéstas ipsíus aliúnde quoad hoc nobis prospíceret, suum scílicet nobis regnum hic dando, hinc bonus noster Iesus unum álteri coniúnxit et coadunávit. Quocírca, ut id quod pétimus intellegámus, quantóque réferat importúne et fervénter id pétere, necnon præstáre quodcúmque póssumus ad placéndum et satisfaciéndum ei a quo hoc nobis dandum est, hoc loco vobis expónere et dícere volo quid hanc circa rem ipsa intéllegam."
+      ],
+      "italics": {
+       "0": [
+        [
+         92,
+         139
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -835,17 +841,25 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Nox et tenébræ et núbila,"
-       },
-       {
-        "em": true,
-        "text": "confúsa mundi et túrbida,"
-       },
+       "Nox et tenébræ et núbila,",
+       "confúsa mundi et túrbida,",
        "lux intrat, albéscit polus:",
        "Christus venit; discédite."
-      ]
+      ],
+      "italics": {
+       "0": [
+        [
+         13,
+         14
+        ]
+       ],
+       "1": [
+        [
+         12,
+         13
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -869,13 +883,18 @@
       "kind": "text",
       "lines": [
        "Te, Christe, solum nóvimus,",
-       {
-        "em": true,
-        "text": "te mente pura et símplici"
-       },
+       "te mente pura et símplici",
        "rogáre curváto genu",
        "flendo et canéndo díscimus."
-      ]
+      ],
+      "italics": {
+       "1": [
+        [
+         12,
+         13
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1471,11 +1490,16 @@
        "Hoc gradiénte órdine,",
        "ornávit cuncta spléndide",
        "regni cæléstis cónditor",
-       {
-        "em": true,
-        "text": "ad nostra ætérna prǽmia."
-       }
-      ]
+       "ad nostra ætérna prǽmia."
+      ],
+      "italics": {
+       "3": [
+        [
+         8,
+         9
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1621,12 +1645,17 @@
       "lines": [
        "Ternis horárum términis",
        "volútis, dante Dómino,",
-       {
-        "em": true,
-        "text": "trinum perfécte et únicum"
-       },
+       "trinum perfécte et únicum",
        "ipsum devóti psállimus."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         14,
+         15
+        ]
+       ]
+      }
      },
      {
       "kind": "text",

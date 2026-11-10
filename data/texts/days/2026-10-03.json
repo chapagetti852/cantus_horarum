@@ -1,0 +1,3090 @@
+{
+ "date": "2026-10-03",
+ "v": 3,
+ "hours": {
+  "lectio": [
+   {
+    "title": null,
+    "blocks": [
+     {
+      "kind": "text",
+      "lines": [
+       "Breviarium"
+      ]
+     }
+    ]
+   },
+   {
+    "title": "Officium lectionis",
+    "blocks": []
+   },
+   {
+    "title": "AD INVITATORIUM",
+    "blocks": [
+     {
+      "kind": "rubric",
+      "text": "Invitatorium locum suum habet initio totius cursus orationis cotidianæ, scilicet præponitur aut Officio lectionis, aut Laudibus matutinas, prout ab alterutra actione liturgica dies incipit."
+     },
+     {
+      "kind": "rubric",
+      "text": "Hymnus"
+     },
+     {
+      "kind": "rubric",
+      "text": "Psalmodia"
+     },
+     {
+      "kind": "versicle",
+      "sign": "℣",
+      "text": "Dómine, lábia mea apéries",
+      "v": "Dómine, lábia mea apéries",
+      "r": "Et os meum annuntiábit laudem tuam."
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Audiámus vocem Dómini, ut ingrediámur in réquiem eius."
+     },
+     {
+      "kind": "rubric",
+      "text": "In recitatione a solo antiphona dici potest tantum initio psalmi, nec recesse est eam repetere post unamquamque stropham."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Psalmus 23(24)"
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Psalmus 66(67)"
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Psalmus 99(100)"
+      ]
+     },
+     {
+      "kind": "psalm",
+      "ref": "Psalmus 94 (95)",
+      "part": null,
+      "title": "Invitatio ad laudem Dei",
+      "sentence": "Adhortamini vosmetipsos per singulos dies, donec illud «hodie» vocatur (Hebr 3, 13).",
+      "strophes": [
+       [
+        "Veníte, exsultémus Dómino;*",
+        "iubilémus Deo salutári nostro.",
+        "Præoccupémus fáciem eius in confessióne *",
+        "et in psalmis iubilémus ei."
+       ]
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Audiámus vocem Dómini, ut ingrediámur in réquiem eius."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Quóniam Deus magnus Dóminus*",
+       "et rex magnus super omnes deos.",
+       "Quia in manu eius sunt profúnda terræ,*",
+       "et altitúdines móntium ipsíus sunt.",
+       "Quóniam ipsíus est mare, et ipse fecit illud,*",
+       "et siccam manus eius formavérunt."
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Audiámus vocem Dómini, ut ingrediámur in réquiem eius."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Veníte, adorémus et procidámus*",
+       "et génua flectámus ante Dóminum, qui fecit nos,",
+       "quia ipse est Deus noster,*",
+       "et nos pópulus páscuæ eius et oves manus eius."
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Audiámus vocem Dómini, ut ingrediámur in réquiem eius."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Utinam hódie vocem eius audiátis:†",
+       "«Nolíte obduráre corda vestra,*",
+       "sicut in Meríba secúndum diem Massa in desérto,",
+       "ubi tentavérunt me patres vestri:*",
+       "probavérunt me, etsi vidérunt ópera mea."
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Audiámus vocem Dómini, ut ingrediámur in réquiem eius."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Quadragínta annis tǽduit me generatiónis illíus,*",
+       "et dixi: Pópulus errántium corde sunt isti.",
+       "Et ipsi non cognovérunt vias meas;†",
+       "ídeo iurávi in ira mea:*",
+       "Non introíbunt in réquiem meam»."
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Audiámus vocem Dómini, ut ingrediámur in réquiem eius."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Glória Patri, et Fílio,*",
+       "et Spirítui Sancto.",
+       "Sicut erat in princípio, et nunc et semper,*",
+       "et in sǽcula sæculórum. Amen."
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Audiámus vocem Dómini, ut ingrediámur in réquiem eius."
+     },
+     {
+      "kind": "versicle",
+      "sign": "℣",
+      "text": "Deus in adiutórium meum inténde.",
+      "v": "Deus in adiutórium meum inténde.",
+      "r": "Dómine, ad adiuvándum me festína."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Glória Patri, et Fílio, et Spirítui Sancto.",
+       "Sicut erat in princípio, et nunc et semper,",
+       "et in sǽcula sæculórum. Amen. Allelúia."
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "Omnia supra dicta omituntur, quando Invitatorium immediate præcedit."
+     }
+    ]
+   },
+   {
+    "title": "HYMNUS",
+    "blocks": [
+     {
+      "kind": "rubric",
+      "text": "I. Quando Officium lectionis dicitur noctu vel summo mane:"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Lux ætérna, lumen potens,",
+       "dies indefíciens,",
+       "debellátor atræ noctis,",
+       "reparátor lúminis,",
+       "destructórque tenebrárum,",
+       "illustrátor méntium:"
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Quo nascénte suscitámur,",
+       "quo vocante surgimus;",
+       "faciénte quo beáti,",
+       "quo linquénte míseri;",
+       "quo a morte liberáti,",
+       "quo sumus perlúcidi;"
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Mortis quo victóres facti,",
+       "noctis atque sǽculi;",
+       "ergo nobis, rex ætérne,",
+       "lucem illam tríbue,",
+       "quæ fuscátur nulla nocte,",
+       "solo gaudens lúmine."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Honor Patri sit ac tibi,",
+       "Sancto sit Spirítui,",
+       "Deo trino sed et uni,",
+       "paci, vitæ, lúmini,",
+       "nómini præ cunctis dulci",
+       "divinóque númini. Amen."
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "II. Quando Officium lectionis dicitur diurno tempore:"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Deus de nullo véniens,",
+       "Deus de Deo pródiens,",
+       "Deus ab his progrédiens,",
+       "in nos veni subvéniens."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Tu nostrum desidérium,",
+       "tu sis amor et gáudium;",
+       "in te nostra cupíditas",
+       "et sit in te iucúnditas."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Pater, cunctórum Dómine,",
+       "cum Génito de Vírgine,",
+       "intus et in circúitu",
+       "nos rege Sancto Spíritu."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Meménto, sancta Trínitas,",
+       "quod tua fecit bónitas,",
+       "creándo prius hóminem,",
+       "recreándo per sánguinem."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Nam quos creávit Unitas,",
+       "redémit Christi cáritas;",
+       "patiéndo tunc díligens,",
+       "nunc díligat nos éligens."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Tríadi sanctæ gáudium,",
+       "pax, virtus et impérium,",
+       "decus, omnipoténtia,"
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "laus, honor, reveréntia. Amen."
+      ]
+     }
+    ]
+   },
+   {
+    "title": "PSALMODIA",
+    "blocks": [
+     {
+      "kind": "antiphon",
+      "n": 1,
+      "text": "Dóminus facit mirabília magna solus, in ætérnum misericórdia eius."
+     },
+     {
+      "kind": "psalm",
+      "ref": "Psalmus 135 (136)",
+      "part": null,
+      "title": "Hymnus paschalis",
+      "sentence": "Domini res gestas narrare laudare est (Cassiodórus).",
+      "strophes": []
+     },
+     {
+      "kind": "psalm",
+      "ref": null,
+      "part": "I",
+      "title": null,
+      "sentence": null,
+      "strophes": [
+       [
+        "Confitémini Dómino, quóniam bonus,*",
+        "quóniam in ætérnum misericórdia eius.",
+        "Confitémini Deo deórum,*",
+        "quóniam in ætérnum misericórdia eius.",
+        "Confitémini Dómino dominórum,*",
+        "quóniam in ætérnum misericórdia eius."
+       ],
+       [
+        "Qui facit mirabília magna solus,*",
+        "quóniam in ætérnum misericórdia eius.",
+        "Qui fecit cælos in intelléctu,*",
+        "quóniam in ætérnum misericórdia eius.",
+        "Qui expándit terram super aquas,*",
+        "quóniam in ætérnum misericórdia eius.",
+        "Qui fecit luminária magna,*",
+        "quóniam in ætérnum misericórdia eius;",
+        "solem, ut præésset diéi,*",
+        "quóniam in ætérnum misericórdia eius;",
+        "lunam et stellas, ut præéssent nocti,*",
+        "quóniam in ætérnum misericórdia eius."
+       ],
+       [
+        "Glória Patri, et Fílio,*",
+        "et Spirítui Sancto.",
+        "Sicut erat in princípio, et nunc et semper,*",
+        "et in sǽcula sæculórum. Amen."
+       ]
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Dóminus facit mirabília magna solus, in ætérnum misericórdia eius."
+     },
+     {
+      "kind": "antiphon",
+      "n": 2,
+      "text": "Edúxit Israel de médio Ægýpti, in manu poténti et brácchio exténto."
+     },
+     {
+      "kind": "psalm",
+      "ref": null,
+      "part": "II",
+      "title": null,
+      "sentence": null,
+      "strophes": [
+       [
+        "Qui percússit Ægýptum in primogénitis eórum,*",
+        "quóniam in ætérnum misericórdia eius.",
+        "Qui edúxit Israel de médio eórum,*",
+        "quóniam in ætérnum misericórdia eius;",
+        "in manu poténti et bráchio exténto,*",
+        "quóniam in ætérnum misericórdia eius."
+       ],
+       [
+        "Qui divísit mare Rubrum in divisiónes,*",
+        "quóniam in ætérnum misericórdia eius.",
+        "Et tradúxit Israel per médium eius,*",
+        "quóniam in ætérnum misericórdia eius.",
+        "Et excússit pharaónem et virtútem eius",
+        "in mari Rubro,*",
+        "quóniam in ætérnum misericórdia eius."
+       ],
+       [
+        "Glória Patri, et Fílio,*",
+        "et Spirítui Sancto.",
+        "Sicut erat in princípio, et nunc et semper,*",
+        "et in sǽcula sæculórum. Amen."
+       ]
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Edúxit Israel de médio Ægýpti, in manu poténti et brácchio exténto."
+     },
+     {
+      "kind": "antiphon",
+      "n": 3,
+      "text": "Confitémini Deo cæli; ipse redémit nos ab inimícis nostris."
+     },
+     {
+      "kind": "psalm",
+      "ref": null,
+      "part": "III",
+      "title": null,
+      "sentence": null,
+      "strophes": [
+       [
+        "Qui tradúxit pópulum suum per desértum,*",
+        "quóniam in ætérnum misericórdia eius.",
+        "Qui percússit reges magnos,*",
+        "quóniam in ætérnum misericórdia eius;",
+        "et occídit reges poténtes,*",
+        "quóniam in ætérnum misericórdia eius.",
+        "Sehon regem Amorræórum,*",
+        "quóniam in ætérnum misericórdia eius;",
+        "et Og regem Basan,*",
+        "quóniam in ætérnum misericórdia eius.",
+        "Et dedit terram eórum hereditátem,*",
+        "quóniam in ætérnum misericórdia eius;",
+        "hereditátem Israel servo suo,*",
+        "quóniam in ætérnum misericórdia eius."
+       ],
+       [
+        "Qui in humilitáte nostra memor fuit nostri,*",
+        "quóniam in ætérnum misericórdia eius;",
+        "et redémit nos ab inimícis nostris,*",
+        "quóniam in ætérnum misericórdia eius.",
+        "Qui dat escam omni carni,*",
+        "quóniam in ætérnum misericórdia eius."
+       ],
+       [
+        "Confitémini Deo cæli,*",
+        "quóniam in ætérnum misericórdia eius."
+       ],
+       [
+        "Glória Patri, et Fílio,*",
+        "et Spirítui Sancto.",
+        "Sicut erat in princípio, et nunc et semper,*",
+        "et in sǽcula sæculórum. Amen."
+       ]
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Confitémini Deo cæli; ipse redémit nos ab inimícis nostris."
+     },
+     {
+      "kind": "versicle",
+      "sign": "℣",
+      "text": "Vias tuas, Dómine, demónstra mihi.",
+      "v": "Vias tuas, Dómine, demónstra mihi.",
+      "r": "Et sémitas tuas édoce me."
+     }
+    ]
+   },
+   {
+    "title": "LECTIONES",
+    "blocks": [
+     {
+      "kind": "rubric",
+      "text": "LECTIO PRIOR"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "De Epístola beáti Pauli apóstoli ad Philippénses"
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "4, 10-23"
+     },
+     {
+      "kind": "rubric",
+      "text": "Liberalitas Philippensium in Paulum"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Fratres: Gavísus sum autem in Dómino veheménter quóniam tandem aliquándo refloruístis pro me sentíre, sicut et sentiebátis, opportunitáte autem carebátis. Non quasi propter penúriam dico, ego enim dídici, in quibus sum, suffíciens esse. Scio et humiliári, scio et abundáre; ubíque et in ómnibus institútus sum et satiári et esuríre et abundáre et penúriam pati. Omnia possum in eo, qui me confórtat."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Verúmtamen bene fecístis communicántes tribulatióni meæ. Scitis autem et vos, Philippénses, quod in princípio evangélii, quando proféctus sum a Macedónia, nulla mihi ecclésiæ communicávit in ratióne dati et accépti nisi vos soli; quia et Thessalónicam et semel et bis in usum mihi misístis. Non quia quæro datum, sed requíro fructum, qui abúndet in ratiónem vestram. Accépi autem ómnia et abúndo; replétus sum accéptis ab Epaphrodíto, quæ misístis, odórem suavitátis, hóstiam accéptam, placéntem Deo. Deus autem meus implébit omne desidérium vestrum secúndum divítias suas in glória in Christo Iesu. Deo autem et Patri nostro glória in sǽcula sæculórum. Amen."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Salutáte omnem sanctum in Christo Iesu. Salútant vos, qui mecum sunt, fratres. Salútant vos omnes sancti, máxime autem, qui de Cæsaris domo sunt."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Grátia Dómini Iesu Christi cum spíritu vestro. Amen."
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "RESPONSORIUM"
+     },
+     {
+      "kind": "rubric",
+      "text": "Phil 4, 12-13; 2 Cor 12, 10a"
+     },
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Scio et humiliári et abundáre, et satiári et esuríre, et abundáre et penúriam pati.  Omnia possum in eo qui me confórtat."
+     },
+     {
+      "kind": "versicle",
+      "sign": "℣",
+      "text": "Pláceo mihi in infirmitátibus et in angústiis, pro Christo.  Omnia possum in eo qui me confórtat.",
+      "v": "Pláceo mihi in infirmitátibus et in angústiis, pro Christo.  Omnia possum in eo qui me confórtat."
+     },
+     {
+      "kind": "rubric",
+      "text": "LECTIO ALTERA"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "E Libro sancti Gregórii Nysséni epíscopi De Institúto christiáno"
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "(PG 46, 295-298)"
+     },
+     {
+      "kind": "rubric",
+      "text": "Certa bonum certamen fidei"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Si quæ in Christo nova creatúra, vétera transiérunt. Céterum novam creatúram appellávit Spíritus sancti inhabitatiónem, in puro et inculpáto corde omníque malítia atque improbitáte ac dedécore líbero. Nam quando ánimus peccátum ódio prosecútus fúerit ac se pro víribus virtútis administratióni tradíderit atque cum vita commutátus Spíritus in se grátiam accéperit, novus efféctus est totus et reparátus atque instaurátus. Quin étiam istud: Expurgáte vetus ferméntum, ut sitis nova conspérsio. Et hoc quoque: Epulémur, non in ferménto véteri, sed in ázymis sinceritátis et veritátis. Hæc, inquam, cum iis, quæ de nova creatúra dicta sunt, cónsonant."
+      ],
+      "italics": {
+       "0": [
+        [
+         0,
+         52
+        ],
+        [
+         440,
+         492
+        ],
+        [
+         508,
+         582
+        ]
+       ]
+      }
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Enimvéro multos tentátor ánimæ nostræ láqueos tendit; infírmior autem est per se humána natúra quam ut victóriam ex illo reportáre possit. Idcírco étiam Apóstolus armáre nos iubet membra armis cæléstibus: Indúite, inquit, lorícam iustítiæ, et calceáte pedes in præparatióne Evangélii pacis, et state succíncti lumbos vestros in veritáte. Vidésne quot salútis modos Apóstolus tibi subindicárit, qui ad unam vitam eandémque metam tendunt; in quibus fácile vitæ currículum quod ad mandatórum Dei ápicem spectat, explétur. In álio loco ipse Apóstolus dicit: Per patiéntiam currámus ad propósitum nobis certámen, aspiciéntes in auctórem fídei et consummatórem Iesum."
+      ],
+      "italics": {
+       "0": [
+        [
+         205,
+         337
+        ],
+        [
+         554,
+         661
+        ]
+       ]
+      }
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Quocírca opus est eum qui huius vitæ res præcláras plane déspicit, et omnem mundánam glóriam ábnegat, étiam cum vita ánimam própriam abnegáre. Animæ vero abnegátio est, voluntátem suam nusquam quǽrere, sed Dei voluntátem, eáque véluti bona gubernatríce uti; deínde nihil nisi id quod commúne est possidére. Sic namque expedítius erit, quod a præpósitis iniúnctum erit, cum iucunditáte et spe alácriter perfícere, ut servum Christi, et ad commúnem fratrum usum redémptum. Hoc enim vult étiam Dóminus cum ait: Qui vult inter vos primus et magnus esse, ómnium sit postrémus et ómnium servus."
+      ],
+      "italics": {
+       "0": [
+        [
+         508,
+         588
+        ]
+       ]
+      }
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Verum eiúsmodi servitútem apud hómines gratuítam esse opórtet, et qui talis est, ómnibus debet súbici, ac véluti usúræ débitor frátribus inservíre. Etenim decet in præfectúra constitútos, maiórem quidem quam álii labórem suscípere, submíssius vero quam súbditi se gérere, ac pro servi imágine exemplóve vitam suam áliis exhibére, dum illud réputant depósitum esse Dei, qui fídei suæ commíssi sunt."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Sic ígitur præpósitos opórtet fratrum curam habére, ut probi tenerórum educatóres puerórum, qui ipsis a paréntibus tráditi sunt. Si ita ínvicem affécti fuéritis, cum subiécti, tum magístri, illi quidem cum gáudio iussis ac mandátis obtemperántes, hi vero cum voluptáte fratres ad perféctum statum provehéntes: et si honóribus ínvicem præveniátis, angelórum in terris vitam degétis."
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "RESPONSORIUM"
+     },
+     {
+      "kind": "rubric",
+      "text": "Gal 5, 13; 1 Cor 10, 32"
+     },
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Vos in libertátem vocáti estis, tantum ne libertátem in occasiónem detis carni;  Sed per caritátem servíte ínvicem."
+     },
+     {
+      "kind": "versicle",
+      "sign": "℣",
+      "text": "Sine offensióne estóte Iudǽis et Græcis et ecclésiæ Dei.  Sed per caritátem servíte ínvicem.",
+      "v": "Sine offensióne estóte Iudǽis et Græcis et ecclésiæ Dei.  Sed per caritátem servíte ínvicem."
+     }
+    ]
+   },
+   {
+    "title": "ORATIO",
+    "blocks": [
+     {
+      "kind": "text",
+      "lines": [
+       "Orémus."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Deus, qui omnipoténtiam tuam",
+       "parcéndo máxime et miserándo maniféstas,",
+       "multíplica super nos grátiam tuam,",
+       "ut, ad tua promíssa curréntes,",
+       "cæléstium bonórum fácias esse consórtes.",
+       "Per Dóminum nostrum Iesum Christum Fílium tuum,",
+       "qui tecum vivit et regnat in unitáte Spíritus Sancti, Deus,",
+       "per ómnia sǽcula sæculórum."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Amen."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Benedicámus Dómino."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Deo grátias."
+     }
+    ]
+   }
+  ],
+  "laudes": [
+   {
+    "title": null,
+    "blocks": [
+     {
+      "kind": "text",
+      "lines": [
+       "Breviarium"
+      ]
+     }
+    ]
+   },
+   {
+    "title": "Laudes matutinas",
+    "blocks": []
+   },
+   {
+    "title": "AD INVITATORIUM",
+    "blocks": [
+     {
+      "kind": "rubric",
+      "text": "Invitatorium locum suum habet initio totius cursus orationis cotidianæ, scilicet præponitur aut Officio lectionis, aut Laudibus matutinas, prout ab alterutra actione liturgica dies incipit."
+     },
+     {
+      "kind": "rubric",
+      "text": "Hymnus"
+     },
+     {
+      "kind": "rubric",
+      "text": "Psalmodia"
+     },
+     {
+      "kind": "versicle",
+      "sign": "℣",
+      "text": "Dómine, lábia mea apéries",
+      "v": "Dómine, lábia mea apéries",
+      "r": "Et os meum annuntiábit laudem tuam."
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Audiámus vocem Dómini, ut ingrediámur in réquiem eius."
+     },
+     {
+      "kind": "rubric",
+      "text": "In recitatione a solo antiphona dici potest tantum initio psalmi, nec recesse est eam repetere post unamquamque stropham."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Psalmus 23(24)"
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Psalmus 66(67)"
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Psalmus 99(100)"
+      ]
+     },
+     {
+      "kind": "psalm",
+      "ref": "Psalmus 94 (95)",
+      "part": null,
+      "title": "Invitatio ad laudem Dei",
+      "sentence": "Adhortamini vosmetipsos per singulos dies, donec illud «hodie» vocatur (Hebr 3, 13).",
+      "strophes": [
+       [
+        "Veníte, exsultémus Dómino;*",
+        "iubilémus Deo salutári nostro.",
+        "Præoccupémus fáciem eius in confessióne *",
+        "et in psalmis iubilémus ei."
+       ]
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Audiámus vocem Dómini, ut ingrediámur in réquiem eius."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Quóniam Deus magnus Dóminus*",
+       "et rex magnus super omnes deos.",
+       "Quia in manu eius sunt profúnda terræ,*",
+       "et altitúdines móntium ipsíus sunt.",
+       "Quóniam ipsíus est mare, et ipse fecit illud,*",
+       "et siccam manus eius formavérunt."
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Audiámus vocem Dómini, ut ingrediámur in réquiem eius."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Veníte, adorémus et procidámus*",
+       "et génua flectámus ante Dóminum, qui fecit nos,",
+       "quia ipse est Deus noster,*",
+       "et nos pópulus páscuæ eius et oves manus eius."
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Audiámus vocem Dómini, ut ingrediámur in réquiem eius."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Utinam hódie vocem eius audiátis:†",
+       "«Nolíte obduráre corda vestra,*",
+       "sicut in Meríba secúndum diem Massa in desérto,",
+       "ubi tentavérunt me patres vestri:*",
+       "probavérunt me, etsi vidérunt ópera mea."
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Audiámus vocem Dómini, ut ingrediámur in réquiem eius."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Quadragínta annis tǽduit me generatiónis illíus,*",
+       "et dixi: Pópulus errántium corde sunt isti.",
+       "Et ipsi non cognovérunt vias meas;†",
+       "ídeo iurávi in ira mea:*",
+       "Non introíbunt in réquiem meam»."
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Audiámus vocem Dómini, ut ingrediámur in réquiem eius."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Glória Patri, et Fílio,*",
+       "et Spirítui Sancto.",
+       "Sicut erat in princípio, et nunc et semper,*",
+       "et in sǽcula sæculórum. Amen."
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Audiámus vocem Dómini, ut ingrediámur in réquiem eius."
+     },
+     {
+      "kind": "versicle",
+      "sign": "℣",
+      "text": "Deus in adiutórium meum inténde.",
+      "v": "Deus in adiutórium meum inténde.",
+      "r": "Dómine, ad adiuvándum me festína."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Glória Patri, et Fílio, et Spirítui Sancto.",
+       "Sicut erat in princípio, et nunc et semper,",
+       "et in sǽcula sæculórum. Amen. Allelúia."
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "Omnia supra dicta omituntur, quando Invitatorium immediate præcedit."
+     }
+    ]
+   },
+   {
+    "title": "HYMNUS",
+    "blocks": [
+     {
+      "kind": "text",
+      "lines": [
+       "Diéi luce réddita,",
+       "lætis gratísque vócibus",
+       "Dei canámus glóriam,",
+       "Christi faténtes grátiam,"
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Per quem creátor ómnium",
+       "diem noctémque cóndidit,",
+       "ætérna lege sánciens",
+       "ut semper succédant sibi."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Tu vera lux fidélium,",
+       "quem lex vetérna non tenet,",
+       "noctis nec ortu súccidens,",
+       "ætérno fulgens lúmine."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Præsta, Pater ingénite,",
+       "totum ducámus iúgiter",
+       "Christo placéntes hunc diem"
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Sancto repléti Spíritu. Amen."
+      ]
+     }
+    ]
+   },
+   {
+    "title": "PSALMODIA",
+    "blocks": [
+     {
+      "kind": "antiphon",
+      "n": 1,
+      "text": "Annuntiámus mane misericórdiam tuam, Dómine, et veritátem tuam per noctem."
+     },
+     {
+      "kind": "psalm",
+      "ref": "Psalmus 91 (92)",
+      "part": null,
+      "title": "Laus Domini creatoris",
+      "sentence": "Laudes enuntiantur pro gestis Unigeniti (S. Athanásius).",
+      "strophes": [
+       [
+        "Bonum est confitéri Dómino*",
+        "et psállere nómini tuo, Altíssime,",
+        "annuntiáre mane misericórdiam tuam*",
+        "et veritátem tuam per noctem,",
+        "in decachórdo et psaltério,*",
+        "cum cántico in cíthara."
+       ],
+       [
+        "Quia delectásti me, Dómine, in factúra tua,*",
+        "et in opéribus mánuum tuárum exsultábo."
+       ],
+       [
+        "Quam magnificáta sunt ópera tua, Dómine:*",
+        "nimis profúndæ factæ sunt cogitatiónes tuæ.",
+        "Vir insípiens non cognóscet,*",
+        "et stultus non intélleget hæc.",
+        "Cum germináverint peccatóres sicut fenum,*",
+        "et florúerint omnes, qui operántur iniquitátem,",
+        "hoc tamen erit ad intéritum in sǽculum sǽculi;*",
+        "tu autem altíssimus in ætérnum, Dómine."
+       ],
+       [
+        "Quóniam ecce inimíci tui, Dómine,†",
+        "quóniam ecce inimíci tui períbunt,*",
+        "et dispergéntur omnes,",
+        "qui operántur iniquitátem.",
+        "Exaltábis sicut unicórnis cornu meum,*",
+        "perfúsus sum óleo úberi.",
+        "Et despíciet óculus meus inimícos meos,*",
+        "et in insurgéntibus in me malignántibus",
+        "áudiet auris mea."
+       ],
+       [
+        "Iustus ut palma florébit,*",
+        "sicut cedrus Líbani succréscet.",
+        "Plantáti in domo Dómini,*",
+        "in átriis Dei nostri florébunt.",
+        "Adhuc fructus dabunt in senécta,*",
+        "úberes et bene viréntes erunt,",
+        "ut annúntient quóniam rectus Dóminus,",
+        "refúgium meum,*",
+        "et non est iníquitas in eo."
+       ],
+       [
+        "Glória Patri, et Fílio,*",
+        "et Spirítui Sancto.",
+        "Sicut erat in princípio, et nunc et semper,*",
+        "et in sǽcula sæculórum. Amen."
+       ]
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Annuntiámus mane misericórdiam tuam, Dómine, et veritátem tuam per noctem."
+     },
+     {
+      "kind": "antiphon",
+      "n": 2,
+      "text": "Date magnificéntiam Deo nostro."
+     },
+     {
+      "kind": "psalm",
+      "ref": "Canticum Deut 32, 1-12",
+      "part": null,
+      "title": "Dei beneficia in populum",
+      "sentence": "Quoties volui congregare filios tuos, quemadmodum gallina congregat pullos suos sub alas (Mt 23, 37).",
+      "strophes": [
+       [
+        "Audíte, cæli, quæ loquor,*",
+        "áudiat terra verba oris mei!",
+        "Stillet ut plúvia doctrína mea,*",
+        "fluat ut ros elóquium meum",
+        "quasi imber super herbam*",
+        "et quasi stillæ super grámina."
+       ],
+       [
+        "Quia nomen Dómini invocábo:*",
+        "date magnificéntiam Deo nostro!",
+        "Petra, perfécta sunt ópera eius,*",
+        "quia omnes viæ eius iustítia.",
+        "Deus fidélis et absque ulla iniquitáte,*",
+        "iustus et rectus."
+       ],
+       [
+        "Peccavérunt ei, non fílii eius in sórdibus suis,*",
+        "generátio prava atque pervérsa.",
+        "Hǽccine rédditis Dómino,*",
+        "pópule stulte et insípiens?",
+        "Numquid non ipse est pater tuus,*",
+        "qui possédit te, ipse fecit et stabilívit te?"
+       ],
+       [
+        "Meménto diérum antiquórum,*",
+        "cógita generatiónes síngulas;",
+        "intérroga patrem tuum, et annuntiábit tibi,*",
+        "maióres tuos, et dicent tibi."
+       ],
+       [
+        "Quando dividébat Altíssimus gentes,*",
+        "quando separábat fílios Adam,",
+        "constítuit términos populórum*",
+        "iuxta númerum filiórum Israel;",
+        "pars autem Dómini pópulus eius,*",
+        "Iacob funículus hereditátis eius."
+       ],
+       [
+        "Invénit eum in terra desérta,*",
+        "in loco horróris et ululátu solitúdinis;",
+        "circúmdedit eum et atténdit*",
+        "et custodívit quasi pupíllam óculi sui.",
+        "Sicut áquila próvocans ad volándum pullos suos*",
+        "et super eos vólitans",
+        "expándit alas suas et assúmpsit eum*",
+        "atque portávit super pennas suas.",
+        "Dóminus solus dux eius fuit,*",
+        "et non erat cum eo deus aliénus."
+       ],
+       [
+        "Glória Patri, et Fílio,*",
+        "et Spirítui Sancto.",
+        "Sicut erat in princípio, et nunc et semper,*",
+        "et in sǽcula sæculórum. Amen."
+       ]
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Date magnificéntiam Deo nostro."
+     },
+     {
+      "kind": "antiphon",
+      "n": 3,
+      "text": "Quam admirábile est nomen tuum, Dómine, in univérsa terra."
+     },
+     {
+      "kind": "psalm",
+      "ref": "Psalmus 8",
+      "part": null,
+      "title": "Maiestas Domini et dignitas hominis",
+      "sentence": "Omnia subiecit sub pedibus eius, et ipsum dedit caput supra omnia Ecclesiæ (Eph 1, 22).",
+      "strophes": [
+       [
+        "Dómine, Dóminus noster,*",
+        "quam admirábile est nomen tuum",
+        "in univérsa terra,",
+        "quóniam eleváta est magnificéntia tua*",
+        "super cælos."
+       ],
+       [
+        "Ex ore infántium et lactántium†",
+        "perfecísti laudem propter inimícos tuos,*",
+        "ut déstruas inimícum et ultórem."
+       ],
+       [
+        "Quando vídeo cælos tuos, ópera digitórum tuórum,*",
+        "lunam et stellas, quæ tu fundásti,",
+        "quid est homo, quod memor es eius,*",
+        "aut fílius hóminis quóniam vísitas eum?"
+       ],
+       [
+        "Minuísti eum paulo minus ab ángelis,†",
+        "glória et honóre coronásti eum*",
+        "et constituísti eum super ópera mánuum tuárum."
+       ],
+       [
+        "Omnia subiecísti sub pédibus eius,†",
+        "oves et boves univérsas,*",
+        "ínsuper et pécora campi,",
+        "vólucres cæli et pisces maris,*",
+        "quæcúmque perámbulant sémitas maris."
+       ],
+       [
+        "Dómine, Dóminus noster,*",
+        "quam admirábile est nomen tuum",
+        "in univérsa terra!"
+       ],
+       [
+        "Glória Patri, et Fílio,*",
+        "et Spirítui Sancto.",
+        "Sicut erat in princípio, et nunc et semper,*",
+        "et in sǽcula sæculórum. Amen."
+       ]
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Quam admirábile est nomen tuum, Dómine, in univérsa terra."
+     }
+    ]
+   },
+   {
+    "title": "LECTIO BREVIS",
+    "blocks": [
+     {
+      "kind": "rubric",
+      "text": "Rom 12, 14-16a"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Benedícite persequéntibus; benedícite et nolíte maledícere! Gaudére cum gaudéntibus, flere cum fléntibus. Idípsum ínvicem sentiéntes, non alta sapiéntes, sed humílibus consentiéntes."
+      ]
+     }
+    ]
+   },
+   {
+    "title": "RESPONSORIUM BREVE",
+    "blocks": [
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Exsultábunt lábia mea,  Cum cantávero tibi."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Exsultábunt lábia mea, * Cum cantávero tibi."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℣",
+      "text": "Lingua mea meditábitur iustítiam tuam.",
+      "v": "Lingua mea meditábitur iustítiam tuam."
+     },
+     {
+      "kind": "versicle",
+      "sign": "*",
+      "text": "Cum cantávero tibi."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Glória Patri, et Fílio, et Spirítui Sancto.",
+       "Exsultábunt lábia mea, * Cum cantávero tibi."
+      ]
+     }
+    ]
+   },
+   {
+    "title": "CANTICUM EVANGELICUM",
+    "blocks": [
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Dírige, Dómine, pedes nostros in viam pacis."
+     },
+     {
+      "kind": "rubric",
+      "text": "BENEDICTUS"
+     },
+     {
+      "kind": "rubric",
+      "text": "Lc 1, 68-79"
+     },
+     {
+      "kind": "rubric",
+      "text": "De Messia eiusque præcursore"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Benedíctus Dóminus Deus Israel,*",
+       "quia visitávit et fecit redemptiónem plebi suæ",
+       "et eréxit cornu salútis nobis*",
+       "in domo David púeri sui,",
+       "sicut locútus est per os sanctórum,*",
+       "qui a sǽculo sunt, prophetárum eius,",
+       "salútem ex inimícis nostris*",
+       "et de manu ómnium, qui odérunt nos;",
+       "ad faciéndam misericórdiam cum pátribus nostris*",
+       "et memorári testaménti sui sancti,",
+       "iusiurándum, quod iurávit",
+       "ad Abraham patrem nostrum,*",
+       "datúrum se nobis,",
+       "ut sine timóre, de manu inimicórum liberáti,*",
+       "serviámus illi",
+       "in sanctitáte et iustítia coram ipso*",
+       "ómnibus diébus nostris."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Et tu, puer, prophéta Altíssimi vocáberis:*",
+       "præíbis enim ante fáciem Dómini",
+       "paráre vias eius,",
+       "ad dandam sciéntiam salútis plebi eius*",
+       "in remissiónem peccatórum eórum,",
+       "per víscera misericórdiæ Dei nostri,*",
+       "in quibus visitábit nos óriens ex alto,",
+       "illumináre his, qui in ténebris",
+       "et in umbra mortis sedent*",
+       "ad dirigéndos pedes nostros in viam pacis."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Glória Patri, et Fílio,*",
+       "et Spirítui Sancto.",
+       "Sicut erat in princípio, et nunc et semper,*",
+       "et in sǽcula sæculórum. Amen."
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Dírige, Dómine, pedes nostros in viam pacis."
+     }
+    ]
+   },
+   {
+    "title": "PRECES",
+    "blocks": [
+     {
+      "kind": "text",
+      "lines": [
+       "Christi benignitátem et sapiéntiam celebrémus, qui in ómnibus frátribus nostris, præsértim mala patiéntibus, conspiciéndum et diligéndum se trádidit. Eum instánter orémus:",
+       {
+        "em": true,
+        "text": "Pérfice nos in caritáte, Dómine."
+       }
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Resurrectiónem tuam iam mane recólimus,"
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "—"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "et benefícia redemptiónis tuæ cunctis optámus."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Præsta, Dómine, ut hódie testimónium de te perhibeámus,"
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "—"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "et hóstiam sanctam offerámus per te Patri placéntem."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Fac ut in ómnibus tuam agnoscámus imáginem,"
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "—"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "et tibi in eis ministrémus."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Christe, vitis vera, cuius nos pálmites sumus,"
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "—"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "da nos in te manére, ut fructum multum afferámus et Deum Patrem glorificémus."
+      ]
+     }
+    ]
+   },
+   {
+    "title": "PATER NOSTER",
+    "blocks": [
+     {
+      "kind": "text",
+      "lines": [
+       "Pater noster, qui es in cælis,",
+       "sanctificétur nomen tuum,",
+       "advéniat regnum tuum,",
+       "fiat volúntas tua,",
+       "sicut in cælo et in terra.",
+       "Panem nostrum cotidiánum da nobis hódie,",
+       "et dimítte nobis débita nostra,",
+       "sicut et nos dimíttimus debitóribus nostris,",
+       "et ne nos indúcas in tentatiónem,",
+       "sed líbera nos a malo."
+      ]
+     }
+    ]
+   },
+   {
+    "title": "ORATIO",
+    "blocks": [
+     {
+      "kind": "text",
+      "lines": [
+       "Laudent te, Dómine, ora nostra, laudet ánima, laudet et vita, et quia tui múneris est quod sumus, tuum sit omne quod vívimus. Per Dóminum nostrum Iesum Christum Fílium tuum, qui tecum vivit et regnat in unitáte Spíritus Sancti, Deus, per ómnia sǽcula sæculórum."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Amen."
+     },
+     {
+      "kind": "rubric",
+      "text": "Deinde, si præest sacerdos vel diaconus, populum dimittit, dicens:"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Dóminus vobíscum."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Et cum spíritu tuo."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Benedícat vos omnípotens Deus, Pater, et Fílius, et Spíritus Sanctus."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Amen."
+     },
+     {
+      "kind": "rubric",
+      "text": "Vel alia formula benedictionis, sicut in Missa."
+     },
+     {
+      "kind": "rubric",
+      "text": "Et si fit dimissio, sequitur invitatio:"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Ite in pace."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Deo grátias."
+     },
+     {
+      "kind": "rubric",
+      "text": "Absente sacerdote vel diacono, et in recitatione a solo, sic concluditur:"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Dóminus nos benedícat, et ab omni malo deféndat, et ad vitam perdúcat ætérnam."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Amen."
+     }
+    ]
+   }
+  ],
+  "media": [
+   {
+    "title": null,
+    "blocks": [
+     {
+      "kind": "text",
+      "lines": [
+       "Breviarium"
+      ]
+     }
+    ]
+   },
+   {
+    "title": "Horam mediam",
+    "blocks": [
+     {
+      "kind": "versicle",
+      "sign": "℣",
+      "text": "Deus, in adiutórium meum inténde.",
+      "v": "Deus, in adiutórium meum inténde.",
+      "r": "Dómine, ad adiuvándum me festína."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Glória Patri, et Fílio, et Spirítui Sancto.",
+       "Sicut erat in princípio, et nunc et semper,",
+       "et in sǽcula sæculórum. Amen. Allelúia."
+      ]
+     }
+    ]
+   },
+   {
+    "title": "HYMNUS",
+    "blocks": [
+     {
+      "kind": "rubric",
+      "text": "AD TERTIAM"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Nunc, Sancte, nobis, Spíritus",
+       "unum Patri cum Fílio,",
+       "dignáre promptus íngeri",
+       "nostro refúsus péctori."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Os, lingua, mens, sensus, vigor",
+       "confessiónem pérsonent,",
+       "flamméscat igne cáritas,",
+       "accéndat ardor próximos."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Per te sciámus da Patrem",
+       "noscámus atque Fílium,",
+       "te utriúsque Spíritum",
+       "credámus omni témpore. Amen."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Psalmodia"
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "Vel:"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Certum tenéntes órdinem,",
+       "pio poscámus péctore",
+       "hora diéi tértia",
+       "trinæ virtútis glóriam,"
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Ut simus habitáculum",
+       "illi Sancto Spirítui,",
+       "qui quondam in apóstolis",
+       "hac hora distribútus est."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Hoc gradiénte órdine,",
+       "ornávit cuncta spléndide",
+       "regni cæléstis cónditor",
+       "ad nostra ætérna prǽmia."
+      ],
+      "italics": {
+       "3": [
+        [
+         8,
+         9
+        ]
+       ]
+      }
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Deo Patri sit glória",
+       "eiúsque soli Fílio",
+       "cum Spíritu Paráclito,",
+       "in sempitérna sǽcula. Amen."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Psalmodia"
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "AD SEXTAM"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Rector potens, verax Deus,",
+       "qui témperas rerum vices,",
+       "splendóre mane ínstruis",
+       "et ígnibus merídiem,"
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Exstíngue flammas lítium,",
+       "aufer calórem nóxium,",
+       "confer salútem córporum",
+       "verámque pacem córdium."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Præsta, Pater piíssime,",
+       "Patríque compar Unice,",
+       "cum Spíritu Paráclito",
+       "regnans per omne sǽculum. Amen."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Psalmodia"
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "Vel:"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Dicámus laudes Dómino",
+       "fervénte prompti spíritu;",
+       "hora volúta séxies",
+       "nos ad orándum próvocat."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "In hac enim fidélibus",
+       "veræ salútis glória,",
+       "beáti Agni hóstia,",
+       "crucis virtúte rédditur."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Cuius luce claríssima",
+       "tenébricat merídies;",
+       "sumámus toto péctore",
+       "tanti splendóris grátiam."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Deo Patri sit glória",
+       "eiúsque soli Fílio",
+       "cum Spíritu Paráclito,",
+       "in sempitérna sǽcula. Amen."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Psalmodia"
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "AD NONAM"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Rerum, Deus, tenax vigor,",
+       "immótus in te pérmanens,",
+       "lucis diúrnæ témpora",
+       "succéssibus detérminans,"
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Largíre clarum véspere,",
+       "quo vita numquam décidat,",
+       "sed prǽmium mortis sacræ",
+       "perénnis instet glória."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Præsta, Pater piíssime,",
+       "Patríque compar Unice,",
+       "cum Spíritu Paráclito",
+       "regnans per omne sǽculum. Amen."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Psalmodia"
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "Vel:"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Ternis horárum términis",
+       "volútis, dante Dómino,",
+       "trinum perfécte et únicum",
+       "ipsum devóti psállimus."
+      ],
+      "italics": {
+       "2": [
+        [
+         14,
+         15
+        ]
+       ]
+      }
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Sacrum Dei mystérium",
+       "puro tenéntes péctore,",
+       "Petri magístri régula",
+       "signo salútis pródita,"
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Et nos psallámus spíritu,",
+       "hæréntes sic apóstolis,",
+       "ut plantas adhuc débiles",
+       "Christi virtúte dírigant."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Deo Patri sit glória",
+       "eiúsque soli Fílio",
+       "cum Spíritu Paráclito,"
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "in sempitérna sǽcula. Amen."
+      ]
+     }
+    ]
+   },
+   {
+    "title": "PSALMODIA",
+    "blocks": [
+     {
+      "kind": "text",
+      "lines": [
+       "Psalmodia Complementaris"
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": 1,
+      "text": "Cælum et terra transíbunt; verba autem mea non præteríbunt."
+     },
+     {
+      "kind": "psalm",
+      "ref": "Psalmus 118 (119), 81-88",
+      "part": null,
+      "title": "XI (Caph)",
+      "sentence": null,
+      "strophes": [
+       [
+        "Defécit in salutáre tuum ánima mea,*",
+        "et in verbum tuum supersperávi.",
+        "Defecérunt óculi mei in elóquium tuum,*",
+        "dicéntes: «Quando consoláberis me?»."
+       ],
+       [
+        "Quia factus sum sicut uter in fumo;*",
+        "iustificatiónes tuas non sum oblítus.",
+        "Quot sunt dies servi tui?*",
+        "Quando fácies",
+        "de persequéntibus me iudícium?"
+       ],
+       [
+        "Fodérunt mihi fóveas supérbi,*",
+        "qui non sunt secúndum legem tuam.",
+        "Omnia præcépta tua véritas;*",
+        "dolóse persecúti sunt me: ádiuva me."
+       ],
+       [
+        "Paulo minus consummavérunt me in terra,*",
+        "ego autem non derelíqui mandáta tua.",
+        "Secúndum misericórdiam tuam vivífica me,*",
+        "et custódiam testimónia oris tui."
+       ],
+       [
+        "Glória Patri, et Fílio,*",
+        "et Spirítui Sancto.",
+        "Sicut erat in princípio, et nunc et semper,*",
+        "et in sǽcula sæculórum. Amen."
+       ]
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Cælum et terra transíbunt; verba autem mea non præteríbunt, dicit Dóminus."
+     },
+     {
+      "kind": "antiphon",
+      "n": 2,
+      "text": "Tu, Dómine, spes mea, turris fortitúdinis a fácie inimíci."
+     },
+     {
+      "kind": "psalm",
+      "ref": "Psalmus 60 (61)",
+      "part": null,
+      "title": "Exsulis oratio",
+      "sentence": "Oratio iusti æterna sperantis (S. Hilárius).",
+      "strophes": [
+       [
+        "Exáudi, Deus, deprecatiónem meam,*",
+        "inténde oratióni meæ.",
+        "A fínibus terræ ad te clamávi,†",
+        "dum anxiarétur cor meum.*",
+        "In petram inaccéssam mihi deduc me!"
+       ],
+       [
+        "Quia factus es spes mea,*",
+        "turris fortitúdinis a fácie inimíci.",
+        "Inhabitábo in tabernáculo tuo in sǽcula,*",
+        "prótegar in velaménto alárum tuárum,",
+        "quóniam tu, Deus meus, exaudísti vota mea,*",
+        "dedísti hereditátem timéntium nomen tuum."
+       ],
+       [
+        "Dies super dies regis adícies,*",
+        "annos eius usque in diem generatiónis",
+        "et generatiónis.",
+        "Sédeat in ætérnum in conspéctu Dei;*",
+        "misericórdia et véritas servent eum."
+       ],
+       [
+        "Sic psalmum dicam nómini tuo",
+        "in sǽculum sǽculi,*",
+        "ut reddam vota mea de die in diem."
+       ],
+       [
+        "Glória Patri, et Fílio,*",
+        "et Spirítui Sancto.",
+        "Sicut erat in princípio, et nunc et semper,*",
+        "et in sǽcula sæculórum. Amen."
+       ]
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Tu, Dómine, spes mea, turris fortitúdinis a fácie inimíci."
+     },
+     {
+      "kind": "antiphon",
+      "n": 3,
+      "text": "A timóre inimíci custódi, Dómine, ánimam meam."
+     },
+     {
+      "kind": "psalm",
+      "ref": "Psalmus 63 (64)",
+      "part": null,
+      "title": "Contra hostes oratio",
+      "sentence": "Maxime Domini passio commendatur in hoc psalmo (S. Augustínus).",
+      "strophes": [
+       [
+        "Exáudi, Deus,",
+        "vocem meam in meditatióne mea;*",
+        "a timóre inimíci custódi ánimam meam.",
+        "Prótege me a convéntu malignántium,*",
+        "a multitúdine operántium iniquitátem."
+       ],
+       [
+        "Qui exacuérunt ut gládium linguas suas,†",
+        "intendérunt sagíttas suas, venéfica verba*",
+        "ut sagíttent in occúltis immaculátum.",
+        "Súbito sagittábunt eum et non timébunt,*",
+        "firmavérunt sibi consílium nequam.",
+        "Disputavérunt, ut abscónderent láqueos,*",
+        "dixérunt: «Quis vidébit eos?».",
+        "Excogitavérunt iníqua,†",
+        "perfecérunt excogitáta consília.*",
+        "Interióra hóminis et cor eius abýssus."
+       ],
+       [
+        "Et sagittávit illos Deus;†",
+        "súbito factæ sunt plagæ eórum,*",
+        "et infirmávit eos lingua eórum.",
+        "Caput movébunt omnes, qui vidébunt eos,*",
+        "et timébit omnis homo;",
+        "et annuntiábunt ópera Dei*",
+        "et facta eius intéllegent."
+       ],
+       [
+        "Lætábitur iustus in Dómino et sperábit in eo,*",
+        "et gloriabúntur omnes recti corde."
+       ],
+       [
+        "Glória Patri, et Fílio,*",
+        "et Spirítui Sancto.",
+        "Sicut erat in princípio, et nunc et semper,*",
+        "et in sǽcula sæculórum. Amen."
+       ]
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "A timóre inimíci custódi, Dómine, ánimam meam."
+     }
+    ]
+   },
+   {
+    "title": "AD TERTIAM",
+    "blocks": [
+     {
+      "kind": "rubric",
+      "text": "LECTIO BREVIS"
+     },
+     {
+      "kind": "rubric",
+      "text": "Deut 8, 5b-6"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Sicut érudit homo fílium suum, sic Dóminus Deus tuus erudívit te, ut custódias mandáta Dómini Dei tui et ámbules in viis eius et tímeas eum."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℣",
+      "text": "Timor Dómini sanctus, pérmanens in sǽculum sǽculi.",
+      "v": "Timor Dómini sanctus, pérmanens in sǽculum sǽculi.",
+      "r": "Iudícia Dómini vera, iustificáta in semetípsa."
+     },
+     {
+      "kind": "rubric",
+      "text": "ORATIO"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Orémus."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Dómine Deus, Pater omnípotens, nobis maiestáti tuæ subiéctis Sancti Spíritus lumen infúnde, ut ab omni hoste secúri, in tua iúgiter laude lætémur. Per Christum Dóminum nostrum."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Amen."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Benedicámus Dómino."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Deo grátias."
+     }
+    ]
+   },
+   {
+    "title": "AD SEXTAM",
+    "blocks": [
+     {
+      "kind": "rubric",
+      "text": "LECTIO BREVIS"
+     },
+     {
+      "kind": "rubric",
+      "text": "1 Reg 2, 2b-3"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Confortáre et esto vir et obsérva decréta Dómini Dei tui, ut ámbules in viis eius et custódias statúta eius et præcépta eius et iudícia et testimónia, ut próspere agas in univérsis, quæ facis."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℣",
+      "text": "Deduc me, Dómine, in sémitam præceptórum tuórum.",
+      "v": "Deduc me, Dómine, in sémitam præceptórum tuórum.",
+      "r": "Quia ipsam vólui."
+     },
+     {
+      "kind": "rubric",
+      "text": "ORATIO"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Orémus."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Concéde nobis, Dómine, lux ardens caritátis ætérnæ, ut tua semper caritáte fervéntes, te super ómnia et fratres propter te uno diligámus amóre. Per Christum Dóminum nostrum."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Amen."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Benedicámus Dómino."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Deo grátias."
+     }
+    ]
+   },
+   {
+    "title": "AD NONAM",
+    "blocks": [
+     {
+      "kind": "rubric",
+      "text": "LECTIO BREVIS"
+     },
+     {
+      "kind": "rubric",
+      "text": "Ier 6, 16"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "State super vias et vidéte et interrogáte de sémitis antíquis, quæ sit via bona, et ambuláte in ea et inveniétis refrigérium animábus vestris."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℣",
+      "text": "Heréditas mea testimónia tua in ætérnum.",
+      "v": "Heréditas mea testimónia tua in ætérnum.",
+      "r": "Quia exsultátio cordis mei sunt."
+     },
+     {
+      "kind": "rubric",
+      "text": "ORATIO"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Orémus."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Exáudi nos, Dómine, et præsta pacem, quam pétimus, consummátam, ut cunctis diébus vitæ nostræ tibi cum iucunditáte vacántes, beáta María Vírgine intercedénte, ad te secúri perveníre mereámur. Per Christum Dóminum nostrum."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Amen."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Benedicámus Dómino."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Deo grátias."
+     }
+    ]
+   }
+  ],
+  "vesperae": [
+   {
+    "title": null,
+    "blocks": [
+     {
+      "kind": "text",
+      "lines": [
+       "Breviarium"
+      ]
+     }
+    ]
+   },
+   {
+    "title": "Vesperas",
+    "blocks": [
+     {
+      "kind": "versicle",
+      "sign": "℣",
+      "text": "Deus, in adiutórium meum inténde.",
+      "v": "Deus, in adiutórium meum inténde.",
+      "r": "Dómine, ad adiuvándum me festína."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Glória Patri, et Fílio, et Spirítui Sancto.",
+       "Sicut erat in princípio, et nunc et semper,",
+       "et in sǽcula sæculórum. Amen. Allelúia."
+      ]
+     }
+    ]
+   },
+   {
+    "title": "HYMNUS",
+    "blocks": [
+     {
+      "kind": "text",
+      "lines": [
+       "Deus, creátor ómnium",
+       "políque rector, véstiens",
+       "diem decóro lúmine,",
+       "noctem sopóris grátia,"
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Artus solútos ut quies",
+       "reddat labóris úsui",
+       "mentésque fessas állevet",
+       "luctúsque solvat ánxios,"
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Grates perácto iam die",
+       "et noctis exórtu preces,",
+       "voti reos ut ádiuves,",
+       "hymnum canéntes sólvimus."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Te cordis ima cóncinant,",
+       "te vox canóra cóncrepet,",
+       "te díligat castus amor,",
+       "te mens adóret sóbria."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Ut cum profúnda cláuserit",
+       "diem calígo nóctium,",
+       "fides tenébras nésciat",
+       "et nox fide relúceat."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Christum rogámus et Patrem,",
+       "Christi Patrísque Spíritum;",
+       "unum potens per ómnia,",
+       "fove precántes, Trínitas. Amen."
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "Ad libitum dici potest:"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Dies ætásque céteris",
+       "octáva splendet sánctior",
+       "in te quam, Iesu, cónsecras,",
+       "primítiæ surgéntium."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Tu tibi nostras ánimas",
+       "nunc primo conresúscita;",
+       "tibi consúrgant córpora",
+       "secúnda morte líbera."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Tibíque mox in núbibus,",
+       "Christe, ferámur óbviam",
+       "tecum victúri pérpetim:",
+       "tu vita, resurréctio."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Cuius vidéntes fáciem,",
+       "configurémur glóriæ;",
+       "te cognoscámus sicut es,",
+       "lux vera et suávitas."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Regnum, cum Patri tráditos,",
+       "plenos septéno chrísmate,",
+       "in temet nos lætíficas,",
+       "consúmmet sancta Trínitas. Amen."
+      ]
+     }
+    ]
+   },
+   {
+    "title": "PSALMODIA",
+    "blocks": [
+     {
+      "kind": "antiphon",
+      "n": 1,
+      "text": "A solis ortu usque ad occásum, laudábile nomen Dómini."
+     },
+     {
+      "kind": "psalm",
+      "ref": "Psalmus 112 (113)",
+      "part": null,
+      "title": "Laudabile nomen Domini",
+      "sentence": "Deposuit potentes de sede et exaltavit humiles (Lc 1, 52).",
+      "strophes": [
+       [
+        "Laudáte, púeri Dómini,*",
+        "laudáte nomen Dómini.",
+        "Sit nomen Dómini benedíctum*",
+        "ex hoc nunc et usque in sǽculum.",
+        "A solis ortu usque ad occásum*",
+        "laudábile nomen Dómini."
+       ],
+       [
+        "Excélsus super omnes gentes Dóminus,*",
+        "super cælos glória eius.",
+        "Quis sicut Dóminus Deus noster,",
+        "qui in altis hábitat*",
+        "et se inclínat, ut respíciat",
+        "in cælum et in terram?"
+       ],
+       [
+        "Súscitans de terra ínopem,*",
+        "de stércore érigens páuperem,",
+        "ut cóllocet eum cum princípibus,*",
+        "cum princípibus pópuli sui."
+       ],
+       [
+        "Qui habitáre facit stérilem in domo,*",
+        "matrem filiórum lætántem."
+       ],
+       [
+        "Glória Patri, et Fílio,*",
+        "et Spirítui Sancto.",
+        "Sicut erat in princípio, et nunc et semper,*",
+        "et in sǽcula sæculórum. Amen."
+       ]
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "A solis ortu usque ad occásum, laudábile nomen Dómini."
+     },
+     {
+      "kind": "antiphon",
+      "n": 2,
+      "text": "Cálicem salutáris accípiam, et nomen Dómini invocábo."
+     },
+     {
+      "kind": "psalm",
+      "ref": "Psalmus 115 (116 B)",
+      "part": null,
+      "title": "Gratiarum actio in templo",
+      "sentence": "Per ipsum (Christum) offeramus hostiam laudis semper Deo (Hebr 13, 15).",
+      "strophes": [
+       [
+        "Crédidi, étiam cum locútus sum:*",
+        "«Ego humiliátus sum nimis».",
+        "Ego dixi in trepidatióne mea:*",
+        "«Omnis homo mendax»."
+       ],
+       [
+        "Quid retríbuam Dómino*",
+        "pro ómnibus, quæ retríbuit mihi?",
+        "Cálicem salutáris accípiam*",
+        "et nomen Dómini invocábo."
+       ],
+       [
+        "Vota mea Dómino reddam*",
+        "coram omni pópulo eius.",
+        "Pretiósa in conspéctu Dómini*",
+        "mors sanctórum eius."
+       ],
+       [
+        "O Dómine, ego servus tuus,*",
+        "ego servus tuus et fílius ancíllæ tuæ.",
+        "Dirupísti víncula mea:†",
+        "tibi sacrificábo hóstiam laudis*",
+        "et nomen Dómini invocábo."
+       ],
+       [
+        "Vota mea Dómino reddam*",
+        "coram omni pópulo eius,",
+        "in átriis domus Dómini,*",
+        "in médio tui, Ierúsalem."
+       ],
+       [
+        "Glória Patri, et Fílio,*",
+        "et Spirítui Sancto.",
+        "Sicut erat in princípio, et nunc et semper,*",
+        "et in sǽcula sæculórum. Amen."
+       ]
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Cálicem salutáris accípiam, et nomen Dómini invocábo."
+     },
+     {
+      "kind": "antiphon",
+      "n": 3,
+      "text": "Humiliávit semetípsum Dóminus Iesus, propter quod et Deus exaltávit illum in sǽcula."
+     },
+     {
+      "kind": "psalm",
+      "ref": "Canticum Phil 2, 6-11",
+      "part": null,
+      "title": "De Christo, servo Dei",
+      "sentence": null,
+      "strophes": [
+       [
+        "Christus Iesus, cum in forma Dei esset,*",
+        "non rapínam arbitrátus est esse se æquálem Deo,",
+        "sed semetípsum exinanívit",
+        "formam servi accípiens,†",
+        "in similitúdinem hóminum factus;*",
+        "et hábitu invéntus ut homo,",
+        "humiliávit semetípsum†",
+        "factus obœ́diens usque ad mortem,*",
+        "mortem autem crucis."
+       ],
+       [
+        "Propter quod et Deus illum exaltávit†",
+        "et donávit illi nomen,*",
+        "quod est super omne nomen,",
+        "ut in nómine Iesu omne genu flectátur*",
+        "cæléstium et terréstrium et infernórum",
+        "et omnis lingua confiteátur:*",
+        "«Dóminus Iesus Christus!»,",
+        "in glóriam Dei Patris."
+       ],
+       [
+        "Glória Patri, et Fílio,*",
+        "et Spirítui Sancto.",
+        "Sicut erat in princípio, et nunc et semper,*",
+        "et in sǽcula sæculórum. Amen."
+       ]
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Humiliávit semetípsum Dóminus Iesus, propter quod et Deus exaltávit illum in sǽcula."
+     }
+    ]
+   },
+   {
+    "title": "LECTIO BREVIS",
+    "blocks": [
+     {
+      "kind": "rubric",
+      "text": "Hebr 13, 20-21"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Deus pacis, qui edúxit de mórtuis pastórem magnum óvium in sánguine testaménti ætérni, Dóminum nostrum Iesum, aptet vos in omni bono, ut faciátis voluntátem eius, fáciens in nobis, quod pláceat coram se per Iesum Christum, cui glória in sǽcula sæculórum. Amen."
+      ]
+     }
+    ]
+   },
+   {
+    "title": "RESPONSORIUM BREVE",
+    "blocks": [
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Quam magnificáta sunt  Opera tua, Dómine."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Quam magnificáta sunt * Opera tua, Dómine."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℣",
+      "text": "Omnia in sapiéntia fecísti.",
+      "v": "Omnia in sapiéntia fecísti."
+     },
+     {
+      "kind": "versicle",
+      "sign": "*",
+      "text": "Opera tua, Dómine."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Glória Patri, et Fílio, et Spirítui Sancto.",
+       "Quam magnificáta sunt * Opera tua, Dómine."
+      ]
+     }
+    ]
+   },
+   {
+    "title": "CANTICUM EVANGELICUM",
+    "blocks": [
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Cum tempus frúctuum appropinquásset, dóminus víneæ misit servos suos ad agrícolas, ut accíperent fructus eius."
+     },
+     {
+      "kind": "rubric",
+      "text": "MAGNIFICAT"
+     },
+     {
+      "kind": "rubric",
+      "text": "Lc 1, 46-55"
+     },
+     {
+      "kind": "rubric",
+      "text": "Exsultatio animæ in Domino"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Magníficat*",
+       "ánima mea Dóminum,",
+       "et exsultávit spíritus meus*",
+       "in Deo salvatóre meo,",
+       "quia respéxit humilitátem ancíllæ suæ.*",
+       "Ecce enim ex hoc beátam me dicent",
+       "omnes generatiónes,",
+       "quia fecit mihi magna, qui potens est,*",
+       "et sanctum nomen eius,",
+       "et misericórdia eius in progénies et progénies*",
+       "timéntibus eum."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Fecit poténtiam in bráchio suo,*",
+       "dispérsit supérbos mente cordis sui;",
+       "depósuit poténtes de sede*",
+       "et exaltávit húmiles;",
+       "esuriéntes implévit bonis*",
+       "et dívites dimísit inánes."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Suscépit Israel púerum suum,*",
+       "recordátus misericórdiæ,",
+       "sicut locútus est ad patres nostros,*",
+       "Abraham et sémini eius in sǽcula."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Glória Patri, et Fílio,*",
+       "et Spirítui Sancto.",
+       "Sicut erat in princípio, et nunc et semper,*",
+       "et in sǽcula sæculórum. Amen."
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Cum tempus frúctuum appropinquásset, dóminus víneæ misit servos suos ad agrícolas, ut accíperent fructus eius."
+     }
+    ]
+   },
+   {
+    "title": "PRECES",
+    "blocks": [
+     {
+      "kind": "text",
+      "lines": [
+       "Christus pópuli esuriéntis misértus est et prodígia pro illo sui operátus est amóris. Quorum mémores pia devotióne eum precémur:",
+       {
+        "em": true,
+        "text": "Amórem tuum osténde nobis, Dómine."
+       }
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Confitémur, Dómine, ómnia benefícia nobis hódie de tua bonitáte processísse:"
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "—"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "ne revertántur ad te vácua, sed fructum áfferant in corde bono."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Lux et salus ómnium géntium, custódi testes quos in univérsum orbem misísti,"
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "—"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Spíritus in eis ignem accénde."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Fac ut mundum ad præcelléntem dignitátem ipsíus omnes magis confórment,"
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "—"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "quátenus, te regénte, urgentióribus ætátis nostræ postulatiónibus generóse respóndeant."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Animárum médice et córporum, ægrótos álleva, moriéntibus adésto,"
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "—"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "et in tuis miseratiónibus nos vísita et réfove."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Defúnctos inter beátos annumeráre dignéris,"
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "—"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "quorum nómina sunt in libro vitæ."
+      ]
+     }
+    ]
+   },
+   {
+    "title": "PATER NOSTER",
+    "blocks": [
+     {
+      "kind": "text",
+      "lines": [
+       "Pater noster, qui es in cælis,",
+       "sanctificétur nomen tuum,",
+       "advéniat regnum tuum,",
+       "fiat volúntas tua,",
+       "sicut in cælo et in terra.",
+       "Panem nostrum cotidiánum da nobis hódie,",
+       "et dimítte nobis débita nostra,",
+       "sicut et nos dimíttimus debitóribus nostris,",
+       "et ne nos indúcas in tentatiónem,",
+       "sed líbera nos a malo."
+      ]
+     }
+    ]
+   },
+   {
+    "title": "ORATIO",
+    "blocks": [
+     {
+      "kind": "text",
+      "lines": [
+       "Omnípotens sempitérne Deus, qui abundántia pietátis tuæ",
+       "et mérita súpplicum excédis et vota,",
+       "effúnde super nos misericórdiam tuam,",
+       "ut dimíttas quæ consciéntia métuit,",
+       "et adícias quod orátio non præsúmit.",
+       "Per Dóminum nostrum Iesum Christum Fílium tuum,",
+       "qui tecum vivit et regnat in unitáte Spíritus Sancti, Deus,",
+       "per ómnia sǽcula sæculórum."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Amen."
+     },
+     {
+      "kind": "rubric",
+      "text": "Deinde, si præest sacerdos vel diaconus, populum dimittit, dicens:"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Dóminus vobíscum."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Et cum spíritu tuo."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Benedícat vos omnípotens Deus, Pater, et Fílius, et Spíritus Sanctus."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Amen."
+     },
+     {
+      "kind": "rubric",
+      "text": "Vel alia formula benedictionis, sicut in Missa."
+     },
+     {
+      "kind": "rubric",
+      "text": "Et si fit dimissio, sequitur invitatio:"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Ite in pace."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Deo grátias."
+     },
+     {
+      "kind": "rubric",
+      "text": "Absente sacerdote vel diacono, et in recitatione a solo, sic concluditur:"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Dóminus nos benedícat, et ab omni malo deféndat, et ad vitam perdúcat ætérnam."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Amen."
+     }
+    ]
+   }
+  ],
+  "completorium": [
+   {
+    "title": null,
+    "blocks": [
+     {
+      "kind": "text",
+      "lines": [
+       "Breviarium"
+      ]
+     }
+    ]
+   },
+   {
+    "title": "Completorium",
+    "blocks": [
+     {
+      "kind": "versicle",
+      "sign": "℣",
+      "text": "Deus, in adiutórium meum inténde.",
+      "v": "Deus, in adiutórium meum inténde.",
+      "r": "Dómine, ad adiuvándum me festína."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Glória Patri, et Fílio, et Spirítui Sancto.",
+       "Sicut erat in princípio, et nunc et semper,",
+       "et in sǽcula sæculórum. Amen. Allelúia."
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "Postea laudabiliter fit conscientiæ discussio, quæ in celebratione communi inseri potest in actum pænitentialem, iuxta formulas in Missa adhibitas."
+     }
+    ]
+   },
+   {
+    "title": "HYMNUS",
+    "blocks": [
+     {
+      "kind": "text",
+      "lines": [
+       "Christe, qui, splendor et dies,",
+       "noctis tenébras détegis,",
+       "lucísque lumen créderis,",
+       "lumen beátis prǽdicans,"
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Precámur, sancte Dómine,",
+       "hac nocte nos custódias;",
+       "sit nobis in te réquies,",
+       "quiétas horas tríbue."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Somno si dantur óculi,",
+       "cor semper ad te vígilet;",
+       "tuáque dextra prótegas",
+       "fidéles, qui te díligunt."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Defénsor noster, áspice,",
+       "insidiántes réprime,",
+       "gubérna tuos fámulos,",
+       "quos sánguine mercátus es."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Sit, Christe, rex piíssime,",
+       "tibi Patríque glória,",
+       "cum Spíritu Paráclito,",
+       "in sempitérna sǽcula. Amen."
+      ]
+     }
+    ]
+   },
+   {
+    "title": "PSALMODIA",
+    "blocks": [
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Miserére mei, Dómine, et exáudi oratiónem meam."
+     },
+     {
+      "kind": "psalm",
+      "ref": "Psalmus 4",
+      "part": null,
+      "title": "Gratiarum actio",
+      "sentence": "Admirabilem fecit Dominus, quem suscitavit a mortuis (S. Augustínus).",
+      "strophes": [
+       [
+        "Cum invocárem, exaudívit me Deus iustítiæ meæ.*",
+        "In tribulatióne dilatásti mihi;",
+        "miserére mei*",
+        "et exáudi oratiónem meam."
+       ],
+       [
+        "Fílii hóminum, úsquequo gravi corde?*",
+        "Ut quid dilígitis vanitátem",
+        "et quǽritis mendácium?",
+        "Et scitóte quóniam mirificávit Dóminus",
+        "sanctum suum;*",
+        "Dóminus exáudiet, cum clamávero ad eum."
+       ],
+       [
+        "Irascímini et nolíte peccáre;†",
+        "loquímini in córdibus vestris,*",
+        "in cubílibus vestris et conquiéscite.",
+        "Sacrificáte sacrifícium iustítiæ*",
+        "et speráte in Dómino."
+       ],
+       [
+        "Multi dicunt: «Quis osténdit nobis bona?».*",
+        "Leva in signum super nos",
+        "lumen vultus tui, Dómine!",
+        "Maiórem dedísti lætítiam in corde meo,*",
+        "quam cum multiplicántur",
+        "fruméntum et vinum eórum.",
+        "In pace in idípsum dórmiam et requiéscam,*",
+        "quóniam tu, Dómine, singuláriter in spe",
+        "constituísti me."
+       ],
+       [
+        "Glória Patri, et Fílio,*",
+        "et Spirítui Sancto.",
+        "Sicut erat in princípio, et nunc et semper,*",
+        "et in sǽcula sæculórum. Amen."
+       ]
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Miserére mei, Dómine, et exáudi oratiónem meam."
+     },
+     {
+      "kind": "antiphon",
+      "n": 2,
+      "text": "In nóctibus benedícite Dóminum."
+     },
+     {
+      "kind": "psalm",
+      "ref": "Psalmus 133 (134)",
+      "part": null,
+      "title": "Vespertina oratio in templo",
+      "sentence": "Laudem dicite Deo nostro, omnes servi eius et qui timetis eum, pusilli et magni! (Ap 19, 5).",
+      "strophes": [
+       [
+        "Ecce benedícite Dóminum,",
+        "omnes servi Dómini,*",
+        "qui statis in domo Dómini per noctes.",
+        "Extóllite manus vestras ad sanctuárium*",
+        "et benedícite Dóminum."
+       ],
+       [
+        "Benedícat te Dóminus ex Sion,*",
+        "qui fecit cælum et terram."
+       ],
+       [
+        "Glória Patri, et Fílio,*",
+        "et Spirítui Sancto.",
+        "Sicut erat in princípio, et nunc et semper,*",
+        "et in sǽcula sæculórum. Amen."
+       ]
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "In nóctibus benedícite Dóminum."
+     }
+    ]
+   },
+   {
+    "title": "LECTIO BREVIS",
+    "blocks": [
+     {
+      "kind": "rubric",
+      "text": "Deut 6, 4-7"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Audi Israel: Dóminus Deus noster Dóminus unus est. Díliges Dóminum Deum tuum ex toto corde tuo et ex tota ánima tua et ex tota fortitúdine tua. Erúntque verba hæc, quæ ego præcípio tibi hódie, in corde tuo, et inculcábis ea fíliis tuis et loquéris ea sedens in domo tua et ámbulans in itínere, decúmbens atque consúrgens."
+      ]
+     }
+    ]
+   },
+   {
+    "title": "RESPONSORIUM BREVE",
+    "blocks": [
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "In manus tuas, Dómine,  Comméndo spíritum meum."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "In manus tuas, Dómine, * Comméndo spíritum meum."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℣",
+      "text": "Redemísti nos, Dómine Deus veritátis.",
+      "v": "Redemísti nos, Dómine Deus veritátis."
+     },
+     {
+      "kind": "versicle",
+      "sign": "*",
+      "text": "Comméndo spíritum meum."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Glória Patri, et Fílio, et Spirítui Sancto.",
+       "In manus tuas, Dómine, * Comméndo spíritum meum."
+      ]
+     }
+    ]
+   },
+   {
+    "title": "CANTICUM EVANGELICUM",
+    "blocks": [
+     {
+      "kind": "rubric",
+      "text": "Lc 2, 29-32"
+     },
+     {
+      "kind": "rubric",
+      "text": "Christus lumen gentium et gloria Israel"
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Salva nos, Dómine, vigilántes, custódi nos dormiéntes, ut vigilémus cum Christo et requiescámus in pace."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Nunc dimíttis servum tuum, Dómine,*",
+       "secúndum verbum tuum in pace,",
+       "quia vidérunt óculi mei*",
+       "salutáre tuum,",
+       "quod parásti*",
+       "ante fáciem ómnium populórum,",
+       "lumen ad revelatiónem géntium*",
+       "et glóriam plebis tuæ Israel."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Glória Patri, et Fílio,*",
+       "et Spirítui Sancto.",
+       "Sicut erat in princípio, et nunc et semper,*",
+       "et in sǽcula sæculórum. Amen."
+      ]
+     },
+     {
+      "kind": "antiphon",
+      "n": null,
+      "text": "Salva nos, Dómine, vigilántes, custódi nos dormiéntes, ut vigilémus cum Christo et requiescámus in pace."
+     }
+    ]
+   },
+   {
+    "title": "ORATIO",
+    "blocks": [
+     {
+      "kind": "text",
+      "lines": [
+       "Orémus."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Vísita nos, quǽsumus, Dómine, hac nocte præsénti, ut, dilúculo tua virtúte surgéntes, de resurrectióne Christi tui gaudére valeámus. Qui vivit et regnat in sǽcula sæculórum."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Amen."
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Noctem quiétam et finem perféctum concédat nobis Dóminus omnípotens."
+      ]
+     },
+     {
+      "kind": "versicle",
+      "sign": "℟",
+      "text": "Amen."
+     },
+     {
+      "kind": "rubric",
+      "text": "Antiphonæ finales ad B. Mariam Virginem"
+     },
+     {
+      "kind": "rubric",
+      "text": "Deinde dicitur una ex sequentibus antiphonis."
+     },
+     {
+      "kind": "rubric",
+      "text": "Per Annum:"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Alma Redemptóris Mater,",
+       "quæ pérvia cæli porta manes,",
+       "et stella maris,",
+       "succúrre cadénti,",
+       "súrgere qui curat, pópulo;"
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "tu quæ genuísti, natúra miránte,",
+       "tuum sanctum Genitórem,",
+       "Virgo prius ac postérius,",
+       "Gabriélis ab ore",
+       "sumens illud Ave,",
+       "peccatórum miserére."
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "Vel alia:"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Ave, Regína cælórum,",
+       "ave, Dómina angelórum,",
+       "salve, radix, salve, porta,",
+       "ex qua mundo lux est orta."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Gaude, Virgo gloriósa,",
+       "super omnes speciósa;",
+       "vale, o valde decóra,",
+       "et pro nobis Christum exóra."
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "Vel alia:"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Salve, Regína, mater misericórdiæ;",
+       "vita, dulcédo et spes nostra, salve.",
+       "Ad te clamámus, éxsules, fílii Evæ.",
+       "Ad te suspirámus, geméntes et flentes",
+       "in hac lacrimárum valle."
+      ]
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Eia ergo, advocáta nostra,",
+       "illos tuos misericórdes óculos",
+       "ad nos convérte.",
+       "Et Iesum, benedíctum fructum ventris tui,",
+       "nobis post hoc exsílium osténde.",
+       "O clemens, o pia, o dulcis Virgo María."
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "Vel alia:"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Sub tuum præsídium confúgimus,",
+       "sancta Dei Génetrix;",
+       "nostras deprecatiónes ne despícias in necessitátibus:",
+       "sed a perículis cunctis líbera nos semper,",
+       "Virgo gloriósa et benedícta."
+      ]
+     },
+     {
+      "kind": "rubric",
+      "text": "Tempore paschali:"
+     },
+     {
+      "kind": "text",
+      "lines": [
+       "Regína cæli, lætare, allelúia,",
+       "quia quem meruísti portáre, allelúia,",
+       "resurréxit sicut dixit, allelúia;",
+       "ora pro nobis Deum, allelúia."
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

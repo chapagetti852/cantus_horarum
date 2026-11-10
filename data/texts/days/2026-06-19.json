@@ -1,5 +1,6 @@
 {
  "date": "2026-06-19",
+ "v": 3,
  "hours": {
   "lectio": [
    {
@@ -566,29 +567,48 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Adiúnxit plane et áddidit legem, certa nos condicióne et sponsióne constríngens, ut sic nobis dimítti débita postulémus secúndum quod et ipsi debitóribus nostris dimíttimus, sciéntes impetrári non posse quod pro peccátis pétimus, nisi et ipsi circa peccatóres nostros pária fecérimus. Idcírco et álio in loco dicit: In qua mensúra mensi fuéritis, in ea remetiétur vobis. Et qui servus, post dimíssum sibi a dómino omne débitum, consérvo suo nóluit ipse dimíttere, in cárcerem religátur. Quia indulgére consérvo nóluit, quod sibi a dómino indúltum fúerat amísit."
-       }
-      ]
+       "Adiúnxit plane et áddidit legem, certa nos condicióne et sponsióne constríngens, ut sic nobis dimítti débita postulémus secúndum quod et ipsi debitóribus nostris dimíttimus, sciéntes impetrári non posse quod pro peccátis pétimus, nisi et ipsi circa peccatóres nostros pária fecérimus. Idcírco et álio in loco dicit: In qua mensúra mensi fuéritis, in ea remetiétur vobis. Et qui servus, post dimíssum sibi a dómino omne débitum, consérvo suo nóluit ipse dimíttere, in cárcerem religátur. Quia indulgére consérvo nóluit, quod sibi a dómino indúltum fúerat amísit."
+      ],
+      "italics": {
+       "0": [
+        [
+         316,
+         370
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Quæ adhuc fórtius Christus in præcéptis suis maióre censúræ suæ vigóre propónit. Cum stetéritis, inquit, ad oratiónem, remíttite si quid habétis advérsus áliquem, ut et Pater vester, qui in cælis est, remíttat peccáta vobis. Si autem vos non remiséritis, neque Pater vester, qui in cælis est, remíttet vobis peccáta vestra. Excusátio tibi nulla in die iudícii súperest, cum secúndum tuam senténtiam iudicéris, et quod féceris, hoc et ipse patiáris."
-       }
-      ]
+       "Quæ adhuc fórtius Christus in præcéptis suis maióre censúræ suæ vigóre propónit. Cum stetéritis, inquit, ad oratiónem, remíttite si quid habétis advérsus áliquem, ut et Pater vester, qui in cælis est, remíttat peccáta vobis. Si autem vos non remiséritis, neque Pater vester, qui in cælis est, remíttet vobis peccáta vestra. Excusátio tibi nulla in die iudícii súperest, cum secúndum tuam senténtiam iudicéris, et quod féceris, hoc et ipse patiáris."
+      ],
+      "italics": {
+       "0": [
+        [
+         81,
+         96
+        ],
+        [
+         105,
+         224
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Pacíficos enim et concórdes atque unánimes esse in domo sua Deus præcépit; et quales nos fecit secúnda nativitáte, tales vult renátos perseveráre, ut qui fílii Dei sumus, in Dei pace maneámus, et quibus spíritus unus est, unus sit et ánimus et sensus. Sic nec sacrifícium Deus récipit dissidéntis et ab altári reverténtem prius fratri reconciliári iubet, ut pacíficis précibus et Deus possit esse placátus. Sacrifícium Deo maius est pax nostra et fratérna concórdia et de unitáte Patris et Fílii et Spíritus Sancti plebs adunáta."
-       }
-      ]
+       "Pacíficos enim et concórdes atque unánimes esse in domo sua Deus præcépit; et quales nos fecit secúnda nativitáte, tales vult renátos perseveráre, ut qui fílii Dei sumus, in Dei pace maneámus, et quibus spíritus unus est, unus sit et ánimus et sensus. Sic nec sacrifícium Deus récipit dissidéntis et ab altári reverténtem prius fratri reconciliári iubet, ut pacíficis précibus et Deus possit esse placátus. Sacrifícium Deo maius est pax nostra et fratérna concórdia et de unitáte Patris et Fílii et Spíritus Sancti plebs adunáta."
+      ],
+      "italics": {
+       "0": [
+        [
+         34,
+         47
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -599,11 +619,16 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Céterum discórdans et díssidens et pacem cum frátribus non habens, secúndum quod beátus Apóstolus et Scriptúra sancta testátur, nec si pro nómine occísus fúerit, crimen dissensiónis fratérnæ póterit evádere, quia sicut scriptum est: Qui fratrem suum odit, homicída est, nec ad regnum cælórum pérvenit aut cum Deo vivit homicída. Non potest esse cum Christo, qui imitátor Iudæ máluit esse quam Christi."
-       }
-      ]
+       "Céterum discórdans et díssidens et pacem cum frátribus non habens, secúndum quod beátus Apóstolus et Scriptúra sancta testátur, nec si pro nómine occísus fúerit, crimen dissensiónis fratérnæ póterit evádere, quia sicut scriptum est: Qui fratrem suum odit, homicída est, nec ad regnum cælórum pérvenit aut cum Deo vivit homicída. Non potest esse cum Christo, qui imitátor Iudæ máluit esse quam Christi."
+      ],
+      "italics": {
+       "0": [
+        [
+         233,
+         269
+        ]
+       ]
+      }
      },
      {
       "kind": "rubric",
@@ -1501,11 +1526,16 @@
        "Hoc gradiénte órdine,",
        "ornávit cuncta spléndide",
        "regni cæléstis cónditor",
-       {
-        "em": true,
-        "text": "ad nostra ætérna prǽmia."
-       }
-      ]
+       "ad nostra ætérna prǽmia."
+      ],
+      "italics": {
+       "3": [
+        [
+         8,
+         9
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1651,12 +1681,17 @@
       "lines": [
        "Ternis horárum términis",
        "volútis, dante Dómino,",
-       {
-        "em": true,
-        "text": "trinum perfécte et únicum"
-       },
+       "trinum perfécte et únicum",
        "ipsum devóti psállimus."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         14,
+         15
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -2119,11 +2154,16 @@
        "Repélle a servis tuis",
        "quicquid per immundítiam",
        "aut móribus se súggerit,",
-       {
-        "em": true,
-        "text": "aut áctibus se intérserit."
-       }
-      ]
+       "aut áctibus se intérserit."
+      ],
+      "italics": {
+       "3": [
+        [
+         13,
+         14
+        ]
+       ]
+      }
      },
      {
       "kind": "text",

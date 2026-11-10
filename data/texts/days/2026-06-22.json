@@ -1,5 +1,6 @@
 {
  "date": "2026-06-22",
+ "v": 3,
  "hours": {
   "lectio": [
    {
@@ -548,11 +549,20 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Paulus máxime ómnium exquisíte, et qui Christus sit novit, et qualem esse opórteat, qui ab eo nomen accépit, ex iis quæ gessit ipse, declarávit: nam ádeo accuráte illum imitátus est, ut se in Dóminum ipsum expréssum osténderit, quippe qui diligentíssima imitatióne formam ánimi sui ita tránstulit in ipsum exémplar, ut non ámplius, qui loquebátur, Paulus, sed Christus esse viderétur, quemádmodum ípsemet dicit, qui própria bona pulchre sentiébat: Quóniam experiméntum, inquit, quǽritis eius qui in me lóquitur, Christus. Et: Vivo ego, iam non ego, vivit autem in me Christus."
-       }
-      ]
+       "Paulus máxime ómnium exquisíte, et qui Christus sit novit, et qualem esse opórteat, qui ab eo nomen accépit, ex iis quæ gessit ipse, declarávit: nam ádeo accuráte illum imitátus est, ut se in Dóminum ipsum expréssum osténderit, quippe qui diligentíssima imitatióne formam ánimi sui ita tránstulit in ipsum exémplar, ut non ámplius, qui loquebátur, Paulus, sed Christus esse viderétur, quemádmodum ípsemet dicit, qui própria bona pulchre sentiébat: Quóniam experiméntum, inquit, quǽritis eius qui in me lóquitur, Christus. Et: Vivo ego, iam non ego, vivit autem in me Christus."
+      ],
+      "italics": {
+       "0": [
+        [
+         448,
+         469
+        ],
+        [
+         478,
+         576
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1474,11 +1484,16 @@
        "Hoc gradiénte órdine,",
        "ornávit cuncta spléndide",
        "regni cæléstis cónditor",
-       {
-        "em": true,
-        "text": "ad nostra ætérna prǽmia."
-       }
-      ]
+       "ad nostra ætérna prǽmia."
+      ],
+      "italics": {
+       "3": [
+        [
+         8,
+         9
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1624,12 +1639,17 @@
       "lines": [
        "Ternis horárum términis",
        "volútis, dante Dómino,",
-       {
-        "em": true,
-        "text": "trinum perfécte et únicum"
-       },
+       "trinum perfécte et únicum",
        "ipsum devóti psállimus."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         14,
+         15
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -2037,11 +2057,16 @@
        "Lúminis fons, lux et orígo lucis,",
        "tu pius nostris précibus favéto,",
        "luxque, peccáti ténebris fugátis,",
-       {
-        "em": true,
-        "text": "nos tua adórnet."
-       }
-      ]
+       "nos tua adórnet."
+      ],
+      "italics": {
+       "3": [
+        [
+         6,
+         7
+        ]
+       ]
+      }
      },
      {
       "kind": "text",

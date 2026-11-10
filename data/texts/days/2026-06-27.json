@@ -1,5 +1,6 @@
 {
  "date": "2026-06-27",
+ "v": 3,
  "hours": {
   "lectio": [
    {
@@ -565,11 +566,24 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Bonum quoddam in vita humána sánitas córporis est, sed beátum est, non modo scire ratiónem sanitátis, verum in sanitáte vívere. Nam si quis, laudes sanitátis persecútus, cibum sumat qui malos umóres et morbos géneret, quid huic, dum morbis confícitur, laudes sanitátis prosunt? Eódem ígitur modo propósitam quoque oratiónem intellegámus, quod non cognóscere áliquid de Deo Dóminus beátum esse dicat, sed in sese Deum habére. Beáti enim puro prǽditi corde, quóniam ipsi Deum vidébunt. Non enim mihi vidétur quasi ex advérso spectándum Deum propónere ei, qui ánimæ óculum habúerit expurgátum, sed fórsitan hoc nobis magnificéntia dicti súggerit quod étiam ad álios sermo apértius éxprimit, ubi dixit: Intra vos est regnum Dei; ut doceámur quod, qui cor suum ab omni creatúra atque vitiósa affectióne expurgávit, in sua ipsíus pulchritúdine divínæ natúræ imáginem intuétur."
-       }
-      ]
+       "Bonum quoddam in vita humána sánitas córporis est, sed beátum est, non modo scire ratiónem sanitátis, verum in sanitáte vívere. Nam si quis, laudes sanitátis persecútus, cibum sumat qui malos umóres et morbos géneret, quid huic, dum morbis confícitur, laudes sanitátis prosunt? Eódem ígitur modo propósitam quoque oratiónem intellegámus, quod non cognóscere áliquid de Deo Dóminus beátum esse dicat, sed in sese Deum habére. Beáti enim puro prǽditi corde, quóniam ipsi Deum vidébunt. Non enim mihi vidétur quasi ex advérso spectándum Deum propónere ei, qui ánimæ óculum habúerit expurgátum, sed fórsitan hoc nobis magnificéntia dicti súggerit quod étiam ad álios sermo apértius éxprimit, ubi dixit: Intra vos est regnum Dei; ut doceámur quod, qui cor suum ab omni creatúra atque vitiósa affectióne expurgávit, in sua ipsíus pulchritúdine divínæ natúræ imáginem intuétur."
+      ],
+      "italics": {
+       "0": [
+        [
+         425,
+         430
+        ],
+        [
+         436,
+         483
+        ],
+        [
+         699,
+         724
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1462,11 +1476,16 @@
        "Hoc gradiénte órdine,",
        "ornávit cuncta spléndide",
        "regni cæléstis cónditor",
-       {
-        "em": true,
-        "text": "ad nostra ætérna prǽmia."
-       }
-      ]
+       "ad nostra ætérna prǽmia."
+      ],
+      "italics": {
+       "3": [
+        [
+         8,
+         9
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1612,12 +1631,17 @@
       "lines": [
        "Ternis horárum términis",
        "volútis, dante Dómino,",
-       {
-        "em": true,
-        "text": "trinum perfécte et únicum"
-       },
+       "trinum perfécte et únicum",
        "ipsum devóti psállimus."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         14,
+         15
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -2325,11 +2349,16 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "O altitúdo divitiárum et sapiéntiæ et sciéntiæ Dei! Quam incomprehensibília sunt iudícia eius et investigábiles viæ eius! Quis enim cognóvit sensum Dómini? Aut quis consiliárius eius fuit? Aut quis prior dedit illi, et retribuétur ei? Quóniam ex ipso et per ipsum et in ipsum ómnia. Ipsi glória in sǽcula. Amen."
-       }
-      ]
+       "O altitúdo divitiárum et sapiéntiæ et sciéntiæ Dei! Quam incomprehensibília sunt iudícia eius et investigábiles viæ eius! Quis enim cognóvit sensum Dómini? Aut quis consiliárius eius fuit? Aut quis prior dedit illi, et retribuétur ei? Quóniam ex ipso et per ipsum et in ipsum ómnia. Ipsi glória in sǽcula. Amen."
+      ],
+      "italics": {
+       "0": [
+        [
+         122,
+         234
+        ]
+       ]
+      }
      }
     ]
    },

@@ -50,6 +50,13 @@ function makeContext(fontSizePx) {
   ctxt.spaceBetweenSystems = 0;
   ctxt.setRubricColor('var(--rubric, #a4221c)');
   ctxt.specialCharProperties['font-weight'] = '400';
+  // ℟ and ℣ ("R.", "V." in red italics): in the text's own font and measured as drawn. Exsurge
+  // names its own symbol font, which is not shipped, and classes them "rubric", which the
+  // page's style then set smaller and italic after the layout had measured them upright: the
+  // syllable after them stood off its word ("℟. Dó mine").
+  ctxt.specialCharProperties['font-family'] = "'EB Garamond', 'Crimson Text', serif";
+  ctxt.specialCharProperties['font-style'] = 'italic';
+  ctxt.specialCharProperties.class = 'versicle-sign';
   return ctxt;
 }
 
@@ -61,6 +68,31 @@ function makeContext(fontSizePx) {
  * `source` ({ label, href }) is where the notation comes from ("AM I 215", site/sources.js),
  * shown small at the top right of the score, beside its ▶.
  */
+/**
+ * A hyphen wherever the syllables of a word stand apart. Exsurge decides on hyphens before it
+ * justifies a line: the space it then adds within a word was left bare ("Dó mine", "sǽ cula").
+ * After the layout: between two syllables of a word on one line, a hyphen when the gap has
+ * room for one (narrowed in a gap a little smaller); a smaller gap is closed, the next
+ * syllable drawn up to the one before; none when they touch.
+ */
+function connectSyllables(score, ctxt) {
+  const hyphen = ctxt.hyphenWidth;
+  if (!hyphen) return;
+  for (const line of score.lines || []) {
+    const els = score.notations.slice(line.notationsStartIndex, line.notationsStartIndex + line.numNotationsOnLine).filter((n) => n.lyrics?.length);
+    let drift = 0; // how far the syllables of the word have been drawn together
+    for (let i = 0; i < els.length - 1; i++) {
+      const a = els[i].lyrics[0], b = els[i + 1].lyrics[0];
+      if (!a || !b || !a.allowsConnector?.() || a.preventConnector || !(a.widthWithoutConnector > 0)) { drift = 0; continue; }
+      const gap = b.getLeft() - (a.getLeft() + a.widthWithoutConnector);
+      if (gap >= hyphen * 0.95) { a.setNeedsConnector(true); a.setConnectorWidth(0); a.connectorSpan.textLength = undefined; }
+      else if (gap >= hyphen * 0.5 || (gap > 0.3 && drift + gap > hyphen * 0.7)) a.setNeedsConnector(true, Math.max(gap, hyphen * 0.4));
+      // a gap too small for a hyphen: the next syllable drawn up to this one (a hair off its note)
+      else if (gap > 0.3 && !a.needsConnector) { b.bounds.x -= gap; drift += gap; }
+    }
+  }
+}
+
 export function renderChant(el, body, { annotation = null, dropCap = true, scale = 1, maxLines = 0, source = null } = {}) {
   // lyrics a little larger than the text, as in Breviarium Gregorianum (21 px against 18.7)
   const fontSize = (parseFloat(getComputedStyle(document.body).fontSize) || 18.67) * 1.12;
@@ -70,6 +102,13 @@ export function renderChant(el, body, { annotation = null, dropCap = true, scale
     .replace(/<v>\\greheightstar<\/v>/g, '*')
     .replace(/<alt>[\s\S]*?<\/alt>/g, '')
     .replace(/\(z0?\)|\(Z\)/g, '')
+    // accented ligatures as single characters (Exsurge sets <sp>'ae</sp> as a span of its own)
+    .replace(/<sp>'(?:ae|æ)<\/sp>/g, 'ǽ').replace(/<sp>'(?:oe|œ)<\/sp>/g, 'œ́').replace(/<sp>ae<\/sp>/g, 'æ').replace(/<sp>oe<\/sp>/g, 'œ')
+    .replace(/<sp>'(?:AE|Æ)<\/sp>/g, 'Ǽ').replace(/<sp>AE<\/sp>/g, 'Æ').replace(/<sp>OE<\/sp>/g, 'Œ')
+    // slips of the transcriptions that break a word in two: a line break between a syllable
+    // and its notes ("adiutó\n(hi)rium"), a space within "Dó(…) mi(…)no"
+    .replace(/([^\s()<>;])[ \t]*\n\s*\((?!:)/g, '$1(')
+    .replace(/(D[óo]\([^)]*\)) (mi\([^)]*\)n[eio])/g, '$1$2')
     // Exsurge prints ℟ and ℣ with their own full stop: the books' "<sp>R/</sp>." would give two
     .replace(/(<sp>[RVA]\/<\/sp>)(<\/c>)?\./g, '$1$2')
     // the asterisk and the cross of the responsories, which Exsurge does not draw from <sp>
@@ -97,7 +136,13 @@ export function renderChant(el, body, { annotation = null, dropCap = true, scale
   // every system after the first was drawn higher and higher, its top cut off.
   if (lines || maxLines) ctxt.spaceBetweenSystems = 1.5;
   // returns a promise that the score is drawn (print waits for every score)
-  const layout = () => new Promise((resolve) => {
+  // the faces the lyrics need, loaded before they are measured: the font comes in pieces by
+  // unicode range, and a score measured before the piece with ǽ or œ́ had arrived left gaps
+  const lyricsText = cleaned.replace(/\([^)]*\)|<[^>]+>/g, '');
+  const fontsReady = () => (document.fonts?.load
+    ? Promise.all(['', 'italic ', 'bold '].map((st) => document.fonts.load(`${st}${Math.round(fontSize)}px 'EB Garamond'`, lyricsText))).catch(() => {})
+    : Promise.resolve());
+  const layout = () => fontsReady().then(() => new Promise((resolve) => {
     const width = Math.floor(el.clientWidth) || Math.floor(document.body.clientWidth - 32);
     if (!width || width === lastWidth) { resolve(); return; }
     lastWidth = width;
@@ -105,6 +150,7 @@ export function renderChant(el, body, { annotation = null, dropCap = true, scale
     ctxt.width = w;
     score.performLayoutAsync(ctxt, () => {
       score.layoutChantLines(ctxt, w, () => {
+        connectSyllables(score, ctxt);
         if (maxLines) { // a miniature showing only its first systems
           el.replaceChildren(...score.createSvgNodeForEachLine(ctxt).slice(0, maxLines).map((svg) => {
             svg.removeAttribute('width'); svg.removeAttribute('height'); svg.style.width = '100%'; svg.style.display = 'block'; return svg;
@@ -120,7 +166,7 @@ export function renderChant(el, body, { annotation = null, dropCap = true, scale
         resolve();
       });
     });
-  });
+  }));
   if (!lines) layout();
   return layout;
 }

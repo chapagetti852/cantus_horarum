@@ -1,5 +1,6 @@
 {
  "date": "2026-06-25",
+ "v": 3,
  "hours": {
   "lectio": [
    {
@@ -202,27 +203,40 @@
       "lines": [
        "«Auférte — clamat — léctulos",
        "ægros, sopóros, désides;",
-       {
-        "em": true,
-        "text": "castíque, recti ac sóbrii"
-       },
-       {
-        "em": true,
-        "text": "vigiláte; iam sum próximus»."
-       }
-      ]
+       "castíque, recti ac sóbrii",
+       "vigiláte; iam sum próximus»."
+      ],
+      "italics": {
+       "2": [
+        [
+         14,
+         15
+        ]
+       ],
+       "3": [
+        [
+         3,
+         4
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
        "Ut, cum corúscis flátibus",
        "auróra cælum spárserit,",
-       {
-        "em": true,
-        "text": "omnes labóre exércitos"
-       },
+       "omnes labóre exércitos",
        "confírmet ad spem lúminis."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         11,
+         12
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -277,13 +291,18 @@
       "kind": "text",
       "lines": [
        "Felix quæ sitit cáritas",
-       {
-        "em": true,
-        "text": "te fontem vitæ, o Véritas;"
-       },
+       "te fontem vitæ, o Véritas;",
        "beáti valde óculi",
        "te speculántis pópuli."
-      ]
+      ],
+      "italics": {
+       "1": [
+        [
+         13,
+         14
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -597,20 +616,42 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Quemádmodum enim in multis locis marítimis montem vidére licet circa eam partem qua mare spectat, quasi dimídium abscíssum et a vértice ad profúndum usque dirécto abrásum, cuius in superióre parte cacúmen quoddam proiéctum profúndo ímminet; quod ígitur accídere verisímile est ei, qui a tali tantǽque altitúdinis spécula in profúndum mare despíciat, ítidem mihi nunc ánimus quasi vertígine labórat in magna hac Dómini voce suspénsus: Beáti puro corde, quóniam ipsi Deum vidébunt."
-       }
-      ]
+       "Quemádmodum enim in multis locis marítimis montem vidére licet circa eam partem qua mare spectat, quasi dimídium abscíssum et a vértice ad profúndum usque dirécto abrásum, cuius in superióre parte cacúmen quoddam proiéctum profúndo ímminet; quod ígitur accídere verisímile est ei, qui a tali tantǽque altitúdinis spécula in profúndum mare despíciat, ítidem mihi nunc ánimus quasi vertígine labórat in magna hac Dómini voce suspénsus: Beáti puro corde, quóniam ipsi Deum vidébunt."
+      ],
+      "italics": {
+       "0": [
+        [
+         434,
+         479
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Deus spectáculo propósitus est iis, qui cor expurgátum habúerint. Deum nemo vidit umquam, ut magnus inquit Ioánnes; confírmat autem eam senténtiam étiam illa sublími mente Paulus, qui dixit: Quem nullus hóminum vidit neque vidére potest. Hæc est illa levis, abrása atque prærúpta petra, quæ nullum in sese intelléctuum sustentaméntum et firmaméntum osténdit; quam étiam Móyses ítidem inaccéssam in suis decrétis pronuntiávit, ut nusquam mens nostra adíre possit, quidquid enítens apprehéndere, quove sese subleváre póterit per illam senténtiam abráso: Non est enim, inquit, qui Dóminum vidébit et vivet."
-       }
-      ]
+       "Deus spectáculo propósitus est iis, qui cor expurgátum habúerint. Deum nemo vidit umquam, ut magnus inquit Ioánnes; confírmat autem eam senténtiam étiam illa sublími mente Paulus, qui dixit: Quem nullus hóminum vidit neque vidére potest. Hæc est illa levis, abrása atque prærúpta petra, quæ nullum in sese intelléctuum sustentaméntum et firmaméntum osténdit; quam étiam Móyses ítidem inaccéssam in suis decrétis pronuntiávit, ut nusquam mens nostra adíre possit, quidquid enítens apprehéndere, quove sese subleváre póterit per illam senténtiam abráso: Non est enim, inquit, qui Dóminum vidébit et vivet."
+      ],
+      "italics": {
+       "0": [
+        [
+         66,
+         89
+        ],
+        [
+         191,
+         237
+        ],
+        [
+         552,
+         559
+        ],
+        [
+         574,
+         603
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -627,11 +668,20 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Si ígitur étiam ad nos manus Verbi admóta fúerit, et instábiles in profúndo speculatiónum in altérutro intelléctu constitúerit, extra metum érimus, fírmiter quasi manu ducens nos Verbum ampléxi. Beáti enim, inquit, qui puro corde prǽditi sunt, quóniam ipsi Deum vidébunt."
-       }
-      ]
+       "Si ígitur étiam ad nos manus Verbi admóta fúerit, et instábiles in profúndo speculatiónum in altérutro intelléctu constitúerit, extra metum érimus, fírmiter quasi manu ducens nos Verbum ampléxi. Beáti enim, inquit, qui puro corde prǽditi sunt, quóniam ipsi Deum vidébunt."
+      ],
+      "italics": {
+       "0": [
+        [
+         195,
+         200
+        ],
+        [
+         215,
+         271
+        ]
+       ]
+      }
      },
      {
       "kind": "rubric",
@@ -1503,11 +1553,16 @@
        "Hoc gradiénte órdine,",
        "ornávit cuncta spléndide",
        "regni cæléstis cónditor",
-       {
-        "em": true,
-        "text": "ad nostra ætérna prǽmia."
-       }
-      ]
+       "ad nostra ætérna prǽmia."
+      ],
+      "italics": {
+       "3": [
+        [
+         8,
+         9
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1653,12 +1708,17 @@
       "lines": [
        "Ternis horárum términis",
        "volútis, dante Dómino,",
-       {
-        "em": true,
-        "text": "trinum perfécte et únicum"
-       },
+       "trinum perfécte et únicum",
        "ipsum devóti psállimus."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         14,
+         15
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -2077,14 +2137,19 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Tu vero, excélse Dómine,"
-       },
+       "Tu vero, excélse Dómine,",
        "precántes tuos fámulos",
        "diúrno lassos ópere",
        "ne sinas umbris ópprimi,"
-      ]
+      ],
+      "italics": {
+       "0": [
+        [
+         6,
+         7
+        ]
+       ]
+      }
      },
      {
       "kind": "text",

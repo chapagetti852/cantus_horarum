@@ -29,6 +29,8 @@ Read `README.md` first: it explains every pipeline.
   or the match is another chant); the build serves them as `gabc/oco-<id>.gabc`.
   Pipeline order: scrape_sources → match_gregobase → match_hymni → match_responsoria →
   read_notation → choose_scores → build.
+- `scripts/oco/link_index.py` links index rows of antiphons left without an OCO entry
+  (abbreviated or misspelt incipits); run after `extract_indices.py` changes `indices.json`.
 - `scripts/oco/match_responsoria.py` re-matches the short responsories (after
   `match_gregobase.py`); `scripts/gregobase/fetch_gabc.sh <ids>` fetches single GABC
   files from GregoBase into `data/gabc/` when the dump's `cache/` is not at hand.
@@ -82,6 +84,14 @@ Read `README.md` first: it explains every pipeline.
   (psalms can be switched to "first verse notated, rest pointed text"). Antiphon scores
   stand before and after their psalm. Tone labels (red, "Tonus 8 g") use the Solesmes
   2005 names.
+- Audit before a release that touches resolution or rendering: `node scripts/audit.cjs
+  <from> <to> [hours]` opens every hour of a span in headless Chromium and lists page errors,
+  hours not composed, scores missing and antiphons left as text; a year of Lauds and Vespers
+  takes about twenty minutes; it also lists an hour lacking a part (reading, prayer…) or its
+  psalms. Run it over the window with all seven hours too: iBreviary's pages vary in shape
+  (README "Daily texts"), and a new variant shows there first. `<dates,…> -` audits chosen
+  days. The texts iBreviary gives can be wrong (13 December 2026: the O antiphon of the
+  17th): the OCO decides.
 - Short responsories are single pieces of music: the OCO's, matched to GregoBase part
   "rb" by `scripts/oco/match_responsoria.py` (text decides between variants); the
   iBreviary text only where GregoBase has no score.
@@ -103,8 +113,14 @@ window (`scripts/texts/window.mjs`, run daily by the Pages workflow into the git
 `cache/texts/days`); invitatory option (Ps 94 in the Liber Hymnarius tones).
 `npm test` (after `node scripts/build.mjs`) checks tones and propers.
 To do:
-1. Compline on solemnities (Sunday forms); optional memorials as a choice; Saturday
-   memorial of Our Lady; feminine/plural variants of the commons.
+1. Optional memorials as a choice; Saturday memorial of Our Lady; feminine/plural variants
+   of the commons. The Office of Readings of Easter Sunday (the Vigil's readings and
+   canticles) is not composed. First Vespers of Sts Peter and Paul: iBreviary has none
+   (the Second Vespers' psalms stand in; add a lender to `I_VESPERS_PSALMODY` if one turns
+   up). The Sunday after Corpus Christi's Thursday and the seventh of Easter have no pages
+   on iBreviary (General Roman Calendar): the psalter's texts, with the notice.
+   The psalter days (`data/texts/psalter-days.json`) must be weekdays with no memorial and no
+   solemnity on the morrow: check a new one with the audit (all seven hours).
 2. Hong Kong diocesan calendar. English and Chinese (Hong Kong DLC) translations are a beta
    setting (README "Translations"). The Chinese must be Hong Kong's text only: no own
    translations, hymns only where `data/hymns/match.json` judges HK's hymn a translation

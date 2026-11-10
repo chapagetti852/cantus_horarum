@@ -4,6 +4,62 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.18.0 — 2026-11-10
+
+- Lauds on Fridays has its psalms again: iBreviary closes the heading of the psalmody after
+  "Ant. 1" there, and the whole psalmody was lost (the three antiphons stood alone). The
+  little hours have their first psalm, which a like slip of the page hid.
+- The little hours in Advent, Lent and Christmastide, on feasts and solemnities: the psalms
+  are there (they were missing wherever the hour has one antiphon), sung under the season's
+  antiphon from the OCO ("Prophetæ prædicaverunt", "Advenerunt nobis"…), which was left as
+  text. Terce and Sext end with the collect on Sundays, feasts and in the seasons, where
+  iBreviary prints it once, under None.
+- First Vespers of the Immaculate Conception and of the Mother of God: iBreviary has none
+  (7 and 31 December give the weekday's psalms and nothing more), and the hour stopped after
+  the psalmody. They are made of the feast's Second Vespers with the psalms of First Vespers.
+  An hour iBreviary gives cut short is taken from the psalter; a feast it leaves empty (1
+  January 2027, for now) from the same feast in another year.
+- The Office of Readings of feasts (St Andrew) and of 2 November has its psalms: the page has
+  no heading over them.
+- Beyond the window of daily texts, five psalter weekdays showed another day's office: Tuesday
+  I a memorial of martyrs, Friday I St Ignatius, Thursday II St Barnabas with the First
+  Vespers of the Sacred Heart, Saturday II St Anthony, Tuesday IV a Lauds cut short and the
+  First Vespers of St John the Baptist. They are plain weekdays now. Where a day's own texts
+  are not yet there and the psalter's stand in for them (seasons, feasts, Sundays), a line
+  under the title says so.
+- The Ascension and Corpus Christi on their Thursdays (General Roman Calendar) have their
+  own psalms, reading, intercessions and prayer, and First Vespers on the Wednesday:
+  iBreviary keeps both on the Sunday, and the Thursday had a weekday's.
+- In the Triduum and the octave of Easter the antiphon in place of the responsory (Christus
+  factus est, Hæc dies) is sung at Lauds and Vespers too, from the OCO's notation: a psalter
+  responsory stood there. Compline within the octaves and on solemnities takes the antiphons
+  of the Sunday form its psalms belong to.
+- Eastertide weekdays: where the OCO has "Psalmi cum Alleluia" (Office of Readings, Lauds 1
+  and 3, Vespers 1 and 2, the little hours, Compline) the antiphon is Alleluia in the psalm's
+  own tone; an antiphon that merely begins with the word was sung there.
+- Hymns with their score: Pange lingua … prœlium certaminis (Office of Readings in Holy
+  Week), Christe cælorum Domine, Sacris sollemniis, Legis sacratæ, O lux salutis nuntia.
+- Good Friday and Holy Saturday sing their own antiphons and hymns: they were resolved as the
+  Friday and Saturday of Easter week. The Saturday of the Easter octave has the First Vespers
+  of the octave Sunday, which keeps the octave's antiphons.
+- Sundays whose Gospel antiphons the OCO's index gives by the year alone (Advent III and IV,
+  the little hours of the Sundays of Lent) or abbreviates ("Amen a. d. vobis…": 37 antiphons,
+  among them the 18th Sunday of year B) now find them. On a Sunday of Advent from 17 December
+  the Benedictus antiphon is the Sunday's and the Magnificat's the O antiphon; at First
+  Vespers the O antiphon is the evening's own (it was the morrow's).
+- Where the day's own texts are not at hand and the OCO gives no Gospel antiphon, the psalter
+  day's antiphon is no longer printed in its place on Sundays and in the seasons.
+- Office of Readings: only the words a reading quotes are in italics (a paragraph with a
+  quotation was all in italics). Its responsories find their GregoBase score whatever the
+  books' spelling and with one word differing ("Devastavit" / "Exterminavit vineam"), from
+  more books: 22 of the window's 84, from 18.
+- Scores: a hyphen wherever the syllables of a word stand apart, and none of the gaps that
+  split words after ℟ and ℣, in "Dómino" of the Benedicamus, at "sǽcula" ("Dó mine", "A men").
+- At the foot of each hour, links to the hour before and after; the browser's Back and Forward
+  move between the hours visited; another hour or day opens at its beginning.
+- Settings in groups (Language, Office, Chant, Display, Print and help); "Calendar" for the
+  Ordo. Scores the Antiphonale Romanum II has are labelled with it before the Monasticum.
+
 ## 1.17.0 — 2026-11-07
 
 - Setting "Ordo": the General Roman Calendar or the Diocese of Hong Kong's 🇭🇰 (the Epiphany,

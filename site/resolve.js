@@ -48,8 +48,12 @@ const precNumber = (c) => Number(/(\d+)$/.exec(c?.prec || '')?.[1] ?? 99);
  */
 export function context(cel, date, mode = isSanctoral(cel) ? 'sanctoral' : 'temporal') {
   const s = cel.seasons || [];
-  const season = s.includes('ADVENT') ? 'A' : s.includes('CHRISTMAS_TIME') ? 'N' : s.includes('LENT') || s.includes('HOLY_WEEK') ? 'Q'
-    : s.includes('EASTER_TIME') || s.includes('PASCHAL_TRIDUUM') ? 'P' : 'D';
+  // Good Friday and Holy Saturday (the Triduum before Easter Sunday) are, in the OCO's codes,
+  // the Friday and the Saturday of the sixth week of Lent ("6Q6", "6Q7"); the calendar counts
+  // them the first week of the Triduum, which read as the Friday and Saturday of Easter week
+  const triduum = s.includes('PASCHAL_TRIDUUM') && !s.includes('EASTER_TIME');
+  const season = s.includes('ADVENT') ? 'A' : s.includes('CHRISTMAS_TIME') ? 'N' : s.includes('LENT') || s.includes('HOLY_WEEK') || triduum ? 'Q'
+    : s.includes('EASTER_TIME') ? 'P' : 'D';
   const dm = MONTH_DAYS(date);
   const [d, m] = dm.split('/').map(Number);
   const sanctoral = mode === 'sanctoral';
@@ -59,7 +63,9 @@ export function context(cel, date, mode = isSanctoral(cel) ? 'sanctoral' : 'temp
   if (commons.has('Mart')) commons.add(/_and_|companions/.test(cel.id) ? 'PlM' : 'UnM');
   const plural = /_and_|companions/.test(cel.id || '');
   return {
-    id: cel.id, rank: cel.rank, prec: precNumber(cel), season, week: cel.week, dow: cel.dow, dm, sanctoral,
+    id: cel.id, rank: cel.rank, prec: precNumber(cel), season, week: triduum ? 6 : cel.week, dow: cel.dow, dm, sanctoral,
+    // the day before: First Vespers are sung on its evening
+    eveDm: MONTH_DAYS(new Date(Date.parse(`${date}T12:00:00Z`) - 86400000).toISOString().slice(0, 10)),
     named: sanctoral || TEMPORAL_NAMED.has(NAMED[cel.id]) ? NAMED[cel.id] : undefined,
     commons: sanctoral ? commons : new Set(), plural, year: (cel.sunday || 'A').toLowerCase(),
     // the pastor's order, for the hymns of the common of pastors that come in three forms
@@ -100,7 +106,8 @@ export function scoreTempus(tempus, c) {
     let m, s = 0;
     if ((m = /^(\d+)\/(\d+)(V)?$/.exec(t))) s = `${m[1]}/${m[2]}` === c.dm ? (S || tokens.some((x) => x in SEASON_NAMES) ? 100 : 0) : 0;
     else if (dated && t in SEASON_NAMES) qualifiersOk &&= SEASON_NAMES[t] === c.season;
-    else if ((m = /^([ANQ]|Ep)-(\d+\/\d+)$/.exec(t))) s = m[2] === c.dm ? 95 : 0;
+    // a date within a season ("A-19/12": the O antiphons): at First Vespers the evening's own date
+    else if ((m = /^([ANQ]|Ep)-(\d+\/\d+)$/.exec(t))) s = m[2] === (c.evening || c.dm) ? 95 : 0;
     else if ((m = /^(\d)([AQP])(\d)(?:-(\d))?$/.exec(t))) {
       // week, season, day (1 = Sunday); Advent "week 5" = the ferias after 16 December
       const week = c.season === 'A' && !c.before17 && c.dow ? 5 : c.week;
@@ -108,7 +115,11 @@ export function scoreTempus(tempus, c) {
       s = T && m[2] === c.season && Number(m[1]) === wk && inList(c.dow + 1, m[4] ? `${m[3]}-${m[4]}` : m[3]) ? 90 : 0;
     } else if ((m = /^(\d)-(\d)([PQ])(\d)?(?:-(\d))?$/.exec(t))) {
       s = T && m[3] === c.season && c.week >= Number(m[1]) && c.week <= Number(m[2]) && (!m[4] || inList(c.dow + 1, m[5] ? `${m[4]}-${m[5]}` : m[4])) ? 80 : 0;
-    } else if ((m = /^(\d)([PQ])$/.exec(t))) s = T && m[2] === c.season && Number(m[1]) === c.week ? 70 : 0;
+    } else if ((m = /^(\d)([PQ])$/.exec(t))) {
+      s = T && m[2] === c.season && Number(m[1]) === c.week ? 70 : 0;
+      // the Sunday that closes the octave of Easter keeps the octave's antiphons ("1P")
+      if (!s && T && c.id === 'divine_mercy_sunday' && t === '1P') s = 70;
+    }
     else if ((m = /^0?(\d+)D$/.exec(t))) s = T && c.season === 'D' && c.dow === 0 && Number(m[1]) === c.week ? 90 : 0;
     else if ((m = /^D(\d+(?:\.\d+)*)$/.exec(t))) s = T && c.season === 'D' && c.dow === 0 && inList(c.week, m[1]) ? 85 : 0;
     else if (t === 'D') s = T && c.season === 'D' && c.dow === 0 ? 30 : 0;
@@ -150,8 +161,15 @@ const OFFICIUM = {
 };
 const HYMN_OFFICIUM = { ...OFFICIUM, laudes: ['L', 'L V'], vesperae: ['V', '2V', 'L V', 'Ol V', 'Ol 2V'], vesperae1: ['1V', 'V'] };
 
-function locusMatches(locus, place, c) {
+function locusMatches(locus, place, c, hour) {
   const l = String(locus || '').trim();
+  // the year alone ("a", "b", "bc"): the antiphon of that year of the Sunday cycle at the
+  // hour's one proper place: the Gospel canticle at Lauds and Vespers (the third and fourth
+  // Sundays of Advent), the single antiphon of a little hour (the Sundays of Lent)
+  if (/^[abc]+$/.test(l)) {
+    const little = hour === 'tertia' || hour === 'sexta' || hour === 'nona';
+    return l.includes(c.year) && (little ? place === '1' : place === 'B' || place === 'M') ? 3 : 0;
+  }
   if (place === 'B' || place === 'M') {
     const yr = new RegExp(`^${place}${c.year}?$|^${place}[abc]*${c.year}[abc]*$`);
     if (yr.test(l)) return /[abc]/.test(l.slice(1)) ? 3 : 2;
@@ -175,20 +193,26 @@ function locusMatches(locus, place, c) {
  */
 function pick(slots, oco, c, hour, kind, place) {
   const offs = (kind === 'h' ? HYMN_OFFICIUM : OFFICIUM)[hour] || [];
+  // First Vespers: a row for the Vespers of a date ("A-19/12 V") is the evening's own date;
+  // one written for First Vespers ("N-25/12 1V") stands under the feast's
+  const eve = hour === 'vesperae1' ? { ...c, evening: c.eveDm } : c;
   let best = null;
   for (const row of slots) {
     const [k, tempus, officium, locus, ids, lhym] = row;
     if (k !== (kind === 'i' ? 'a' : kind)) continue;
     if (place === 'Nunc' && !/^Nunc/.test(locus)) continue;
     if (kind === 'i' ? officium !== '' : !offs.includes(officium)) continue;
-    const lm = kind === 'a' ? locusMatches(locus, place, c) : 1;
+    const lm = kind === 'a' ? locusMatches(locus, place, c, hour) : 1;
     if (!lm) continue;
-    const s = scoreTempus(tempus, c);
+    const s = scoreTempus(tempus, officium === 'V' ? eve : c);
     if (!s) continue;
     const entry = entryFor(oco, ids, lhym, kind, row, c);
     if (!entry) continue;
     // at equal particularity, a piece with a score before one without
-    const score = s * 10 + lm - offs.indexOf(officium) + (entry.gabc ? 5 : 0);
+    // a Sunday of Advent on 17-23 December: the Benedictus antiphon is the Sunday's own, by
+    // the year (the date's gives way); at Vespers the O antiphon of the date stands
+    const sundays = place === 'B' && /^[abc]+$/.test(String(locus || '').trim()) ? 1000 : 0;
+    const score = s * 10 + lm - offs.indexOf(officium) + (entry.gabc ? 5 : 0) + sundays;
     if (best && best.score >= score) continue;
     best = { score, tempusScore: s, entry, tempus };
   }
@@ -210,6 +234,10 @@ function entryFor(oco, ids, lhym, kind, row, c) {
     const own = row[7] && (typeof row[7] === 'object' ? row[7][c?.order || 'presbyter'] : row[7]);
     return list.find((e) => e.gabc) || (own ? { kind: 'hymn', title: row[6], lhym, gabc: own } : null) || list[0] || (row[6] ? { kind: 'hymn', title: row[6], lhym } : null);
   }
+  // "Psalmi cum Alleluia (in tonis diversis)", Eastertide: the index's bare "Alleluia" is the
+  // antiphon Alleluia in the psalm's own tone (ALLELUIA in site/app.js), not one of the pieces
+  // that begin with the word
+  if (kind === 'a' && row[6] === 'Alleluia') return { kind: 'chant', alleluia: true, title: 'Alleluia, alleluia, alleluia.', text: 'Allelúia, allelúia, allelúia.', part: 'PROPRIUM DE TEMPORE' };
   const list = (ids || []).map((i) => oco.byId.get(i)).filter(Boolean);
   // the index's links reach every piece with that incipit: keep the right genre
   const isResp = (e) => e.kind === 'resp_brevis' || /br\./.test(e.position || '');
@@ -234,7 +262,9 @@ export function indexOco(entries) {
  * that outranks today are its I Vespers.
  */
 export function celebrationFor(today, tomorrow, hour) {
-  if (hour === 'vesperae' && tomorrow && (tomorrow.rank === 'SOLEMNITY' || tomorrow.rank === 'SUNDAY') && precNumber(tomorrow) < precNumber(today)) {
+  // (the Saturday of the Easter octave ranks as the Sunday that closes it: its Vespers are the Sunday's first)
+  if (hour === 'vesperae' && tomorrow && (tomorrow.rank === 'SOLEMNITY' || tomorrow.rank === 'SUNDAY')
+    && (precNumber(tomorrow) < precNumber(today) || today.id === 'easter_saturday')) {
     return { cel: tomorrow, hour: 'vesperae1', first: true };
   }
   return { cel: today, hour, first: false };
@@ -255,7 +285,10 @@ export function resolveHour(slots, oco, cel, date, hour, { memoriaCommune = fals
   const T = context(cel, date, 'temporal');
   const bigTemporal = !isSanctoral(cel) && (cel.rank === 'SOLEMNITY' || cel.rank === 'FEAST');
   if (T.season !== 'D' || T.dow === 0 || bigTemporal) {
-    fill(out, slots, oco, T, hour, (kind) => (bigTemporal ? 20 : kind === 'psalm' ? 70 : T.season === 'D' ? 30 : 20));
+    // the little hours have one antiphon for a whole season ("A", "Q", "N ante Ep"); the psalms
+    // of the other hours only what a week or a day provides
+    const little = ['tertia', 'sexta', 'nona'].includes(hour);
+    fill(out, slots, oco, T, hour, (kind) => (bigTemporal || (little && T.season !== 'D') ? 20 : kind === 'psalm' ? 70 : T.season === 'D' ? 30 : 20));
   }
   if (isSanctoral(cel)) {
     const S = context(cel, date, 'sanctoral');

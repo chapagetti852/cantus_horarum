@@ -1,16 +1,16 @@
 // Where the scores come from: the abbreviations shown at the top right of each score, and
 // spelt out in the help. The build (scripts/build.mjs) labels every GABC file it ships with
 // `cantus-source: <abbr> <page>`, choosing among a chant's books in the order below (the
-// books of the reformed office first). `gregobase` lists GregoBase's ids for the book.
+// books of the reformed office first, the Antiphonale Romanum before the Monasticum). `gregobase` lists GregoBase's ids for the book.
 
 export const BOOKS = [
   { abbr: 'OCO', title: 'Ordo Cantus Officii, editio cum cantu (antiphonale.net, v.6, 2026): its own notation; the number is its page' },
   { abbr: 'LH', title: 'Liber Hymnarius (Solesmes, 1983)', gregobase: [15] },
+  { abbr: 'AR II', title: 'Antiphonale Romanum II: Ad Vesperas in dominicis et festis (Solesmes, 2009)', gregobase: [6] },
+  { abbr: 'AR I', title: 'Antiphonale Romanum I: Ad Laudes et ad Horas minores (Solesmes, 2020)', gregobase: [53] },
   { abbr: 'AM I', title: 'Antiphonale Monasticum I: De Tempore (Solesmes, 2005)', gregobase: [17] },
   { abbr: 'AM II', title: 'Antiphonale Monasticum II: Psalterium (Solesmes, 2006)', gregobase: [18] },
   { abbr: 'AM III', title: 'Antiphonale Monasticum III: De Sanctis (Solesmes, 2007)', gregobase: [19] },
-  { abbr: 'AR II', title: 'Antiphonale Romanum II: Ad Vesperas in dominicis et festis (Solesmes, 2009)', gregobase: [6] },
-  { abbr: 'AR I', title: 'Antiphonale Romanum I: Ad Laudes et ad Horas minores (Solesmes, 2020)', gregobase: [53] },
   { abbr: 'A&R I', title: 'Antiphonæ et Responsoria, Tomus I (Melos Antiqua, 2016)', gregobase: [61], header: 'Tomus I' },
   { abbr: 'A&R II', title: 'Antiphonæ et Responsoria, Tomus II (Melos Antiqua, 2017)', gregobase: [62], header: 'Tomus II' },
   { abbr: 'A&R III', title: 'Antiphonæ et Responsoria, Tomus III (Melos Antiqua, 2018)', gregobase: [63], header: 'Tomus III' },
@@ -33,7 +33,8 @@ export const BOOKS = [
   { abbr: 'CM', title: 'Cantus Mariales (Solesmes, 1906)', gregobase: [47] },
   { abbr: 'LR', title: 'Liber Responsorialis (Solesmes, 1895)', gregobase: [56] },
   { abbr: 'CC', title: 'Chants of the Church (Solesmes, 1956)', gregobase: [5] },
-  { abbr: 'OP', title: 'Dominican books: Antiphonarium (Gillet, 1933), Matutinum (1936), Graduale (Suarez, 1950), Antiphonarium (Jandel, 1862)', gregobase: [11, 12, 14, 35] },
+  { abbr: 'OP', title: 'Dominican books: Antiphonarium (Gillet, 1933), Matutinum (1936), Graduale (Suarez, 1950), Antiphonarium (Jandel, 1862)', gregobase: [11, 12, 14, 35, 36] },
+  { abbr: 'LF', title: 'Laudes festivæ (Beatus Reiser, 1940)', gregobase: [58] },
   { abbr: 'Cist', title: 'Hymnarium Cisterciense (Westmalle, 1909)', gregobase: [31] },
   { abbr: 'PG', title: 'The Plainchant Gradual (Wantage, 1962–65)', gregobase: [51, 50] },
   { abbr: 'Hartker', title: 'Hartker Antiphoner, St. Gallen, Cod. Sang. 390–391 (c. 1000)', gregobase: [59, 60] },

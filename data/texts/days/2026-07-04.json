@@ -1,5 +1,6 @@
 {
  "date": "2026-07-04",
+ "v": 3,
  "hours": {
   "lectio": [
    {
@@ -212,11 +213,16 @@
        "Lumbos adúre cóngruis",
        "tu caritátis ígnibus,",
        "accíncti ut adsint pérpetim",
-       {
-        "em": true,
-        "text": "tuísque prompti advéntibus,"
-       }
-      ]
+       "tuísque prompti advéntibus,"
+      ],
+      "italics": {
+       "3": [
+        [
+         14,
+         15
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1452,11 +1458,16 @@
        "Hoc gradiénte órdine,",
        "ornávit cuncta spléndide",
        "regni cæléstis cónditor",
-       {
-        "em": true,
-        "text": "ad nostra ætérna prǽmia."
-       }
-      ]
+       "ad nostra ætérna prǽmia."
+      ],
+      "italics": {
+       "3": [
+        [
+         8,
+         9
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1602,12 +1613,17 @@
       "lines": [
        "Ternis horárum términis",
        "volútis, dante Dómino,",
-       {
-        "em": true,
-        "text": "trinum perfécte et únicum"
-       },
+       "trinum perfécte et únicum",
        "ipsum devóti psállimus."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         14,
+         15
+        ]
+       ]
+      }
      },
      {
       "kind": "text",

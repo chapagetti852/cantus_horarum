@@ -1,5 +1,6 @@
 {
  "date": "2026-10-20",
+ "v": 3,
  "hours": {
   "lectio": [
    {
@@ -536,65 +537,100 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Cum ergo dícimus: Sanctificétur nomen tuum, nos admonémus desideráre ut nomen eius, quod semper sanctum est, étiam apud hómines sanctum habeátur, hoc est non contemnátur; quod non Deo, sed homínibus prodest."
-       }
-      ]
+       "Cum ergo dícimus: Sanctificétur nomen tuum, nos admonémus desideráre ut nomen eius, quod semper sanctum est, étiam apud hómines sanctum habeátur, hoc est non contemnátur; quod non Deo, sed homínibus prodest."
+      ],
+      "italics": {
+       "0": [
+        [
+         18,
+         43
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Et in eo quod dícimus: Advéniat regnum tuum, quod, seu velímus seu nolímus, útique véniet, desidérium nostrum ad illud regnum excitámus, ut nobis véniat atque in eo regnáre mereámur."
-       }
-      ]
+       "Et in eo quod dícimus: Advéniat regnum tuum, quod, seu velímus seu nolímus, útique véniet, desidérium nostrum ad illud regnum excitámus, ut nobis véniat atque in eo regnáre mereámur."
+      ],
+      "italics": {
+       "0": [
+        [
+         23,
+         44
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Cum dícimus: Fiat volúntas tua sicut in cælo et in terra, nobis ab illo precámur ipsam obœdiéntiam, ut sic in nobis fiat volúntas eius, quemádmodum fit in cæléstibus ab ángelis eius."
-       }
-      ]
+       "Cum dícimus: Fiat volúntas tua sicut in cælo et in terra, nobis ab illo precámur ipsam obœdiéntiam, ut sic in nobis fiat volúntas eius, quemádmodum fit in cæléstibus ab ángelis eius."
+      ],
+      "italics": {
+       "0": [
+        [
+         13,
+         57
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Cum dícimus: Panem nostrum cotidiánum da nobis hódie, per id quod dícitur hódie, significátur hoc témpore; ubi vel sufficiéntiam illam pétimus a parte quæ excéllit, id est nómine panis totam significántes; vel sacraméntum fidélium, quod in hoc témpore necessárium est, non tamen ad huius témporis, sed ad illam ætérnam felicitátem assequéndam."
-       }
-      ]
+       "Cum dícimus: Panem nostrum cotidiánum da nobis hódie, per id quod dícitur hódie, significátur hoc témpore; ubi vel sufficiéntiam illam pétimus a parte quæ excéllit, id est nómine panis totam significántes; vel sacraméntum fidélium, quod in hoc témpore necessárium est, non tamen ad huius témporis, sed ad illam ætérnam felicitátem assequéndam."
+      ],
+      "italics": {
+       "0": [
+        [
+         13,
+         53
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Cum dícimus: Dimítte nobis débita nostra, sicut et nos dimíttimus debitóribus nostris, nos admonémus et quid petámus et quid faciámus, ut accípere mereámur."
-       }
-      ]
+       "Cum dícimus: Dimítte nobis débita nostra, sicut et nos dimíttimus debitóribus nostris, nos admonémus et quid petámus et quid faciámus, ut accípere mereámur."
+      ],
+      "italics": {
+       "0": [
+        [
+         13,
+         86
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Cum dícimus: Ne nos ínferas in tentatiónem, nos admonémus hoc pétere, ne desérti eius adiutório alícui tentatióni vel consentiámus decépti vel cedámus afflícti."
-       }
-      ]
+       "Cum dícimus: Ne nos ínferas in tentatiónem, nos admonémus hoc pétere, ne desérti eius adiutório alícui tentatióni vel consentiámus decépti vel cedámus afflícti."
+      ],
+      "italics": {
+       "0": [
+        [
+         13,
+         43
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Cum dícimus: Líbera nos a malo, nos admonémus cogitáre nondum nos esse in eo bono ubi nullum patiémur malum. Et hoc quidem últimum quod in oratióne domínica pósitum est, tam late patet, ut homo christiánus in quálibet tribulatióne constitútus in hoc gémitus edat, in hoc lácrimas fundat, hinc exordiátur, in hoc immorétur, ad hoc términet oratiónem. His enim verbis res ipsas memóriæ nostræ commendári oportébat."
-       }
-      ]
+       "Cum dícimus: Líbera nos a malo, nos admonémus cogitáre nondum nos esse in eo bono ubi nullum patiémur malum. Et hoc quidem últimum quod in oratióne domínica pósitum est, tam late patet, ut homo christiánus in quálibet tribulatióne constitútus in hoc gémitus edat, in hoc lácrimas fundat, hinc exordiátur, in hoc immorétur, ad hoc términet oratiónem. His enim verbis res ipsas memóriæ nostræ commendári oportébat."
+      ],
+      "italics": {
+       "0": [
+        [
+         13,
+         31
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -884,14 +920,19 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Sincéra præsta ut prófluant"
-       },
+       "Sincéra præsta ut prófluant",
        "ex ore nostro iúgiter,",
        "et veritátis dúlcibus",
        "ut excitémur gáudiis."
-      ]
+      ],
+      "italics": {
+       "0": [
+        [
+         13,
+         14
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1525,11 +1566,16 @@
        "Hoc gradiénte órdine,",
        "ornávit cuncta spléndide",
        "regni cæléstis cónditor",
-       {
-        "em": true,
-        "text": "ad nostra ætérna prǽmia."
-       }
-      ]
+       "ad nostra ætérna prǽmia."
+      ],
+      "italics": {
+       "3": [
+        [
+         8,
+         9
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1675,12 +1721,17 @@
       "lines": [
        "Ternis horárum términis",
        "volútis, dante Dómino,",
-       {
-        "em": true,
-        "text": "trinum perfécte et únicum"
-       },
+       "trinum perfécte et únicum",
        "ipsum devóti psállimus."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         14,
+         15
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -2084,11 +2135,16 @@
        "Tellúris ingens cónditor,",
        "mundi solum qui éruens,",
        "pulsis aquæ moléstiis,",
-       {
-        "em": true,
-        "text": "terram dedísti immóbilem."
-       }
-      ]
+       "terram dedísti immóbilem."
+      ],
+      "italics": {
+       "3": [
+        [
+         13,
+         14
+        ]
+       ]
+      }
      },
      {
       "kind": "text",

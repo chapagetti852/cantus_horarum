@@ -209,7 +209,36 @@ calendar, or from its titles (apostle, martyr, virgin, bishop …) when it gives
 to five weeks ahead in `cache/texts/days/` (not committed). The Pages workflow runs it
 every day at 03:00 Hong Kong time, with iBreviary's pages cached between runs, so each
 date has its own collect, readings' responsories and proper texts; the 28 committed
-psalter days are the fallback.
+psalter days are the fallback (`data/texts/psalter-days.json`: weekdays of Ordinary Time
+with no memorial and no solemnity on the morrow, whose office is the plain psalter). Beyond
+the window a line under the title says that the reading, responsory, intercessions and
+prayer are the psalter's, wherever they are not the day's own (anything but a weekday of
+Ordinary Time).
+
+iBreviary's pages are not all made alike, and `parseHour` (`scripts/texts/ibreviary.mjs`,
+examples in `test/ibreviary.test.mjs`) reads the shapes met so far: "Ant. 1" closed inside
+the heading of the psalmody (Lauds on Fridays); the first antiphon of the middle hour run
+into the line before it; the heading of the psalmody missing, misspelt or a mere rubric (the
+Office of Readings of feasts, 2 November, 24 June); in the middle hour, the hours' headings
+as plain text or missing, the hour's one antiphon after its hymn or before its reading with
+the psalms bare (the seasons, feasts), or the whole hour under its heading (solemnities
+with the complementary psalmody), and the collect printed once, under None. Some pages hold
+the psalmody alone, or nothing: the Vespers of 7 and 31 December in every year (iBreviary has
+no First Vespers of the Immaculate Conception or of the Mother of God), a date not filled
+yet. `buildDay` then makes the Vespers on the eve of a solemnity from the feast's Second
+Vespers with the psalmody of First Vespers where another feast lends it
+(`I_VESPERS_PSALMODY`), takes a feast left empty from the same feast in another year, leaves
+any other such hour out (the app takes the psalter's) and marks the day `retry`, so the
+window makes it again each day. `DAY_FORMAT` is raised when the parser changes, and the
+window's days are made again from the cached pages.
+
+iBreviary follows the Italian calendar: the Ascension and Corpus Christi on a Sunday. In
+the General Roman Calendar they are Thursdays, so `donorFor` gives the Thursday the pages
+of the Sunday after it (its First Vespers, on the Wednesday, from that Saturday); the
+Sunday after, where iBreviary has the feast, takes the same Sunday of another year, or
+nothing (the seventh Sunday of Easter, which iBreviary never has: the psalter's texts,
+with the line that says so). Hong Kong keeps both feasts on the Sunday, as iBreviary does:
+`scripts/texts/hk.mjs` gives its days there the dates' own pages.
 
 ### Translations
 
@@ -426,6 +455,29 @@ taking a score only when it carries most of the OCO's text; the others are read 
 OCO itself. 155 of 165 have a score; the remaining ten are cross-references
 (`docs/responsoria-sine-notis.md`).
 
+### The index's rows and the calendar's days
+
+`scripts/oco/link_index.py` links the rows of the index of antiphons left without an entry
+of the OCO's body (abbreviated incipits, "Amen a. d. vobis Non Moyses"; words skipped; a slip
+of a letter). In `site/resolve.js`: a row whose place is the year alone ("a", "b", "bc") is
+the Gospel antiphon of that year at Lauds and Vespers (Advent III and IV) or the antiphon of a
+little hour (the Sundays of Lent); on a Sunday of Advent from 17 December the Benedictus
+antiphon is the Sunday's, the Magnificat's the O antiphon of the date, and at First Vespers
+a row for a date's Vespers ("A-19/12 V") means the evening's own date; Good Friday and Holy
+Saturday are the OCO's 6Q6 and 6Q7 (romcal counts them the first week of the Triduum); the
+Saturday of the Easter octave has the First Vespers of the octave Sunday, which keeps the
+octave's antiphons ("1P"). The little hours take the one antiphon a row gives for a whole
+season ("A", "Q", "N ante Ep"); the psalms of the other hours only what a week or a day
+provides. `test/resolve.test.mjs` holds an example of each.
+
+In Eastertide the index's bare "Alleluia" (weeks 2-7: the Office of Readings, Lauds 1 and 3,
+Vespers 1 and 2, the little hours, Compline) is the OCO's "Psalmi cum Alleluia (in tonis
+diversis)", not one of the seven pieces that begin with the word, to which the index's
+extraction links it. The app sings the antiphon Alleluia in the mode of the psalter's
+antiphon whose place it takes (`ALLELUIA` in `site/app.js`: the melodies of the Liber
+Usualis and the Antiphonale Monasticum, one or more for each mode), so each psalm keeps the
+tone the OCO gives it; the ending is the one the Alleluia itself shows.
+
 ### Memorials
 
 On memorials in Ordinary Time, Lauds and Vespers take the weekday from the short reading
@@ -439,12 +491,19 @@ text). `scripts/oco/match_responsoria_prolixa.py` reads the response and the ver
 responsory on GregoBase in the books of the Office (above all the Nocturnale Romanum,
 Hartker 2002, which sets the Liturgia Horarum's; then the Liber Hymnarius, the Antiphonale
 Monasticum 2005, Antiphonæ et Responsoria, the Antiphonale Monasticum 1934, the Liber
-Usualis, the Liber Antiphonarius, Hartker's antiphoners, and last the newest transcriptions
-that cite no book), from the GregoBase dump (`import_dump.py` into a cache) and keeps their
-first words in `data/oco/responsoria-prolixa.json`, the scores in `data/gabc`. The app takes
-the one whose response and verse begin as iBreviary's do. In November 2026 about one
-responsory a day has a score: the Scripture reading's is mostly an old one, the Father's
-often new in 1971 and set nowhere.
+Usualis, the Liber Antiphonarius, Hartker's antiphoners, then the other books, the Dominican
+antiphoners among them, and last the newest transcriptions that cite no book; not the
+Dominican Graduale, whose "responsoria" are the graduals of Mass), from the GregoBase dump
+(`import_dump.py` into a cache) and keeps their first words in
+`data/oco/responsoria-prolixa.json`, the scores in `data/gabc`. The words are kept in a
+levelled spelling (cælum / cœlum, Ierusalem / Hierusalem, caritas / charitas…: `fuzzy` in the
+script, `fuzzyWords` in `site/responsoria.js`). The app takes the one whose response (its
+first five words) and verse (its first four) begin as iBreviary's do, one word of each
+allowed to differ ("Devastavit vineam tuam" in the books, "Exterminavit" in the Liturgia
+Horarum), the closest first. The same response with another verse is another piece and takes
+none. In the window of November and December 2026, 22 of 84 responsories have a score (about
+one a day): the Scripture reading's is mostly an old one, the Father's often new in 1971
+and set nowhere; seven more have their response on GregoBase with another verse.
 
 After an antiphon its psalm's or canticle's first note stands as a custos after the double
 bar, in the antiphon's clef (`withCustos` in `site/app.js`); the player does not sing it.

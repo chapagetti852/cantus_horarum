@@ -1,5 +1,6 @@
 {
  "date": "2026-07-02",
+ "v": 3,
  "hours": {
   "lectio": [
    {
@@ -537,47 +538,88 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Sicut desíderat cervus ad fontes aquárum, ita desíderat ánima mea ad te, Deus. Quómodo ítaque illi cervi desíderant fontes aquárum, ita et nostri cervi, qui de Ægýpto et de sǽculo recedéntes interfecérunt Pharaónem in aquis suis et omnem eius exércitum in baptísmo necavérunt, post interfectiónem diáboli desíderant fontes Ecclésiæ, Patrem et Fílium et Spíritum Sanctum."
-       }
-      ]
+       "Sicut desíderat cervus ad fontes aquárum, ita desíderat ánima mea ad te, Deus. Quómodo ítaque illi cervi desíderant fontes aquárum, ita et nostri cervi, qui de Ægýpto et de sǽculo recedéntes interfecérunt Pharaónem in aquis suis et omnem eius exércitum in baptísmo necavérunt, post interfectiónem diáboli desíderant fontes Ecclésiæ, Patrem et Fílium et Spíritum Sanctum."
+      ],
+      "italics": {
+       "0": [
+        [
+         0,
+         78
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "De Patre, quod sit fons, scríbitur in Ieremía: Me dimisérunt fontem aquæ vivæ, et fodérunt sibi lacus detrítos, qui non possunt aquas continére. De Fílio vero in quodam loco légimus: Dereliquérunt fontem sapiéntiæ. Porro de Spíritu Sancto: Qui bíberit de aqua quam dédero ei, oriétur in eo fons aquæ saliéntis in vitam ætérnam statim expónitur, Evangelísta dicénte quod de Spíritu Sancto fúerit sermo Salvatóris. Ex quibus manifestíssime comprobátur, tres Ecclésiæ fontes Trinitátis esse mystérium."
-       }
-      ]
+       "De Patre, quod sit fons, scríbitur in Ieremía: Me dimisérunt fontem aquæ vivæ, et fodérunt sibi lacus detrítos, qui non possunt aquas continére. De Fílio vero in quodam loco légimus: Dereliquérunt fontem sapiéntiæ. Porro de Spíritu Sancto: Qui bíberit de aqua quam dédero ei, oriétur in eo fons aquæ saliéntis in vitam ætérnam statim expónitur, Evangelísta dicénte quod de Spíritu Sancto fúerit sermo Salvatóris. Ex quibus manifestíssime comprobátur, tres Ecclésiæ fontes Trinitátis esse mystérium."
+      ],
+      "italics": {
+       "0": [
+        [
+         47,
+         144
+        ],
+        [
+         183,
+         214
+        ],
+        [
+         240,
+         326
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Hos desíderat ánima credéntis, hos desíderat ánima baptizáti, et dicit: Sitívit ánima mea ad Deum fontem vivum. Non enim léviter vidére vóluit Deum, sed toto desiderávit ardóre, toto sitívit incéndio. Antequam baptísmum consequeréntur, loquebántur inter se ínvicem et dicébant: Quando véniam et apparébo ante fáciem Dei? Ecce implétum est quod petébant: venérunt et stetérunt ante fáciem Dei, et apparuérunt ante conspéctum altáris et ante mystérium Salvatóris."
-       }
-      ]
+       "Hos desíderat ánima credéntis, hos desíderat ánima baptizáti, et dicit: Sitívit ánima mea ad Deum fontem vivum. Non enim léviter vidére vóluit Deum, sed toto desiderávit ardóre, toto sitívit incéndio. Antequam baptísmum consequeréntur, loquebántur inter se ínvicem et dicébant: Quando véniam et apparébo ante fáciem Dei? Ecce implétum est quod petébant: venérunt et stetérunt ante fáciem Dei, et apparuérunt ante conspéctum altáris et ante mystérium Salvatóris."
+      ],
+      "italics": {
+       "0": [
+        [
+         72,
+         111
+        ],
+        [
+         278,
+         320
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Ad corpus Christi admíssi et in vitáli fonte renáti, confidénter loquúntur et dicunt: Transíbo in locum tabernáculi admirábilis usque ad domum Dei. Domus Dei Ecclésia est, hoc est admirábile tabernáculum: quia hábitat in eo vox exsultatiónis et confessiónis et sonus epulántium."
-       }
-      ]
+       "Ad corpus Christi admíssi et in vitáli fonte renáti, confidénter loquúntur et dicunt: Transíbo in locum tabernáculi admirábilis usque ad domum Dei. Domus Dei Ecclésia est, hoc est admirábile tabernáculum: quia hábitat in eo vox exsultatiónis et confessiónis et sonus epulántium."
+      ],
+      "italics": {
+       "0": [
+        [
+         86,
+         147
+        ],
+        [
+         224,
+         278
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Dícite ergo, qui Christum nunc induístis, et ductum nostrum sequéntes, quasi piscículi hamo, ita sermóne Dei de gúrgite sǽculi istíus sublevámini. In nobis rerum natúra mutáta est. Pisces enim, qui de mari extrácti fúerint, moriúntur; nos autem ídeo Apóstoli de mundi istíus mari extraxérunt atque piscáti sunt, ut vivi ex mórtuis fierémus. Quámdiu erámus in sǽculo, óculi nostri in profúndo et vita nostra versabátur in cæno: postquam de flúctibus erépti sumus, cœpimus solem vidére, cœpimus verum lumen aspícere, et præ nímio gáudio conturbáti ad ánimam nostram dícimus: Spera in Deum, quóniam confitébor illi, salutáre vultus mei et Deus meus."
-       }
-      ]
+       "Dícite ergo, qui Christum nunc induístis, et ductum nostrum sequéntes, quasi piscículi hamo, ita sermóne Dei de gúrgite sǽculi istíus sublevámini. In nobis rerum natúra mutáta est. Pisces enim, qui de mari extrácti fúerint, moriúntur; nos autem ídeo Apóstoli de mundi istíus mari extraxérunt atque piscáti sunt, ut vivi ex mórtuis fierémus. Quámdiu erámus in sǽculo, óculi nostri in profúndo et vita nostra versabátur in cæno: postquam de flúctibus erépti sumus, cœpimus solem vidére, cœpimus verum lumen aspícere, et præ nímio gáudio conturbáti ad ánimam nostram dícimus: Spera in Deum, quóniam confitébor illi, salutáre vultus mei et Deus meus."
+      ],
+      "italics": {
+       "0": [
+        [
+         573,
+         646
+        ]
+       ]
+      }
      },
      {
       "kind": "rubric",
@@ -859,27 +901,40 @@
       "lines": [
        "Sic tota decúrrat dies,",
        "ne lingua mendax, ne manus",
-       {
-        "em": true,
-        "text": "oculíve peccent lúbrici,"
-       },
+       "oculíve peccent lúbrici,",
        "ne noxa corpus ínquinet."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         2,
+         3
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Speculátor astat désuper,"
-       },
+       "Speculátor astat désuper,",
        "qui nos diébus ómnibus",
        "actúsque nostros próspicit",
-       {
-        "em": true,
-        "text": "a luce prima in vésperum."
-       }
-      ]
+       "a luce prima in vésperum."
+      ],
+      "italics": {
+       "0": [
+        [
+         4,
+         5
+        ]
+       ],
+       "3": [
+        [
+         11,
+         12
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1489,11 +1544,16 @@
        "Hoc gradiénte órdine,",
        "ornávit cuncta spléndide",
        "regni cæléstis cónditor",
-       {
-        "em": true,
-        "text": "ad nostra ætérna prǽmia."
-       }
-      ]
+       "ad nostra ætérna prǽmia."
+      ],
+      "italics": {
+       "3": [
+        [
+         8,
+         9
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1639,12 +1699,17 @@
       "lines": [
        "Ternis horárum términis",
        "volútis, dante Dómino,",
-       {
-        "em": true,
-        "text": "trinum perfécte et únicum"
-       },
+       "trinum perfécte et únicum",
        "ipsum devóti psállimus."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         14,
+         15
+        ]
+       ]
+      }
      },
      {
       "kind": "text",

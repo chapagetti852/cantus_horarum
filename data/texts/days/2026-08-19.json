@@ -1,5 +1,6 @@
 {
  "date": "2026-08-19",
+ "v": 3,
  "hours": {
   "lectio": [
    {
@@ -525,29 +526,48 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Quotiescúmque pressúræ seu tribulatiónis áliquid pátimur, admonitiónes sunt et simul correptiónes nostræ. Nam et ipsæ sanctæ lítteræ nostræ non nobis promíttunt pacem, securitátem et quiétem, sed tribulatiónes, pressúras, scándala non tacet Evangélium; sed qui perseveráverit usque in finem, hic salvus erit. Quid enim boni aliquándo hábuit ista vita ab ipso primo hómine, ex quo méruit mortem, ex quo maledíctum accépit, de quo maledícto nos Christus Dóminus liberávit?"
-       }
-      ]
+       "Quotiescúmque pressúræ seu tribulatiónis áliquid pátimur, admonitiónes sunt et simul correptiónes nostræ. Nam et ipsæ sanctæ lítteræ nostræ non nobis promíttunt pacem, securitátem et quiétem, sed tribulatiónes, pressúras, scándala non tacet Evangélium; sed qui perseveráverit usque in finem, hic salvus erit. Quid enim boni aliquándo hábuit ista vita ab ipso primo hómine, ex quo méruit mortem, ex quo maledíctum accépit, de quo maledícto nos Christus Dóminus liberávit?"
+      ],
+      "italics": {
+       "0": [
+        [
+         253,
+         308
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Non ergo murmurándum est, fratres, sicut quidam illórum murmuravérunt, ut ait Apóstolus, et a serpéntibus periérunt. Quid tale modo, fratres, genus humánum pátitur insólitum, quod non patres passi sunt? aut quando tália pátimur, ália illos passos fuísse cognóvimus? Et ínvenis hómines murmuráre de tempóribus suis, et quod illa témpora bona fúerint paréntum nostrórum. Quid, si possent revocári ad témpora paréntum suórum, et ibi murmurárent? Quæ enim putas témpora bona fuísse prætérita, quia iam non tua sunt, ídeo bona sunt."
-       }
-      ]
+       "Non ergo murmurándum est, fratres, sicut quidam illórum murmuravérunt, ut ait Apóstolus, et a serpéntibus periérunt. Quid tale modo, fratres, genus humánum pátitur insólitum, quod non patres passi sunt? aut quando tália pátimur, ália illos passos fuísse cognóvimus? Et ínvenis hómines murmuráre de tempóribus suis, et quod illa témpora bona fúerint paréntum nostrórum. Quid, si possent revocári ad témpora paréntum suórum, et ibi murmurárent? Quæ enim putas témpora bona fuísse prætérita, quia iam non tua sunt, ídeo bona sunt."
+      ],
+      "italics": {
+       "0": [
+        [
+         35,
+         70
+        ],
+        [
+         88,
+         116
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Si iam a maledícto liberátus es, si iam in Dei Fílium credidísti, si iam sacris lítteris vel imbútus vel erudítus es, miror cómputes bona témpora habuísse Adam. Et paréntes tui Adam portavérunt. Certe ille est Adam, cui dictum est: In sudóre vultus tui edes panem tuum, et operáberis terram de qua sumptus es; spinas et tríbulos páriet tibi. Hoc méruit, hoc accépit, hoc de Dei iusto iudício consecútus est. Quid ergo putas prætérita témpora fuísse melióra quam tua? Ab illo Adam usque ad hodiérnum Adam, labor et sudor, spinæ et tríbuli. Excidit nobis dilúvium? Excidére laboriósa témpora famis atque bellórum, quæ ídeo scripta sunt, ne de præsénti tempore contra Deum murmurémus?"
-       }
-      ]
+       "Si iam a maledícto liberátus es, si iam in Dei Fílium credidísti, si iam sacris lítteris vel imbútus vel erudítus es, miror cómputes bona témpora habuísse Adam. Et paréntes tui Adam portavérunt. Certe ille est Adam, cui dictum est: In sudóre vultus tui edes panem tuum, et operáberis terram de qua sumptus es; spinas et tríbulos páriet tibi. Hoc méruit, hoc accépit, hoc de Dei iusto iudício consecútus est. Quid ergo putas prætérita témpora fuísse melióra quam tua? Ab illo Adam usque ad hodiérnum Adam, labor et sudor, spinæ et tríbuli. Excidit nobis dilúvium? Excidére laboriósa témpora famis atque bellórum, quæ ídeo scripta sunt, ne de præsénti tempore contra Deum murmurémus?"
+      ],
+      "italics": {
+       "0": [
+        [
+         232,
+         341
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1455,11 +1475,16 @@
        "Hoc gradiénte órdine,",
        "ornávit cuncta spléndide",
        "regni cæléstis cónditor",
-       {
-        "em": true,
-        "text": "ad nostra ætérna prǽmia."
-       }
-      ]
+       "ad nostra ætérna prǽmia."
+      ],
+      "italics": {
+       "3": [
+        [
+         8,
+         9
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1605,12 +1630,17 @@
       "lines": [
        "Ternis horárum términis",
        "volútis, dante Dómino,",
-       {
-        "em": true,
-        "text": "trinum perfécte et únicum"
-       },
+       "trinum perfécte et únicum",
        "ipsum devóti psállimus."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         14,
+         15
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -2039,13 +2069,18 @@
       "kind": "text",
       "lines": [
        "Sol, ecce, lentus óccidens",
-       {
-        "em": true,
-        "text": "montes et arva et ǽquora"
-       },
+       "montes et arva et ǽquora",
        "mæstus relínquit, ínnovat",
        "sed lucis omen crástinæ,"
-      ]
+      ],
+      "italics": {
+       "1": [
+        [
+         13,
+         14
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -2053,11 +2088,16 @@
        "Mirántibus mortálibus",
        "sic te, Creátor próvide,",
        "leges vicésque témporum",
-       {
-        "em": true,
-        "text": "umbris dedísse et lúmini."
-       }
-      ]
+       "umbris dedísse et lúmini."
+      ],
+      "italics": {
+       "3": [
+        [
+         13,
+         14
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -2083,23 +2123,33 @@
        "Est ille sol qui nésciat",
        "ortum vel umquam vésperum;",
        "quo terra gestit cóntegi,",
-       {
-        "em": true,
-        "text": "quo cæli in ævum iúbilant."
-       }
-      ]
+       "quo cæli in ævum iúbilant."
+      ],
+      "italics": {
+       "3": [
+        [
+         7,
+         8
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
       "lines": [
        "Hac nos seréna pérpetim",
        "da luce tandem pérfrui,",
-       {
-        "em": true,
-        "text": "cum Nato et almo Spíritu"
-       },
+       "cum Nato et almo Spíritu",
        "tibi novántes cántica. Amen."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         7,
+         8
+        ]
+       ]
+      }
      }
     ]
    },

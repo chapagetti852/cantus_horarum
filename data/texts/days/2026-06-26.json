@@ -1,5 +1,6 @@
 {
  "date": "2026-06-26",
+ "v": 3,
  "hours": {
   "lectio": [
    {
@@ -549,11 +550,24 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Promíssio Dei certe tanta est, ut súperet extrémum términum beatitúdinis. Quid enim áliquis post bonum eiúsmodi áliud desideráverit, cum ómnia hábeat in eo quem víderit? Nam vidére, in usu Scriptúræ, idem signíficat quod habére; quemádmodum illud: Vídeas bona Ierúsalem, idem quod invénias, significánte verbo. Et: Tollátur ímpius, ne vídeat glóriam Dómini, per non vidére, non partícipem esse Prophéta significánte."
-       }
-      ]
+       "Promíssio Dei certe tanta est, ut súperet extrémum términum beatitúdinis. Quid enim áliquis post bonum eiúsmodi áliud desideráverit, cum ómnia hábeat in eo quem víderit? Nam vidére, in usu Scriptúræ, idem signíficat quod habére; quemádmodum illud: Vídeas bona Ierúsalem, idem quod invénias, significánte verbo. Et: Tollátur ímpius, ne vídeat glóriam Dómini, per non vidére, non partícipem esse Prophéta significánte."
+      ],
+      "italics": {
+       "0": [
+        [
+         248,
+         270
+        ],
+        [
+         281,
+         290
+        ],
+        [
+         315,
+         357
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -576,11 +590,20 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Non ita se res habet. Neque enim vólucres fíeri iubet, quibus alas non prodúxit, neque sub aqua vívere, quibus terréstrem vitam assignávit. Si ígitur lex in áliis ómnibus accipiéntium víribus convéniens est et ad nullam rem, quæ supra natúram sit, cogit, étiam hoc prorsus ex eo quod consentáneum est intellegémus, non desperándum vidélicet esse id quod per beatitúdinem præmonstrátur, sed et Ioánnem et Paulum et Móysen, et si quis álius illórum símilis est, non excidísse hac sublími beatitúdine, quæ ex conspectióne Dei accédit, neque illum qui dixit: Recóndita est mihi iustítiæ coróna, quam reddet mihi iustus iudex, neque eum qui recúbuit super pectus Iesu, neque eum qui audívit a voce divína: Cognóvi te præter omnes. Si ergo non ambígitur, quin illi qui contemplatiónem Dei supra vires esse prædicavérunt, beáti sint, beatitúdo autem ex conspectióne Dei exsístit, atque Deum vidére contíngit, si quis puro corde sit, certe púritas cordis, per quam beátum fíeri licet, non est ex iis rebus quæ cónfici non possunt."
-       }
-      ]
+       "Non ita se res habet. Neque enim vólucres fíeri iubet, quibus alas non prodúxit, neque sub aqua vívere, quibus terréstrem vitam assignávit. Si ígitur lex in áliis ómnibus accipiéntium víribus convéniens est et ad nullam rem, quæ supra natúram sit, cogit, étiam hoc prorsus ex eo quod consentáneum est intellegémus, non desperándum vidélicet esse id quod per beatitúdinem præmonstrátur, sed et Ioánnem et Paulum et Móysen, et si quis álius illórum símilis est, non excidísse hac sublími beatitúdine, quæ ex conspectióne Dei accédit, neque illum qui dixit: Recóndita est mihi iustítiæ coróna, quam reddet mihi iustus iudex, neque eum qui recúbuit super pectus Iesu, neque eum qui audívit a voce divína: Cognóvi te præter omnes. Si ergo non ambígitur, quin illi qui contemplatiónem Dei supra vires esse prædicavérunt, beáti sint, beatitúdo autem ex conspectióne Dei exsístit, atque Deum vidére contíngit, si quis puro corde sit, certe púritas cordis, per quam beátum fíeri licet, non est ex iis rebus quæ cónfici non possunt."
+      ],
+      "italics": {
+       "0": [
+        [
+         555,
+         621
+        ],
+        [
+         701,
+         725
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -890,16 +913,11 @@
    },
    {
     "title": "PSALMODIA",
-    "blocks": []
-   },
-   {
-    "title": "Ant. 1",
     "blocks": [
      {
-      "kind": "text",
-      "lines": [
-       "Cor mundum crea in me, Deus, et spíritum rectum ínnova in viscéribus meis."
-      ]
+      "kind": "antiphon",
+      "n": 1,
+      "text": "Cor mundum crea in me, Deus, et spíritum rectum ínnova in viscéribus meis."
      },
      {
       "kind": "psalm",
@@ -1502,11 +1520,16 @@
        "Hoc gradiénte órdine,",
        "ornávit cuncta spléndide",
        "regni cæléstis cónditor",
-       {
-        "em": true,
-        "text": "ad nostra ætérna prǽmia."
-       }
-      ]
+       "ad nostra ætérna prǽmia."
+      ],
+      "italics": {
+       "3": [
+        [
+         8,
+         9
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1652,12 +1675,17 @@
       "lines": [
        "Ternis horárum términis",
        "volútis, dante Dómino,",
-       {
-        "em": true,
-        "text": "trinum perfécte et únicum"
-       },
+       "trinum perfécte et únicum",
        "ipsum devóti psállimus."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         14,
+         15
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1859,11 +1887,20 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Nulli malum pro malo reddéntes; scriptum est enim: «Mihi vindícta, ego retríbuam», dicit Dóminus. Sed si esuríerit inimícus tuus, ciba illum; si sitit, potum da illi. Noli vinci a malo, sed vince in bono malum."
-       }
-      ]
+       "Nulli malum pro malo reddéntes; scriptum est enim: «Mihi vindícta, ego retríbuam», dicit Dóminus. Sed si esuríerit inimícus tuus, ciba illum; si sitit, potum da illi. Noli vinci a malo, sed vince in bono malum."
+      ],
+      "italics": {
+       "0": [
+        [
+         51,
+         81
+        ],
+        [
+         105,
+         166
+        ]
+       ]
+      }
      },
      {
       "kind": "versicle",

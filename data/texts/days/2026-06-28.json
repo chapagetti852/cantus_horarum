@@ -1,5 +1,6 @@
 {
  "date": "2026-06-28",
+ "v": 3,
  "hours": {
   "lectio": [
    {
@@ -566,11 +567,32 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Væ mihi si non evangelizávero. Ab eo enim, a Christo ipso, ídeo missus sum. Ego sum apóstolus, ego et testis. Quanto remótior finis, quanto difficílius est mandátum, tanto veheméntior cáritas urget me. Prædicáre débeo nomen eius: Iesus est Christus, Fílius Dei vivi; ipse est qui nobis Deum invisíbilem manifestávit, ipse primogénitus omnis creatúræ, ipse in quo ómnia constant. Idem magíster est hóminum ac redémptor; idem pro nobis natus et mórtuus est atque resurréxit."
-       }
-      ]
+       "Væ mihi si non evangelizávero. Ab eo enim, a Christo ipso, ídeo missus sum. Ego sum apóstolus, ego et testis. Quanto remótior finis, quanto difficílius est mandátum, tanto veheméntior cáritas urget me. Prædicáre débeo nomen eius: Iesus est Christus, Fílius Dei vivi; ipse est qui nobis Deum invisíbilem manifestávit, ipse primogénitus omnis creatúræ, ipse in quo ómnia constant. Idem magíster est hóminum ac redémptor; idem pro nobis natus et mórtuus est atque resurréxit."
+      ],
+      "italics": {
+       "0": [
+        [
+         0,
+         30
+        ],
+        [
+         184,
+         201
+        ],
+        [
+         240,
+         266
+        ],
+        [
+         317,
+         350
+        ],
+        [
+         356,
+         378
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -581,11 +603,16 @@
      {
       "kind": "text",
       "lines": [
-       {
-        "em": true,
-        "text": "Nec de illo umquam loqui desínerem: ipse lux est, ipse véritas, quin étiam via, véritas et vita; ipse panis et fons aquæ vivæ, fami sitíque nostræ satisfáciens; ipse pastor, dux, exémplar, consolátio nostra, frater noster. Sicut nos, magis quam nos, parvus fuit, pauper, humiliátus, labóribus addíctus, oppréssus, pátiens. Pro nobis locútus est, mirácula patrávit, novum regnum cóndidit, ubi páuperes beáti sunt, ubi pax est commúnis vitæ princípium, ubi mundi corde ac lugéntes exaltántur et consolántur, iustítiam esuriéntes saturántur, ubi véniam possunt peccatóres obtinére, omnes inveniúntur esse fratres."
-       }
-      ]
+       "Nec de illo umquam loqui desínerem: ipse lux est, ipse véritas, quin étiam via, véritas et vita; ipse panis et fons aquæ vivæ, fami sitíque nostræ satisfáciens; ipse pastor, dux, exémplar, consolátio nostra, frater noster. Sicut nos, magis quam nos, parvus fuit, pauper, humiliátus, labóribus addíctus, oppréssus, pátiens. Pro nobis locútus est, mirácula patrávit, novum regnum cóndidit, ubi páuperes beáti sunt, ubi pax est commúnis vitæ princípium, ubi mundi corde ac lugéntes exaltántur et consolántur, iustítiam esuriéntes saturántur, ubi véniam possunt peccatóres obtinére, omnes inveniúntur esse fratres."
+      ],
+      "italics": {
+       "0": [
+        [
+         75,
+         96
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -949,12 +976,17 @@
       "lines": [
        "Hoc nauta vires cólligit",
        "pontíque mitéscunt freta;",
-       {
-        "em": true,
-        "text": "hoc, ipse Petra Ecclésiæ,"
-       },
+       "hoc, ipse Petra Ecclésiæ,",
        "canénte, culpam díluit."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         14,
+         15
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1566,11 +1598,16 @@
        "Hoc gradiénte órdine,",
        "ornávit cuncta spléndide",
        "regni cæléstis cónditor",
-       {
-        "em": true,
-        "text": "ad nostra ætérna prǽmia."
-       }
-      ]
+       "ad nostra ætérna prǽmia."
+      ],
+      "italics": {
+       "3": [
+        [
+         8,
+         9
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
@@ -1716,12 +1753,17 @@
       "lines": [
        "Ternis horárum términis",
        "volútis, dante Dómino,",
-       {
-        "em": true,
-        "text": "trinum perfécte et únicum"
-       },
+       "trinum perfécte et únicum",
        "ipsum devóti psállimus."
-      ]
+      ],
+      "italics": {
+       "2": [
+        [
+         14,
+         15
+        ]
+       ]
+      }
      },
      {
       "kind": "text",
