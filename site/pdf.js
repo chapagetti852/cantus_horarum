@@ -160,9 +160,9 @@ function rules(root, origin) {
 
 // ------------------------------------------------------------------ scores
 
-/** var(--rubric, #a4221c) -> the variable's value on the page (light theme), else the fallback */
+/** var(--rubric, #a4221c) -> the variable's value in the print column (light theme), else the fallback */
 function resolveVars(value) {
-  const root = getComputedStyle(document.documentElement);
+  const root = getComputedStyle(document.getElementById('print-root') || document.documentElement);
   let prev;
   do {
     prev = value;

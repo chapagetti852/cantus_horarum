@@ -247,8 +247,17 @@ function entryFor(oco, ids, lhym, kind, row, c) {
   // the alleluia form in Eastertide only
   const tp = c?.season === 'P';
   const fits = (e) => want(e) && /allel/i.test(e.title || '') === tp;
-  return list.find((e) => fits(e) && e.gabc) || list.find(fits) || list.find((e) => want(e) && e.gabc) || list.find(want) || null;
+  // a piece the OCO prints under several saints with each one's name ("O doctor optime …
+  // beate Leo"): the day's own, else the common's ("beate N."), else another saint's, which
+  // is marked so that its name is not sung (site/names.js)
+  const [d, mo] = String(c?.dm || '').split('/').map(Number);
+  const dated = (e) => /^Die \d+\b/.test(e.day || '');
+  const today = (e) => dated(e) && e.chapter === MONTHS[mo - 1] && new RegExp(`^Die ${d}\\b`).test(e.day);
+  const ordered = [...list.filter(today), ...list.filter((e) => !dated(e)), ...list.filter((e) => dated(e) && !today(e))];
+  const found = ordered.find((e) => fits(e) && e.gabc) || ordered.find(fits) || ordered.find((e) => want(e) && e.gabc) || ordered.find(want) || null;
+  return found && dated(found) && !today(found) && /\bNA?\./.test(found.title || '') ? { ...found, otherSaint: true } : found;
 }
+const MONTHS = ['IANUARIUS', 'FEBRUARIUS', 'MARTIUS', 'APRILIS', 'MAIUS', 'IUNIUS', 'IULIUS', 'AUGUSTUS', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
 
 export function indexOco(entries) {
   const byId = new Map(entries.map((e) => [e.id, e]));

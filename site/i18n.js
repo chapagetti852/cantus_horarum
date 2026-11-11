@@ -130,6 +130,11 @@ const PAGE = {
   'preces.full': ['Sung, full notation', '詠唱（全譜）', 'Cantu, plene notatum'],
   'preces.abbr': ['Sung, abbreviated', '詠唱（略譜）', 'Cantu, breviter notatum'],
   'sung.text': ['Text', '只顯示經文', 'Textus tantum'],
+  'set.wip': ['in progress', '製作中', 'in opere'],
+  // Compline: iBreviary's English rubric, Hong Kong's (省察及懺悔), iBreviary's Latin
+  'rub.examen': ['A brief examination of conscience may be made. In the communal celebration of the Office, a Penitential Rite using the formulas of the Mass may be inserted here.',
+    '省察及懺悔：個人誦念時，省察片刻，念懺悔經，例如「上等痛悔經」或「上主，求你垂憐」。團體誦念時，可用彌撒經文中任何一式懺悔詞。',
+    'Postea laudabiliter fit conscientiæ discussio, quæ in celebratione communi inseri potest in actum pænitentialem, iuxta formulas in Missa adhibitas.'],
   'set.presider': ['Priest or deacon present', '有司鐸或執事主持', 'Sacerdote vel diacono præsidente'],
   'no': ['No', '否', 'Non'],
   'yes': ['Yes', '是', 'Ita'],

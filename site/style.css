@@ -101,6 +101,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid var(--rule); }
 .row select { font: inherit; color: inherit; background: transparent; border: 0; text-align: right; max-width: 55%; }
 .row input[type=range] { flex: 0 1 50%; }
+.row select:disabled { opacity: 0.55; }
+.name { color: var(--rubric); }
+.wip { margin-left: 0.4em; font-size: 0.78em; font-style: italic; color: var(--rubric); }
 
 /* ---------- the office ---------- */
 .office { max-width: 44rem; margin: 0 auto; padding: 0 16px 4rem; }
@@ -174,7 +177,13 @@ ol.verses li .tr { margin: 1px 0 6px; font-size: 0.88em; }
 .pdf button, .pdf a { font: inherit; color: var(--rubric); background: var(--bg-raised); border-radius: 6px; padding: 2px 12px; text-decoration: none; }
 .pdf button:disabled { opacity: .5; }
 .pdf [hidden] { display: none; }
-#print-root { position: absolute; left: -100000px; top: 0; background: #fff; color: #111; }
+/* the hour laid out for print (PDF, page count) keeps the light theme whatever the page's, so
+   the page itself never changes theme while it is measured */
+#print-root {
+  position: absolute; left: -100000px; top: 0; background: #fff; color: #111;
+  --bg: #faf7f5; --bg-raised: #f0ebe7; --fg: #111; --fg-soft: #5d5650; --rubric: #e22613; --rule: #ddd5cf;
+  --exsurge-negative-fill: var(--bg); color-scheme: light;
+}
 .print-flow { max-width: none; margin: 0; padding: 0; }
 .print-flow .score-tools { display: none; }
 .print-flow h2.section { margin: 22px 0 10px; }

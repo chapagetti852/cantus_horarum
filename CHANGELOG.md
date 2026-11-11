@@ -4,6 +4,24 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.19.0 — 2026-11-11
+
+- Where the book has "N.", the name: the Pope (Leo XIV) in the intercessions, declined as the
+  sentence wants it (Papam nostrum Leónem, Papæ nostro Leóni, pro Papa nostro Leóne), in the
+  English too; the bishop under the Hong Kong calendar (Stephen); a saint's name in an
+  antiphon of the doctors ("beáte Leo"). All in red; a name not known stays "N.", in red.
+- The English interface shows the celebration's English name with the Latin under it, as
+  the Chinese one does.
+- The examination of conscience at Compline is in the interface's language only.
+- Intercessions are text by default (sung in full or abbreviated notation remain choices).
+  The sung short reading and collect are text for now, their settings marked "in progress".
+- Fixes: changing a setting in dark mode no longer flashes the page light (the page count of
+  the PDF was measured in the light theme on the page itself). Compline on Tuesdays has its
+  collect again (it begins "Noctem istam", taken for the blessing). The doctors' "O doctor
+  optime" sang another saint's name and showed raw characters ("\u00f3"): 83 scores GregoBase
+  stores in another form are read properly now. Outside Eastertide an antiphon's "T. P.
+  Allelúia" ending is left out (and "E u o u a e" no longer shows after some).
+
 ## 1.18.1 — 2026-11-10
 
 - English under the Latin: the antiphons of the coming weeks the OCO gives where the

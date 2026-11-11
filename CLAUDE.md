@@ -113,6 +113,10 @@ window (`scripts/texts/window.mjs`, run daily by the Pages workflow into the git
 `cache/texts/days`); invitatory option (Ps 94 in the Liber Hymnarius tones).
 `npm test` (after `node scripts/build.mjs`) checks tones and propers.
 To do:
+0. Noted by the user, not to be fixed yet (2026-11-11): the pointing of the sung short reading
+   and collect is off (`site/recitation.js`): both are text for now, their settings disabled
+   with "in progress" (`RECITE_READY` in `site/app.js` turns them back on). The mutual
+   enrichment's Deo gratias has wrong pointing / matching too.
 1. Optional memorials as a choice; Saturday memorial of Our Lady; feminine/plural variants
    of the commons. The Office of Readings of Easter Sunday (the Vigil's readings and
    canticles) is not composed. First Vespers of Sts Peter and Paul: iBreviary has none

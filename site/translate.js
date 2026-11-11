@@ -8,6 +8,7 @@
 // their place), everything proper to the day (hymn, reading, responsory, antiphon of the
 // Gospel canticle, intercessions, collect) only when the short reading, or the first
 // reading of the Office of Readings, has the same chapter and verse as the Latin.
+import { namesHtml } from './names.js';
 
 const cache = new Map();
 export async function loadTranslation(lang, date) {
@@ -85,7 +86,7 @@ export function hourTranslation(day, hour, latinRef) {
   return { lang: day.lang, t, own, same: ours.some((a) => theirs.some((b) => sameReading(a, b))) };
 }
 
-const esc = (s) => String(s ?? '').replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
+const esc = (s) => namesHtml(String(s ?? '').replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]));
 
 /**
  * A translation block: short pieces open, long ones (a psalm, a hymn, a reading of the

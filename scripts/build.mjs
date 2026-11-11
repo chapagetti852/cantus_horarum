@@ -131,12 +131,23 @@ function completeHymn(shortTxt, fullTxt, mode) {
   }
   return out.join('\n\n');
 }
+// GregoBase stores some scores as JSON, [["tex", "…"], ["gabc", "…"]] (Gregorio's TeX settings
+// beside the notation): the notation alone, its \u escapes read
+function unwrapGabc(txt) {
+  const parts = txt.split(/^%%\s*$/m);
+  const body = parts[parts.length - 1].trim();
+  if (!body.startsWith('[[')) return txt;
+  try {
+    const gabc = JSON.parse(body).filter((x) => x[0] === 'gabc').map((x) => x[1]).join('\n');
+    return `${parts.slice(0, -1).join('%%')}%%\n${gabc}\n`;
+  } catch { return txt; }
+}
 const sourceLabels = {};
 for (const id of ids) {
   const oco = String(id).startsWith('oco-');
   const src = oco ? join(root, 'data/gabc-oco', `${String(id).slice(4)}.gabc`) : join(gabcCache, `${id}.gabc`);
   if (!existsSync(src)) { missing++; continue; }
-  let txt = readFileSync(src, 'utf8');
+  let txt = unwrapGabc(readFileSync(src, 'utf8'));
   if (COMPLETE_FROM[id]) {
     const full = join(gabcCache, `${COMPLETE_FROM[id]}.gabc`);
     const mode = Number(headerOf(txt).mode) || 8;
@@ -209,6 +220,7 @@ if (existsSync(hkDays)) {
 // the celebrations' names in Hong Kong's calendar, for the Chinese interface (scripts/calendar/zh_names.mjs)
 mkdirSync(join(dist, 'data'), { recursive: true });
 cpSync(join(root, 'data/calendar-zh.json'), join(dist, 'data/calendar-zh.json'));
+cpSync(join(root, 'data/calendar-en.json'), join(dist, 'data/calendar-en.json'));
 // the translated four-week psalter (scripts/texts/psalter_translations.mjs, committed), keyed
 // "week-dow" as data/psalterium.json: the weekday's parts on memorials
 for (const lang of ['en', 'zh']) {

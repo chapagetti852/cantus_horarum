@@ -6,6 +6,7 @@ import { BOOKS } from './sources.js';
 import { toneContext, versesOf, psalmGabc, verseGabc, verseHtml, startAtCross } from './psalmtone.js';
 import { resolveHour, indexOco, celebrationFor, isSanctoral } from './resolve.js';
 import { findResponsory } from './responsoria.js';
+import { fillPreces, fillScoreName, namesHtml, namesGabc } from './names.js';
 import { t, setUiLang, applyPage, uiLang, zhNumber } from './i18n.js';
 import { versicleGabc, chapterGabc, luCollectGabc, collectGabc, readingGabc, precesIntroGabc, intentionGabc, intentionAbbrGabc } from './recitation.js';
 import { loadTranslation, loadOwn, ownKey, hourTranslation, sameReading, trNode, psalmNumber, chapterVerse, alignPsalm, verseTrHtml, trP, precesParts, hymnKey, hymnCorresponds } from './translate.js';
@@ -113,7 +114,8 @@ const $ = (s) => document.querySelector(s);
 // ------------------------------------------------------------------ utilities
 const iso = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 const addDays = (s, n) => { const d = new Date(s + 'T12:00:00'); d.setDate(d.getDate() + n); return iso(d); };
-const esc = (s) => String(s ?? '').replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
+// (a name put where the book has "N.", site/names.js, comes out red)
+const esc = (s) => namesHtml(String(s ?? '').replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]));
 async function json(url) { const r = await fetch(url); if (!r.ok) throw new Error(`${url}: ${r.status}`); return r.json(); }
 
 /** The texts of a date's hour: its own iBreviary texts when fetched, else the psalter's. */
@@ -247,11 +249,13 @@ function hourTitle(hour, slot, propers) {
   const node = el('<header class="title-block"></header>');
   const season = (cel.seasons || []).map((x) => SEASON_NAMES[x]).find(Boolean);
   const tempora = cel.week != null && season ? `${DAY_NAMES[cel.dow]} hebdomadæ ${ROMAN_NUM(cel.week)} ${season === 'per annum' ? 'per annum' : season}` : '';
-  // in the Chinese interface the celebration's name is Hong Kong's (data/calendar-zh.json), the Latin under it
-  const zhName = uiLang() === 'zh' ? celebrationZh(cel) : null;
+  // in the Chinese interface the celebration's name is Hong Kong's (data/calendar-zh.json), in
+  // the English romcal's (data/calendar-en.json, scripts/calendar/en_names.mjs): the Latin under it
+  const enName = uiLang() === 'en' && state.enNames?.[cel.id] ? capitalize(state.enNames[cel.id]) : null;
+  const zhName = uiLang() === 'zh' ? celebrationZh(cel) : enName;
   const week = t('psalterWeek', { n: ROMAN[slot.week - 1], zh: zhNumber(slot.week) });
   node.innerHTML = `<p class="rank">${esc(cel.rank ? t(`rank.${cel.rank}`) : '')}</p>
-    <h1${zhName ? ' lang="zh-Hant-HK"' : ''}>${esc(zhName || capitalize(cel.name || ''))}</h1>
+    <h1${zhName ? ` lang="${enName ? 'en' : 'zh-Hant-HK'}"` : ''}>${esc(zhName || capitalize(cel.name || ''))}</h1>
     ${zhName ? `<p class="tempora latin-name">${esc(capitalize(cel.name || ''))}</p>` : ''}
     <p class="tempora">${esc([isSanctoral(cel) && !zhName && tempora, week].filter(Boolean).join(' · '))}</p>`;
   const frag = document.createDocumentFragment();
@@ -518,7 +522,7 @@ const RECITATION_SOURCE = { chapter: { label: 'LU 123' }, festal: { label: 'LU 9
  * A score, without label (the annotation above the initial gives the mode). Without a
  * score, `fallbackText` is shown after `fallbackLabel`.
  */
-async function chantNode(gabcId, { annotation = null, fallbackText = null, fallbackLabel = 'Ant.', transform = null } = {}) {
+async function chantNode(gabcId, { annotation = null, fallbackText = null, fallbackLabel = 'Ant.', transform = null, nameFrom = null } = {}) {
   const wrap = el('<div class="chant"><div class="score"></div></div>');
   const score = wrap.querySelector('.score');
   const src = gabcId ? await loadGabc(gabcId) : null;
@@ -528,13 +532,39 @@ async function chantNode(gabcId, { annotation = null, fallbackText = null, fallb
   }
   const { header, body: raw } = splitGabc(src);
   const ann = annotation ?? header.annotation ?? (header.mode ? `${header.mode}${header['mode-modifier'] || ''}` : null);
-  const body = transform ? transform(withoutEuouae(raw)) : withoutEuouae(raw);
+  // a common's "beáte N.": the saint's name its text gives (site/names.js), in red
+  const named = fillScoreName(seasonal(withoutEuouae(raw)), nameFrom);
+  const body = transform ? transform(named) : named;
   layouts.push(renderChant(score, body, { annotation: ann, source: sourceOf(header) }));
   wrap.dataset.notated = '1';
   return wrap;
 }
-/** An antiphon's "E u o u a e" is left out: the psalm's first verse is notated anyway. */
-const withoutEuouae = (body) => body.replace(/\s*(?:<[^>]+>)*E(?:<\/[^>]+>)*\([^)]*\)\s*u\([^)]*\)\s*o\([^)]*\)\s*u\([^)]*\)\s*a\([^)]*\)\s*e\.?\([^)]*\)\s*(\(::\))?/g, '');
+/** An antiphon's "E u o u a e" is left out: the psalm's first verse is notated anyway (<eu>…</eu> too). */
+const withoutEuouae = (body) => body.replace(/\s*(?:<[^>]+>)*E(?:<\/[^>]+>)*\([^)]*\)\s*u\([^)]*\)\s*o\([^)]*\)\s*u\([^)]*\)\s*a\([^)]*\)\s*e\.?(?:<\/[^>]+>)*\([^)]*\)\s*(\(::\))?/g, '');
+/**
+ * A score's Eastertide ending ("T. P. Allelúia", or the last words again with alleluia) is sung
+ * in Eastertide only: elsewhere it goes, from its "T. P." to the double bar that closes it (with
+ * what an OCO reading leaves of it after that bar, before its "E u o u a e").
+ */
+function seasonal(body) {
+  if (state.paschal) return body;
+  const m = /(?:\(\)\s*)?(?:<nlba>)?(?:<[ic]>)*\s*T\.\s*P\.(?:\s*[:+]|\s*<v>[^<]*<\/v>|\s*†)?\s*(?:<\/[ic]>)*/.exec(body);
+  if (!m) return body;
+  if (/Extra\s*$/.test(body.slice(Math.max(0, m.index - 12), m.index).replace(/<[^>]*>/g, ''))) return body; // "Extra T. P.": the other way round
+  let head = body.slice(0, m.index).replace(/(?:\s*\((?:\/|)\))+\s*$/, '').replace(/\s+$/, '');
+  let from = m.index + m[0].length;
+  // the "T. P." set under the antiphon's own closing bar: the bar stays
+  const onBar = /^\s*(?:<\/[ic]>)*\s*(?:†|\+|<v>[^<]*<\/v>)?\s*(?:\(\))?\s*(\(::[^)]*\))/.exec(body.slice(from));
+  if (onBar) { head += ` ${onBar[1]}`; from += onBar[0].length; }
+  if (!/\(::/.test(head)) return body; // only after the antiphon itself
+  // and the † that marks where the Eastertide ending takes up the words
+  head = head.replace(/(\s)[†+](?=\s*\(\/?\))/g, '$1').replace(/(\s)†\s+(?=\S)/g, '$1').replace(/<v>\\gre(?:dagger|cross)<\/v>/gi, '');
+  const end = /\(::[^)]*\)/g; end.lastIndex = from;
+  const bar = end.exec(body);
+  let rest = bar ? body.slice(bar.index + bar[0].length) : '';
+  if (/^\s*(?:[^\s(]*\([^)]*\)\s*)?E\(/.test(rest) || !/\(::/.test(rest)) rest = '';
+  return `${head}${/\(::[^)]*\)$/.test(head) ? '' : ' (::)'}${rest ? ` ${rest.trim()}` : ''}`;
+}
 
 /** Mark an antiphon and its psalm or canticle as one key group: the player sings them at one pitch. */
 let keySeq = 0;
@@ -547,6 +577,7 @@ function keyed(...nodes) {
 /** An antiphon: its score, or its text when there is none. */
 const antiphonNode = (ant, fallbackText, { custos = null } = {}) => chantNode(ant?.gabc, {
   fallbackText: (ant?.text || fallbackText)?.replace(/\s*†\s*$/, ''),
+  nameFrom: ant?.otherSaint ? null : ant?.text,
   transform: custos ? (b) => withCustos(b, custos) : null,
 });
 /**
@@ -1084,7 +1115,7 @@ async function composeLaudesVesperae(main, day, date, hour) {
   // Intercessions, Pater noster (sung), collect, conclusion
   const cel = propers._cel || day;
   const preces = part('PRECES');
-  if (preces) { main.append(sectionHead('preces')); main.append(precesNode(preces.blocks, (state.trs || []).map(partsTr).filter((T) => T.same && T.own.preces?.length).map((T) => ({ lang: T.lang, lines: T.own.preces })))); }
+  if (preces) { main.append(sectionHead('preces')); main.append(precesNode(preces.blocks, (state.trs || []).map(partsTr).filter((T) => T.same && T.own.preces?.length).map((T) => ({ lang: T.lang, lines: T.own.preces })), { date })); }
   if (section(texts, 'PATER NOSTER')) {
     main.append(sectionHead('pater'));
     main.append(await chantNode(PATER_NOSTER, { annotation: '' }));
@@ -1114,7 +1145,11 @@ async function appendGospelCanticle(main, ant, ce, { solemn = false, proper = tr
  * Intercessions: the introduction with its response, then each intention as one line,
  * its two halves joined by a red dash.
  */
-function precesNode(blocks, trList = []) {
+function precesNode(blocks, trList = [], { date = state.date } = {}) {
+  // the Pope's and the bishop's names where the book has "N." (site/names.js)
+  const fill = (line, lang = 'la') => fillPreces(line, { date, lang, hk: hkOrdo() });
+  blocks = blocks.map((b) => (b.kind === 'text' ? { ...b, lines: b.lines.map((l) => (typeof l === 'string' ? fill(l) : { ...l, text: fill(l.text) })) } : b));
+  trList = trList.map((x) => ({ ...x, lines: x.lines.map((l) => (typeof l === 'string' ? fill(l, x.lang) : l)) }));
   const node = el('<div class="block preces"></div>');
   const html = (b) => b.lines.map((l) => (typeof l === 'string' ? esc(l) : `<i>${esc(l.text)}</i>`)).join(' ');
   // `trList`: [{ lang, lines }], each translation's (the first only, in fallback mode); each
@@ -1129,12 +1164,12 @@ function precesNode(blocks, trList = []) {
   // its response, then each intention followed by the response; or, abbreviated as the book
   // writes its tones, the introduction and response in full, each intention with only its
   // start and cadences notated and ℟. for the response
-  const sung = (state.settings.precesTone || 'ar') !== 'text';
+  const sung = precesStyle() !== 'text';
   const intention = state.settings.precesTone === 'abbr' ? intentionAbbrGabc : intentionGabc;
   let sungIntro = false;
   const plain = (b) => b.lines.filter((l) => typeof l === 'string').join(' ').trim();
   const response = (blocks.find((b) => b.kind === 'text')?.lines.find((l) => typeof l !== 'string')?.text || '').trim();
-  const score = (gabc) => chantFromGabc(gabc, { dropCap: false, source: RECITATION_SOURCE.preces });
+  const score = (gabc) => chantFromGabc(namesGabc(gabc), { dropCap: false, source: RECITATION_SOURCE.preces });
   for (let k = 0; k < blocks.length; k++) {
     const b = blocks[k];
     if (b.kind === 'text' && blocks[k + 1]?.kind === 'rubric' && blocks[k + 1].text === '—' && blocks[k + 2]?.kind === 'text') {
@@ -1197,8 +1232,13 @@ function chantFromGabc(body, { dropCap = true, source = null } = {}) {
 // Short readings and collects are sung by the settings "Short reading" and "Collect": on the
 // Antiphonale Romanum II's tones (the default), on the Liber Usualis', or left as text; the
 // readings of the Office of Readings stay text.
-const readingStyle = () => state.settings.readingTone || 'ar'; // 'ar' | 'lu' | 'text'
-const collectStyle = () => state.settings.collectTone || 'ar';
+// For now both are text: the pointing of the reading and collect tones is being reworked
+// (the settings show "in progress"; RECITE_READY turns them back on).
+const RECITE_READY = false;
+const readingStyle = () => (RECITE_READY ? state.settings.readingTone || 'ar' : 'text'); // 'ar' | 'lu' | 'text'
+/** The intercessions: text by default ('text' | 'ar': sung in full notation | 'abbr': abbreviated). */
+const precesStyle = () => (state.settings.precesTone === 'ar' || state.settings.precesTone === 'abbr' ? state.settings.precesTone : 'text');
+const collectStyle = () => (RECITE_READY ? state.settings.collectTone || 'ar' : 'text');
 const blockText = (b) => (b?.kind === 'text' ? b.lines.map((l) => (typeof l === 'string' ? l : l.text)).join(' ') : '');
 const recited = () => state.settings.recite !== 'text';
 /** A short reading: its reference, then the reading on the lesson tone. */
@@ -1434,7 +1474,13 @@ async function composeCompline(main, day, date, hour) {
   await appendOpening(main, day, hour, propers);
   // iBreviary's opening section: only its rubric (the examination of conscience) is kept
   const opening = texts?.find((s) => s.title && /^Completorium$/i.test(s.title));
-  for (const b of opening?.blocks || []) if (b.kind === 'rubric') main.insertAdjacentHTML('beforeend', renderTextBlock(b));
+  // the examination of conscience in the interface's language (iBreviary's English, Hong Kong's
+  // Chinese, iBreviary's Latin), any other rubric as iBreviary gives it
+  for (const b of opening?.blocks || []) {
+    if (b.kind !== 'rubric') continue;
+    if (/conscienti/i.test(b.text)) main.append(el(`<p class="rubric" lang="${uiLang() === 'zh' ? 'zh-Hant-HK' : uiLang()}">${esc(t('rub.examen'))}</p>`));
+    else main.insertAdjacentHTML('beforeend', renderTextBlock(b));
+  }
 
   const otHymn = !propers.H && cel.seasons?.includes('ORDINARY_TIME') ? complineHymnPerAnnum(day, cel) : null;
   await appendHymn(main, otHymn || withScore(entries.find((e) => e.kind === 'hymn')), otHymn ? null : hymnTextNode(texts));
@@ -1478,7 +1524,8 @@ async function composeCompline(main, day, date, hour) {
   if (or) {
     main.append(sectionHead('oratio'));
     const text = (b) => (b.kind === 'text' ? b.lines.map((l) => (typeof l === 'string' ? l : l.text)).join(' ') : '');
-    const end = or.blocks.findIndex((b) => /^Noctem/.test(text(b)) || (b.kind === 'rubric' && /Mariam|antiphon/i.test(b.text)));
+    // up to the blessing Noctem quietam (Tuesday's collect begins "Noctem istam")
+    const end = or.blocks.findIndex((b) => /^Noctem qui[eé]tam/i.test(text(b)) || (b.kind === 'rubric' && /Mariam|antiphon/i.test(b.text)));
     main.append(collectNode(end < 0 ? or.blocks : or.blocks.slice(0, end), { tone: 'simple' }));
     eachTr((T) => appendTr(main, T.own.oratio, { proper: false }));
   }
@@ -1726,6 +1773,7 @@ async function composeHour(day) {
   const frag = document.createElement('div');
   state.tr = null; state.trs = [];
   state.rank = day.rank; // the day's rank, for the versicle's tone
+  state.paschal = !!day.seasons?.includes('EASTER_TIME'); // for the scores' "T. P." endings
   const mode = TRANSLATIONS ? TRANSLATION_MODES[state.settings.translation] : null;
   if (mode) {
     // the app's own translations are English only: Chinese is the Hong Kong office's alone
@@ -1804,13 +1852,11 @@ async function makePdf(fmt) {
  * score one SVG per system: returns a function that puts the screen back (with .col, the column).
  */
 async function preparePrint(day, fmt, scale) {
-  const theme = document.documentElement.dataset.theme;
-  document.documentElement.dataset.theme = 'light';
+  // (its light colours are #print-root's own, site/style.css: the page keeps its theme)
   const screenLayouts = layouts.splice(0);
   setPerLine(true);
   const restore = () => {
     document.getElementById('print-root')?.remove();
-    if (theme) document.documentElement.dataset.theme = theme; else delete document.documentElement.dataset.theme;
     setPerLine(false);
     layouts.splice(0, layouts.length, ...screenLayouts);
   };
@@ -1879,7 +1925,9 @@ function applySettings() {
   $('#opt-presider').value = state.settings.presider ? '1' : '';
   $('#opt-sing-reading').value = readingStyle();
   $('#opt-sing-collect').value = collectStyle();
-  $('#opt-preces').value = state.settings.precesTone || 'ar';
+  for (const id of ['#opt-sing-reading', '#opt-sing-collect']) $(id).disabled = !RECITE_READY;
+  for (const x of document.querySelectorAll('.wip')) x.hidden = RECITE_READY;
+  $('#opt-preces').value = precesStyle();
   $('#opt-invitatory').value = state.settings.invitatory || '';
   $('#opt-of-hymn').value = state.settings.ofHymn || '';
   $('#opt-pange').value = state.settings.pangeLingua || '';
@@ -1919,6 +1967,7 @@ async function boot() {
   state.hymns = hymns;
   state.responsoria = responsoria;
   state.zhNames = await json('data/calendar-zh.json').catch(() => ({}));
+  state.enNames = await json('data/calendar-en.json').catch(() => ({}));
   state.oco = oco; state.psalterium = psalterium; state.slots = slots; state.ocoIndex = indexOco(oco);
   const m = /^#(\d{4}-\d{2}-\d{2})\/(\w+)$/.exec(location.hash);
   state.date = m ? m[1] : iso(new Date());
@@ -1953,7 +2002,7 @@ async function boot() {
   $('#opt-memoria').onchange = (e) => { state.settings.memoria = e.target.value || undefined; saveSettings(); render(); };
   $('#opt-presider').onchange = (e) => { state.settings.presider = e.target.value ? true : undefined; saveSettings(); render(); };
   $('#opt-sing-reading').onchange = (e) => { state.settings.readingTone = e.target.value === 'ar' ? undefined : e.target.value; saveSettings(); render(); };
-  $('#opt-preces').onchange = (e) => { state.settings.precesTone = e.target.value === 'ar' ? undefined : e.target.value; saveSettings(); render(); };
+  $('#opt-preces').onchange = (e) => { state.settings.precesTone = e.target.value === 'text' ? undefined : e.target.value; saveSettings(); render(); };
   $('#opt-sing-collect').onchange = (e) => { state.settings.collectTone = e.target.value === 'ar' ? undefined : e.target.value; saveSettings(); render(); };
   $('#opt-invitatory').onchange = (e) => { state.settings.invitatory = e.target.value || undefined; saveSettings(); render(); };
   $('#opt-ordo').onchange = (e) => {

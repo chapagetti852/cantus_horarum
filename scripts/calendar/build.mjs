@@ -42,7 +42,7 @@ for (let year = Number(from); year <= Number(to); year++) {
   for (const [date, days] of Object.entries(cal)) {
     out[date] = days.filter((d) => !(fix === HK && HK_LEAVE.test(d.id))).map((d) => ({
       id: d.id,
-      name: d.name,
+      name: d.name.replace(/\bquartra\b/, 'quarta'), // romcal's Latin misspells it
       rank: d.rank,
       prec: d.precedence,
       seasons: d.seasons,
