@@ -135,7 +135,8 @@ async function textsFor(day, date, hour) {
 const INVITATORY_RUBRIC = /Invitatori/;
 function withoutInvitatoryRubrics(sections) {
   if (!sections) return sections;
-  return sections.map((sec) => ({ ...sec, blocks: (sec.blocks || []).filter((b) => !((b.kind === 'rubric' || b.kind === 'text') && INVITATORY_RUBRIC.test(b.kind === 'rubric' ? b.text : (b.lines || []).map((l) => (typeof l === 'string' ? l : l.text)).join(' ')))) }));
+  // (and iBreviary's markers of where a common begins, "[Doctores]": the sections say it, originLabels)
+  return sections.map((sec) => ({ ...sec, blocks: (sec.blocks || []).filter((b) => !(b.kind === 'rubric' && /^\[[^\]]*\]$/.test(b.text.trim())) && !((b.kind === 'rubric' || b.kind === 'text') && INVITATORY_RUBRIC.test(b.kind === 'rubric' ? b.text : (b.lines || []).map((l) => (typeof l === 'string' ? l : l.text)).join(' ')))) }));
 }
 // (a day file may lack an hour: a page iBreviary gives cut short, a Sunday it never has)
 const hasOwnTexts = (date, hour) => {
@@ -575,11 +576,54 @@ function keyed(...nodes) {
 }
 
 /** An antiphon: its score, or its text when there is none. */
-const antiphonNode = (ant, fallbackText, { custos = null } = {}) => chantNode(ant?.gabc, {
+const antiphonNode = async (ant, fallbackText, { custos = null } = {}) => withOrigin(await chantNode(ant?.gabc, {
   fallbackText: (ant?.text || fallbackText)?.replace(/\s*†\s*$/, ''),
   nameFrom: ant?.otherSaint ? null : ant?.text,
   transform: custos ? (b) => withCustos(b, custos) : null,
-});
+}), ant);
+
+/**
+ * Where a piece comes from, as the OCO prints it: the day's saint's proper or a common
+ * ("Doctorum Ecclesiæ"); nothing for the psalter or the season's own. Marked on its node and
+ * shown, small, under the heading of its section (originLabels).
+ */
+const MONTHS = ['IANUARIUS', 'FEBRUARIUS', 'MARTIUS', 'APRILIS', 'MAIUS', 'IUNIUS', 'IULIUS', 'AUGUSTUS', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
+function originOf(e) {
+  if (!e || !e.part) return null;
+  if (e.part === 'COMMUNIA' || e.part === 'E') return `common:${e.group || ''}`;
+  // the season's own (Advent, Lent, Christ the King…) is the day's office, like the psalter: unlabelled
+  if (e.part === 'PROPRIUM DE TEMPORE' || e.part === 'I') return null;
+  if (e.part === 'PROPRIUM DE SANCTIS' || e.part === 'Q') {
+    // a saint's own: the day's (or the morrow's, at First Vespers), not another saint's sharing it
+    const m = /^Die (\d+)\b/.exec(e.day || '');
+    if (!m) return 'proper';
+    return [state.date, addDays(state.date, 1)].some((d) => Number(d.slice(8)) === Number(m[1]) && (!MONTHS.includes(e.chapter) || MONTHS[Number(d.slice(5, 7)) - 1] === e.chapter)) ? 'proper' : null;
+  }
+  return null;
+}
+function withOrigin(node, entry) {
+  const o = originOf(entry);
+  if (o && node) node.dataset.origin = o;
+  return node;
+}
+// the commons by the OCO's names for them: the interface's words (Hong Kong's, 「教會聖師通用」)
+const COMMONS = {
+  'Dedicationis ecclesiæ': 'dedication', 'Beatæ Mariæ Virginis': 'bmv', Apostolorum: 'apostles', 'Plurimorum martyrum': 'martyrs',
+  'Unius martyris': 'martyr', Pastorum: 'pastors', 'Doctorum Ecclesiæ': 'doctors', Virginum: 'virgins', 'Sanctorum Virorum': 'men',
+  'Sanctarum Mulierum': 'women', 'Pro Religiosis': 'religious', 'Pro iis qui opera misericordiæ exercuerunt': 'mercy', 'Pro educatoribus': 'educators',
+};
+const originLabel = (o) => (o === 'proper' ? t('src.proper') : t(`src.${COMMONS[o.slice(7)] || 'common'}`));
+/** Under each section's heading, where its pieces come from (none for the psalter's). */
+function originLabels(root) {
+  const heads = [...root.querySelectorAll('h2.section')];
+  heads.forEach((h, i) => {
+    const seen = [];
+    for (let n = h.nextElementSibling; n && n !== heads[i + 1]; n = n.nextElementSibling) {
+      for (const x of [n, ...n.querySelectorAll('[data-origin]')]) if (x.dataset?.origin && !seen.includes(x.dataset.origin)) seen.push(x.dataset.origin);
+    }
+    if (seen.length) h.append(el(`<span class="src-label">${seen.map((o) => esc(originLabel(o))).join(' · ')}</span>`));
+  });
+}
 /**
  * The first note of the psalm or canticle after an antiphon, as a custos after the antiphon's
  * double bar (as Breviarium Gregorianum and the books print it): read from the first score of
@@ -793,7 +837,7 @@ async function appendHymnOnly(main, hymn, textNode, alternatives = []) {
   if (!hymn && !textNode) return;
   main.append(sectionHead('hymn'));
   const src = hymn?.gabc ? await loadGabc(hymn.gabc) : null;
-  if (hymn) main.append(await chantNode(hymn.gabc, { fallbackText: src ? null : hymn.title, fallbackLabel: '' }));
+  if (hymn) main.append(withOrigin(await chantNode(hymn.gabc, { fallbackText: src ? null : hymn.title, fallbackLabel: '' }), hymn));
   if (!textNode) return;
   const body = src ? splitGabc(src).body : '';
   const complete = /\s2\.?\s*[(A-ZÆŒ]/.test(body) || (body.match(/\(::\)/g) || []).length > 1;
@@ -1095,7 +1139,7 @@ async function composeLaudesVesperae(main, day, date, hour) {
   const rbText = part('RESPONSORIUM BREVE');
   if (!inPlace && !locoText && (rb || rbText)) {
     main.append(sectionHead('responsory'));
-    const node = rb?.gabc ? await chantNode(rb.gabc, { annotation: '' }) : null;
+    const node = rb?.gabc ? withOrigin(await chantNode(rb.gabc, { annotation: '' }), rb) : null;
     if (node?.dataset.notated) main.append(node);
     else if (rbText) main.append(el(`<div class="block">${renderBlocks(rbText.blocks)}</div>`));
     eachTr(() => appendResponsoryTr(main, node?.dataset.notated ? rb : null, rbText), { map: partsTr });
@@ -1797,6 +1841,7 @@ async function composeHour(day) {
     frag.append(el(`<p class="empty">${t('msg.error')}: ${esc(e.message)}</p>`));
     console.error(e);
   }
+  originLabels(frag);
   return frag;
 }
 

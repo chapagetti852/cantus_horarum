@@ -103,6 +103,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .row input[type=range] { flex: 0 1 50%; }
 .row select:disabled { opacity: 0.55; }
 .name { color: var(--rubric); }
+/* where a section's pieces come from: small, under its heading, on the right */
+.src-label { display: block; text-align: right; margin-top: 0.1em; font-size: 0.62rem; font-weight: 400; font-style: italic; letter-spacing: 0.02em; text-transform: none; color: var(--rubric); opacity: 0.8; }
 .wip { margin-left: 0.4em; font-size: 0.78em; font-style: italic; color: var(--rubric); }
 
 /* ---------- the office ---------- */

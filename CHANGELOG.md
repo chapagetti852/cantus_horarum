@@ -4,6 +4,14 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.20.0 — 2026-11-11
+
+- Under a section's heading, small and on the right, where its chants come from when they
+  are not the psalter's or the season's: the saint's proper ("Proper") or a common ("Common
+  of Doctors of the Church"; in Chinese Hong Kong's 「教會聖師通用」, 「專用」). iBreviary's
+  bracketed markers ("[Doctores]", "[Pastores]"), which stood misplaced in the psalmody or
+  before the Gospel canticle, are gone.
+
 ## 1.19.0 — 2026-11-11
 
 - Where the book has "N.", the name: the Pope (Leo XIV) in the intercessions, declined as the

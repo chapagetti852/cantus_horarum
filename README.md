@@ -478,6 +478,15 @@ antiphon whose place it takes (`ALLELUIA` in `site/app.js`: the melodies of the 
 Usualis and the Antiphonale Monasticum, one or more for each mode), so each psalm keeps the
 tone the OCO gives it; the ending is the one the Alleluia itself shows.
 
+### Where a section's chants come from
+
+Under each section's heading a small label says where its chants come from, as the OCO
+prints them (`originOf` in `site/app.js`): the day's saint's proper (`PROPRIUM DE SANCTIS`,
+`Q`, on the day or its eve) or a common (`COMMUNIA`, `E`, by the OCO's group: "Doctorum
+Ecclesiæ"…), in the interface's words (`src.*` in `site/i18n.js`, Hong Kong's for Chinese).
+The psalter and the season's own are not labelled. iBreviary's "[Doctores]" markers are
+dropped.
+
 ### Memorials
 
 On memorials in Ordinary Time, Lauds and Vespers take the weekday from the short reading
