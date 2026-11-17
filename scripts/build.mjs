@@ -7,6 +7,7 @@
 //   dist/data/days/<date>.json   texts of particular dates (for what is proper to the day)
 //   dist/gabc/<id>.gabc          every score the entries point to, plus the common tones;
 //                                oco-<entry id>.gabc for scores read from the OCO itself (data/gabc-oco)
+import { incipitKey } from '../site/hymns.js';
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { execSync } from 'node:child_process';
@@ -83,7 +84,17 @@ const COMMON_TONES = [4121, 7864, 18107, 18108, 4321, 15301, 15302, 17847, 17848
   16139, 16360, 16205, 16108, 16135, 19647, 20401, 20438, 20687,
   // the antiphon Alleluia of Eastertide, mode by mode (ALLELUIA in site/app.js)
   2822, 2383, 15201, 2197, 2090, 3000, 15186, 15188, 3004, 2622, 10195, 2293, 2025];
-const ids = new Set([...compact.map((e) => e.gabc).filter(Boolean), ...COMMON_TONES, 4680, 4681, 4682, 4677, 4683, 7515, 7517, 7518, 7519, 16706,
+// every hymn of the Liber Hymnarius on GregoBase, by its first two words (site/hymns.js
+// incipitKey): the score of the hymn the day's text is, when the OCO names another
+const lhym = {};
+for (const c of JSON.parse(readFileSync(join(root, 'data/gregobase/chants.json'), 'utf8'))) {
+  if (!c.has_gabc || c.part !== 'hy' || !c.sources?.some(([src]) => src === 15) || !existsSync(join(gabcCache, `${c.id}.gabc`))) continue;
+  const key = incipitKey(c.incipit.replace(/\(.*?\)/g, ''));
+  const strophes = (readFileSync(join(gabcCache, `${c.id}.gabc`), 'utf8').match(/\(::\)/g) || []).length;
+  if (!lhym[key] || strophes > lhym[key].strophes) lhym[key] = { id: c.id, strophes };
+}
+writeFileSync(join(dist, 'data/lhym.json'), JSON.stringify(Object.fromEntries(Object.entries(lhym).map(([k, v]) => [k, v.id]))));
+const ids = new Set([...compact.map((e) => e.gabc).filter(Boolean), ...COMMON_TONES, ...Object.values(lhym).map((v) => v.id), 4680, 4681, 4682, 4677, 4683, 7515, 7517, 7518, 7519, 16706,
   ...Object.values(indexHymns).flatMap((v) => (typeof v === 'object' ? Object.values(v) : [v])), ...responsoria.map((r) => r[0])]);
 mkdirSync(join(dist, 'gabc'), { recursive: true });
 let copied = 0, missing = 0;

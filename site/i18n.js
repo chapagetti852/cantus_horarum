@@ -117,7 +117,7 @@ const PAGE = {
   'ofHymn.day': ['By day', '日間用', 'Diurnus'],
   'ofHymn.night': ['At night or early morning', '夜間或清晨用', 'Nocturnus vel matutinus'],
   'set.invitatory': ['Invitatory before', '序經置於', 'Invitatorium ante'],
-  'set.memoria': ['Memorials, from the short reading', '紀念日，自簡短讀經起', 'In memoriis, a lectione brevi'],
+  'set.memoria': ['Memorials: the hymn, and from the short reading', '紀念日：讚美詩及自簡短讀經起', 'In memoriis: hymnus et a lectione brevi'],
   'memoria.feria': ['of the weekday', '用平日的', 'de feria'],
   'memoria.commune': ['of the common', '用通用的', 'de Communi'],
   'set.bonus': ['Mutual enrichment', '互相豐富', 'Mutua locupletatio'],

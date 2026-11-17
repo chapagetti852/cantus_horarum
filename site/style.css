@@ -152,6 +152,8 @@ ol.verses .star, ol.verses .flex { color: var(--rubric); }
 .versicle .r { font-weight: 600; }
 .text p { margin: .25em 0; }
 .hymn p { margin: 0 0 .7em; }
+.hymn-rest .strophe { break-inside: avoid; }
+@media (min-width: 640px) { .hymn-rest { column-count: 2; column-gap: 2em; } }
 .preces .intro { margin: .3em 0 .6em; }
 .preces .intention { margin: .45em 0; padding-left: 1.2em; text-indent: -1.2em; }
 .preces .intention .r { padding: 0 .2em; }

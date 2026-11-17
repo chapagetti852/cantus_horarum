@@ -21,6 +21,8 @@ Read `README.md` first: it explains every pipeline.
 - The GregoBase dump on GitHub stops in January 2024; `scripts/gregobase/scrape_sources.py`
   tops up `data/gregobase/chants.json` from the live book listings (LHym 15, AM 17-19,
   AR 6/53, antiphonale.net's Antiphonae et Responsoria 61-64/67). Run it before matching.
+- `site/hymns.js` sets a hymn's text to its first strophe's melody (README "Hymns in full");
+  every Liber Hymnarius hymn on GregoBase is kept in `data/gabc/` (`select_gabc.py`).
 - `scripts/oco/match_hymni.py`: hymns from the Liber Hymnarius 1983 only, on the page the
   OCO cites ("LHym 283"), incipit deciding between hymns on one page.
 - `scripts/oco/read_notation.py` reads the OCO's own notation (Gregorio glyphs) into

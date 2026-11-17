@@ -295,3 +295,8 @@ export function versesOf(lines) {
   }
   return verses;
 }
+
+/** Latin syllables as jgabc divides them: [{ all, syl, space, punctuation, prepunctuation, … }]. */
+export function latinSyllables(text) {
+  return jg().getSyllables(text);
+}

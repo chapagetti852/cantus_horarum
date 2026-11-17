@@ -289,7 +289,7 @@ export function celebrationFor(today, tomorrow, hour) {
  * responsory too (from the short reading on, the weekday or the common may be said). Memorials in Lent and after 16 December
  * are only commemorated.
  */
-export function resolveHour(slots, oco, cel, date, hour, { memoriaCommune = false } = {}) {
+export function resolveHour(slots, oco, cel, date, hour, { memoriaCommune = false, hymnusCommune = true } = {}) {
   const out = {};
   const T = context(cel, date, 'temporal');
   const bigTemporal = !isSanctoral(cel) && (cel.rank === 'SOLEMNITY' || cel.rank === 'FEAST');
@@ -309,7 +309,9 @@ export function resolveHour(slots, oco, cel, date, hour, { memoriaCommune = fals
       fill(out, slots, oco, S, hour, (kind, place) => {
         if (kind === 'psalm') return 100;
         if (place === 'R' || place === 'B' || place === 'M') return memoriaCommune ? 40 : place === 'R' ? 999 : 100;
-        return 40;
+        // the hymn and the invitatory: the saint's own always, the common's only with
+        // `hymnusCommune` (the setting "Memorials": of the common), else the weekday's
+        return hymnusCommune ? 40 : 100;
       }, true);
     }
   }

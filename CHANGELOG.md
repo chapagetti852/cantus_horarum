@@ -4,6 +4,22 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.21.0 — 2026-11-17
+
+- Hymns notated in full in the detailed view: where GregoBase has only the first strophe of a
+  Liber Hymnarius hymn, the day's text is set to its melody strophe by strophe (an elision
+  sung on one note, the unsung vowel marked as the book marks it; the Amen on the book's
+  formula). A strophe that does not scan stays as text. In the compact view, as for the
+  psalms, only the first strophe is notated and the others follow as text, in two columns
+  on a wide screen. Strophes are numbered in order.
+- The hymn's score is the hymn the day's text is: where the OCO's common names another
+  (St Elizabeth of Hungary: "Læti colentes famulum", for men), the Liber Hymnarius' score of
+  the text's hymn ("Fortem virili pectore") is sung. Every hymn of the Liber Hymnarius on
+  GregoBase is now at hand for this.
+- Memorials: the setting "of the weekday / of the common" now covers the hymn and the
+  invitatory too. Of the weekday, they are the weekday's unless the saint has their own;
+  what is proper to the saint (a Magnificat antiphon, a hymn) is always sung.
+
 ## 1.20.0 — 2026-11-11
 
 - Under a section's heading, small and on the right, where its chants come from when they

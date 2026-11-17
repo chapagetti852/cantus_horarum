@@ -26,6 +26,9 @@ def main():
     dst = Path(sys.argv[3])
     dst.mkdir(parents=True, exist_ok=True)
     ids = {m["gregobase"] for m in match if m.get("gregobase")} | set(COMMON_TONES)
+    # every hymn of the Liber Hymnarius (the build indexes them: data/lhym.json)
+    chants = json.load(open(Path(sys.argv[1]).parent.parent / "gregobase" / "chants.json", encoding="utf8"))
+    ids |= {c["id"] for c in chants if c.get("has_gabc") and c.get("part") == "hy" and any(s == 15 for s, _ in c["sources"])}
     keep = {f"{i}.gabc" for i in ids}
     for f in dst.glob("*.gabc"):
         if f.name not in keep:

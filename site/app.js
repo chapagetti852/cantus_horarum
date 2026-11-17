@@ -3,6 +3,7 @@ import { loadGabc, renderChant, splitGabc, watchResize, setPerLine, setGabcAlias
 import { FORMATS, printColumn, paginate } from './print.js';
 import { makePdfFile } from './pdf.js';
 import { BOOKS } from './sources.js';
+import { fullHymn, strophesOf, joinStrophes, incipitKey } from './hymns.js';
 import { toneContext, versesOf, psalmGabc, verseGabc, verseHtml, startAtCross } from './psalmtone.js';
 import { resolveHour, indexOco, celebrationFor, isSanctoral } from './resolve.js';
 import { findResponsory } from './responsoria.js';
@@ -201,6 +202,14 @@ function followReference(e) {
   const one = state.oco.find((x) => there(x) && x.position === e.position);
   return one ? [one] : null;
 }
+/**
+ * The texts the hymn is read from: on a memorial said of the weekday, without a hymn of the
+ * saint's own, the psalter day's (iBreviary's page of the memorial has the common's hymn).
+ */
+function hymnTexts(day, hour, propers, texts) {
+  if (!memoriaDeFeria(propers._cel) || propers.H) return texts;
+  return withoutInvitatoryRubrics(state.psalterium[`${day.psalter}-${day.dow}`]?.hours[TEXT_HOUR[hour]]) || texts;
+}
 /** On a memorial in Ordinary Time, from the short reading on: the weekday unless the common is chosen. */
 const memoriaDeFeria = (cel) => cel?.rank === 'MEMORIAL' && isSanctoral(cel) && cel.seasons?.includes('ORDINARY_TIME') && state.settings.memoria !== 'commune';
 function ocoCompline(day, hour) {
@@ -235,7 +244,9 @@ async function propersFor(day, date, hour) {
   const { cel, hour: h, first } = celebrationFor(day, tomorrow, hour);
   const meta = { _cel: cel, _first: first, _big: cel.rank === 'SOLEMNITY' || cel.rank === 'FEAST' };
   try {
-    return { ...resolveHour(state.slots, state.ocoIndex, cel, first ? addDays(date, 1) : date, h, { memoriaCommune: state.settings.memoria === 'commune' }).out, ...meta };
+    // a memorial in Ordinary Time said of the weekday (setting "Memorials"): the hymn and the
+    // invitatory are the weekday's too, unless the saint has their own
+    return { ...resolveHour(state.slots, state.ocoIndex, cel, first ? addDays(date, 1) : date, h, { memoriaCommune: state.settings.memoria === 'commune', hymnusCommune: !memoriaDeFeria(cel) }).out, ...meta };
   } catch (e) { console.error(e); return meta; }
 }
 // The interface is in English; the celebration's name and the texts stay Latin
@@ -787,6 +798,7 @@ function veniteAdoremus(body) {
  * strophe, the others follow as text.
  */
 async function appendHymn(main, hymn, textNode, alternatives = []) {
+  hymn = await hymnForText(hymn, textNode);
   // the Latin hymn: its incipit (the OCO's title, else the text's first line) and strophes
   const firstLine = textNode?.innerHTML.split(/<br\s*\/?>/)[0].replace(/<[^>]*>/g, '') || '';
   // without a score the text printed is iBreviary's, which may be another hymn: translate that
@@ -833,22 +845,74 @@ function hymnTrNode(key, latinStrophes) {
   div.innerHTML = strophes.map((st) => `<p>${join(st)}</p>`).join('');
   return div;
 }
+/** The strophes of a hymn's text node (hymnBlocksNode): [[line…]…], the Amen line put back. */
+function strophesOfNode(node) {
+  if (!node) return [];
+  const plainOf = (html) => { const d = document.createElement('div'); d.innerHTML = html; return d.textContent.trim(); };
+  return joinStrophes(node.innerHTML.split(/<p><\/p>|<p>\s*<\/p>/).map((chunk) => chunk.split(/<br\s*\/?>/).map(plainOf).filter(Boolean)).filter((st) => st.length));
+}
+/**
+ * The score for the hymn the day's text is: the OCO's when it is that hymn, or complete (then
+ * its own text is sung, whatever iBreviary prints); else the Liber Hymnarius' score of the
+ * text's hymn (a common's form for a woman: "Fortem virili pectore", not "Læti colentes
+ * famulum"); else none, and the text is printed alone.
+ */
+async function hymnForText(hymn, textNode) {
+  const strophes = strophesOfNode(textNode);
+  if (!hymn?.gabc || !strophes.length) return hymn;
+  const src = await loadGabc(hymn.gabc);
+  if (!src) return hymn;
+  const body = splitGabc(src).body;
+  const want = incipitKey(strophes[0][0]);
+  if (incipitKey(body) === want || (body.match(/\(::\)/g) || []).length > 1) return hymn;
+  const other = state.oco.filter((e) => e.kind === 'hymn' && e.gabc && incipitKey(e.title) === want)
+    .sort((a, b) => /LHym/.test(b.title || '') - /LHym/.test(a.title || ''))[0];
+  if (other) return other;
+  // any hymn of the Liber Hymnarius (data/lhym.json): the origin stays the OCO's
+  const id = state.lhym?.[want];
+  return id ? { ...hymn, gabc: id, title: strophes[0][0] } : null;
+}
+/**
+ * The hymn: in the detailed view one score with every strophe (the first strophe's melody
+ * set to the others when the score has only the first, site/hymns.js), in the compact view
+ * the first strophe notated and the others as text, in two columns where the page is wide.
+ * Strophes that cannot be set to the melody follow as text.
+ */
 async function appendHymnOnly(main, hymn, textNode, alternatives = []) {
   if (!hymn && !textNode) return;
   main.append(sectionHead('hymn'));
   const src = hymn?.gabc ? await loadGabc(hymn.gabc) : null;
-  if (hymn) main.append(withOrigin(await chantNode(hymn.gabc, { fallbackText: src ? null : hymn.title, fallbackLabel: '' }), hymn));
-  if (!textNode) return;
-  const body = src ? splitGabc(src).body : '';
-  const complete = /\s2\.?\s*[(A-ZÆŒ]/.test(body) || (body.match(/\(::\)/g) || []).length > 1;
-  if (!src) main.append(textNode);
-  else if (!complete && textNode.children.length > 2) {
-    // drop the first strophe (and its spacer), sung above
-    textNode.firstChild?.remove();
-    while (textNode.firstChild && textNode.firstChild.nodeName !== 'P') textNode.firstChild.remove();
-    textNode.firstChild?.remove();
-    main.append(textNode);
+  if (!src) {
+    if (hymn) main.append(withOrigin(await chantNode(hymn.gabc, { fallbackText: hymn.title, fallbackLabel: '' }), hymn));
+    if (textNode) main.append(textNode);
+    return;
   }
+  const body = splitGabc(src).body;
+  const own = strophesOf(body);
+  const text = strophesOfNode(textNode);
+  const complete = own.length > 1;
+  const compact = state.settings.psalms === 'text';
+  let transform = null, rest = [];
+  if (compact) {
+    // the first strophe notated, the others as text (the day's, else the score's own)
+    // (without the next strophe's number, which some scores set before the double bar)
+    transform = (b) => `${b.split(/\(::\)/)[0].trim().replace(/\s+\d+\.\s*$/, '')} (::)`;
+    rest = (text.length && incipitKey(text[0][0]) === incipitKey(body) ? text : own).slice(1);
+  } else if (!complete && text.length > 1) {
+    const full = fullHymn(body, text);
+    if (full) { transform = () => full.gabc; rest = full.rest; } else rest = text.slice(1);
+  } else if (complete) {
+    // the strophes numbered in order (GregoBase's scores sometimes repeat a number)
+    transform = (b) => { let n = 1; return b.replace(/(\(::\)\s*(?:<[^>]+>\s*)*)(\d+)\.(?=\s*\S)/g, (m, pre) => `${pre}${++n}.`); };
+  }
+  main.append(withOrigin(await chantNode(hymn.gabc, { fallbackLabel: '', transform }), hymn));
+  if (rest.length) main.append(hymnStrophesNode(rest, (compact ? 1 : text.length - rest.length) + 1));
+}
+/** Strophes as text, numbered from `from` (red, as in the score), one block each: two columns on a wide page. */
+function hymnStrophesNode(strophes, from) {
+  const node = el('<div class="hymn hymn-rest"></div>');
+  strophes.forEach((st, k) => node.insertAdjacentHTML('beforeend', `<p class="strophe"><span class="r">${from + k}.</span> ${st.map(esc).join('<br>')}</p>`));
+  return node;
 }
 
 const words = (t) => t.normalize('NFD').toLowerCase().replace(/[^a-z\s]/g, '').replace(/j/g, 'i').replace(/v/g, 'u').split(/\s+/).filter((w) => w.length > 2);
@@ -959,7 +1023,8 @@ async function composeLectio(main, day, date) {
   const pref = state.settings.ofHymn;
   const night = pref === 'night' || (pref !== 'day' && new Date().getHours() < 7);
   const [hymn] = night || hymns.length < 2 ? hymns : [hymns[1], hymns[0]];
-  const part = hymnBlocksNode(hymnPart(texts, night ? /^I\./ : /^II\./)) || hymnTextNode(texts);
+  const hTexts = hymnTexts(day, 'lectio', propers, texts);
+  const part = hymnBlocksNode(hymnPart(hTexts, night ? /^I\./ : /^II\./)) || hymnTextNode(hTexts);
   await appendHymn(main, hymn, part);
 
   await appendPsalmody(main, entries, section(texts, 'PSALMODIA'));
@@ -1099,7 +1164,7 @@ async function composeLaudesVesperae(main, day, date, hour) {
   main.append(borrowedNotice(day, date, hour, propers));
   await appendOpening(main, day, hour, propers);
   const hymns = entries.filter((e) => e.kind === 'hymn');
-  await appendHymn(main, hymns[0], hymns.length ? hymnTextNode(texts) : null, hymns.slice(1));
+  await appendHymn(main, hymns[0], hymns.length ? hymnTextNode(hymnTexts(day, hour, propers, texts)) : null, hymns.slice(1));
   const salus = hour === 'vesperae' && slot.label === 'II Vesp.' && day.seasons?.includes('ORDINARY_TIME') ? SALUS_ET_GLORIA[slot.week] : null;
   await appendPsalmody(main, entries, section(texts, 'PSALMODIA'), { salus });
 
@@ -2013,6 +2078,7 @@ async function boot() {
   state.responsoria = responsoria;
   state.zhNames = await json('data/calendar-zh.json').catch(() => ({}));
   state.enNames = await json('data/calendar-en.json').catch(() => ({}));
+  state.lhym = await json('data/lhym.json').catch(() => ({}));
   state.oco = oco; state.psalterium = psalterium; state.slots = slots; state.ocoIndex = indexOco(oco);
   const m = /^#(\d{4}-\d{2}-\d{2})\/(\w+)$/.exec(location.hash);
   state.date = m ? m[1] : iso(new Date());

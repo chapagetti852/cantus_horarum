@@ -478,6 +478,18 @@ antiphon whose place it takes (`ALLELUIA` in `site/app.js`: the melodies of the 
 Usualis and the Antiphonale Monasticum, one or more for each mode), so each psalm keeps the
 tone the OCO gives it; the ending is the one the Alleluia itself shows.
 
+### Hymns in full
+
+`site/hymns.js` sets a hymn's later strophes to the melody of its first, for the Liber
+Hymnarius scores GregoBase gives with one strophe (101 of 230 the OCO uses): a note group a
+syllable (jgabc's Latin syllables), line by line where the text has the melody's lines, an
+elision of the text ("nostra ætérna") sung on one note group or one the first strophe sang
+in two ("tenébræ et") given one syllable, the Amen on the book's formula (the final, the
+note above and the final; the note below and the final). In the compact view only the first
+strophe is notated. `hymnForText` (`site/app.js`) takes the score of the hymn the day's
+text is when the OCO names another, from `dist/data/lhym.json` (every Liber Hymnarius hymn
+on GregoBase by its first two words). `test/hymns.test.mjs`.
+
 ### Where a section's chants come from
 
 Under each section's heading a small label says where its chants come from, as the OCO
