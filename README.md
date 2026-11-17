@@ -394,20 +394,25 @@ with the other sources of the app. The PDF has a print size (70–150 %) beside 
 
 The Antiphonale Romanum II, the book of the Liturgia Horarum, is followed wherever it gives
 a piece; the Antiphonale Monasticum 2005 only where it is silent (it is a book of Vespers on
-Sundays and feasts). Deus, in adiutorium: the AR II's tone "in dominicis et festis" (p. 737,
-the AM's ferial tone too) on every day, its tone "in sollemnitatibus" at Lauds and Vespers of
-solemnities. The Pater noster at Lauds and Vespers: the AR II's one tone (pp. 758-759).
-The conclusions are sung, Benedicamus Domino at the little hours and the Office of Readings
-(AM 2005 p. 546). At Lauds and Vespers an option says whether a priest or deacon presides:
-then Dominus vobiscum and the blessing (AR II p. 761), otherwise Dominus nos benedicat (AR
-II p. 763, on the collect's tone); then the dismissal, Benedicamus Domino as the AR II gives
-it ad libitum "secundum traditionem gregorianam" (pp. 763-765): I the sollemnitates maiores
-(Christmas, Epiphany, Ascension; I and II Vespers, the AM's at Lauds), II other solemnities
-(the AM's at Lauds), III feasts and the octave of Christmas, IV solemnities and feasts of
-Our Lady, V Sundays after the octave of Easter (read from the book, not on GregoBase), VI
-Sundays of Advent and Lent, VII Sundays per annum; ferias the AM's. In the octave of Easter
-and on Pentecost, Ite in pace with its two Alleluias (p. 762). Deus in adiutorium ends with Alleluia, or in Lent with the Lenten
-ending its score carries.
+Sundays and feasts). Two pieces of the ordinary are the Roman Rite's own, from the Liber
+Usualis (1961), whose tones were never abolished (the papal Vespers still sing them):
+
+- Deus, in adiutorium (setting, the Liber Usualis by default): its festive tone (p. 250) at the
+  Office of Readings, Lauds and Vespers of Sundays, feasts and solemnities, its ferial tone
+  (p. 263) otherwise; in Lent without the Alleluia (the old "Laus tibi, Domine" is not said).
+  The other choice is the Antiphonale Romanum II's: its tone "in dominicis et festis" (p. 737)
+  every day, "in sollemnitatibus" (the monastic solemn tone) at Lauds and Vespers of solemnities.
+- Benedicamus Domino (the only choice): at the little hours and the Office of Readings the
+  LU's (p. 240); at Lauds and Vespers the LU's settings (pp. 124-127, the Liber antiphonarius'
+  where the LU lacks one) by the day, the old classes mapped to the new ranks: I class for
+  solemnities (Lauds, I and II Vespers), II class for feasts (Lauds, I and II Vespers), III
+  class for memorials (Lauds, Vespers), Our Lady's feasts and memorials, Sundays per annum,
+  Sundays of Advent and Lent, Sundays of Eastertide, ferias; the octave of Easter and
+  Pentecost with two Alleluias (p. 784). `BENEDICAMUS` in `site/app.js`.
+
+The Pater noster at Lauds and Vespers: the AR II's one tone (pp. 758-759). At Lauds and
+Vespers an option says whether a priest or deacon presides: then Dominus vobiscum and the
+blessing (AR II p. 761), otherwise Dominus nos benedicat (AR II p. 763, on the collect's tone).
 
 At Sunday II Vespers in Ordinary Time the canticle Salus et gloria (Ap 19) is sung, as the
 OCO says, "more responsoriali vetustissimo cum Alleluia": no antiphon, one score with its

@@ -131,6 +131,9 @@ const PAGE = {
   'preces.abbr': ['Sung, abbreviated', '詠唱（略譜）', 'Cantu, breviter notatum'],
   'sung.text': ['Text', '只顯示經文', 'Textus tantum'],
   'set.wip': ['in progress', '製作中', 'in opere'],
+  'set.opening': ['Deus in adiutorium', '開端詞', 'Deus in adiutorium'],
+  'opening.lu': ['Liber Usualis (Roman)', 'Liber Usualis（羅馬禮）', 'Liber Usualis (ritus Romanus)'],
+  'opening.ar': ['Antiphonale Romanum II', 'Antiphonale Romanum II', 'Antiphonale Romanum II'],
   // where a section's pieces come from (Hong Kong's terms: 「教會聖師通用」, 「專用對經」)
   'src.proper': ['Proper', '專用', 'Proprium'],
   'src.common': ['Common', '通用', 'De Communi'],

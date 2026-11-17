@@ -4,6 +4,18 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.22.0 — 2026-11-17
+
+- Deus in adiutorium in the Roman Rite's own tones, from the Liber Usualis (p. 250), by
+  default: the festive tone at the Office of Readings, Lauds and Vespers of Sundays, feasts and
+  solemnities, the ferial tone (p. 263) otherwise; in Lent without the Alleluia. The
+  Antiphonale Romanum II's tones (the monastic solemn tone on solemnities) remain a setting.
+- Benedicamus Domino from the Liber Usualis (pp. 124-127, with the Liber antiphonarius) by the
+  day, the old classes mapped to the new ranks: solemnities as I class (Lauds, I and II
+  Vespers), feasts as II class, memorials as III class, Our Lady's feasts and memorials,
+  Sundays per annum, of Advent and Lent, of Eastertide, ferias; the octave of Easter and
+  Pentecost with two Alleluias; the little hours and the Office of Readings the LU's (p. 240).
+
 ## 1.21.0 — 2026-11-17
 
 - Hymns notated in full in the detailed view: where GregoBase has only the first strophe of a
