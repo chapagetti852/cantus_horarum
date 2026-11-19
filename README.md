@@ -397,9 +397,10 @@ a piece; the Antiphonale Monasticum 2005 only where it is silent (it is a book o
 Sundays and feasts). Two pieces of the ordinary are the Roman Rite's own, from the Liber
 Usualis (1961), whose tones were never abolished (the papal Vespers still sing them):
 
-- Deus, in adiutorium (setting, the Liber Usualis by default): its festive tone (p. 250) at the
-  Office of Readings, Lauds and Vespers of Sundays, feasts and solemnities, its ferial tone
-  (p. 263) otherwise; in Lent without the Alleluia (the old "Laus tibi, Domine" is not said).
+- Deus, in adiutorium (setting, the Liber Usualis by default): its solemn tone (p. 250) at
+  Lauds and Vespers (First Vespers too) of solemnities, its festive tone (p. 250) at the
+  Office of Readings, Lauds and Vespers of Sundays and feasts and at the Office of Readings of
+  solemnities, its ferial tone (p. 263) otherwise; in Lent without the Alleluia (the old "Laus tibi, Domine" is not said).
   The other choice is the Antiphonale Romanum II's: its tone "in dominicis et festis" (p. 737)
   every day, "in sollemnitatibus" (the monastic solemn tone) at Lauds and Vespers of solemnities.
 - Benedicamus Domino (the only choice): at the little hours and the Office of Readings the

@@ -4,6 +4,11 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.22.1 — 2026-11-19
+
+- Deus in adiutorium on solemnities, at Lauds and Vespers (First Vespers too): the Liber
+  Usualis' solemn tone (p. 250); it was its festive tone.
+
 ## 1.22.0 — 2026-11-17
 
 - Deus in adiutorium in the Roman Rite's own tones, from the Liber Usualis (p. 250), by

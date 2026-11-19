@@ -83,7 +83,7 @@ const COMMON_TONES = [4121, 7864, 18107, 18108, 4321, 15301, 15302, 17847, 17848
   // responsories of the Office of Readings (RESPONSORIA in site/app.js)
   16139, 16360, 16205, 16108, 16135, 19647, 20401, 20438, 20687,
   // the Liber Usualis: Deus in adiutorium (pp. 250, 263), Benedicamus Domino (pp. 124-127, 240, 784)
-  7417, 15354, 9847, 612, 4567, 4568, 10336, 7866, 8245, 10172, 15698, 10399, 17674, 8120, 9841, 8121, 15741, 10032,
+  7417, 7402, 15354, 9847, 612, 4567, 4568, 10336, 7866, 8245, 10172, 15698, 10399, 17674, 8120, 9841, 8121, 15741, 10032,
   // the antiphon Alleluia of Eastertide, mode by mode (ALLELUIA in site/app.js)
   2822, 2383, 15201, 2197, 2090, 3000, 15186, 15188, 3004, 2622, 10195, 2293, 2025];
 // every hymn of the Liber Hymnarius on GregoBase, by its first two words (site/hymns.js

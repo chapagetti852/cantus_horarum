@@ -48,7 +48,8 @@ const DEUS_IN_ADIUTORIUM = { ferial: 4121, festive: 4121, solemn: 7864 };
 // "Deus in adiutorium"): the festive tone at the Office of Readings, Lauds and Vespers of
 // Sundays, feasts and solemnities, the ferial tone (p. 263) otherwise. Never abolished, and
 // still sung at papal Vespers; the AR II's solemn tone is the monastic one.
-const DEUS_IN_ADIUTORIUM_LU = { ferial: 15354, festive: 7417 };
+// On solemnities, at Lauds and Vespers (First Vespers too), its solemn tone (p. 250).
+const DEUS_IN_ADIUTORIUM_LU = { ferial: 15354, festive: 7417, solemn: 7402 };
 const DOMINE_LABIA = { ferial: 18107, festive: 18108 };
 const PATER_NOSTER = 4321; // AR II pp. 758-759, its one tone for the Lord's Prayer
 // Conclusions: Antiphonale Monasticum 2005 p. 546 (little hours), Antiphonale Romanum II pp. 761-765
@@ -718,12 +719,16 @@ function openingForSeason(body, cel) {
   return main.replace(/†\s*/, '');
 }
 /**
- * Deus, in adiutorium. The Liber Usualis (default): its festive tone at the Office of Readings,
- * Lauds and Vespers of Sundays, feasts and solemnities, else its ferial tone. The Antiphonale
+ * Deus, in adiutorium. The Liber Usualis (default): its solemn tone at Lauds and Vespers of
+ * solemnities, its festive tone at the Office of Readings, Lauds and Vespers of Sundays and
+ * feasts (and the Office of Readings of solemnities), else its ferial tone. The Antiphonale
  * Romanum II (setting): its solemn tone at Lauds and Vespers of solemnities, else the simple one.
  */
 function openingTone(cel, hour) {
-  if (state.settings.opening !== 'ar') return isFestive(cel) && ['lectio', 'laudes', 'vesperae'].includes(hour) ? DEUS_IN_ADIUTORIUM_LU.festive : DEUS_IN_ADIUTORIUM_LU.ferial;
+  if (state.settings.opening !== 'ar') {
+    if (cel.rank === 'SOLEMNITY' && (hour === 'laudes' || hour === 'vesperae')) return DEUS_IN_ADIUTORIUM_LU.solemn;
+    return isFestive(cel) && ['lectio', 'laudes', 'vesperae'].includes(hour) ? DEUS_IN_ADIUTORIUM_LU.festive : DEUS_IN_ADIUTORIUM_LU.ferial;
+  }
   if (cel.rank === 'SOLEMNITY' && (hour === 'laudes' || hour === 'vesperae')) return DEUS_IN_ADIUTORIUM.solemn;
   return isFestive(cel) ? DEUS_IN_ADIUTORIUM.festive : DEUS_IN_ADIUTORIUM.ferial;
 }
