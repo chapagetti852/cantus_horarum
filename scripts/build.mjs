@@ -155,12 +155,28 @@ function unwrapGabc(txt) {
     return `${parts.slice(0, -1).join('%%')}%%\n${gabc}\n`;
   } catch { return txt; }
 }
+// Gregorio's TeX inside <v>…</v> (verbatim), which Exsurge would print as it stands: the
+// signs as text, red letters as <c>, spacing dropped
+const TEX = [
+  [/<v>\s*(?:\\greheightstar|\\gresixstar|\\GreStar|\$\\star\$|\\textcolor\{red\}\{\*\})\s*<\/v>/g, '*'],
+  [/<v>\s*\\guillemotleft\s*<\/v>/g, '«'], [/<v>\s*\\guillemotright\s*<\/v>/g, '»'],
+  [/<v>\s*\\P(?:\\ )?\s*\{\\itshape\s*([^}]*)\}\s*<\/v>/g, '¶ <i>$1</i>'],
+  [/<v>\s*(?:\\ )?\s*\\(?:grecross|grealtcross|GreDagger)\s*<\/v>/g, '†'],
+  [/<v>\s*\\ddag(?:\\ )?\s*<\/v>/g, '‡'],
+  [/<v>\s*\{\\scriptsize\s*\\itshape\s*t\.p\.(?:\\ )?\s*\}\s*<\/v>/gi, '<i>T. P.</i> '],
+  [/<v>\s*\{\\scriptsize\s*\\itshape\s*([^}\\]*)\}\s*<\/v>/g, '<i>$1</i>'],
+  [/<v>\s*\{?\\textcolor\{red\}\{([^}]*)\}\}?\s*<\/v>/g, '<c>$1</c>'],
+  [/<v>\s*\\P(?:\\ )?\s*<\/v>/g, '¶'],
+  [/<v>\s*\(\s*<\/v>/g, '['], [/<v>\s*\)\s*<\/v>/g, ']'],
+  [/<v>\s*(?:\\hspace\{[^}]*\}|--\\kern[0-9.]+pt|\\ )\s*<\/v>/g, ''],
+];
+const fromTex = (txt) => TEX.reduce((t, [re, to]) => t.replace(re, to), txt);
 const sourceLabels = {};
 for (const id of ids) {
   const oco = String(id).startsWith('oco-');
   const src = oco ? join(root, 'data/gabc-oco', `${String(id).slice(4)}.gabc`) : join(gabcCache, `${id}.gabc`);
   if (!existsSync(src)) { missing++; continue; }
-  let txt = unwrapGabc(readFileSync(src, 'utf8'));
+  let txt = fromTex(unwrapGabc(readFileSync(src, 'utf8')));
   if (COMPLETE_FROM[id]) {
     const full = join(gabcCache, `${COMPLETE_FROM[id]}.gabc`);
     const mode = Number(headerOf(txt).mode) || 8;

@@ -4,6 +4,12 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.22.2 — 2026-11-19
+
+- Scores whose transcribers wrote signs in TeX showed the code itself: the short responsory of
+  Christ the King's Vespers printed "$\star$" for its asterisk. The asterisks, crosses,
+  daggers, guillemets, red letters and "T. P." of every such score are set as signs now.
+
 ## 1.22.1 — 2026-11-19
 
 - Deus in adiutorium on solemnities, at Lauds and Vespers (First Vespers too): the Liber
