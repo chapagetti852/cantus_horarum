@@ -59,6 +59,11 @@ test('resolved propers', { skip: !built && 'run the build first' }, () => {
   assert.equal(propers('2027-04-14', 'tertia').out['1'].alleluia, true);
   assert.equal(propers('2027-04-14', 'completorium').out['1'].alleluia, true);
   assert.equal(propers('2027-04-18', 'laudes').out['1'].alleluia, undefined, 'Sundays have their own');
+  // a feast of the Lord on a Sunday has First Vespers: the Holy Family on Saturday 26 December
+  // 2026 (not St Stephen's second), the Baptism on Saturday 9 January 2027
+  assert.equal(propers('2026-12-26', 'vesperae').cel.id, 'holy_family_of_jesus_mary_and_joseph');
+  assert.equal(propers('2027-01-09', 'vesperae').cel.id, 'baptism_of_the_lord');
+  assert.equal(propers('2026-12-25', 'vesperae').cel.id, 'nativity_of_the_lord', 'Christmas keeps its II Vespers before St Stephen');
   // an index row that abbreviates its incipit ("Amen a. d. vobis Non Moyses")
   assert.match(propers('2027-08-01', 'laudes').out.B.title, /^Amen,? amen dico vobis: Non Moyses/);
 });

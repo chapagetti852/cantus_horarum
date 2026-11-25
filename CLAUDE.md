@@ -58,7 +58,7 @@ Read `README.md` first: it explains every pipeline.
   opzioni.php, session cookie, then breviario.php?s=…). Run with `NODE_USE_ENV_PROXY=1`
   in cloud sessions. Output `data/texts/days/<date>.json`; `data/texts/psalter-days.json`
   maps psalter week-day → a quiet 2026 Ordinary Time date. The build turns those into
-  `dist/data/psalterium.json` keyed `"<psalterWeek>-<dow>"` (0 = Sunday).
+  `dist/data/psalterium/<psalterWeek>-<dow>.json` (0 = Sunday), one file a day.
 - `site/` — plain HTML/CSS/JS, no framework. `app.js` composes an hour, `psalmtone.js`
   holds the tones and calls jgabc's own pointing engine (`site/vendor/jgabc/`, as on
   bbloomf.github.io/jgabc/psalmtone.html with Nova Vulgata verses: `scripts/texts/verses.mjs`

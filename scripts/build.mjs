@@ -3,7 +3,7 @@
 //   site/**                      copied as is (app, styles, fonts, vendor, calendar)
 //   dist/data/oco.json           compact OCO entries with their GregoBase score id
 //   dist/data/slots.json         the OCO index slot codes (tempus, hour, place) for site/resolve.js
-//   dist/data/psalterium.json    the four-week psalter texts, keyed "week-dow", from data/texts/days
+//   dist/data/psalterium/<week>-<dow>.json  the four-week psalter texts, one file a day, from data/texts/days
 //   dist/data/days/<date>.json   texts of particular dates (for what is proper to the day)
 //   dist/gabc/<id>.gabc          every score the entries point to, plus the common tones;
 //                                oco-<entry id>.gabc for scores read from the OCO itself (data/gabc-oco)
@@ -170,6 +170,12 @@ const TEX = [
   [/<v>\s*\(\s*<\/v>/g, '['], [/<v>\s*\)\s*<\/v>/g, ']'],
   [/<v>\s*(?:\\hspace\{[^}]*\}|--\\kern[0-9.]+pt|\\ )\s*<\/v>/g, ''],
 ];
+// and Gregorio's tags Exsurge does not know: the E u o u a e's <eu>, no-line-break <nlba>,
+// <clear>; the versicle and response signs written in TeX
+TEX.push(
+  [/<\/?(?:eu|nlba|clear)>/g, ''],
+  [/<sp>\\Vbar\.?<\/sp>/g, '<sp>V/</sp>.'], [/<sp>\\Rbar\.?<\/sp>/g, '<sp>R/</sp>.'],
+);
 const fromTex = (txt) => TEX.reduce((t, [re, to]) => t.replace(re, to), txt);
 const sourceLabels = {};
 for (const id of ids) {
@@ -210,7 +216,10 @@ if (existsSync(daysDir)) {
 // psalm verses as jgabc takes them (Nova Vulgata where it matches): scripts/texts/verses.mjs
 const verseStats = { fromNV: 0, total: 0 };
 for (const d of Object.values(psalterium)) attachVerses(d.hours, root, verseStats);
-writeFileSync(join(dist, 'data/psalterium.json'), JSON.stringify(psalterium));
+// one file per psalter day, fetched by the app for the day it composes (all 28 in one file
+// were 2 MB, 480 KB compressed, on every first visit)
+mkdirSync(join(dist, 'data/psalterium'), { recursive: true });
+for (const [key, d] of Object.entries(psalterium)) writeFileSync(join(dist, 'data/psalterium', `${key}.json`), JSON.stringify(d));
 
 // ---- texts of particular days ------------------------------------------------
 // The committed psalter days plus the rolling window fetched by scripts/texts/window.mjs
@@ -246,19 +255,27 @@ if (existsSync(hkDays)) {
     writeFileSync(join(dist, 'data/days-hk', f), JSON.stringify(day));
   }
 }
+// which dates have their own texts (the app asks for no other: each miss was a round trip
+// before the hour could be composed)
+{
+  const list = (dir) => (existsSync(join(dist, dir)) ? readdirSync(join(dist, dir)).filter((f) => /^\d{4}-\d\d-\d\d\.json$/.test(f)).map((f) => f.slice(0, 10)).sort() : []);
+  mkdirSync(join(dist, 'data/days'), { recursive: true });
+  writeFileSync(join(dist, 'data/days/index.json'), JSON.stringify({ days: list('data/days'), hk: list('data/days-hk') }));
+}
 // the celebrations' names in Hong Kong's calendar, for the Chinese interface (scripts/calendar/zh_names.mjs)
 mkdirSync(join(dist, 'data'), { recursive: true });
 cpSync(join(root, 'data/calendar-zh.json'), join(dist, 'data/calendar-zh.json'));
 cpSync(join(root, 'data/calendar-en.json'), join(dist, 'data/calendar-en.json'));
 // the translated four-week psalter (scripts/texts/psalter_translations.mjs, committed), keyed
-// "week-dow" as data/psalterium.json: the weekday's parts on memorials
+// "week-dow" as data/psalterium/: the weekday's parts on memorials
 for (const lang of ['en', 'zh']) {
   const dir = join(root, 'data/texts/tr-psalter', lang);
   if (!existsSync(dir)) continue;
   const all = {};
   for (const f of readdirSync(dir).filter((f) => f.endsWith('.json'))) all[f.slice(0, -5)] = JSON.parse(readFileSync(join(dir, f), 'utf8'));
-  mkdirSync(join(dist, 'data/tr', lang), { recursive: true });
-  writeFileSync(join(dist, 'data/tr', lang, 'psalter.json'), JSON.stringify(all));
+  // one file a day, as the Latin psalter (data/tr/<lang>/psalter/<week>-<dow>.json)
+  mkdirSync(join(dist, 'data/tr', lang, 'psalter'), { recursive: true });
+  for (const [key, d] of Object.entries(all)) writeFileSync(join(dist, 'data/tr', lang, 'psalter', `${key}.json`), JSON.stringify(d));
   trFiles[`${lang}-psalter`] = Object.keys(all).length;
 }
 // the app's own translations of the OCO's texts that are not the Liturgia Horarum's (data/translations)

@@ -272,7 +272,10 @@ export function indexOco(entries) {
  */
 export function celebrationFor(today, tomorrow, hour) {
   // (the Saturday of the Easter octave ranks as the Sunday that closes it: its Vespers are the Sunday's first)
-  if (hour === 'vesperae' && tomorrow && (tomorrow.rank === 'SOLEMNITY' || tomorrow.rank === 'SUNDAY')
+  // (a feast of the Lord on a Sunday takes the Sunday's place, First Vespers included: the Holy
+  // Family, the Baptism, the Presentation, the Transfiguration, the Cross, the Lateran)
+  const lordsSunday = tomorrow?.rank === 'FEAST' && tomorrow.dow === 0 && /LORD_FEAST/.test(tomorrow.prec || '');
+  if (hour === 'vesperae' && tomorrow && (tomorrow.rank === 'SOLEMNITY' || tomorrow.rank === 'SUNDAY' || lordsSunday)
     && (precNumber(tomorrow) < precNumber(today) || today.id === 'easter_saturday')) {
     return { cel: tomorrow, hour: 'vesperae1', first: true };
   }

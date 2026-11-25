@@ -111,7 +111,7 @@ const INVITATORY_TONES = { '2': 8218, '3': 10397, '4': 15508, '4*': 7669, '4**':
 
 const state = {
   date: null, hour: null,
-  calendar: {}, oco: null, ocoIndex: null, slots: [], psalterium: null, days: {}, daysHk: {},
+  calendar: {}, oco: null, ocoIndex: null, slots: [], psalterium: {}, days: {}, daysHk: {},
   settings: JSON.parse(localStorage.getItem('settings') || '{}'),
 };
 const layouts = [];
@@ -124,12 +124,19 @@ const addDays = (s, n) => { const d = new Date(s + 'T12:00:00'); d.setDate(d.get
 const esc = (s) => namesHtml(String(s ?? '').replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]));
 async function json(url) { const r = await fetch(url); if (!r.ok) throw new Error(`${url}: ${r.status}`); return r.json(); }
 
+/** The psalter day's texts a day may need (data/psalterium/<week>-<dow>.json), fetched once. */
+async function loadPsalter(day) {
+  const key = `${day.psalter}-${day.dow}`;
+  if (!(key in state.psalterium)) state.psalterium[key] = await json(`data/psalterium/${key}.json`).catch(() => null);
+}
 /** The texts of a date's hour: its own iBreviary texts when fetched, else the psalter's. */
 async function textsFor(day, date, hour) {
-  if (!(date in state.days)) state.days[date] = await json(`data/days/${date}.json`).catch(() => null);
+  // (only the dates the build lists in data/days/index.json are asked for)
+  const has = (list) => !state.dayIndex || state.dayIndex[list]?.includes(date);
+  if (!(date in state.days)) state.days[date] = has('days') ? await json(`data/days/${date}.json`).catch(() => null) : null;
   // the Diocese of Hong Kong's days that take other pages (its Epiphany, the days after it,
   // its cathedral's dedication: scripts/texts/hk.mjs)
-  if (hkOrdo() && !(date in state.daysHk)) state.daysHk[date] = await json(`data/days-hk/${date}.json`).catch(() => null);
+  if (hkOrdo() && !(date in state.daysHk)) state.daysHk[date] = has('hk') ? await json(`data/days-hk/${date}.json`).catch(() => null) : null;
   const own = (hkOrdo() && state.daysHk[date]) || state.days[date];
   return withoutInvitatoryRubrics(own?.hours[TEXT_HOUR[hour]] || state.psalterium[`${day.psalter}-${day.dow}`]?.hours[TEXT_HOUR[hour]]);
 }
@@ -557,7 +564,7 @@ async function chantNode(gabcId, { annotation = null, fallbackText = null, fallb
   return wrap;
 }
 /** An antiphon's "E u o u a e" is left out: the psalm's first verse is notated anyway (<eu>…</eu> too). */
-const withoutEuouae = (body) => body.replace(/\s*(?:<[^>]+>)*E(?:<\/[^>]+>)*\([^)]*\)\s*u\([^)]*\)\s*o\([^)]*\)\s*u\([^)]*\)\s*a\([^)]*\)\s*e\.?(?:<\/[^>]+>)*\([^)]*\)\s*(\(::\))?/g, '');
+const withoutEuouae = (body) => body.replace(/\s*(?:<[^>]+>)*E(?:<\/[^>]+>)*\([^)]*\)\s*u\([^)]*\)\s*o\([^)]*\)\s*u\([^)]*\)\s*a\([^)]*\)\s*e\.?(?:<\/[^>]+>)*\([^)]*\)\s*(\(::\))?/gi, '');
 /**
  * A score's Eastertide ending ("T. P. Allelúia", or the last words again with alleluia) is sung
  * in Eastertide only: elsewhere it goes, from its "T. P." to the double bar that closes it (with
@@ -1902,6 +1909,7 @@ function hoursNav() {
 /** The chosen hour of the chosen date, composed into a detached container (its scores laid out once placed). */
 async function composeHour(day) {
   const frag = document.createElement('div');
+  await loadPsalter(day);
   state.tr = null; state.trs = [];
   state.rank = day.rank; // the day's rank, for the versicle's tone
   state.paschal = !!day.seasons?.includes('EASTER_TIME'); // for the scores' "T. P." endings
@@ -1910,10 +1918,10 @@ async function composeHour(day) {
     // the app's own translations are English only: Chinese is the Hong Kong office's alone
     const [days, psalters, ownEn] = await Promise.all([
       Promise.all(mode.langs.map((l) => loadTranslation(l, state.date))),
-      Promise.all(mode.langs.map((l) => loadTranslation(l, 'psalter'))),
+      Promise.all(mode.langs.map((l) => loadTranslation(l, `psalter/${day.psalter}-${day.dow}`))),
       mode.langs.includes('en') ? loadOwn('en') : null]);
     state.ownEn = ownEn;
-    state.trPsalter = Object.fromEntries(mode.langs.map((l, i) => [l, psalters[i]]));
+    state.trPsalter = Object.fromEntries(mode.langs.map((l, i) => [l, { [`${day.psalter}-${day.dow}`]: psalters[i] }]));
     state.trMode = mode.fallback ? 'fallback' : 'all';
     const ref = latinReadingRef(await textsFor(day, state.date, state.hour), state.hour);
     state.trs = days.map((t) => hourTranslation(t, state.hour, ref)).filter(Boolean);
@@ -2040,11 +2048,18 @@ function defaultHour() {
   const h = new Date().getHours();
   if (h < 9) return 'laudes'; if (h < 11) return 'tertia'; if (h < 14) return 'sexta'; if (h < 16) return 'nona'; if (h < 20) return 'vesperae'; return 'completorium';
 }
+/** The Chinese font's slices (fonts-zh.css, 35 KB compressed) only once Chinese is shown. */
+function zhFonts() {
+  if ((uiLang() === 'zh' || TRANSLATION_MODES[state.settings.translation]?.langs.includes('zh')) && !document.getElementById('fonts-zh')) {
+    document.head.append(Object.assign(document.createElement('link'), { id: 'fonts-zh', rel: 'stylesheet', href: 'fonts-zh.css' }));
+  }
+}
 function applySettings() {
   // first visit from Hong Kong (its time zone, or Hong Kong Chinese in the browser): the
   // Chinese interface and the diocese's calendar; elsewhere the interface follows the browser
   if (!state.settings.ui && !state.settings.ordo && inHongKong()) { state.settings.ui = 'zh'; state.settings.ordo = 'hk'; }
   setUiLang(state.settings.ui || (/^zh/i.test(navigator.language || '') ? 'zh' : 'en'));
+  zhFonts();
   applyPage();
   $('#opt-ui').value = uiLang();
   document.documentElement.style.setProperty('--size', state.settings.size || 100);
@@ -2096,27 +2111,45 @@ function drawModePreviews() {
 function saveSettings() { localStorage.setItem('settings', JSON.stringify(state.settings)); }
 
 async function boot() {
-  const [oco, psalterium, slots, hymns, responsoria] = await Promise.all([json('data/oco.json'), json('data/psalterium.json').catch(() => ({})), json('data/slots.json').catch(() => []), json('data/hymns.json').catch(() => ({})), json('data/responsoria.json').catch(() => [])]);
+  // the data every hour needs, fetched together
+  const [oco, slots, hymns, responsoria, zhNames, enNames, lhym, dayIndex] = await Promise.all([
+    json('data/oco.json'), json('data/slots.json').catch(() => []), json('data/hymns.json').catch(() => ({})), json('data/responsoria.json').catch(() => []),
+    json('data/calendar-zh.json').catch(() => ({})), json('data/calendar-en.json').catch(() => ({})),
+    json('data/lhym.json').catch(() => ({})), json('data/days/index.json').catch(() => null)]);
+  Object.assign(state, { zhNames, enNames, lhym, dayIndex });
   state.hymns = hymns;
   state.responsoria = responsoria;
-  state.zhNames = await json('data/calendar-zh.json').catch(() => ({}));
-  state.enNames = await json('data/calendar-en.json').catch(() => ({}));
-  state.lhym = await json('data/lhym.json').catch(() => ({}));
-  state.oco = oco; state.psalterium = psalterium; state.slots = slots; state.ocoIndex = indexOco(oco);
+  state.oco = oco; state.slots = slots; state.ocoIndex = indexOco(oco);
   const m = /^#(\d{4}-\d{2}-\d{2})\/(\w+)$/.exec(location.hash);
   state.date = m ? m[1] : iso(new Date());
+  state.followNow = !m; // opened on today's present hour (see visibilitychange below)
   state.hour = m && HOURS.includes(m[2]) ? m[2] : defaultHour();
   $('#date').value = state.date;
   applySettings();
-  $('#date').onchange = (e) => { if (e.target.value) { state.date = e.target.value; render(); } };
+  $('#date').onchange = (e) => { if (e.target.value) { state.date = e.target.value; state.followNow = false; render(); } };
   // the address leads: a link to another hour, the browser's Back and Forward
   window.addEventListener('hashchange', () => {
     const h = /^#(\d{4}-\d{2}-\d{2})\/(\w+)$/.exec(location.hash);
     if (!h || !HOURS.includes(h[2]) || (h[1] === state.date && h[2] === state.hour)) return;
-    state.date = h[1]; state.hour = h[2];
+    state.date = h[1]; state.hour = h[2]; state.followNow = false;
     render();
   });
-  $('#hour').onchange = (e) => { state.hour = e.target.value; render(); };
+  $('#hour').onchange = (e) => { state.hour = e.target.value; state.followNow = false; render(); };
+  // Back on the page after more than two hours away (the app left open overnight on a phone):
+  // the hour of now, when the page was opened on it and no other was chosen since
+  let hiddenAt = 0;
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') { hiddenAt = Date.now(); return; }
+    if (!state.followNow || !hiddenAt || Date.now() - hiddenAt < 2 * 3600e3) return;
+    const date = iso(new Date()), hour = defaultHour();
+    if (date !== state.date || hour !== state.hour) { state.date = date; state.hour = hour; render(); }
+  });
+  // ← and → : the hour before and after (not while typing or choosing in a field)
+  document.addEventListener('keydown', (e) => {
+    if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey || /^(INPUT|SELECT|TEXTAREA)$/.test(document.activeElement?.tagName || '')) return;
+    const a = document.querySelector(`#hours-nav a.${e.key === 'ArrowLeft' ? 'prev' : e.key === 'ArrowRight' ? 'next' : 'none'}`);
+    if (a) { e.preventDefault(); location.hash = a.getAttribute('href'); }
+  });
   // help and sources: the books' abbreviations from site/sources.js, the table the build labels the scores with
   const dl = $('#help-books');
   for (const b of BOOKS) dl.insertAdjacentHTML('beforeend', `<dt>${esc(b.abbr)}</dt><dd>${esc(b.title)}</dd>`);
@@ -2151,7 +2184,7 @@ async function boot() {
   $('#opt-of-hymn').onchange = (e) => { state.settings.ofHymn = e.target.value || undefined; saveSettings(); render(); };
   fillBonus();
   $('#bonus-open').onclick = () => $('#bonus').showModal();
-  if ($('#opt-translation')) $('#opt-translation').onchange = (e) => { state.settings.translation = e.target.value || undefined; saveSettings(); render(); };
+  if ($('#opt-translation')) $('#opt-translation').onchange = (e) => { state.settings.translation = e.target.value || undefined; saveSettings(); zhFonts(); render(); };
   $('#pdf-format').value = state.settings.pdf || 'a5';
   $('#pdf-format').onchange = (e) => { state.settings.pdf = e.target.value; saveSettings(); showPageCount(); };
   $('#pdf-size').value = String(state.settings.pdfSize || 100);

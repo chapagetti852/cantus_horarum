@@ -4,6 +4,22 @@ The version is in `package.json` (semantic versioning: MAJOR.MINOR.PATCH) and is
 foot of the page with the commit it was built from. Each user-visible change bumps it and
 gets an entry here: PATCH for a fix, MINOR for something new.
 
+## 1.23.0 — 2026-11-25
+
+- Faster first visit, above all on a phone: the four-week psalter (and its translations) is
+  fetched a day at a time, not whole (2 MB); the Chinese font's table only when Chinese is
+  shown; the app no longer asks for days it does not have, and fetches what every hour needs
+  at once instead of one file after another. About half the data on a first visit.
+- On a computer, ← and → go to the hour before and after.
+- The app left open (on a phone's home screen, say) and come back to after more than two
+  hours shows the hour of now, if it was opened on the hour of now and no other was chosen.
+- A feast of the Lord on a Sunday has its First Vespers on the Saturday: the Holy Family on
+  26 December (St Stephen's Second Vespers stood there), the Baptism on 9 January.
+- Scores: GregoBase's tags the renderer does not know no longer show as text ("<eu> E U O U A
+  E. </eu>", "<nlba>", "<clear>", "\Vbar"), and the E u o u a e in capitals is read too.
+- English for the antiphons, responsories and hymns of the coming weeks (late Advent, the
+  octave of Christmas); five new hymns judged against the English and Chinese offices.
+
 ## 1.22.2 — 2026-11-19
 
 - Scores whose transcribers wrote signs in TeX showed the code itself: the short responsory of

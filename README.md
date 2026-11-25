@@ -173,7 +173,7 @@ optional memorials and the Commons each saint may use.
 
 `site/` is plain HTML, CSS and JavaScript (no framework, no build step for the app
 itself). `scripts/build.mjs` assembles `dist/`: the app, the compact OCO data
-(`data/oco.json`), the four-week psalter texts (`data/psalterium.json`), the calendar
+(`data/oco.json`), the four-week psalter texts (`data/psalterium/<week>-<dow>.json`, one file a psalter day, fetched for the day shown), the calendar
 files and the GABC scores (`gabc/<GregoBase id>.gabc`, committed under `data/gabc/`).
 `app.js` reads the calendar for the chosen date, works out the psalter week and day,
 picks the OCO entries for that slot (hymn, antiphons 1–3, short responsory,
@@ -483,6 +483,16 @@ extraction links it. The app sings the antiphon Alleluia in the mode of the psal
 antiphon whose place it takes (`ALLELUIA` in `site/app.js`: the melodies of the Liber
 Usualis and the Antiphonale Monasticum, one or more for each mode), so each psalm keeps the
 tone the OCO gives it; the ending is the one the Alleluia itself shows.
+
+### Loading
+
+A first visit fetches what every hour needs together (`boot` in `site/app.js`: the OCO's
+entries, the slots, the hymns' tables, the calendars' names, `data/days/index.json`); then for
+the day shown its own texts (only if the index lists it), the psalter day's
+(`data/psalterium/<week>-<dow>.json`) and, with a translation, that day's translated psalter
+(`data/tr/<lang>/psalter/<week>-<dow>.json`). The Chinese font's slices (`fonts-zh.css`) are
+added only when Chinese is shown (`zhFonts`). ← and → go to the hour before and after; a page
+opened on the hour of now and come back to after two hours away moves to the hour of now.
 
 ### Hymns in full
 
